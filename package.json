@@ -1,0 +1,27 @@
+{
+  "name": "panel-administracion",
+  "version": "1.0.0",
+  "description": "Panel de Administración del agente de Dialogflow GranCapiBot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dialogflow",
+    "chatbot"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pabloleonalcaide/panel-administracion-chatbot.git"
+},
+  "author": "Nieves Borrero Barea, Pablo León Alcaide",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.11",
+    "handlebars-intl": "^1.1.2",
+    "request": "^2.85.0"
+  }
+}
