@@ -1,4 +1,11 @@
-<div class = 'container'>	
-	<button id="btn_create" type="">Mostrar</button>
-	<ul id="list_intent"></ul>
+<div class = 'container'>
+	<button id="btn_create" type="">Crear</button>
+	<ul id="list_intent">
+		{{#each this}}
+            <li>
+              <a href="/show">{{ name }}</a>
+			  <input type='hidden' value= {{ id }}>
+            </li>
+        {{/each }}
+	</ul>
 </div>

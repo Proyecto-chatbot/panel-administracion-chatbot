@@ -17,7 +17,7 @@
   "author": "Nieves Borrero Barea, Pablo León Alcaide",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "handlebars": "^4.0.11",

@@ -20,11 +20,10 @@ app.use(bodyParser.urlencoded({extended : true}));
 var config = require("./config.json");
 const TOKEN = config.config[0].token;
 
-app.get('/', function(req, res,next) {
-    res.render('index');
-});
+
 var all_intents;
-get_intents = ()=>{
+var intents;
+get_intents = (req, res, next)=>{
     var options = {
   		method: 'GET',
     		url: 'https://api.dialogflow.com/v1/intents',
@@ -39,15 +38,16 @@ get_intents = ()=>{
     		if (error){
           console.log(error);
         }else{
-          all_intents = body;
+		  all_intents = body;
+		  intents = Object.values(JSON.parse(all_intents));
+		  return next();
         }
   	});
 
 }
 
-app.get('/show_all',function(req, res, next){
-    get_intents();
-    res.send(all_intents);
+app.get('/', get_intents, function(req, res, next){
+		res.render('index', intents);
 });
 
 app.listen( /*proccess.env.PORT || */3000, function(){
