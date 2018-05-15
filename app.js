@@ -17,19 +17,22 @@ app.set('views','./views');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 
+var config = require("./config.json");
+const TOKEN = config.config[0].token;
+
 app.get('/', function(req, res,next) {
     res.render('index');
 });
 var all_intents;
 get_intents = ()=>{
-    var options = { 
+    var options = {
   		method: 'GET',
     		url: 'https://api.dialogflow.com/v1/intents',
     		qs: { v: '20150910' },
-    		headers: 
-     		{ 
+    		headers:
+     		{
        		'Cache-Control': 'no-cache',
-       		Authorization: 'Bearer XXX' } 
+       		Authorization: 'Bearer ' + TOKEN }
        	};
 
   	request(options, function (error, response, body) {
@@ -42,7 +45,7 @@ get_intents = ()=>{
 
 }
 
-app.get('/create',function(req, res, next){
+app.get('/show_all',function(req, res, next){
     get_intents();
     res.send(all_intents);
 });
