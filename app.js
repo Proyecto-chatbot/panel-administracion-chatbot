@@ -6,11 +6,15 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var exphbs = require('express-handlebars');
 var HandlebarsIntl = require('handlebars-intl');
+
+var helpers = require('handlebars-helpers')(['math', 'comparison']);
+
 var app = express();
 var hbs = exphbs.create({defaultLayout: 'base'});
 app.engine(hbs.extname, hbs.engine);
 app.set('view engine', hbs.extname);
 HandlebarsIntl.registerWith(hbs.handlebars);
+
 
 app.use('/static',express.static(__dirname + '/static'));
 app.set('views','./views');

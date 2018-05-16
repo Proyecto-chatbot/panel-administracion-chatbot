@@ -3,7 +3,20 @@
 	<h5>Preguntas del usuario</h5>
 	{{#each this.userSays }}
 		<div class="row">
-			<p class="col s8">{{ data.0.text }}</p>
+			<div class="col s8">
+			{{#each data}}
+				{{#if meta}}
+					{{#isnt meta "@sys.ignore" }}
+						<span><b>(Sinónimos de: </b> {{text}})</span>
+					{{/isnt}}
+					{{#eq meta "@sys.ignore"}}
+						<span>{{text}}</span>
+					{{/eq}}
+				{{else}}
+					<span> {{text}} </span>
+				{{/if}}
+			{{/each}}
+			</div>
 			<div class="col s4">
 				<button class="left btn btn-primary col s3" id="edit-question"><i class="material-icons">mode_edit</i></button>
 				<button class="right btn btn-primary col s3" id="delete-question"><i class="material-icons">delete</i></button>
@@ -12,7 +25,10 @@
 	{{/each}}
 	<h5>Respuestas del chatbot</h5>
 	{{#each this.responses }}
-		{{#each messages.0.speech }}
+		{{#each messages }}
+		<div>
+			<li>Bloque {{add @key 1}}:</li>
+			{{#each speech}}
 			<div class="row">
 				<p class="col s8">{{this}}</p>
 				<div class="col s4">
@@ -20,7 +36,11 @@
 					<button class="right btn btn-primary col s3" id="delete-response"><i class="material-icons">delete</i></button>
 				</div>
 			</div>
+			{{else}}
+				<p>{{speech}}</p>
 		{{/each}}
+		</div>
 	{{/each}}
 
+	{{/each}}
 </div>
