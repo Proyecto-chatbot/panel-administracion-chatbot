@@ -64,8 +64,7 @@ get_intent = (id, req, res)=>{
     		if (error){
           		console.log(error);
         }else{
-
-			//console.log(response);
+			console.log(response);
 			  selected_intent = body;
 			  intent = JSON.parse(selected_intent);
 			//  console.log(intent.responses[0].messages[0].speech);

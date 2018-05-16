@@ -1,20 +1,26 @@
 <div class = 'container'>
-
-	<button id="btn_edit" type="">editar</button>
-	<button id="btn_delete" type="">Eliminar</button>
-	<h2>Preguntas del usuario</h2>
-	<ul>
+	<h4> Intent: {{ this.name }}</h4>
+	<h5>Preguntas del usuario</h5>
 	{{#each this.userSays }}
-		<li> {{ data.0.text }} </li>
+		<div class="row">
+			<p class="col s8">{{ data.0.text }}</p>
+			<div class="col s4">
+				<button class="left btn btn-primary col s3" id="edit-question"><i class="material-icons">mode_edit</i></button>
+				<button class="right btn btn-primary col s3" id="delete-question"><i class="material-icons">delete</i></button>
+			</div>
+		</div>
 	{{/each}}
-	</ul>
-	<h2>Respuestas del chatbot</h2>
-	<ul>
+	<h5>Respuestas del chatbot</h5>
 	{{#each this.responses }}
 		{{#each messages.0.speech }}
-			<li>{{this}}</li>
+			<div class="row">
+				<p class="col s8">{{this}}</p>
+				<div class="col s4">
+          			<button class="left btn btn-primary col s3" id="edit-response"><i class="material-icons">mode_edit</i></button>
+					<button class="right btn btn-primary col s3" id="delete-response"><i class="material-icons">delete</i></button>
+				</div>
+			</div>
 		{{/each}}
 	{{/each}}
-	</ul>
 
 </div>
