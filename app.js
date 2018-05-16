@@ -23,6 +23,7 @@ const TOKEN = config.config[0].token;
 
 var all_intents;
 var intents;
+var selected_intent;
 get_intents = (req, res, next)=>{
     var options = {
   		method: 'GET',
@@ -46,8 +47,40 @@ get_intents = (req, res, next)=>{
 
 }
 
+get_intent = (id, req, res)=>{
+    var options = {
+  		method: 'GET',
+    		url: 'https://api.dialogflow.com/v1/intents/'+id,
+			qs: { v: '20150910' },
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			headers:
+     		{
+       		'Cache-Control': 'no-cache',
+       		Authorization: 'Bearer ' + TOKEN }
+       	};
+
+  	request(options, function (error, response, body) {
+    		if (error){
+          		console.log(error);
+        }else{
+
+			//console.log(response);
+			  selected_intent = body;
+			  intent = JSON.parse(selected_intent);
+			//  console.log(intent.responses[0].messages[0].speech);
+			  res.render('detail', intent);
+        }
+  	});
+
+}
 app.get('/', get_intents, function(req, res, next){
 		res.render('index', intents);
+});
+
+app.get('/:id', function(req, res, next){
+	let id = req.params.id;
+	get_intent(id, req, res);
 });
 
 app.listen( /*proccess.env.PORT || */3000, function(){

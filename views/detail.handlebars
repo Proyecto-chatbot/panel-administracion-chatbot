@@ -1,0 +1,20 @@
+<div class = 'container'>
+
+	<button id="btn_edit" type="">editar</button>
+	<button id="btn_delete" type="">Eliminar</button>
+	<h2>Preguntas del usuario</h2>
+	<ul>
+	{{#each this.userSays }}
+		<li> {{ data.0.text }} </li>
+	{{/each}}
+	</ul>
+	<h2>Respuestas del chatbot</h2>
+	<ul>
+	{{#each this.responses }}
+		{{#each messages.0.speech }}
+			<li>{{this}}</li>
+		{{/each}}
+	{{/each}}
+	</ul>
+
+</div>
