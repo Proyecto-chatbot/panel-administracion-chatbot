@@ -1,10 +1,10 @@
 <div class = 'container'>
-	<button id="btn_create" type="">Crear</button>
-	<ul id="list_intent">
+
+<a class="waves-effect waves-light btn-small"><i class="material-icons left">add</i>Añadir</a>
+	<div id="list_intent" class="collection">
 		{{#each this}}
-            <li>
-              <a id="intent" href="/{{ id }}">{{ name }}</a>
-            </li>
+              <a class="collection-item" id="intent" href="/{{ id }}">{{ name }}</a>
+            
         {{/each }}
-	</ul>
+	</div>
 </div>
