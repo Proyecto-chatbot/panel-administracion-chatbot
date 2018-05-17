@@ -23,7 +23,7 @@ El proyecto está conformado además por [este](https://github.com/NievesBorrero
 * Handlebars - como motor de plantillas 
 
 ## License
-[GNU General Public License v3.0](../blob/master/LICENSE)
+[GNU General Public License v3.0](../master/LICENSE)
 
 ## Acknowledgments
 
