@@ -26,8 +26,8 @@
 	<h5>Respuestas del chatbot</h5>
 	{{#each this.responses }}
 		{{#each messages }}
-		<div>
-			<li>Bloque {{add @key 1}}:</li>
+		<div class="card">
+			<div class="card-title">Bloque {{add @key 1}}:</div>
 			{{#each speech}}
 			<div class="row">
 				<p class="col s8">{{this}}</p>
