@@ -80,7 +80,9 @@ get_intent = (id, req, res)=>{
 app.get('/', get_intents, function(req, res, next){
 		res.render('index', intents);
 });
-
+app.get('/interaction',function(req,res,next){
+	res.render('interaction');
+});
 app.get('/:id', function(req, res, next){
 	let id = req.params.id;
 	get_intent(id, req, res);
