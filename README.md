@@ -1,8 +1,14 @@
 # Panel de Administración de Chatbots
 
-## Panel de Administración para chatbot del IES Gran Capitán -- Proyecto 
+## Proyecto final C.F.G.S Desarrollo de Aplicaciones Web
 
 El proyecto está conformado además por [este](https://github.com/NievesBorrero/GranCapibot) repositorio donde se encuentra el backend configurado para el chatbot conversacional desarrollado para el centro.
+
+
+```javascript
+ //Lanzar el servicio
+ node app.js
+```
 
 ## Authors
 
@@ -17,6 +23,7 @@ El proyecto está conformado además por [este](https://github.com/NievesBorrero
 * Handlebars - como motor de plantillas 
 
 ## License
+[GNU General Public License v3.0](../blob/master/LICENSE)
 
 ## Acknowledgments
 
