@@ -108,7 +108,7 @@ get_entity = (id, req, res)=>{
     var options = {
   		method: 'GET',
     		url: 'https://api.dialogflow.com/v1/entities/'+id,
-			qs: { v: '20150910' },
+			qs: { v: '20150910'},
 			dataType: "json",
 			contentType: "application/json; charset=utf-8",
 			headers:
@@ -121,14 +121,12 @@ get_entity = (id, req, res)=>{
     		if (error){
           		console.log(error);
         }else{
-			console.log(response);
+			console.log(body);
 			  selected_entity = body;
 			  entity = JSON.parse(selected_entity);
-			//  console.log(entity.responses[0].messages[0].speech);
-			  res.render('detail', entity);
+			  res.render('entity', entity);
         }
   	});
-
 }
 
 post_intent = (req,res,next)=>{
@@ -170,7 +168,6 @@ post_intent = (req,res,next)=>{
 
 	request(postOptions, function (error, response, body) {
 	if (error) throw new Error(error);
-	console.log(body);
 	});
 
 }
@@ -185,6 +182,11 @@ app.get('/interaction',function(req,res,next){
 
 app.get('/entities', get_entities, function(req,res,next){
 	res.render('entities', entities);
+});
+
+app.get('/entities/:id', function(req,res,next){
+	let id = req.params.id;
+	get_entity(id, req, res);
 });
 
 app.get('/:id', function(req, res, next){

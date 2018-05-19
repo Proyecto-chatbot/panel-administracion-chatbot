@@ -1,0 +1,13 @@
+<div class = 'container'>
+	<h4> Entidad: {{ this.name }}</h4>
+    <div  class="card-title">
+	{{#each this.entries }}
+		<b><h5>{{value}}</h5></b>
+        {{#each synonyms}}
+        <ul class="collection-item">
+            <li>{{this}}</li>
+        </ul>
+        {{/each}}
+	{{/each}}
+    </div>
+</div>
