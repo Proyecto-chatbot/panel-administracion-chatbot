@@ -128,9 +128,17 @@ get_entity = (id, req, res)=>{
         }
   	});
 }
+format_user_request = (userText)=>{
+	if(userText instanceof String){
+		return '{count: 0, data: [ { text: '+userText+ ' } ] }' ;
+	}
+}
 
 post_intent = (req,res,next)=>{
 	var nombre = req.body.name;
+	var userText = req.body.user;
+	
+	var userFormatted = {data: [ { text: userText } ] };
 	var postOptions = {
 		method: 'POST',
 		url: 'https://api.dialogflow.com/v1/intents',
@@ -156,17 +164,22 @@ post_intent = (req,res,next)=>{
 				textToSpeech: 'Okay. just created',
 				type: 'simple_response' 
 			},
+			{
+				platform: 'telegram',
+				speech: 'this is in telegram',
+				type: 0
+			},
 			{ 
 				speech: 'Okay this is fine', 
 				type: 0 
-			} 
+			}
 		],
 			parameters: [],
 			resetContexts: false } ],
 		templates: [],
-		userSays:
-		[ 
-			{ 
+		userSays: 
+		[ userFormatted
+/*			{ 
 				count: 0, 
 				data: [ 
 					{ text: 'Add intent! ' } 
@@ -177,7 +190,7 @@ post_intent = (req,res,next)=>{
 				data: [ 
 					{ text: 'I need it' } 
 				] 
-			} 
+			} */
 		],
 		webhookForSlotFilling: false,
 		webhookUsed: false },
