@@ -28,6 +28,13 @@
 		{{#each messages }}
 		<div class="card">
 			<div class="card-title">Bloque {{add @key 1}}:</div>
+				<div class="row">
+				<p class="col s8">{{imageUrl}}</p>
+				<div class="col s4">
+          			<button class="left btn btn-primary col s3" id="edit-response"><i class="material-icons">mode_edit</i></button>
+					<button class="right btn btn-primary col s3" id="delete-response"><i class="material-icons">delete</i></button>
+				</div>
+			</div>
 			{{#each speech}}
 			<div class="row">
 				<p class="col s8">{{this}}</p>

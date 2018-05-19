@@ -1,0 +1,116 @@
+ body: '{
+ "id": "86effb6c-16cf-4885-9516-7b0810a2ac61",
+ "name": "stop-insultos",
+ "auto": true,
+ "contexts": [],
+ "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+            "id": "6b6fb769-4b66-4d7e-8464-1d659231810f",
+            "required": false,
+            "dataType": "@insultos",
+            "name": "insultos",
+            "value": "$insultos",
+            "isList": false
+        }
+    ],
+     "messages":
+          [
+            {
+              "type": 3,
+              "platform": "telegram",
+              "imageUrl": "https://media.giphy.com/media/2IFXZDePUQAAU/giphy.gif",
+              "lang": "es"
+            },
+            {
+              "type": 0,
+              "speech": [
+                "Increible, $insultos es lo más original que podías decirle a un chatbot?",
+                "Dices que soy $insultos ...\\n\\nSeguro que tu eres muy guay insultando a un bot..",
+                "Apuesto a que eso no lo aprendiste en este instituto.",
+                "Ehhh! tuuu ! te voy a lavar la boca con lejía... 😨",
+                "Ehhh!! que eso está feo, por favor... 🤦🏽‍♂️",
+                "Vaya boquita...",
+                "Gente que insulta a un chatbot.. Siri y Cortana tenían razón..",
+                "Eso no me lo dices en la calle... ah no, que soy programa.."
+              ]
+            }
+          ],
+      "defaultResponsePlatforms": {
+          "telegram": true
+      },
+        "speech": []
+    }
+  ],
+    "priority": 500000,
+    "cortanaCommand": {
+          "navigateOrService": "NAVIGATE",
+          "target": ""
+    },
+          "webhookUsed": false,
+          "webhookForSlotFilling": false,
+          "lastUpdate": 1526234654,
+          "fallbackIntent": false,
+          "events": [],
+          "userSays": [
+              {
+                "id": "1f169bb0-bd20-401d-84ff-e0441f9e0a88",
+                "data": [
+                    {
+                        "text": "eres "
+                    },
+                    {
+                        "text": "una idiota",
+                        "alias": "insultos",
+                        "meta": "@insultos",
+                        "userDefined": true
+                     }
+                ],
+                "isTemplate": false,
+                "count": 0,
+                "updated": 1526234134,
+                "isAuto": false
+              },
+              {
+                "id": "2ea2545c-e7b7-45c2-8ad4-92a43436e257",
+                "data": [
+                    {
+                        "text": "eres "
+                    },
+                    {
+                        "text": "un idiota",
+                        "alias": "insultos",
+                        "meta": "@insultos",
+                        "userDefined": true
+                    }
+                  ],
+                  "isTemplate": false,
+                  "count": 0,
+                  "updated": 1526234134,
+                  "isAuto": false
+                },
+                {
+                    "id": "62102a9b-1817-4046-ba32-853d855f2c27",
+                    "data": [
+                        {
+                            "text": "eres "
+                        },
+                        {
+                            "text": "idiota",
+                            "alias": "insultos",
+                            "meta": "@insultos",
+                            "userDefined": true
+                        }
+                    ],
+                    "isTemplate": false,
+                    "count": 0,
+                    "updated": 1526234134,
+                    "isAuto": false
+                }
+              ],
+              "followUpIntents": [],
+              "templates": []
+              }' }
