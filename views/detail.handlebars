@@ -7,7 +7,7 @@
 			{{#each data}}
 				{{#if meta}}
 					{{#isnt meta "@sys.ignore" }}
-						<span><b>(Sinónimos de: </b> {{text}})</span>
+						<span><b>(Entidad: </b> {{text}})</span>
 					{{/isnt}}
 					{{#eq meta "@sys.ignore"}}
 						<span>{{text}}</span>
@@ -48,6 +48,6 @@
 		{{/each}}
 		</div>
 	{{/each}}
-
 	{{/each}}
+	<button class="right btn btn-primary col s3" id="btn-delete-intent"><i class="material-icons">delete</i></button>
 </div>

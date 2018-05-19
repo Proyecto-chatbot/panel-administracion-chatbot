@@ -1,5 +1,3 @@
-
-
 var fs = require('fs');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -121,7 +119,6 @@ get_entity = (id, req, res)=>{
     		if (error){
           		console.log(error);
         }else{
-			console.log(body);
 			  selected_entity = body;
 			  entity = JSON.parse(selected_entity);
 			  res.render('entity', entity);
@@ -137,7 +134,7 @@ format_user_request = (userText)=>{
 post_intent = (req,res,next)=>{
 	var nombre = req.body.name;
 	var userText = req.body.user;
-	
+
 	var userFormatted = {data: [ { text: userText } ] };
 	var postOptions = {
 		method: 'POST',
@@ -162,34 +159,34 @@ post_intent = (req,res,next)=>{
 			messages:
 			[ { platform: 'google',
 				textToSpeech: 'Okay. just created',
-				type: 'simple_response' 
+				type: 'simple_response'
 			},
 			{
 				platform: 'telegram',
 				speech: 'this is in telegram',
 				type: 0
 			},
-			{ 
-				speech: 'Okay this is fine', 
-				type: 0 
+			{
+				speech: 'Okay this is fine',
+				type: 0
 			}
 		],
 			parameters: [],
 			resetContexts: false } ],
 		templates: [],
-		userSays: 
+		userSays:
 		[ userFormatted
-/*			{ 
-				count: 0, 
-				data: [ 
-					{ text: 'Add intent! ' } 
-				] 
+/*			{
+				count: 0,
+				data: [
+					{ text: 'Add intent! ' }
+				]
 			},
-			{ 
-				count: 0, 
-				data: [ 
-					{ text: 'I need it' } 
-				] 
+			{
+				count: 0,
+				data: [
+					{ text: 'I need it' }
+				]
 			} */
 		],
 		webhookForSlotFilling: false,
@@ -199,7 +196,6 @@ post_intent = (req,res,next)=>{
 
 	request(postOptions, function (error, response, body) {
 	if (error) throw new Error(error);
-	console.log(body);
 	res.redirect("/");
 	});
 
@@ -219,7 +215,6 @@ app.get('/entities', get_entities, function(req,res,next){
 app.get('/create',function(req,res,next){
 	res.render('new_intent');
 });
-
 app.get('/entities/:id', function(req,res,next){
 	let id = req.params.id;
 	get_entity(id, req, res);
@@ -230,9 +225,10 @@ app.get('/:id', function(req, res, next){
 	get_intent(id, req, res);
 });
 
-app.post('/new_intent', function(req,res,next){
+app.post('/new_intent',function(req,res,next){
 	post_intent(req,res);
-})
+});
+
 
 app.listen( /*proccess.env.PORT || */3000, function(){
 	console.log('Server listening');
