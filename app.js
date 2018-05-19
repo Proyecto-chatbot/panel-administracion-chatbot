@@ -130,6 +130,7 @@ get_entity = (id, req, res)=>{
 }
 
 post_intent = (req,res,next)=>{
+	var nombre = req.body.name;
 	var postOptions = {
 		method: 'POST',
 		url: 'https://api.dialogflow.com/v1/intents',
@@ -144,7 +145,7 @@ post_intent = (req,res,next)=>{
 		contexts: [],
 		events: [],
 		fallbackIntent: false,
-		name: 'aassssaa intent-creado',
+		name: nombre,
 		priority: 500000,
 		responses:
 		[ { action: '',
@@ -153,14 +154,31 @@ post_intent = (req,res,next)=>{
 			messages:
 			[ { platform: 'google',
 				textToSpeech: 'Okay. just created',
-				type: 'simple_response' },
-				{ speech: 'Okay this is fine', type: 0 } ],
+				type: 'simple_response' 
+			},
+			{ 
+				speech: 'Okay this is fine', 
+				type: 0 
+			} 
+		],
 			parameters: [],
 			resetContexts: false } ],
 		templates: [],
 		userSays:
-		[ { count: 0, data: [ { text: 'Add intent! ' } ] },
-			{ count: 0, data: [ { text: 'I need it' } ] } ],
+		[ 
+			{ 
+				count: 0, 
+				data: [ 
+					{ text: 'Add intent! ' } 
+				] 
+			},
+			{ 
+				count: 0, 
+				data: [ 
+					{ text: 'I need it' } 
+				] 
+			} 
+		],
 		webhookForSlotFilling: false,
 		webhookUsed: false },
 		json: true
@@ -168,6 +186,8 @@ post_intent = (req,res,next)=>{
 
 	request(postOptions, function (error, response, body) {
 	if (error) throw new Error(error);
+	console.log(body);
+	res.redirect("/");
 	});
 
 }
@@ -183,6 +203,9 @@ app.get('/interaction',function(req,res,next){
 app.get('/entities', get_entities, function(req,res,next){
 	res.render('entities', entities);
 });
+app.get('/create',function(req,res,next){
+	res.render('new_intent');
+});
 
 app.get('/entities/:id', function(req,res,next){
 	let id = req.params.id;
@@ -194,10 +217,9 @@ app.get('/:id', function(req, res, next){
 	get_intent(id, req, res);
 });
 
-app.post('/create',post_intent,function(req,res,next){
-	res.render('index');
-});
-
+app.post('/new_intent', function(req,res,next){
+	post_intent(req,res);
+})
 
 app.listen( /*proccess.env.PORT || */3000, function(){
 	console.log('Server listening');
