@@ -140,11 +140,10 @@ get_entity = (id, req, res)=>{
         }
   	});
 }
-/** 
+/**
  * Parse the text into valid JSON for body request
 */
 format_user_request = (userText)=>{
-	let map;
 	if(typeof userText == 'string'){
 		return [{ data: [ { text: userText } ] }] ;
 	}else{
@@ -153,14 +152,38 @@ format_user_request = (userText)=>{
 			inputs.push({ data: [ { text: element } ] })
 		});
 		return inputs;
-	} //{ data: [ { text: userText } ] },{ data: [ { text: userText } ] },{ data: [ { text: userText } ] }
+	}
+}
+
+format_bot_response = (botText)=>{
+	if(typeof botText == 'string'){
+		return 	[
+			{ platform: 'google', textToSpeech: botText ,type: 'simple_response'},
+			{ platform: 'telegram', speech: botText, type: 0},
+			{ speech: botText , type: 0 }
+		]
+	}else{
+		let responses = [];
+		botText.forEach(element=>{
+			//not sure..
+			responses.push([
+				{ platform: 'google', textToSpeech: botText ,type: 'simple_response'},
+				{ platform: 'telegram', speech: botText, type: 0},
+				{ speech: botText , type: 0 }
+			]);
+		});
+	}
+
 }
 
 post_intent = (req,res,next)=>{
 	var postOptions;
 	var nombre = req.body.name;
 	var userText = req.body.user;
-	promise = new Promise((resolve)=>{	
+	var botText = req.body.response;
+	var botFormatted;
+	promise = new Promise((resolve)=>{
+		botFormatted = format_bot_response(botText)
 		resolve(userFormatted = format_user_request(userText));
 	});
 
@@ -185,21 +208,7 @@ post_intent = (req,res,next)=>{
 			[ { action: '',
 				affectedContexts: [],
 				defaultResponsePlatforms: { google: true },
-				messages: 
-				[ { platform: 'google',
-					textToSpeech: 'Okay. just created',
-					type: 'simple_response'
-				},
-				{
-					platform: 'telegram',
-					speech: 'this is in telegram',
-					type: 0
-				},
-				{
-					speech: 'Okay this is fine',
-					type: 0
-				}
-			],
+				messages:botFormatted,
 				parameters: [],
 				resetContexts: false } ],
 			templates: [],
@@ -209,13 +218,13 @@ post_intent = (req,res,next)=>{
 			webhookUsed: false },
 			json: true
 		};
-	
+
 		request(postOptions, function (error, response, body) {
 		if (error) throw new Error(error);
 		res.redirect("/");
 		});
 	});
-	
+
 
 }
 ////

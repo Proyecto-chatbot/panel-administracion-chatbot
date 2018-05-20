@@ -23,10 +23,22 @@ let init = function(){
 		event.preventDefault();
 		add_new_input($(this));
 	});
+	$btn_add_response.click(function(event){
+		event.preventDefault();
+		add_new_response($(this));
+	});
 }
 
 $(init);
+/**
+ *   insert a new input for user says
+ */
 let add_new_input = ($input)=>{
 	$input.before('<input class="user" name="user" type="text" class="validate">');
 }
-
+/**
+ *  insert a new input for responses
+ */
+let add_new_response = ($input)=>{
+	$input.before('<input class="response" name="response" type="text" class="validate">');
+}
