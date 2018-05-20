@@ -7,7 +7,8 @@ let init = function(){
 	$btn_create = $('#btn_create');
 	$btn_delete = $("#btn-delete-intent");
 	$btn_add_question = $("#addUserText");
-	$btn_add_response = $("#addResponse");
+	$btn_add_response0 = $("#addResponse0");
+	$btn_add_response1 = $("#addResponse1");
 
 	$btn_create.click(function(){
 		$.get('/create');
@@ -23,9 +24,14 @@ let init = function(){
 		event.preventDefault();
 		add_new_input($(this));
 	});
-	$btn_add_response.click(function(event){
+	$btn_add_response0.click(function(event){
 		event.preventDefault();
-		add_new_response($(this));
+		add_new_response0($(this));
+	});
+
+	$btn_add_response1.click(function(event){
+		event.preventDefault();
+		add_new_response1($(this));
 	});
 }
 
@@ -39,6 +45,9 @@ let add_new_input = ($input)=>{
 /**
  *  insert a new input for responses
  */
-let add_new_response = ($input)=>{
-	$input.before('<input class="response" name="response" type="text" class="validate">');
+let add_new_response0 = ($input)=>{
+	$input.before('<input class="response0" name="response0" type="text" class="validate">');
+}
+let add_new_response1 = ($input)=>{
+	$input.before('<input class="response1" name="response1" type="text" class="validate">');
 }

@@ -199,13 +199,24 @@ post_intent = (req,res,next)=>{
 	var postOptions;
 	var nombre = req.body.name;
 	var userText = req.body.user;
-	var botText = req.body.response;
+	var botText;
+	var botText = [];
+
 	if(req.body.gifResponse){
 		var gif = req.body.gifResponse;
 	}
 	var botFormatted;
 	promise = new Promise((resolve)=>{
-		format_bot_response(botText)
+		if(req.body.response0){
+			botText.push(req.body.response0);
+		}
+		if(req.body.response1){
+			botText.push(req.body.response1);
+		}
+		botText.forEach(function(element){
+			console.log(botText);
+			format_bot_response(element);
+		});
 		//botFormatted = format_bot_gif(gif);
 		//botFormatted = format_bot_link("www.google.es","google");
 		resolve(userFormatted = format_user_request(userText));
