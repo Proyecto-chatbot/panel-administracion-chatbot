@@ -1,10 +1,14 @@
 let $btn_create;
 let $btn_delete;
-
+let $btn_add_question;
+let $btn_add_response;
 let init = function(){
 	let intent_id;
 	$btn_create = $('#btn_create');
 	$btn_delete = $("#btn-delete-intent");
+	$btn_add_question = $("#addUserText");
+	$btn_add_response = $("#addResponse");
+
 	$btn_create.click(function(){
 		$.get('/create');
 	});
@@ -14,8 +18,15 @@ let init = function(){
 			location.href = res;
 		});
 	});
+
+	$btn_add_question.click(function(event){
+		event.preventDefault();
+		add_new_input($(this));
+	});
 }
 
 $(init);
-
+let add_new_input = ($input)=>{
+	$input.before('<input class="user" name="user" type="text" class="validate">');
+}
 

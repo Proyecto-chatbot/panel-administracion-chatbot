@@ -53,6 +53,7 @@ get_intents = (req, res, next)=>{
 var all_entities;
 var entities;
 var selected_entity;
+
 get_entities = (req, res, next)=>{
     var options = {
   		method: 'GET',
@@ -92,6 +93,7 @@ get_intent = (id, req, res)=>{
     		if (error){
           		console.log(error);
         }else{
+			console.log(response);
 			  selected_intent = body;
 			  intent = JSON.parse(selected_intent);
 			//  console.log(intent.responses[0].messages[0].speech);
@@ -142,11 +144,16 @@ get_entity = (id, req, res)=>{
  * Parse the text into valid JSON for body request
 */
 format_user_request = (userText)=>{
+	let map;
 	if(typeof userText == 'string'){
-		return { data: [ { text: userText } ] } ;
+		return [{ data: [ { text: userText } ] }] ;
 	}else{
-		return typeof userText;
-	}
+		let inputs = [];
+		userText.forEach(element => {
+			inputs.push({ data: [ { text: element } ] })
+		});
+		return inputs;
+	} //{ data: [ { text: userText } ] },{ data: [ { text: userText } ] },{ data: [ { text: userText } ] }
 }
 
 post_intent = (req,res,next)=>{
@@ -197,7 +204,7 @@ post_intent = (req,res,next)=>{
 				resetContexts: false } ],
 			templates: [],
 			userSays:
-			[ userFormatted],
+			 userFormatted,
 			webhookForSlotFilling: false,
 			webhookUsed: false },
 			json: true
@@ -213,7 +220,7 @@ post_intent = (req,res,next)=>{
 }
 ////
 app.get('/', get_intents, function(req, res, next){
-	res.render('index', intents);
+		res.render('index', intents);
 });
 
 app.get('/interaction',function(req,res,next){
