@@ -174,7 +174,28 @@ format_bot_response = (botText)=>{
 
 		return responses;
 	}
-
+}
+/**
+ * Return a gif message
+ */
+format_bot_gif =(gif)=>{
+	return [
+		{ "type": "basic_card", "platform": "google", "image": { "url": gif },"lang": "es"},
+		{ "type": 3, "platform": "telegram", "imageUrl": gif, "lang": "es"},
+		{ "type": 0,"speech": gif}
+	];
+}
+/**
+ * Return a link message
+ */
+format_bot_link = (url,nombre)=>{
+	let markdown = "["+nombre+"]("+url+")";
+	return [
+	{"type": "link_out_chip", "platform": "google","destinationName": nombre,"url": url,"lang": "es" },
+	{"type": 4,"platform": "telegram","payload": { "telegram":
+	{ "text": markdown,"parse_mode": "Markdown"  }},"lang": "es" },
+	{"type": 0,"speech": url}
+	]
 }
 
 post_intent = (req,res,next)=>{
@@ -182,9 +203,12 @@ post_intent = (req,res,next)=>{
 	var nombre = req.body.name;
 	var userText = req.body.user;
 	var botText = req.body.response;
+	var gif = req.body.gifResponse;
 	var botFormatted;
 	promise = new Promise((resolve)=>{
-		botFormatted = format_bot_response(botText)
+		//botFormatted = format_bot_response(botText)
+		//botFormatted = format_bot_gif(gif);
+		botFormatted = format_bot_link("www.google.es","google");
 		resolve(userFormatted = format_user_request(userText));
 	});
 
