@@ -163,15 +163,16 @@ format_bot_response = (botText)=>{
 			{ speech: botText , type: 0 }
 		]
 	}else{
-		let responses = [];
-		botText.forEach(element=>{
-			//not sure..
-			responses.push([
-				{ platform: 'google', textToSpeech: botText ,type: 'simple_response'},
-				{ platform: 'telegram', speech: botText, type: 0},
-				{ speech: botText , type: 0 }
-			]);
+		let responses;
+		let googleResponse = botText.map(function(element){
+			return { textToSpeech: element }
 		});
+			responses =
+				[ { platform: 'google', items: googleResponse ,type: 'simple_response'},
+				{ platform: 'telegram', speech: botText, type: 0},
+				{ speech: botText , type: 0 }]
+
+		return responses;
 	}
 
 }
