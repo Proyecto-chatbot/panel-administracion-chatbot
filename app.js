@@ -196,7 +196,7 @@ post_intent = (req,res,next)=>{
 			headers:
 				{
 				'Cache-Control': 'no-cache',
-				Authorization: 'Bearer 806adc1749d543659edcb103d0f2fb01',
+				Authorization: 'Bearer ' + TOKEN,
 				'Content-Type': 'application/json'
 				},
 		  body:{
