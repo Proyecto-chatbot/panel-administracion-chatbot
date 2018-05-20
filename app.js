@@ -125,79 +125,77 @@ get_entity = (id, req, res)=>{
         }
   	});
 }
+/** 
+ * Parse the text into valid JSON for body request
+*/
 format_user_request = (userText)=>{
-	if(userText instanceof String){
-		return '{count: 0, data: [ { text: '+userText+ ' } ] }' ;
+	if(typeof userText == 'string'){
+		return { data: [ { text: userText } ] } ;
+	}else{
+		return typeof userText;
 	}
 }
 
 post_intent = (req,res,next)=>{
+	var postOptions;
 	var nombre = req.body.name;
 	var userText = req.body.user;
-
-	var userFormatted = {data: [ { text: userText } ] };
-	var postOptions = {
-		method: 'POST',
-		url: 'https://api.dialogflow.com/v1/intents',
-		qs: { v: '20150910' },
-		headers:
-			{
-			'Cache-Control': 'no-cache',
-			Authorization: 'Bearer 806adc1749d543659edcb103d0f2fb01',
-			'Content-Type': 'application/json'
-			},
-  	body:{
-		contexts: [],
-		events: [],
-		fallbackIntent: false,
-		name: nombre,
-		priority: 500000,
-		responses:
-		[ { action: '',
-			affectedContexts: [],
-			defaultResponsePlatforms: { google: true },
-			messages:
-			[ { platform: 'google',
-				textToSpeech: 'Okay. just created',
-				type: 'simple_response'
-			},
-			{
-				platform: 'telegram',
-				speech: 'this is in telegram',
-				type: 0
-			},
-			{
-				speech: 'Okay this is fine',
-				type: 0
-			}
-		],
-			parameters: [],
-			resetContexts: false } ],
-		templates: [],
-		userSays:
-		[ userFormatted
-/*			{
-				count: 0,
-				data: [
-					{ text: 'Add intent! ' }
-				]
-			},
-			{
-				count: 0,
-				data: [
-					{ text: 'I need it' }
-				]
-			} */
-		],
-		webhookForSlotFilling: false,
-		webhookUsed: false },
-		json: true
-	};
-
-	request(postOptions, function (error, response, body) {
-	if (error) throw new Error(error);
-	res.redirect("/");
+	promise = new Promise((resolve)=>{	
+		resolve(userFormatted = format_user_request(userText));
 	});
+
+	promise.then((userFormatted) => {
+		postOptions = {
+			method: 'POST',
+			url: 'https://api.dialogflow.com/v1/intents',
+			qs: { v: '20150910' },
+			headers:
+				{
+				'Cache-Control': 'no-cache',
+				Authorization: 'Bearer 806adc1749d543659edcb103d0f2fb01',
+				'Content-Type': 'application/json'
+				},
+		  body:{
+			contexts: [],
+			events: [],
+			fallbackIntent: false,
+			name: nombre,
+			priority: 500000,
+			responses:
+			[ { action: '',
+				affectedContexts: [],
+				defaultResponsePlatforms: { google: true },
+				messages: 
+				[ { platform: 'google',
+					textToSpeech: 'Okay. just created',
+					type: 'simple_response'
+				},
+				{
+					platform: 'telegram',
+					speech: 'this is in telegram',
+					type: 0
+				},
+				{
+					speech: 'Okay this is fine',
+					type: 0
+				}
+			],
+				parameters: [],
+				resetContexts: false } ],
+			templates: [],
+			userSays:
+			[ userFormatted],
+			webhookForSlotFilling: false,
+			webhookUsed: false },
+			json: true
+		};
+	
+		request(postOptions, function (error, response, body) {
+		if (error) throw new Error(error);
+		res.redirect("/");
+		});
+	});
+	
 
 }
 ////
