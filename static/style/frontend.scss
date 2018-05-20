@@ -1,6 +1,12 @@
 #btn_create{
     margin-top: 10px;
+    
 }
-.brand-logo{
-    font-size: 80%;
+#logo{
+    font-size: 25px;
+}
+#body-wrapper{
+    display: grid;
+    grid-template-columns: 30% 70%;
+
 }

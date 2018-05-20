@@ -1,9 +1,11 @@
-<div class = 'container'>
-
+<p class="center-align">
 <a class="waves-effect waves-light btn-small" href="/create" id="btn_create"><i class="material-icons left">add</i>Añadir</a>
+</p>
+<div id="body-wrapper">
 	<div id="list_intent" class="collection">
 		{{#each this}}
               <a class="collection-item" id="intent" href="/{{ id }}">{{ name }}</a>
         {{/each }}
 	</div>
+	<main></main>
 </div>
