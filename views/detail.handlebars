@@ -1,5 +1,6 @@
 <div class = 'container'>
 	<h4> Intent: {{ this.name }}</h4>
+	<input type="hidden" id=input-id value={{this.id}}>
 	<h5>Preguntas del usuario</h5>
 	{{#each this.userSays }}
 		<div class="row">
