@@ -23,6 +23,8 @@ var config = require("./config.json");
 const TOKEN = config.config[0].token;
 
 
+var botMessages = [];
+
 /// TODO refactorizar todas las peticiones a un mismo método en una clase
 var all_intents;
 var intents;
@@ -157,22 +159,17 @@ format_user_request = (userText)=>{
 
 format_bot_response = (botText)=>{
 	if(typeof botText == 'string'){
-		return 	[
-			{ platform: 'google', textToSpeech: botText ,type: 'simple_response'},
-			{ platform: 'telegram', speech: botText, type: 0},
-			{ speech: botText , type: 0 }
-		]
+		botMessages.push({ platform: 'google', textToSpeech: botText ,type: 'simple_response'}),
+		botMessages.push({ platform: 'telegram', speech: botText, type: 0}),
+		botMessages.push({ speech: botText , type: 0 })
+
 	}else{
-		let responses;
 		let googleResponse = botText.map(function(element){
 			return { textToSpeech: element }
 		});
-			responses =
-				[ { platform: 'google', items: googleResponse ,type: 'simple_response'},
-				{ platform: 'telegram', speech: botText, type: 0},
-				{ speech: botText , type: 0 }]
-
-		return responses;
+		botMessages.push({ platform: 'google', items: googleResponse ,type: 'simple_response'}),
+		botMessages.push({ platform: 'telegram', speech: botText, type: 0}),
+		botMessages.push({ speech: botText , type: 0 });
 	}
 }
 /**
@@ -202,13 +199,26 @@ post_intent = (req,res,next)=>{
 	var postOptions;
 	var nombre = req.body.name;
 	var userText = req.body.user;
-	var botText = req.body.response;
-	var gif = req.body.gifResponse;
+	var botText;
+	var botText = [];
+
+	if(req.body.gifResponse){
+		var gif = req.body.gifResponse;
+	}
 	var botFormatted;
 	promise = new Promise((resolve)=>{
-		//botFormatted = format_bot_response(botText)
+		if(req.body.response0){
+			botText.push(req.body.response0);
+		}
+		if(req.body.response1){
+			botText.push(req.body.response1);
+		}
+		botText.forEach(function(element){
+			console.log(botText);
+			format_bot_response(element);
+		});
 		//botFormatted = format_bot_gif(gif);
-		botFormatted = format_bot_link("www.google.es","google");
+		//botFormatted = format_bot_link("www.google.es","google");
 		resolve(userFormatted = format_user_request(userText));
 	});
 
@@ -233,7 +243,7 @@ post_intent = (req,res,next)=>{
 			[ { action: '',
 				affectedContexts: [],
 				defaultResponsePlatforms: { google: true },
-				messages:botFormatted,
+				messages:botMessages,
 				parameters: [],
 				resetContexts: false } ],
 			templates: [],
