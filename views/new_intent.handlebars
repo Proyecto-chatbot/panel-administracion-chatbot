@@ -1,13 +1,10 @@
 <div class="container center-align">
     <h4>Crear un nuevo Intent</h4>
-
     <div class="row ">
-        <form class="col s6 offset-s3" method="POST" action="/new_intent">
             <div class="input-field col s12">
-                <input id="name" type="text" name="name" class="validate">
+                <input id="name" type="text" name="name" id='name' class="validate">
                 <label for="name">Nombre del intent</label>
             </div>
-
             <div class="input-field col s12">
                 <p>Preguntas del usuario</p>
                 <input class="user" name="user" type="text" class="validate">
@@ -15,17 +12,20 @@
                     <i class="material-icons right">add</i>
                 </button>
             </div>
-            <div class="input-field col s12">
+            <button class="btn btn-small waves-effect waves-light right" id="add-response" name="addResponse">Añadir Respuesta
+                    <i class="material-icons right">add</i>
+            </button>
+         <!--   <div class="input-field col s12">
                 <p>Respuestas del chatbot</p>
                 <input class="response" name="response0" type="text" class="validate">
-                <button class="btn btn-small waves-effect waves-light right" id="addResponse0" name="addResponse">Añadir Respuesta
+                <button class="btn btn-small waves-effect waves-light right" id="addResponse0" name="addResponse">Añadir variante
                     <i class="material-icons right">add</i>
                 </button>
             </div>
             <div class="input-field col s12">
                 <p>Respuestas del chatbot</p>
                 <input class="response" name="response1" type="text" class="validate">
-                <button class="btn btn-small waves-effect waves-light right" id="addResponse1" name="addResponse">Añadir Respuesta
+                <button class="btn btn-small waves-effect waves-light right" id="addResponse1" name="addResponse">Añadir variante
                     <i class="material-icons right">add</i>
                 </button>
             </div>
@@ -33,10 +33,10 @@
                 <p>Gif</p>
                 <input class="response" name="gifResponse" type="text" class="validate">
             </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
+            -->
+            <button class="btn waves-effect waves-light" type="submit" id="submit" name="submit">Enviar
                 <i class="material-icons right">send</i>
             </button>
-        </form>
     </div>
 
 </div>
