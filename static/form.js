@@ -52,7 +52,6 @@ let init = function(){
 		add_new_block($(this).prop('name'));
 	})
 }
-
 /**
  * Insert a new input for user says
  */
@@ -62,8 +61,9 @@ let add_new_input = ($input)=>{
 
 let add_new_block = (name) =>{
 	switch(name){
-		case 'type-text': add_new_response();break;
-		case 'type-image': add_new_gif();break;
+		case 'type-text': add_new_response(); break;
+		case 'type-gif': add_new_image("Gif"); break;
+		case 'type-image': add_new_image("Imagen"); break;
 		case 'type-link': ;break;
 	}
 }
@@ -80,16 +80,15 @@ let add_new_response = function (){
 	}
 }
 /**
- *
+ * Añade un bloque de respuesta tipo imagen/gif
  */
-let add_new_gif = function (){
+let add_new_image = function (title){
 	if(checkNumResponses()){
-		$select.before('<div class="bloq type-image input-field col s12"><p>Gif</p><input class="response"'
+		$select.before('<div class="bloq type-image input-field col s12"><p>' + title + '</p><input class="response"'
 		+ 'name="gifResponse" type="text" class="validate"></div>');
 		numResponses++;
 	}
 }
-
 /**
  * Insert a new variant for text response
  */
