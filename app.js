@@ -209,6 +209,7 @@ post_intent = (req,res,next)=>{
 					case 'image':
 					format_bot_image(element.text); break;
 					case 'link':
+					console.log(element.text);
 					format_bot_link(element.url, element.text); break;
 				}
 			});

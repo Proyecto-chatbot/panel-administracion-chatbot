@@ -6,13 +6,16 @@ let $name;
 // El máximo de respuestas posibles son 10
 const MAX_RESPONSES = 10;
 // Contiene el número de respuestas añadidas
-let numResponses = 0;
-// Contador respuestas de texto
-let numTextResponse = 0;
+let numResponses;
 let dropdown;
 let dropdown_options;
 let $select;
+let hasImage;
+let hasLink;
+let $textResponse;
 let init = function(){
+	numResponses = 0;
+	hasImage = false;
 	$select = $('.select');
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();
@@ -53,40 +56,72 @@ let init = function(){
 	})
 }
 /**
- * Insert a new input for user says
- */
+* Insert a new input for user says
+*/
 let add_new_input = ($input)=>{
 	$input.before('<input class="user validate" name="user" type="text" >');
 }
-
+/**
+* Insert a new block for bot response
+*/
 let add_new_block = (name) =>{
 	switch(name){
 		case 'type-text': add_new_response(); break;
-		case 'type-gif': add_new_image("Gif"); break;
+		case 'type-gif': add_new_image("Gif");break;
 		case 'type-image': add_new_image("Imagen"); break;
-		case 'type-link': ;break;
+		case 'type-link': add_new_link("Link"); break;
+		case 'type-document': add_new_link("Documento"); break;
 	}
 }
-
-/** Añade un bloque de respuesta tipo texto */
+/**
+* Insert a new block for type text response
+*/
 let add_new_response = function (){
+	$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
+	+'<input class="response validate" type="text">'
+	+'<button class="btnAddVariant btn-small waves-effect waves-light right"'
+	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>';
 	if(checkNumResponses()){
-		$select.before('<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
-			+'<input class="response validate" name="response"'+numResponses+' type="text">'
-				+'<button class="btnAddVariant btn-small waves-effect waves-light right" id="addVariant'+numTextResponse+'"'
-				+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>');
-		numTextResponse++;
+		if(hasImage)
+			$('.type-image').before($textResponse);
+		else if(hasLink)
+			$('.type-link').before($textResponse);
+		else
+			$select.before($textResponse);
 		numResponses++;
 	}
 }
 /**
- * Añade un bloque de respuesta tipo imagen/gif
+ *  Insert a new block for type image/gif response
  */
 let add_new_image = function (title){
+	$imageResponse = '<div class="bloq type-image input-field col s12"><p>' + title +
+	'</p><input class="response" name="gifResponse" type="text" class="validate"></div>'
+
 	if(checkNumResponses()){
-		$select.before('<div class="bloq type-image input-field col s12"><p>' + title + '</p><input class="response"'
-		+ 'name="gifResponse" type="text" class="validate"></div>');
+		if(hasLink)
+			$('.type-link').before($imageResponse);
+		else
+			$select.before($imageResponse);
 		numResponses++;
+		hasImage = true;
+		$('.image-li').css({pointerEvents: "none", color: "red"})
+	}
+
+}
+
+
+/**
+ *  Insert a new block for type link response
+ */
+let add_new_link = function(title){
+	if(checkNumResponses()){
+		$select.before('<div class="bloq type-link input-field col s12"><p>' + title + '</p>'+
+		'<input class="response" id="linkResponse" type="text" class="validate">'+
+		'<input class="url" id="linkUrl" type="text"  class="validate">'+
+		'</div>');
+		numResponses++;
+		hasLink = true;
 	}
 }
 /**
@@ -95,6 +130,9 @@ let add_new_image = function (title){
 let add_new_variant = ($btn)=>{
 	$btn.before('<input name="response'+numResponses+'" type="text" class=" response validate">');
 }
+/**
+* Check that the number of answers is less than the maximum number of responses allowed
+*/
 let checkNumResponses = ()=>{
 	return numResponses < MAX_RESPONSES;
 }
@@ -130,7 +168,12 @@ let send_intent = ()=>{
 		}else if(responses.length == 1){
 			text = responses.val();
 		}
-		botSays.push({ 'type': type, 'text': text});
+		if(type == 'link'){
+			url = $(this).children('.url').val();
+			botSays.push({ 'type': type, 'text': text, 'url': url});
+		}
+		else
+			botSays.push({ 'type': type, 'text': text});
 
 	});
 	data = {
