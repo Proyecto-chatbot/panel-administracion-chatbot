@@ -12,28 +12,17 @@
                     <i class="material-icons right">add</i>
                 </button>
             </div>
-            <button class="btn btn-small waves-effect waves-light right" id="add-response" name="addResponse">Añadir Respuesta
-                    <i class="material-icons right">add</i>
-            </button>
-         <!--   <div class="input-field col s12">
-                <p>Respuestas del chatbot</p>
-                <input class="response" name="response0" type="text" class="validate">
-                <button class="btn btn-small waves-effect waves-light right" id="addResponse0" name="addResponse">Añadir variante
-                    <i class="material-icons right">add</i>
-                </button>
+            <div class="select input-field col s12">
+                <a class='dropdown-trigger btn' href='#' data-target='dropdown'>Añadir Respuesta</a>
+                <ul id='dropdown' class='dropdown-content'>
+                    <li><a name="type-text">Texto</a></li>
+                    <li><a name="type-image">Imagen</a></li>
+                    <li><a name="type-gif">Gif</a></li>
+                    <li><a name="type-link">Enlace</a></li>
+                    <li><a name="type-link">Documento</a></li>
+                </ul>
+
             </div>
-            <div class="input-field col s12">
-                <p>Respuestas del chatbot</p>
-                <input class="response" name="response1" type="text" class="validate">
-                <button class="btn btn-small waves-effect waves-light right" id="addResponse1" name="addResponse">Añadir variante
-                    <i class="material-icons right">add</i>
-                </button>
-            </div>
-            <div class="input-field col s12">
-                <p>Gif</p>
-                <input class="response" name="gifResponse" type="text" class="validate">
-            </div>
-            -->
             <button class="btn waves-effect waves-light" type="submit" id="submit" name="submit">Enviar
                 <i class="material-icons right">send</i>
             </button>
