@@ -173,26 +173,23 @@ format_bot_response = (botText)=>{
 	}
 }
 /**
- * Return a gif message
+ * Return a gif/image message
  */
-format_bot_gif =(gif)=>{
-	return [
-		{ "type": "basic_card", "platform": "google", "image": { "url": gif },"lang": "es"},
-		{ "type": 3, "platform": "telegram", "imageUrl": gif, "lang": "es"},
-		{ "type": 0,"speech": gif}
-	];
+format_bot_image =(url)=>{
+		botMessages.push({ "type": "basic_card", "platform": "google", "image": { "url": url },"lang": "es"}),
+		botMessages.push({ "type": 3, "platform": "telegram", "imageUrl": url, "lang": "es"}),
+		botMessages.push({ "type": 0,"speech": url})
+
 }
 /**
- * Return a link message
+ * Return a link/document message
  */
 format_bot_link = (url,nombre)=>{
 	let markdown = "["+nombre+"]("+url+")";
-	return [
-	{"type": "link_out_chip", "platform": "google","destinationName": nombre,"url": url,"lang": "es" },
-	{"type": 4,"platform": "telegram","payload": { "telegram":
-	{ "text": markdown,"parse_mode": "Markdown"  }},"lang": "es" },
-	{"type": 0,"speech": url}
-	]
+	botMessages.push({"type": "link_out_chip", "platform": "google","destinationName": nombre,"url": url,"lang": "es" }),
+	botMessages.push({"type": 4,"platform": "telegram","payload": { "telegram":
+	{ "text": markdown,"parse_mode": "Markdown"  }},"lang": "es" }),
+	botMessages.push({"type": 0,"speech": url});
 }
 
 post_intent = (req,res,next)=>{
@@ -206,15 +203,23 @@ post_intent = (req,res,next)=>{
 	var botFormatted;
 	promise = new Promise((resolve)=>{
 		botText.forEach(function(element){
-			switch(element.type){
-				case 'text':
-				format_bot_response(element.text); break;
-			}
-		});
+				switch(element.type){
+					case 'text':
+					format_bot_response(element.text); break;
+					case 'image':
+					format_bot_image(element.text); break;
+					case 'link':
+					format_bot_link(element.url, element.text); break;
+				}
+			});
 		resolve(userFormatted = format_user_request(userText));
 	});
 
 	promise.then((userFormatted) => {
+		console.log('--------BOT MESSAGES--------\n');
+		botMessages.forEach(function(element){
+			console.log(element);
+		})
 		postOptions = {
 			method: 'POST',
 			url: 'https://api.dialogflow.com/v1/intents',
@@ -248,6 +253,7 @@ post_intent = (req,res,next)=>{
 
 		request(postOptions, function (error, response, body) {
 		if (error) throw new Error(error);
+		botMessages = [];
 		res.send("/");
 		});
 	});
