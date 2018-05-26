@@ -4,6 +4,7 @@
   "description": "Panel de Administración del agente de Dialogflow GranCapiBot",
   "main": "app.js",
   "scripts": {
+    "dev": "APP_HOST=http://localhost:3000 ./node_modules/.bin/nodemon app.js",
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
