@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<title>Panel de administración</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Nieves Borrero & Pablo León">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" rel="stylesheet" >
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="static/style/frontend.css" type="text/css" rel="stylesheet">
+    <title>Administración Chatbot</title>
 </head>
 <body>
-
   <nav>
     <div class="nav-wrapper blue-grey lighten-3">
-      <span class="brand-logo center">Gran Capibot</span>
+      <span class="brand-logo center" id="logo">Gran Capibot</span>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li><a href="/">Inicio</a></li>
         <li><a href="/entities">Entidades</a></li>
@@ -23,9 +23,27 @@
   </nav>
         
 {{{body}}}
-
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <script src="static/form.js"></script>
+
+
+        <footer class="page-footer blue-grey lighten-2">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Contacto</h5>
+                <p> informatica@iesgrancapitan.org</p>
+                <p>957 379 710</p>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            <span>© {{year}}  Nieves Borrero - Pablo León</span>
+            <span class="right">IES Gran Capitán - Departamento de Informática</span>
+          </div>
+        </div>
+        </footer>
 </body>
 </html>

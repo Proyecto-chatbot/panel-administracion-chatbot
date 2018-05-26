@@ -6,6 +6,8 @@ El proyecto está conformado además por [este](https://github.com/NievesBorrero
 
 
 ```javascript
+ //Cargar los módulos requeridos
+ npm install
  //Lanzar el servicio
  node app.js
 ```

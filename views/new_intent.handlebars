@@ -1,32 +1,31 @@
 <div class="container center-align">
     <h4>Crear un nuevo Intent</h4>
-
     <div class="row ">
-        <form class="col s6 offset-s3" method="POST" action="/new_intent">
             <div class="input-field col s12">
                 <input id="name" type="text" name="name" class="validate">
                 <label for="name">Nombre del intent</label>
             </div>
-
             <div class="input-field col s12">
                 <p>Preguntas del usuario</p>
                 <input class="user" name="user" type="text" class="validate">
-                <button class="btn btn-small waves-effect waves-light right" name="addUserText">Añadir Pregunta
+                <button class="btn btn-small waves-effect waves-light right" id="addUserText" name="addUserText">Añadir Pregunta
                     <i class="material-icons right">add</i>
                 </button>
             </div>
-            <div class="input-field col s12">
-            
-                <p>Respuestas del chatbot</p>
-                <input class="user" type="text" class="validate">
-                <button class="btn btn-small waves-effect waves-light right" name="addResponse">Añadir Respuesta
-                    <i class="material-icons right">add</i>
-                </button>
+            <div class="select input-field col s12">
+                <a class='dropdown-trigger btn' href='#' data-target='dropdown'>Añadir Respuesta</a>
+                <ul id='dropdown' class='dropdown-content'>
+                    <li><a class="text-li" name="type-text">Texto</a></li>
+                    <li><a class="image-li" name="type-image">Imagen</a></li>
+                    <li><a class="image-li" name="type-gif">Gif</a></li>
+                    <li><a class="link-li"name="type-link">Enlace</a></li>
+                    <li><a class="link-li" name="type-document">Documento</a></li>
+                </ul>
+
             </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
+            <button class="btn waves-effect waves-light" type="submit" id="submit" name="submit">Enviar
                 <i class="material-icons right">send</i>
             </button>
-        </form>
     </div>
 
 </div>

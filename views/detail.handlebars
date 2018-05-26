@@ -1,5 +1,6 @@
 <div class = 'container'>
 	<h4> Intent: {{ this.name }}</h4>
+	<input type="hidden" id=input-id value={{this.id}}>
 	<h5>Preguntas del usuario</h5>
 	{{#each this.userSays }}
 		<div class="row">
@@ -7,7 +8,7 @@
 			{{#each data}}
 				{{#if meta}}
 					{{#isnt meta "@sys.ignore" }}
-						<span><b>(Sinónimos de: </b> {{text}})</span>
+						<span><b>(Entidad: </b> {{text}})</span>
 					{{/isnt}}
 					{{#eq meta "@sys.ignore"}}
 						<span>{{text}}</span>
@@ -31,8 +32,12 @@
 				<div class="row">
 				<p class="col s8">{{imageUrl}}</p>
 				<div class="col s4">
-          			<button class="left btn btn-primary col s3" id="edit-response"><i class="material-icons">mode_edit</i></button>
-					<button class="right btn btn-primary col s3" id="delete-response"><i class="material-icons">delete</i></button>
+          			<button class="left btn btn-primary col s3" id="edit-response">
+						  <i class="material-icons">mode_edit</i>
+					</button>
+					<button class="right btn btn-primary col s3" id="delete-response">
+						<i class="material-icons">delete</i>
+					</button>
 				</div>
 			</div>
 			{{#each speech}}
@@ -48,6 +53,6 @@
 		{{/each}}
 		</div>
 	{{/each}}
-
 	{{/each}}
+	<button class="right btn btn-primary col s3" id="btn-delete-intent"><i class="material-icons">delete</i></button>
 </div>
