@@ -21,8 +21,8 @@ app.set('views','./views');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 
-var config = require("./config.json");
-const TOKEN =  process.env.token || config.config[0].token;
+//var config = require("./config.json");
+const TOKEN =  process.env.token; //|| config.config[0].token;
 
 
 var botMessages = [];
