@@ -5,7 +5,7 @@ var request = require('request');
 var exphbs = require('express-handlebars');
 var HandlebarsIntl = require('handlebars-intl');
 var domain = process.env.APP_HOST;
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 
 var helpers = require('handlebars-helpers')(['math', 'comparison']);
 
