@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 
 var config = require("./config.json");
-const TOKEN = config.config[0].token || process.env.token;
+const TOKEN =  process.env.token || config.config[0].token;
 
 
 var botMessages = [];
@@ -300,6 +300,6 @@ app.post('/new_intent',function(req,res,next){
 });
 
 
-app.listen( PORT || 3000, function(){
+app.listen( PORT , function(){
 	console.log('Server listening');
 });
