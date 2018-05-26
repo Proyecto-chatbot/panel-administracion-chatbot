@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 
 var config = require("./config.json");
-const TOKEN = config.config[0].token || ENV['token'];
+const TOKEN = config.config[0].token || process.env.token;
 
 
 var botMessages = [];
