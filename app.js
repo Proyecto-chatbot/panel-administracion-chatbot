@@ -298,6 +298,6 @@ app.post('/new_intent',function(req,res,next){
 });
 
 
-app.listen( /*proccess.env.PORT || */3000, function(){
+app.listen( proccess.env.PORT || 3000, function(){
 	console.log('Server listening');
 });
