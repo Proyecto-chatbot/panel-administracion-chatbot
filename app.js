@@ -6,6 +6,7 @@ var exphbs = require('express-handlebars');
 var HandlebarsIntl = require('handlebars-intl');
 var domain = process.env.APP_HOST;
 const PORT = process.env.PORT || 3000;
+const TOKEN =  process.env.token;
 
 var helpers = require('handlebars-helpers')(['math', 'comparison']);
 
@@ -20,10 +21,6 @@ app.use('/static',express.static(__dirname + '/static'));
 app.set('views','./views');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
-
-//var config = require("./config.json");
-const TOKEN =  process.env.token; //|| config.config[0].token;
-
 
 var botMessages = [];
 
