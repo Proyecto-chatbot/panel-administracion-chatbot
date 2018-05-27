@@ -146,8 +146,21 @@ let send_intent = ()=>{
 	let type;
 	let responses;
 	let text;
+	let n_inputs = 0;
 	name = $('#name').val();
-	userSays = $('.user').val();
+	input_user = $('.user');
+	input_user.each(function(){
+		n_inputs++;
+	});
+	if(n_inputs > 1){
+		userSays = [];
+		input_user.each(function(index, element){
+			userSays.push($(this).val());
+		});
+	}else{
+		userSays = '';
+		userSays = input_user.val();
+	}
 	$('.bloq').each(function(){
 		if($(this).hasClass('type-text')){
 			type = 'text';

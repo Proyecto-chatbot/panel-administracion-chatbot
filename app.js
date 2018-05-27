@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var exphbs = require('express-handlebars');
 var HandlebarsIntl = require('handlebars-intl');
+var formatter = require('./static/request_formatter');
 var domain = process.env.APP_HOST;
 const PORT = process.env.PORT || 3000;
 const TOKEN =  process.env.token;
@@ -141,20 +142,7 @@ get_entity = (id, req, res)=>{
         }
   	});
 }
-/**
- * Parse the text into valid JSON for body request
-*/
-format_user_request = (userText)=>{
-	if(typeof userText == 'string'){
-		return [{ data: [ { text: userText } ] }] ;
-	}else{
-		let inputs = [];
-		userText.forEach(element => {
-			inputs.push({ data: [ { text: element } ] })
-		});
-		return inputs;
-	}
-}
+
 /**
  * Add a text message
  */
@@ -215,14 +203,19 @@ post_intent = (req,res,next)=>{
 					format_bot_link(element.url, element.text); break;
 				}
 			});
-		resolve(userFormatted = format_user_request(userText));
+		resolve(userFormatted = formatter.format_user_request(userText));
 	});
 
 	promise.then((userFormatted) => {
 		console.log('--------BOT MESSAGES--------\n');
 		botMessages.forEach(function(element){
 			console.log(element);
+		});
+		console.log('--------USER MESSAGES--------\n');
+		userFormatted.forEach(function(element){
+			console.log(element);
 		})
+		
 		postOptions = {
 			method: 'POST',
 			url: 'https://api.dialogflow.com/v1/intents',
