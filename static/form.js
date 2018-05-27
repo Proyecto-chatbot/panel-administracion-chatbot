@@ -13,6 +13,8 @@ let $select;
 let hasImage;
 let hasLink;
 let $textResponse;
+let $contextIn;
+let $contextOut;
 let init = function(){
 	numResponses = 0;
 	hasImage = false;
@@ -20,6 +22,9 @@ let init = function(){
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();
 	dropdown_options = $('.dropdown-content li a');
+	$('.collapsible').collapsible();
+	$contextIn = $('#contextIn');
+	$contextOut = $('#contextOut');
 	let intent_id;
 	$btn_create = $('#btn_create');
 	$btn_delete = $("#btn-delete-intent");
@@ -147,6 +152,8 @@ let send_intent = ()=>{
 	let responses;
 	let text;
 	let n_inputs = 0;
+	context_in = $contextIn.val();
+	context_out = $contextOut.val();
 	name = $('#name').val();
 	input_user = $('.user');
 	input_user.each(function(){
@@ -192,7 +199,9 @@ let send_intent = ()=>{
 	data = {
 		"name": name,
 		"user": userSays,
-		"bot": botSays
+		"bot": botSays,
+		"contextIn" : context_in,
+		"contextOut" : context_out,
 	}
 
 	$.post('/new_intent',data, function(res){

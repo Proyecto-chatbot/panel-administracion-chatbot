@@ -1,11 +1,11 @@
-const ENTITY_PATTERN = /[^\w]@\w+[\-\_\w]*/
+const ENTITY_PATTERN = /[^\w]@\w+[\-\_\w]*/;
 
 /**
 * Parse the text into valid JSON for body request
-* @param {*} userText 
+* @param {*} userText
 */
 exports.format_user_request = (userText)=>{
-    console.log(typeof userText);   
+    console.log(typeof userText);
     if(typeof userText == 'string'){
         if(has_entity(userText)){
             return format_entity(userText);
@@ -23,7 +23,7 @@ exports.format_user_request = (userText)=>{
 
 /**
  * Check if the user Text contains some entity (@entity)
- * @param {String} userText 
+ * @param {String} userText
  */
 let has_entity = (userText)=>{
     return ENTITY_PATTERN.test(userText);
@@ -31,7 +31,7 @@ let has_entity = (userText)=>{
 
 /**
  * Include an entity into the user text
- * @param {String} userText 
+ * @param {String} userText
  */
 let format_entity = (userText)=>{
     matches = ENTITY_PATTERN.exec(userText);

@@ -188,7 +188,8 @@ post_intent = (req,res,next)=>{
 	var nombre = req.body.name;
 	var userText = req.body.user;
 	var botText = req.body.bot;
-
+	var contextIn = req.body.contextIn;
+	var contextOut = req.body.contextOut;
 	console.log(req.body);
 
 	var botFormatted;
@@ -215,7 +216,7 @@ post_intent = (req,res,next)=>{
 		userFormatted.forEach(function(element){
 			console.log(element);
 		})
-		
+
 		postOptions = {
 			method: 'POST',
 			url: 'https://api.dialogflow.com/v1/intents',
@@ -227,14 +228,18 @@ post_intent = (req,res,next)=>{
 				'Content-Type': 'application/json'
 				},
 		  body:{
-			contexts: [],
+			contexts: [contextIn],
 			events: [],
 			fallbackIntent: false,
 			name: nombre,
 			priority: 500000,
 			responses:
 			[ { action: '',
-				affectedContexts: [],
+				affectedContexts: [{
+					"lifespan" : 5,
+					"name": contextOut,
+					"parameters": {}
+				}],
 				defaultResponsePlatforms: { google: true },
 				messages:botMessages,
 				parameters: [],
