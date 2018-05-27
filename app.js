@@ -155,7 +155,9 @@ format_user_request = (userText)=>{
 		return inputs;
 	}
 }
-
+/**
+ * Add a text message
+ */
 format_bot_response = (botText)=>{
 	if(typeof botText == 'string'){
 		botMessages.push({ platform: 'google', textToSpeech: botText ,type: 'simple_response'}),
@@ -172,7 +174,7 @@ format_bot_response = (botText)=>{
 	}
 }
 /**
- * Return a gif/image message
+ * Add a gif/image message
  */
 format_bot_image =(url)=>{
 		botMessages.push({ "type": "basic_card", "platform": "google", "image": { "url": url },"lang": "es"}),
@@ -181,7 +183,7 @@ format_bot_image =(url)=>{
 
 }
 /**
- * Return a link/document message
+ * Add a link/document message
  */
 format_bot_link = (url,nombre)=>{
 	let markdown = "["+nombre+"]("+url+")";
@@ -190,7 +192,9 @@ format_bot_link = (url,nombre)=>{
 	{ "text": markdown,"parse_mode": "Markdown"  }},"lang": "es" }),
 	botMessages.push({"type": 0,"speech": url});
 }
-
+/**
+ *  Insert a new intent
+ */
 post_intent = (req,res,next)=>{
 	var postOptions;
 	var nombre = req.body.name;
@@ -208,7 +212,6 @@ post_intent = (req,res,next)=>{
 					case 'image':
 					format_bot_image(element.text); break;
 					case 'link':
-					console.log(element.text);
 					format_bot_link(element.url, element.text); break;
 				}
 			});
@@ -275,6 +278,9 @@ app.get('/entities', get_entities, function(req,res,next){
 app.get('/create',function(req,res,next){
 	res.render('new_intent');
 });
+app.get('/create_entity',function(req,res,next){
+	res.render('new_entity');
+});
 app.get('/entities/:id', function(req,res,next){
 	let id = req.params.id;
 	get_entity(id, req, res);
@@ -296,7 +302,6 @@ app.post('/new_intent',function(req,res,next){
 	post_intent(req,res);
 });
 
-
 app.listen( PORT , function(){
-	console.log('Server listening');
+	console.log('Server listening in port '+ PORT);
 });
