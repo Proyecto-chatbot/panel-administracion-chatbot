@@ -12,6 +12,7 @@ let dropdown_options;
 let $select;
 let hasImage;
 let hasLink;
+let parameters = [];
 let $textResponse;
 let $contextIn;
 let $contextOut;
@@ -141,17 +142,33 @@ let add_new_variant = ($btn)=>{
 let checkNumResponses = ()=>{
 	return numResponses < MAX_RESPONSES;
 }
+
+/**
+ * Check if there are some parameter in the text
+ * @param {*} text 
+ */
+let search_parameter = (text)=>{
+	PATTERN_PARAMETER = /[^\w]$\w+[\-\_\w]*/
+	if(PATTERN_PARAMETER.test(text)){
+		matches = PATTERN_PARAMETER.exec(text);
+		param = matches[0].trim();
+		parameter.push(	{ "dataType": "@"+param, "isList": false,
+			"name": param,
+			"value": "$"+param
+		  })
+	}
+}
 /**
 *
 */
 let send_intent = ()=>{
 	let data = {};
 	let botSays = [];
+	let n_inputs = 0;
 	let position = 0;
-	let type;
 	let responses;
 	let text;
-	let n_inputs = 0;
+	let type;
 	context_in = $contextIn.val();
 	context_out = $contextOut.val();
 	name = $('#name').val();
@@ -183,9 +200,11 @@ let send_intent = ()=>{
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
+				search_parameter($(this).val());
 				text.push($(this).val());
 			});
 		}else if(responses.length == 1){
+			search_parameter(responses.val());
 			text = responses.val();
 		}
 		if(type == 'link'){
@@ -202,6 +221,7 @@ let send_intent = ()=>{
 		"bot": botSays,
 		"contextIn" : context_in,
 		"contextOut" : context_out,
+		"parameters" : parameters
 	}
 
 	$.post('/new_intent',data, function(res){

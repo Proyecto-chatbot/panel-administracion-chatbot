@@ -190,6 +190,7 @@ post_intent = (req,res,next)=>{
 	var botText = req.body.bot;
 	var contextIn = req.body.contextIn;
 	var contextOut = req.body.contextOut;
+	var bot_parameters = req.body.parameters;
 	console.log(req.body);
 
 	var botFormatted;
@@ -242,7 +243,7 @@ post_intent = (req,res,next)=>{
 				}],
 				defaultResponsePlatforms: { google: true },
 				messages:botMessages,
-				parameters: [],
+				parameters: [bot_parameters],
 				resetContexts: false } ],
 			templates: [],
 			userSays:

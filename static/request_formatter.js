@@ -5,7 +5,6 @@ const ENTITY_PATTERN = /[^\w]@\w+[\-\_\w]*/;
 * @param {*} userText
 */
 exports.format_user_request = (userText)=>{
-    console.log(typeof userText);
     if(typeof userText == 'string'){
         if(has_entity(userText)){
             return format_entity(userText);
