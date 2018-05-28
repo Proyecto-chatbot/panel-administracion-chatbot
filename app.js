@@ -255,12 +255,48 @@ post_intent = (req,res,next)=>{
 		request(postOptions, function (error, response, body) {
 		if (error) throw new Error(error);
 		botMessages = [];
-		res.send("/");
+		res.send("/entities");
 		});
 	});
-
-
 }
+/**
+ *  Insert a new entity
+ */
+post_entity = (req,res,next)=>{
+		let postOptions;
+		let name = req.body.name;
+		let synonyms = req.body.synonyms;
+		let entries = synonyms.map(function(element){
+			return {
+				synonyms: [element],
+				value: element
+			  };
+		})
+		postOptions = {
+			method: 'POST',
+			url: 'https://api.dialogflow.com/v1/entities',
+			qs: { v: '20150910' },
+			headers:
+				{
+				'Cache-Control': 'no-cache',
+				Authorization: 'Bearer ' + TOKEN,
+				'Content-Type': 'application/json'
+				},
+		  	body:{
+				entries: entries,
+				name: name
+			  },
+			json: true
+		};
+
+		request(postOptions, function (error, response, body) {
+		if (error) throw new Error(error);
+		res.send("/");
+		});
+}
+app.post('/new_entity', function(req, res, next){
+	post_entity(req, res);
+});
 ////
 app.get('/', get_intents, function(req, res, next){
 		res.render('index', intents);
