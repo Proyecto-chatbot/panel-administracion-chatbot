@@ -1,5 +1,6 @@
 let $btn_create;
-let $btn_delete;
+let $btn_delete_intent;
+let $btn_delete_entity;
 let $btn_add_question;
 let $btn_submit;
 let $btnAddSynonym;
@@ -29,7 +30,8 @@ let init = function(){
 	$contextOut = $('#contextOut');
 	let intent_id;
 	$btn_create = $('#btn_create');
-	$btn_delete = $("#btn-delete-intent");
+	$btn_delete_intent = $("#btn-delete-intent");
+	$btn_delete_entity = $('#btn-delete-entity');
 	$btn_add_question = $("#addUserText");
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
@@ -40,9 +42,15 @@ let init = function(){
 	$btn_create.click(function(){
 		$.get('/create');
 	});
-	$btn_delete.click(function(){
+	$btn_delete_intent.click(function(){
 		intent_id = $("#input-id").val();
 		$.post('/delete',{id : intent_id}, function(res){
+			location.href = res;
+		});
+	});
+	$btn_delete_entity.click(function(){
+		entity_id = $("#entity-id").val();
+		$.post('/delete_entity',{id : entity_id},function(res){
 			location.href = res;
 		});
 	});

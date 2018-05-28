@@ -95,10 +95,8 @@ get_intent = (id, req, res)=>{
     		if (error){
           		console.log(error);
         }else{
-			console.log(response);
 			  selected_intent = body;
 			  intent = JSON.parse(selected_intent);
-			//  console.log(intent.responses[0].messages[0].speech);
 			  res.render('detail', intent);
         }
   	});
@@ -143,6 +141,21 @@ get_entity = (id, req, res)=>{
   	});
 }
 
+delete_entity =(id,req,res)=>{
+    var options = {
+		method: 'DELETE',
+		  url: 'https://api.dialogflow.com/v1/entities/'+id,
+		  qs: { v: '20150910' },
+		  contentType: "application/json",
+		  headers:
+		   {
+			 'Cache-Control': 'no-cache',
+			 Authorization: 'Bearer ' + TOKEN }
+		 };
+		request(options, function (error, response, body) {
+			if (error) throw new Error(error);
+  		});
+};
 /**
  * Add a text message
  */
@@ -328,6 +341,14 @@ app.post('/delete',function(req,res,next){
 		res.send("/");
 	});
 });
+app.post('/delete_entity',function(req,res,next){
+	let id = req.body.id;
+	promise = new Promise((resolve)=>{
+		resolve(delete_entity(id,req,res));
+	}).then(()=>{
+		res.send("/");
+	});
+})
 app.get('/:id', function(req, res, next){
 	let id = req.params.id;
 	get_intent(id, req, res);
