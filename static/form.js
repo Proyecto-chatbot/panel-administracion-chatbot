@@ -2,6 +2,7 @@ let $btn_create;
 let $btn_delete;
 let $btn_add_question;
 let $btn_submit;
+let $btnAddSynonym;
 let $name;
 // El máximo de respuestas posibles son 10
 const MAX_RESPONSES = 10;
@@ -32,6 +33,10 @@ let init = function(){
 	$btn_add_question = $("#addUserText");
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
+	$btnAddSynonym = $("#add-synonym").click(function(event){
+		event.preventDefault();
+		add_new_synonym();
+	});
 	$btn_create.click(function(){
 		$.get('/create');
 	});
@@ -40,6 +45,10 @@ let init = function(){
 		$.post('/delete',{id : intent_id}, function(res){
 			location.href = res;
 		});
+	});
+	$('#btn-create-entity').click(function(event){
+		event.preventDefault();
+		create_entity();
 	});
 
 	$btn_add_question.click(function(event){
@@ -60,6 +69,22 @@ let init = function(){
 		event.preventDefault();
 		add_new_block($(this).prop('name'));
 	})
+}
+/**
+ * Insert a new entity
+ */
+let create_entity = function(){
+	let synonyms = [];
+	$('.synonym').each(function(){
+		synonyms.push($(this).val());
+	});
+	let data = {
+		name : $('#name-entity').val(),
+		synonyms: synonyms
+	}
+	$.post('/new_entity', data, function(res){
+		location.href = res;
+	});
 }
 /**
 * Insert a new input for user says
@@ -135,6 +160,12 @@ let add_new_link = function(title){
  */
 let add_new_variant = ($btn)=>{
 	$btn.before('<input name="response'+numResponses+'" type="text" class=" response validate">');
+}
+/**
+ * Insert a new synonym
+ */
+let add_new_synonym =()=>{
+	$btnAddSynonym.before('<input class="synonym" name="sinonym" type="text" class="validate">');
 }
 /**
 * Check that the number of answers is less than the maximum number of responses allowed
