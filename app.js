@@ -255,7 +255,7 @@ post_intent = (req,res,next)=>{
 		request(postOptions, function (error, response, body) {
 		if (error) throw new Error(error);
 		botMessages = [];
-		res.send("/entities");
+		res.send("/");
 		});
 	});
 }
@@ -291,7 +291,7 @@ post_entity = (req,res,next)=>{
 
 		request(postOptions, function (error, response, body) {
 		if (error) throw new Error(error);
-		res.send("/");
+		res.send("/entities");
 		});
 }
 app.post('/new_entity', function(req, res, next){
