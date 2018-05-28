@@ -7,14 +7,17 @@ const ENTITY_PATTERN = /[^\w]@\w+[\-\_\w]*/;
 exports.format_user_request = (userText)=>{
     if(typeof userText == 'string'){
         if(has_entity(userText)){
-            return format_entity(userText);
+            return [format_entity(userText)];
         }else{
             return [{ data: [ { text: userText } ] }] ;
         }
 	}else{
 		let inputs = [];
 		userText.forEach(element => {
-			inputs.push({ data: [ { text: element } ] })
+            if(has_entity(element))
+                inputs.push(format_entity(element));
+            else
+    			inputs.push({ data: [ { text: element } ] })
 		});
 		return inputs;
 	}
@@ -38,7 +41,7 @@ let format_entity = (userText)=>{
     divided_text = userText.split(entity);
     let str = entity.slice(1,entity.length);
     console.log('antes: ' + entity + ' despues: '+str);
-    formatted_text = [
+    formatted_text = 
         {
             data: [
                 {text : divided_text[0]+" "},
@@ -46,6 +49,6 @@ let format_entity = (userText)=>{
                 {text : " "+divided_text[1]}
             ]
         }
-    ];
+    ;
     return formatted_text;
 }
