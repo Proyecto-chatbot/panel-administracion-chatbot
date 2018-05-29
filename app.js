@@ -274,6 +274,87 @@ post_intent = (req,res,next)=>{
 	});
 }
 /**
+ * Update a intent
+ */
+put_intent = (id,req,res,next)=>{
+	var postOptions;
+	var nombre = req.body.name;
+	var userText = req.body.user;
+	var botText = req.body.bot;
+	var contextIn = req.body.contextIn;
+	var contextOut = req.body.contextOut;
+	var bot_parameters = req.body.parameters;
+	var id = req.body.id;
+	console.log(req.body);
+
+	var botFormatted;
+	promise = new Promise((resolve)=>{
+		botText.forEach(function(element){
+				switch(element.type){
+					case 'text':
+					format_bot_response(element.text); break;
+					case 'image':
+					format_bot_image(element.text); break;
+					case 'link':
+					format_bot_link(element.url, element.text); break;
+				}
+			});
+		resolve(userFormatted = formatter.format_user_request(userText));
+	});
+
+	promise.then((userFormatted) => {
+		console.log('--------BOT MESSAGES--------\n');
+		botMessages.forEach(function(element){
+			console.log(element);
+		});
+		console.log('--------USER MESSAGES--------\n');
+		userFormatted.forEach(function(element){
+			console.log(element);
+		})
+
+		postOptions = {
+			method: 'PUT',
+			url: 'https://api.dialogflow.com/v1/intents/'+id,
+			qs: { v: '20150910' },
+			headers:
+				{
+				'Cache-Control': 'no-cache',
+				Authorization: 'Bearer ' + TOKEN,
+				'Content-Type': 'application/json'
+				},
+		  body:{
+			contexts: [contextIn],
+			events: [],
+			fallbackIntent: false,
+			name: nombre,
+			priority: 500000,
+			responses:
+			[ { action: '',
+				affectedContexts: [{
+					"lifespan" : 5,
+					"name": contextOut,
+					"parameters": {}
+				}],
+				defaultResponsePlatforms: { google: true },
+				messages:botMessages,
+				parameters: [bot_parameters],
+				resetContexts: false } ],
+			templates: [],
+			userSays:
+			 userFormatted,
+			webhookForSlotFilling: false,
+			webhookUsed: false },
+			json: true
+		};
+
+		request(postOptions, function (error, response, body) {
+		if (error) throw new Error(error);
+		botMessages = [];
+		res.send("/");
+		});
+	});
+}
+/**
  *  Insert a new entity
  */
 post_entity = (req,res,next)=>{
@@ -341,14 +422,13 @@ app.post('/delete',function(req,res,next){
 		res.send("/");
 	});
 });
-app.post('/delete_entity',function(req,res,next){
+app.post('/update',function(req,res,next){
 	let id = req.body.id;
-	promise = new Promise((resolve)=>{
-		resolve(delete_entity(id,req,res));
-	}).then(()=>{
-		res.send("/");
-	});
-})
+	put_intent(id, req, res);
+});
+app.get('/edit', function(req, res){
+	res.render('set_intent', intent);
+});
 app.get('/:id', function(req, res, next){
 	let id = req.params.id;
 	get_intent(id, req, res);

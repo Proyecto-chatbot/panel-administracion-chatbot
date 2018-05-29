@@ -19,6 +19,7 @@ let $textResponse;
 let $contextIn;
 let $contextOut;
 let init = function(){
+
 	numResponses = 0;
 	hasImage = false;
 	$select = $('.select');
@@ -29,12 +30,20 @@ let init = function(){
 	$contextIn = $('#contextIn');
 	$contextOut = $('#contextOut');
 	let intent_id;
+	
 	$btn_create = $('#btn_create');
 	$btn_delete_intent = $("#btn-delete-intent");
 	$btn_delete_entity = $('#btn-delete-entity');
 	$btn_add_question = $("#addUserText");
+
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
+	
+	$('.data_text').each(function(){
+		$span = $(this).children('span').text();
+		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
+		$(this).children('input').prop('value',$clean_span);
+	})
 	$btnAddSynonym = $("#add-synonym").click(function(event){
 		event.preventDefault();
 		add_new_synonym();
@@ -58,7 +67,75 @@ let init = function(){
 		event.preventDefault();
 		create_entity();
 	});
+	$('#btn_edit_intent').click(function(event){
+		event.preventDefault();
+		intent_id = $("#input-id").val();
+		let data = {};
+	let botSays = [];
+	let n_inputs = 0;
+	let position = 0;
+	let responses;
+	let text;
+	let type;
+	context_in = $contextIn.val();
+	context_out = $contextOut.val();
+	name = $('#name').val();
+	input_user = $('.user');
+	input_user.each(function(){
+		n_inputs++;
+	});
+	if(n_inputs > 1){
+		userSays = [];
+		input_user.each(function(index, element){
+			userSays.push($(this).val());
+		});
+	}else{
+		userSays = '';
+		userSays = input_user.val();
+	}
+	$('.bloq').each(function(){
+		if($(this).hasClass('type-text')){
+			type = 'text';
+		}
+		if($(this).hasClass('type-image')){
+			type = 'image';
+		}
+		if($(this).hasClass('type-link')){
+			type = 'link';
+		}
+		responses = $(this).children('.response');
 
+		if(responses.length > 1){
+			text = [];
+			responses.each(function(){
+				search_parameter($(this).val());
+				text.push($(this).val());
+			});
+		}else if(responses.length == 1){
+			search_parameter(responses.val());
+			text = responses.val();
+		}
+		if(type == 'link'){
+			url = $(this).children('.url').val();
+			botSays.push({ 'type': type, 'text': text, 'url': url});
+		}
+		else
+			botSays.push({ 'type': type, 'text': text});
+
+	});
+	data = {
+		"name": name,
+		"user": userSays,
+		"bot": botSays,
+		"contextIn" : context_in,
+		"contextOut" : context_out,
+		"parameters" : parameters,
+		"id" : intent_id
+	}
+		$.post('/update',data,function(res){
+			location.href = res; 
+		})
+	})
 	$btn_add_question.click(function(event){
 		event.preventDefault();
 		add_new_input($(this));
