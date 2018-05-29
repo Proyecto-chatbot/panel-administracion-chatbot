@@ -79,7 +79,7 @@ get_entities = (req, res, next)=>{
 }
 
 get_intent = (id, req, res)=>{
-    var options = {
+	var options = {
   		method: 'GET',
     		url: 'https://api.dialogflow.com/v1/intents/'+id,
 			qs: { v: '20150910' },
@@ -95,9 +95,9 @@ get_intent = (id, req, res)=>{
     		if (error){
           		console.log(error);
         }else{
-			  selected_intent = body;
-			  intent = JSON.parse(selected_intent);
-			  res.render('detail', intent);
+			selected_intent = body;
+			intent = JSON.parse(selected_intent);
+			res.render('detail',intent);
         }
   	});
 
@@ -117,6 +117,28 @@ delete_intent =(id,req,res)=>{
 			if (error) throw new Error(error);
   		});
 };
+edit_intent = (id, req, res)=>{
+	var options = {
+	    method: 'GET',
+		url: 'https://api.dialogflow.com/v1/intents/'+id,
+		qs: { v: '20150910' },
+		dataType: "json",
+		contentType: "application/json; charset=utf-8",
+		headers:
+			{
+			'Cache-Control': 'no-cache',
+			Authorization: 'Bearer ' + TOKEN }
+			};
+	request(options, function (error, response, body) {
+		if (error){
+	    	console.log(error);
+		}else{
+			selected_intent = body;
+			intent = JSON.parse(selected_intent);
+			res.render('set_intent',intent);
+		}
+	});
+}
 get_entity = (id, req, res)=>{
     var options = {
   		method: 'GET',
@@ -267,87 +289,87 @@ post_intent = (req,res,next)=>{
 		};
 
 		request(postOptions, function (error, response, body) {
-		if (error) throw new Error(error);
-		botMessages = [];
-		res.send("/");
-		});
-	});
-}
-/**
- * Update a intent
- */
-put_intent = (id,req,res,next)=>{
-	var postOptions;
-	var nombre = req.body.name;
-	var userText = req.body.user;
-	var botText = req.body.bot;
-	var contextIn = req.body.contextIn;
-	var contextOut = req.body.contextOut;
-	var bot_parameters = req.body.parameters;
-	var id = req.body.id;
-	console.log(req.body);
-
-	var botFormatted;
-	promise = new Promise((resolve)=>{
-		botText.forEach(function(element){
-				switch(element.type){
-					case 'text':
-					format_bot_response(element.text); break;
-					case 'image':
-					format_bot_image(element.text); break;
-					case 'link':
-					format_bot_link(element.url, element.text); break;
-				}
+			if (error) throw new Error(error);
+			botMessages = [];
+			res.send("/");
 			});
-		resolve(userFormatted = formatter.format_user_request(userText));
-	});
-
-	promise.then((userFormatted) => {
-		console.log('--------BOT MESSAGES--------\n');
-		botMessages.forEach(function(element){
-			console.log(element);
 		});
-		console.log('--------USER MESSAGES--------\n');
-		userFormatted.forEach(function(element){
-			console.log(element);
-		})
+	}
+	/**
+	 * Update a intent
+	 */
+	put_intent = (id,req,res,next)=>{
+		var postOptions;
+		var nombre = req.body.name;
+		var userText = req.body.user;
+		var botText = req.body.bot;
+		var contextIn = req.body.contextIn;
+		var contextOut = req.body.contextOut;
+		var bot_parameters = req.body.parameters;
+		var id = req.body.id;
+		console.log(req.body);
 
-		postOptions = {
-			method: 'PUT',
-			url: 'https://api.dialogflow.com/v1/intents/'+id,
-			qs: { v: '20150910' },
-			headers:
-				{
-				'Cache-Control': 'no-cache',
-				Authorization: 'Bearer ' + TOKEN,
-				'Content-Type': 'application/json'
-				},
-		  body:{
-			contexts: [contextIn],
-			events: [],
-			fallbackIntent: false,
-			name: nombre,
-			priority: 500000,
-			responses:
-			[ { action: '',
-				affectedContexts: [{
-					"lifespan" : 5,
-					"name": contextOut,
-					"parameters": {}
-				}],
-				defaultResponsePlatforms: { google: true },
-				messages:botMessages,
-				parameters: [bot_parameters],
-				resetContexts: false } ],
-			templates: [],
-			userSays:
-			 userFormatted,
-			webhookForSlotFilling: false,
-			webhookUsed: false },
-			json: true
-		};
+		var botFormatted;
+		promise = new Promise((resolve)=>{
+			botText.forEach(function(element){
+					switch(element.type){
+						case 'text':
+						format_bot_response(element.text); break;
+						case 'image':
+						format_bot_image(element.text); break;
+						case 'link':
+						format_bot_link(element.url, element.text); break;
+					}
+				});
+			resolve(userFormatted = formatter.format_user_request(userText));
+		});
 
-		request(postOptions, function (error, response, body) {
+		promise.then((userFormatted) => {
+			console.log('--------BOT MESSAGES--------\n');
+			botMessages.forEach(function(element){
+				console.log(element);
+			});
+			console.log('--------USER MESSAGES--------\n');
+			userFormatted.forEach(function(element){
+				console.log(element);
+			})
+
+			postOptions = {
+				method: 'PUT',
+				url: 'https://api.dialogflow.com/v1/intents/'+id,
+				qs: { v: '20150910' },
+				headers:
+					{
+					'Cache-Control': 'no-cache',
+					Authorization: 'Bearer ' + TOKEN,
+					'Content-Type': 'application/json'
+					},
+			  body:{
+				contexts: [contextIn],
+				events: [],
+				fallbackIntent: false,
+				name: nombre,
+				priority: 500000,
+				responses:
+				[ { action: '',
+					affectedContexts: [{
+						"lifespan" : 5,
+						"name": contextOut,
+						"parameters": {}
+					}],
+					defaultResponsePlatforms: { google: true },
+					messages:botMessages,
+					parameters: [bot_parameters],
+					resetContexts: false } ],
+				templates: [],
+				userSays:
+				 userFormatted,
+				webhookForSlotFilling: false,
+				webhookUsed: false },
+				json: true
+			};
+
+			request(postOptions, function (error, response, body) {
 		if (error) throw new Error(error);
 		botMessages = [];
 		res.send("/");
@@ -426,8 +448,9 @@ app.post('/update',function(req,res,next){
 	let id = req.body.id;
 	put_intent(id, req, res);
 });
-app.get('/edit', function(req, res){
-	res.render('set_intent', intent);
+app.post('/edit', function(req, res,next){
+	let id = req.body.id;
+	edit_intent(id, req, res);
 });
 app.get('/:id', function(req, res, next){
 	let id = req.params.id;

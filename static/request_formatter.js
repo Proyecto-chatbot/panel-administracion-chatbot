@@ -41,7 +41,7 @@ let format_entity = (userText)=>{
     divided_text = userText.split(entity);
     let str = entity.slice(1,entity.length);
     console.log('antes: ' + entity + ' despues: '+str);
-    formatted_text = 
+    formatted_text =
         {
             data: [
                 {text : divided_text[0]+" "},

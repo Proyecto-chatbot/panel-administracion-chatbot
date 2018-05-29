@@ -30,7 +30,7 @@ let init = function(){
 	$contextIn = $('#contextIn');
 	$contextOut = $('#contextOut');
 	let intent_id;
-	
+
 	$btn_create = $('#btn_create');
 	$btn_delete_intent = $("#btn-delete-intent");
 	$btn_delete_entity = $('#btn-delete-entity');
@@ -38,7 +38,7 @@ let init = function(){
 
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
-	
+
 	$('.data_text').each(function(){
 		$span = $(this).children('span').text();
 		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
@@ -66,6 +66,12 @@ let init = function(){
 	$('#btn-create-entity').click(function(event){
 		event.preventDefault();
 		create_entity();
+	});
+
+	$('#open-edit-intent').click(function(event){
+		event.preventDefault();
+		entity_id = $('#input-id').val();
+		$.post('/edit',{id : entity_id});
 	});
 	$('#btn_edit_intent').click(function(event){
 		event.preventDefault();
@@ -133,7 +139,7 @@ let init = function(){
 		"id" : intent_id
 	}
 		$.post('/update',data,function(res){
-			location.href = res; 
+			location.href = res;
 		})
 	})
 	$btn_add_question.click(function(event){
@@ -261,7 +267,7 @@ let checkNumResponses = ()=>{
 
 /**
  * Check if there are some parameter in the text
- * @param {*} text 
+ * @param {*} text
  */
 let search_parameter = (text)=>{
 	PATTERN_PARAMETER = /[^\w]$\w+[\-\_\w]*/

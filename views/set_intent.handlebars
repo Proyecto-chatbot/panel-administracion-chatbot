@@ -22,7 +22,7 @@
 				    {{else}}
 					    <span> {{text}} </span>
 				    {{/if}}
-                
+
                 {{/each}}
                 </span>
                 <input class="user" name="user" type="text" class="validate">
@@ -34,7 +34,7 @@
         </div>
         <div class="select input-field col s12">
             {{#each this.responses }}
-                {{#each messages}}            
+                {{#each messages}}
                     {{#if textToSpeech}}
                         <div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>
                         <input class="response validate" type="text" value= "{{textToSpeech}}"><button class="btnAddVariant btn-small waves-effect waves-light right"
