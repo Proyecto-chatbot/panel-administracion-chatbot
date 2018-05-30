@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var exphbs = require('express-handlebars');
 var HandlebarsIntl = require('handlebars-intl');
+var formatter = require('./static/request_formatter');
 var domain = process.env.APP_HOST;
 const PORT = process.env.PORT || 3000;
 const TOKEN =  process.env.token;
@@ -78,7 +79,7 @@ get_entities = (req, res, next)=>{
 }
 
 get_intent = (id, req, res)=>{
-    var options = {
+	var options = {
   		method: 'GET',
     		url: 'https://api.dialogflow.com/v1/intents/'+id,
 			qs: { v: '20150910' },
@@ -94,11 +95,9 @@ get_intent = (id, req, res)=>{
     		if (error){
           		console.log(error);
         }else{
-			console.log(response);
-			  selected_intent = body;
-			  intent = JSON.parse(selected_intent);
-			//  console.log(intent.responses[0].messages[0].speech);
-			  res.render('detail', intent);
+			selected_intent = body;
+			intent = JSON.parse(selected_intent);
+			res.render('detail',intent);
         }
   	});
 
@@ -118,6 +117,30 @@ delete_intent =(id,req,res)=>{
 			if (error) throw new Error(error);
   		});
 };
+edit_intent = (id, req, res,next)=>{
+
+	var options = {
+	    method: 'GET',
+		url: 'https://api.dialogflow.com/v1/intents/'+id,
+		qs: { v: '20150910' },
+		dataType: "json",
+		contentType: "application/json; charset=utf-8",
+		headers:
+			{
+			'Cache-Control': 'no-cache',
+			Authorization: 'Bearer ' + TOKEN }
+			};
+	request(options, function (error, response, body) {
+		if (error){
+	    	console.log(error);
+		}else{
+			selected_intent = body;
+			intent = JSON.parse(selected_intent);
+
+			res.render('set_intent',intent);
+		}
+	});
+}
 get_entity = (id, req, res)=>{
     var options = {
   		method: 'GET',
@@ -141,21 +164,25 @@ get_entity = (id, req, res)=>{
         }
   	});
 }
-/**
- * Parse the text into valid JSON for body request
-*/
-format_user_request = (userText)=>{
-	if(typeof userText == 'string'){
-		return [{ data: [ { text: userText } ] }] ;
-	}else{
-		let inputs = [];
-		userText.forEach(element => {
-			inputs.push({ data: [ { text: element } ] })
-		});
-		return inputs;
-	}
-}
 
+delete_entity =(id,req,res)=>{
+    var options = {
+		method: 'DELETE',
+		  url: 'https://api.dialogflow.com/v1/entities/'+id,
+		  qs: { v: '20150910' },
+		  contentType: "application/json",
+		  headers:
+		   {
+			 'Cache-Control': 'no-cache',
+			 Authorization: 'Bearer ' + TOKEN }
+		 };
+		request(options, function (error, response, body) {
+			if (error) throw new Error(error);
+  		});
+};
+/**
+ * Add a text message
+ */
 format_bot_response = (botText)=>{
 	if(typeof botText == 'string'){
 		botMessages.push({ platform: 'google', textToSpeech: botText ,type: 'simple_response'}),
@@ -172,7 +199,7 @@ format_bot_response = (botText)=>{
 	}
 }
 /**
- * Return a gif/image message
+ * Add a gif/image message
  */
 format_bot_image =(url)=>{
 		botMessages.push({ "type": "basic_card", "platform": "google", "image": { "url": url },"lang": "es"}),
@@ -181,7 +208,7 @@ format_bot_image =(url)=>{
 
 }
 /**
- * Return a link/document message
+ * Add a link/document message
  */
 format_bot_link = (url,nombre)=>{
 	let markdown = "["+nombre+"]("+url+")";
@@ -190,13 +217,17 @@ format_bot_link = (url,nombre)=>{
 	{ "text": markdown,"parse_mode": "Markdown"  }},"lang": "es" }),
 	botMessages.push({"type": 0,"speech": url});
 }
-
+/**
+ *  Insert a new intent
+ */
 post_intent = (req,res,next)=>{
 	var postOptions;
 	var nombre = req.body.name;
 	var userText = req.body.user;
 	var botText = req.body.bot;
-
+	var contextIn = req.body.contextIn;
+	var contextOut = req.body.contextOut;
+	var bot_parameters = req.body.parameters;
 	console.log(req.body);
 
 	var botFormatted;
@@ -208,18 +239,22 @@ post_intent = (req,res,next)=>{
 					case 'image':
 					format_bot_image(element.text); break;
 					case 'link':
-					console.log(element.text);
 					format_bot_link(element.url, element.text); break;
 				}
 			});
-		resolve(userFormatted = format_user_request(userText));
+		resolve(userFormatted = formatter.format_user_request(userText));
 	});
 
 	promise.then((userFormatted) => {
 		console.log('--------BOT MESSAGES--------\n');
 		botMessages.forEach(function(element){
 			console.log(element);
+		});
+		console.log('--------USER MESSAGES--------\n');
+		userFormatted.forEach(function(element){
+			console.log(element);
 		})
+
 		postOptions = {
 			method: 'POST',
 			url: 'https://api.dialogflow.com/v1/intents',
@@ -231,17 +266,21 @@ post_intent = (req,res,next)=>{
 				'Content-Type': 'application/json'
 				},
 		  body:{
-			contexts: [],
+			contexts: [contextIn],
 			events: [],
 			fallbackIntent: false,
 			name: nombre,
 			priority: 500000,
 			responses:
 			[ { action: '',
-				affectedContexts: [],
+				affectedContexts: [{
+					"lifespan" : 5,
+					"name": contextOut,
+					"parameters": {}
+				}],
 				defaultResponsePlatforms: { google: true },
 				messages:botMessages,
-				parameters: [],
+				parameters: [bot_parameters],
 				resetContexts: false } ],
 			templates: [],
 			userSays:
@@ -252,14 +291,131 @@ post_intent = (req,res,next)=>{
 		};
 
 		request(postOptions, function (error, response, body) {
+			if (error) throw new Error(error);
+			botMessages = [];
+			res.send("/");
+			});
+		});
+	}
+	/**
+	 * Update a intent
+	 */
+	put_intent = (id,req,res,next)=>{
+		var postOptions;
+		var nombre = req.body.name;
+		var userText = req.body.user;
+		var botText = req.body.bot;
+		var contextIn = req.body.contextIn;
+		var contextOut = req.body.contextOut;
+		var bot_parameters = req.body.parameters;
+		var id = req.body.id;
+		console.log(req.body);
+
+		var botFormatted;
+		promise = new Promise((resolve)=>{
+			botText.forEach(function(element){
+					switch(element.type){
+						case 'text':
+						format_bot_response(element.text); break;
+						case 'image':
+						format_bot_image(element.text); break;
+						case 'link':
+						format_bot_link(element.url, element.text); break;
+					}
+				});
+			resolve(userFormatted = formatter.format_user_request(userText));
+		});
+
+		promise.then((userFormatted) => {
+			console.log('--------BOT MESSAGES--------\n');
+			botMessages.forEach(function(element){
+				console.log(element);
+			});
+			console.log('--------USER MESSAGES--------\n');
+			userFormatted.forEach(function(element){
+				console.log(element);
+			})
+
+			postOptions = {
+				method: 'PUT',
+				url: 'https://api.dialogflow.com/v1/intents/'+id,
+				qs: { v: '20150910' },
+				headers:
+					{
+					'Cache-Control': 'no-cache',
+					Authorization: 'Bearer ' + TOKEN,
+					'Content-Type': 'application/json'
+					},
+			  body:{
+				contexts: [contextIn],
+				events: [],
+				fallbackIntent: false,
+				name: nombre,
+				priority: 500000,
+				responses:
+				[ { action: '',
+					affectedContexts: [{
+						"lifespan" : 5,
+						"name": contextOut,
+						"parameters": {}
+					}],
+					defaultResponsePlatforms: { google: true },
+					messages:botMessages,
+					parameters: [bot_parameters],
+					resetContexts: false } ],
+				templates: [],
+				userSays:
+				 userFormatted,
+				webhookForSlotFilling: false,
+				webhookUsed: false },
+				json: true
+			};
+
+			request(postOptions, function (error, response, body) {
 		if (error) throw new Error(error);
 		botMessages = [];
 		res.send("/");
 		});
 	});
-
-
 }
+/**
+ *  Insert a new entity
+ */
+post_entity = (req,res,next)=>{
+		let postOptions;
+		let name = req.body.name;
+		let synonyms = req.body.synonyms;
+		let entries = synonyms.map(function(element){
+			return {
+				synonyms: [element],
+				value: element
+			  };
+		})
+		postOptions = {
+			method: 'POST',
+			url: 'https://api.dialogflow.com/v1/entities',
+			qs: { v: '20150910' },
+			headers:
+				{
+				'Cache-Control': 'no-cache',
+				Authorization: 'Bearer ' + TOKEN,
+				'Content-Type': 'application/json'
+				},
+		  	body:{
+				entries: entries,
+				name: name
+			  },
+			json: true
+		};
+
+		request(postOptions, function (error, response, body) {
+		if (error) throw new Error(error);
+		res.send("/entities");
+		});
+}
+app.post('/new_entity', function(req, res, next){
+	post_entity(req, res);
+});
 ////
 app.get('/', get_intents, function(req, res, next){
 		res.render('index', intents);
@@ -275,6 +431,9 @@ app.get('/entities', get_entities, function(req,res,next){
 app.get('/create',function(req,res,next){
 	res.render('new_intent');
 });
+app.get('/create_entity',function(req,res,next){
+	res.render('new_entity');
+});
 app.get('/entities/:id', function(req,res,next){
 	let id = req.params.id;
 	get_entity(id, req, res);
@@ -287,6 +446,14 @@ app.post('/delete',function(req,res,next){
 		res.send("/");
 	});
 });
+app.post('/update',function(req,res,next){
+	let id = req.body.id;
+	put_intent(id, req, res);
+});
+app.post('/edit', function(req, res,next){
+	let id = req.body.id;
+	edit_intent(id, req, res,next);
+});
 app.get('/:id', function(req, res, next){
 	let id = req.params.id;
 	get_intent(id, req, res);
@@ -296,7 +463,6 @@ app.post('/new_intent',function(req,res,next){
 	post_intent(req,res);
 });
 
-
 app.listen( PORT , function(){
-	console.log('Server listening');
+	console.log('Server listening in port '+ PORT);
 });

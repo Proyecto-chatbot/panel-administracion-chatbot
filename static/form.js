@@ -1,7 +1,9 @@
 let $btn_create;
-let $btn_delete;
+let $btn_delete_intent;
+let $btn_delete_entity;
 let $btn_add_question;
 let $btn_submit;
+let $btnAddSynonym;
 let $name;
 // El máximo de respuestas posibles son 10
 const MAX_RESPONSES = 10;
@@ -12,30 +14,134 @@ let dropdown_options;
 let $select;
 let hasImage;
 let hasLink;
+let parameters = [];
 let $textResponse;
+let $contextIn;
+let $contextOut;
 let init = function(){
+
 	numResponses = 0;
 	hasImage = false;
 	$select = $('.select');
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();
 	dropdown_options = $('.dropdown-content li a');
+	$('.collapsible').collapsible();
+	$contextIn = $('#contextIn');
+	$contextOut = $('#contextOut');
 	let intent_id;
+
 	$btn_create = $('#btn_create');
-	$btn_delete = $("#btn-delete-intent");
+	$btn_delete_intent = $("#btn-delete-intent");
+	$btn_delete_entity = $('#btn-delete-entity');
 	$btn_add_question = $("#addUserText");
+
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
+
+	$('.data_text').each(function(){
+		$span = $(this).children('span').text();
+		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
+		$(this).children('input').prop('value',$clean_span);
+	})
+	$btnAddSynonym = $("#add-synonym").click(function(event){
+		event.preventDefault();
+		add_new_synonym();
+	});
 	$btn_create.click(function(){
 		$.get('/create');
 	});
-	$btn_delete.click(function(){
+	$btn_delete_intent.click(function(){
 		intent_id = $("#input-id").val();
 		$.post('/delete',{id : intent_id}, function(res){
 			location.href = res;
 		});
 	});
+	$btn_delete_entity.click(function(){
+		entity_id = $("#entity-id").val();
+		$.post('/delete_entity',{id : entity_id},function(res){
+			location.href = res;
+		});
+	});
+	$('#btn-create-entity').click(function(event){
+		event.preventDefault();
+		create_entity();
+	});
 
+	$('#open-edit-intent').click(function(event){
+		//event.preventDefault();
+		//entity_id = $('#input-id').val();
+		//$.post('/edit',{id : entity_id});
+	});
+	$('#btn_edit_intent').click(function(event){
+		event.preventDefault();
+		intent_id = $("#input-id").val();
+		let data = {};
+	let botSays = [];
+	let n_inputs = 0;
+	let position = 0;
+	let responses;
+	let text;
+	let type;
+	context_in = $contextIn.val();
+	context_out = $contextOut.val();
+	name = $('#name').val();
+	input_user = $('.user');
+	input_user.each(function(){
+		n_inputs++;
+	});
+	if(n_inputs > 1){
+		userSays = [];
+		input_user.each(function(index, element){
+			userSays.push($(this).val());
+		});
+	}else{
+		userSays = '';
+		userSays = input_user.val();
+	}
+	$('.bloq').each(function(){
+		if($(this).hasClass('type-text')){
+			type = 'text';
+		}
+		if($(this).hasClass('type-image')){
+			type = 'image';
+		}
+		if($(this).hasClass('type-link')){
+			type = 'link';
+		}
+		responses = $(this).children('.response');
+
+		if(responses.length > 1){
+			text = [];
+			responses.each(function(){
+				search_parameter($(this).val());
+				text.push($(this).val());
+			});
+		}else if(responses.length == 1){
+			search_parameter(responses.val());
+			text = responses.val();
+		}
+		if(type == 'link'){
+			url = $(this).children('.url').val();
+			botSays.push({ 'type': type, 'text': text, 'url': url});
+		}
+		else
+			botSays.push({ 'type': type, 'text': text});
+
+	});
+	data = {
+		"name": name,
+		"user": userSays,
+		"bot": botSays,
+		"contextIn" : context_in,
+		"contextOut" : context_out,
+		"parameters" : parameters,
+		"id" : intent_id
+	}
+		$.post('/update',data,function(res){
+			location.href = res;
+		})
+	})
 	$btn_add_question.click(function(event){
 		event.preventDefault();
 		add_new_input($(this));
@@ -54,6 +160,22 @@ let init = function(){
 		event.preventDefault();
 		add_new_block($(this).prop('name'));
 	})
+}
+/**
+ * Insert a new entity
+ */
+let create_entity = function(){
+	let synonyms = [];
+	$('.synonym').each(function(){
+		synonyms.push($(this).val());
+	});
+	let data = {
+		name : $('#name-entity').val(),
+		synonyms: synonyms
+	}
+	$.post('/new_entity', data, function(res){
+		location.href = res;
+	});
 }
 /**
 * Insert a new input for user says
@@ -131,10 +253,32 @@ let add_new_variant = ($btn)=>{
 	$btn.before('<input name="response'+numResponses+'" type="text" class=" response validate">');
 }
 /**
+ * Insert a new synonym
+ */
+let add_new_synonym =()=>{
+	$btnAddSynonym.before('<input class="synonym" name="sinonym" type="text" class="validate">');
+}
+/**
 * Check that the number of answers is less than the maximum number of responses allowed
 */
 let checkNumResponses = ()=>{
 	return numResponses < MAX_RESPONSES;
+}
+
+/**
+ * Check if there are some parameter in the text
+ * @param {*} text
+ */
+let search_parameter = (text)=>{
+	PATTERN_PARAMETER = /[^\w]$\w+[\-\_\w]*/
+	if(PATTERN_PARAMETER.test(text)){
+		matches = PATTERN_PARAMETER.exec(text);
+		param = matches[0].trim();
+		parameter.push(	{ "dataType": "@"+param, "isList": false,
+			"name": param,
+			"value": "$"+param
+		  })
+	}
 }
 /**
 *
@@ -142,12 +286,27 @@ let checkNumResponses = ()=>{
 let send_intent = ()=>{
 	let data = {};
 	let botSays = [];
+	let n_inputs = 0;
 	let position = 0;
-	let type;
 	let responses;
 	let text;
+	let type;
+	context_in = $contextIn.val();
+	context_out = $contextOut.val();
 	name = $('#name').val();
-	userSays = $('.user').val();
+	input_user = $('.user');
+	input_user.each(function(){
+		n_inputs++;
+	});
+	if(n_inputs > 1){
+		userSays = [];
+		input_user.each(function(index, element){
+			userSays.push($(this).val());
+		});
+	}else{
+		userSays = '';
+		userSays = input_user.val();
+	}
 	$('.bloq').each(function(){
 		if($(this).hasClass('type-text')){
 			type = 'text';
@@ -163,9 +322,11 @@ let send_intent = ()=>{
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
+				search_parameter($(this).val());
 				text.push($(this).val());
 			});
 		}else if(responses.length == 1){
+			search_parameter(responses.val());
 			text = responses.val();
 		}
 		if(type == 'link'){
@@ -179,7 +340,10 @@ let send_intent = ()=>{
 	data = {
 		"name": name,
 		"user": userSays,
-		"bot": botSays
+		"bot": botSays,
+		"contextIn" : context_in,
+		"contextOut" : context_out,
+		"parameters" : parameters
 	}
 
 	$.post('/new_intent',data, function(res){

@@ -1,4 +1,5 @@
 <div class = 'container'>
+	<input type="hidden" id=entity-id value={{this.id}}>
 	<h4> Entidad: {{ this.name }}</h4>
     <div  class="card-title">
 	{{#each this.entries }}
@@ -9,5 +10,10 @@
         </ul>
         {{/each}}
 	{{/each}}
+    </div>
+    <div class="row">
+        <button class="right btn btn-primary" id="btn-delete-entity">
+        <i class="material-icons">delete</i>
+    </button>
     </div>
 </div>
