@@ -117,7 +117,8 @@ delete_intent =(id,req,res)=>{
 			if (error) throw new Error(error);
   		});
 };
-edit_intent = (id, req, res)=>{
+edit_intent = (id, req, res,next)=>{
+
 	var options = {
 	    method: 'GET',
 		url: 'https://api.dialogflow.com/v1/intents/'+id,
@@ -135,6 +136,7 @@ edit_intent = (id, req, res)=>{
 		}else{
 			selected_intent = body;
 			intent = JSON.parse(selected_intent);
+
 			res.render('set_intent',intent);
 		}
 	});
@@ -450,7 +452,7 @@ app.post('/update',function(req,res,next){
 });
 app.post('/edit', function(req, res,next){
 	let id = req.body.id;
-	edit_intent(id, req, res);
+	edit_intent(id, req, res,next);
 });
 app.get('/:id', function(req, res, next){
 	let id = req.params.id;

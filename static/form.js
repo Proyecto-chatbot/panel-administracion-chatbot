@@ -69,9 +69,9 @@ let init = function(){
 	});
 
 	$('#open-edit-intent').click(function(event){
-		event.preventDefault();
-		entity_id = $('#input-id').val();
-		$.post('/edit',{id : entity_id});
+		//event.preventDefault();
+		//entity_id = $('#input-id').val();
+		//$.post('/edit',{id : entity_id});
 	});
 	$('#btn_edit_intent').click(function(event){
 		event.preventDefault();

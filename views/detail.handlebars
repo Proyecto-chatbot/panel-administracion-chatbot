@@ -1,8 +1,12 @@
 <div class="container center-align">
     <h4 class="indigo-text">{{this.name}}</h4>
-<button class="left btn btn-primary right indigo" id="open-edit-intent"><i class="material-icons">mode_edit</i></button>
+<form action="/edit" method="POST">
+<input type="hidden" name="id" id="input-id" value="{{this.id}}">
+<button class="left btn btn-primary right indigo" type="submit" id="open-edit-intent">
+    <i class="material-icons">mode_edit</i>
+</button>
+</form>
     <div class="row ">
-        <input type="hidden" id="input-id" value="{{this.id}}">
         <div class="input-field col s12">
             <div class="collection">
             <h5 class="collection-item indigo-text">Preguntas del usuario</h5>
