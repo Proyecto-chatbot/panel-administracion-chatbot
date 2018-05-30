@@ -1,17 +1,17 @@
 var fs = require('fs');
 var express = require('express');
-var bodyParser = require('body-parser');
+var app = express();
 var request = require('request');
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : true}));
 var exphbs = require('express-handlebars');
 var HandlebarsIntl = require('handlebars-intl');
 var formatter = require('./static/request_formatter');
 var domain = process.env.APP_HOST;
 const PORT = process.env.PORT || 3000;
 const TOKEN =  process.env.token;
-
 var helpers = require('handlebars-helpers')(['math', 'comparison']);
-
-var app = express();
 var hbs = exphbs.create({defaultLayout: 'base'});
 app.engine(hbs.extname, hbs.engine);
 app.set('view engine', hbs.extname);
@@ -20,8 +20,6 @@ HandlebarsIntl.registerWith(hbs.handlebars);
 
 app.use('/static',express.static(__dirname + '/static'));
 app.set('views','./views');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended : true}));
 
 var botMessages = [];
 
@@ -83,21 +81,27 @@ get_intent = (id, req, res)=>{
   		method: 'GET',
     		url: 'https://api.dialogflow.com/v1/intents/'+id,
 			qs: { v: '20150910' },
-			dataType: "json",
 			contentType: "application/json; charset=utf-8",
 			headers:
      		{
+			'Accept': '*/*',
        		'Cache-Control': 'no-cache',
        		Authorization: 'Bearer ' + TOKEN }
        	};
 
   	request(options, function (error, response, body) {
     		if (error){
-          		console.log(error);
+				  console.log(error);
+				  console.log('body--->'+response);
         }else{
-			selected_intent = body;
-			intent = JSON.parse(selected_intent);
-			res.render('detail',intent);
+			promise= new Promise (function(resolve, reject){
+				resolve(intent = JSON.parse(body));
+			}).catch((SyntaxError) => {
+
+			  });;
+			promise.then(function(intent){
+				res.render('detail',intent);
+			});
         }
   	});
 
