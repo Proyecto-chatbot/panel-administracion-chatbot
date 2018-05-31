@@ -18,7 +18,7 @@ let parameters = [];
 let $textResponse;
 let $contextIn;
 let $contextOut;
-let $btnVariant;
+let $btnDeleteVariant;
 let init = function(){
 	numResponses = 0;
 	hasImage = false;
@@ -30,19 +30,13 @@ let init = function(){
 	$contextIn = $('#contextIn');
 	$contextOut = $('#contextOut');
 	let intent_id;
-	$btnVariant = $('.btn-delete-variant');
 	$btn_create = $('#btn_create');
 	$btn_delete_intent = $("#btn-delete-intent");
 	$btn_delete_entity = $('#btn-delete-entity');
 	$btn_add_question = $("#addUserText");
-
+	redeclarate_btn_delete();
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
-
-	$btnVariant.click(function(event){
-		event.preventDefault();
-		$(this).parent('div').remove();
-	})
 
 	$('.data_text').each(function(){
 		$span = $(this).children('span').text();
@@ -183,10 +177,21 @@ let create_entity = function(){
 	});
 }
 /**
+ *
+ */
+let redeclarate_btn_delete = () =>{
+	$btnDeleteVariant = $('.btn-delete-variant');
+	$btnDeleteVariant.click(function(event){
+		event.preventDefault();
+		$(this).parent('div').remove();
+	})
+}
+/**
 * Insert a new input for user says
 */
 let add_new_input = ($input)=>{
-	$input.before('<input class="user validate" name="user" type="text" >');
+	$input.before('<div><input class="user validate" name="user" type="text" > <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	redeclarate_btn_delete();
 }
 /**
 * Insert a new block for bot response
@@ -199,6 +204,7 @@ let add_new_block = (name) =>{
 		case 'type-link': add_new_link("Link"); break;
 		case 'type-document': add_new_link("Documento"); break;
 	}
+	redeclarate_btn_delete();
 }
 /**
 * Insert a new block for type text response
