@@ -1,4 +1,4 @@
-const ENTITY_PATTERN = /[^\w]@\w+[\-\_\w]*/;
+const ENTITY_PATTERN = /[^\w]#\w+[\-\_\w]*/;
 
 /**
 * Parse the text into valid JSON for body request
@@ -40,12 +40,11 @@ let format_entity = (userText)=>{
     entity = matches[0].trim();
     divided_text = userText.split(entity);
     let str = entity.slice(1,entity.length);
-    console.log('antes: ' + entity + ' despues: '+str);
     formatted_text =
         {
             data: [
                 {text : divided_text[0]+" "},
-                {alias: str, meta: entity, text: str,  userDefined : true },
+                {alias: str, meta: '@'+str, text: str,  userDefined : true },
                 {text : " "+divided_text[1]}
             ]
         }

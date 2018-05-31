@@ -92,7 +92,6 @@ get_intent = (id, req, res)=>{
   	request(options, function (error, response, body) {
     		if (error){
 				  console.log(error);
-				  console.log('body--->'+response);
         }else{
 			promise= new Promise (function(resolve, reject){
 				resolve(intent = JSON.parse(body));

@@ -14,8 +14,9 @@ let dropdown_options;
 let $select;
 let hasImage;
 let hasLink;
-let parameters = [];
+var parameters = [];
 let $textResponse;
+
 let $contextIn;
 let $contextOut;
 let $btnDeleteVariant;
@@ -113,12 +114,16 @@ let init = function(){
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
-				search_parameter($(this).val());
-				text.push($(this).val());
+				str = $(this).val();
+				if(search_parameter(str)){
+					str = $(this).val().replace('#','$');
+				text.push(str);
 			});
 		}else if(responses.length == 1){
-			search_parameter(responses.val());
-			text = responses.val();
+			str = responses.val();
+			if(search_parameter(str)){
+				str = responses.val().replace('#','$');			
+				text = str;
 		}
 		if(type == 'link'){
 			url = $(this).children('div').children('.url').val();
@@ -284,15 +289,8 @@ let checkNumResponses = ()=>{
  * @param {*} text
  */
 let search_parameter = (text)=>{
-	PATTERN_PARAMETER = /[^\w]$\w+[\-\_\w]*/
-	if(PATTERN_PARAMETER.test(text)){
-		matches = PATTERN_PARAMETER.exec(text);
-		param = matches[0].trim();
-		parameter.push(	{ "dataType": "@"+param, "isList": false,
-			"name": param,
-			"value": "$"+param
-		  })
-	}
+	PATTERN_PARAMETER = /[^\w]#\w+[\-\_\w]*/
+	return PATTERN_PARAMETER.test(text);
 }
 /**
 *
@@ -336,12 +334,18 @@ let send_intent = ()=>{
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
-				search_parameter($(this).val());
-				text.push($(this).val());
+				str = $(this).val();
+				if(search_parameter(str)){
+					str = $(this).val().replace('#','$');
+				}			
+				text.push(str);
 			});
 		}else if(responses.length == 1){
-			search_parameter(responses.val());
-			text = responses.val();
+			str = responses.val();
+			if(search_parameter(str)){
+				str =responses.val().replace('#','$');
+			}
+			text = str;
 		}
 		if(type == 'link'){
 			url = $(this).children('div').children('.url').val();
