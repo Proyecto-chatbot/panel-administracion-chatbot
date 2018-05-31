@@ -18,8 +18,8 @@ let parameters = [];
 let $textResponse;
 let $contextIn;
 let $contextOut;
+let $btnVariant;
 let init = function(){
-
 	numResponses = 0;
 	hasImage = false;
 	$select = $('.select');
@@ -30,7 +30,7 @@ let init = function(){
 	$contextIn = $('#contextIn');
 	$contextOut = $('#contextOut');
 	let intent_id;
-
+	$btnVariant = $('.btn-delete-variant');
 	$btn_create = $('#btn_create');
 	$btn_delete_intent = $("#btn-delete-intent");
 	$btn_delete_entity = $('#btn-delete-entity');
@@ -38,6 +38,11 @@ let init = function(){
 
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
+
+	$btnVariant.click(function(event){
+		event.preventDefault();
+		$(this).parent('div').remove();
+	})
 
 	$('.data_text').each(function(){
 		$span = $(this).children('span').text();
@@ -109,7 +114,7 @@ let init = function(){
 		if($(this).hasClass('type-link')){
 			type = 'link';
 		}
-		responses = $(this).children('.response');
+		responses = $(this).children('div').children('.response');
 
 		if(responses.length > 1){
 			text = [];
@@ -122,7 +127,7 @@ let init = function(){
 			text = responses.val();
 		}
 		if(type == 'link'){
-			url = $(this).children('.url').val();
+			url = $(this).children('div').children('.url').val();
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else
@@ -200,9 +205,10 @@ let add_new_block = (name) =>{
 */
 let add_new_response = function (){
 	$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
-	+'<input class="response validate" type="text">'
+	+'<div><input class="response validate" type="text"><button class="btn-delete-variant btn btn-primary indigo">'
+	+'<i class="material-icons">delete</i></button></div>'
 	+'<button class="btnAddVariant btn-small waves-effect waves-light right"'
-	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>';
+	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div></div>';
 	if(checkNumResponses()){
 		if(hasImage)
 			$('.type-image').before($textResponse);
@@ -218,7 +224,8 @@ let add_new_response = function (){
  */
 let add_new_image = function (title){
 	$imageResponse = '<div class="bloq type-image input-field col s12"><p>' + title +
-	'</p><input class="response" name="gifResponse" type="text" class="validate"></div>'
+	'</p><div><input class="response" name="gifResponse" type="text" class="validate">'
+	+'<button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div></div>'
 
 	if(checkNumResponses()){
 		if(hasLink)
@@ -239,9 +246,9 @@ let add_new_image = function (title){
 let add_new_link = function(title){
 	if(checkNumResponses()){
 		$select.before('<div class="bloq type-link input-field col s12"><p>' + title + '</p>'+
-		'<input class="response" id="linkResponse" type="text" class="validate">'+
-		'<input class="url" id="linkUrl" type="text"  class="validate">'+
-		'</div>');
+		'<div><input class="response" id="linkResponse" type="text" class="validate">'+
+		'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-variant btn btn-primary indigo">'
+		+'<i class="material-icons">delete</i></button></div></div>');
 		numResponses++;
 		hasLink = true;
 	}
@@ -250,7 +257,8 @@ let add_new_link = function(title){
  * Insert a new variant for text response
  */
 let add_new_variant = ($btn)=>{
-	$btn.before('<input name="response'+numResponses+'" type="text" class=" response validate">');
+	$btn.before('<div><input name="response'+numResponses+'" type="text" class=" response validate">'
+	+'<button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 }
 /**
  * Insert a new synonym
@@ -317,7 +325,7 @@ let send_intent = ()=>{
 		if($(this).hasClass('type-link')){
 			type = 'link';
 		}
-		responses = $(this).children('.response');
+		responses = $(this).children('div').children('.response');
 
 		if(responses.length > 1){
 			text = [];
@@ -330,7 +338,7 @@ let send_intent = ()=>{
 			text = responses.val();
 		}
 		if(type == 'link'){
-			url = $(this).children('.url').val();
+			url = $(this).children('div').children('.url').val();
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else

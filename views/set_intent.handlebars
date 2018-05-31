@@ -26,6 +26,7 @@
                 {{/each}}
                 </span>
                 <input class="user" name="user" type="text" class="validate">
+                <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                 </div>
             {{/each}}
             <button class="btn btn-small waves-effect waves-light right" id="addUserText" name="addUserText">Añadir Pregunta
@@ -37,26 +38,39 @@
                 {{#each messages}}
                     {{#if textToSpeech}}
                         <div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>
-                        <input class="response validate" type="text" value= "{{textToSpeech}}"><button class="btnAddVariant btn-small waves-effect waves-light right"
+                        <div>
+                        <input class="response validate" type="text" value= "{{textToSpeech}}">
+                        <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                        </div>
+                        <button class="btnAddVariant btn-small waves-effect waves-light right"
                         name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>
                     {{/if}}
                     {{#if items}}
                         <div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>
                         {{#each items}}
+                        <div>
                         <input type="text" class=" response validate" value="{{textToSpeech}}">
+                        <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                        </div>
                         {{/each}}
                         <button class="btnAddVariant btn-small waves-effect waves-light right"
                         name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>
                     {{/if}}
                     {{#if image}}
                         <div class="bloq type-image input-field col s12"><p> Imagen/Gif</p>
+                        <div>
                         <input class="response" name="gifResponse" type="text" class="validate" value="{{image.url}}"></div>
+                        <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                        </div>
                     {{/if}}
                     {{#if url}}
                         <div class="bloq type-link input-field col s12"><p> Link/Documento</p>
+                        <div>
                             <input class="response" id="linkResponse" type="text" value="{{destinationName}}" class="validate">
                             <input class="url" id="linkUrl" type="text"  value="{{url}}" class="validate">
-                                </div>
+                            <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                        </div>
+                        </div>
                     {{/if}}
                 {{/each}}
             {{/each}}
@@ -92,11 +106,11 @@
                     <i class="material-icons">forum</i>Opciones avanzadas</div>
                 <div class="collapsible-body">
                     <div class="input-field col s6 offset-s3">
-                        <input id="contextIn" type="text" name="contextIn" class="validate">
+                        <input id="contextIn" type="text" name="contextIn" class="validate" value="{{ this.contexts }}">
                         <label for="contextIn">Contexto de entrada</label>
                     </div>
                     <div class="input-field col s6 offset-s3">
-                        <input id="contextOut" type="text" name="contextOut" class="validate">
+                        <input id="contextOut" type="text" name="contextOut" class="validate" value="{{ this.responses.0.affectedContexts.0.name }}">
                         <label for="contextOut">Contexto de salida</label>
                     </div>
                 </div>
