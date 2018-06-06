@@ -33,7 +33,7 @@
                 <i class="material-icons right">add</i>
             </button>
         </div>
-        <div class="select input-field col s12">
+        <div class="input-field col s12">
             {{#each this.responses }}
                 {{#each messages}}
                     {{#if textToSpeech}}
@@ -74,7 +74,7 @@
                     {{/if}}
                 {{/each}}
             {{/each}}
-            <a class='dropdown-trigger btn' href='#' data-target='dropdown'>Añadir Respuesta</a>
+            <a class='dropdown-trigger btn select' href='#' data-target='dropdown'>Añadir Respuesta</a>
             <ul id='dropdown' class='dropdown-content'>
                 <li>
                     <a class="text-li" name="type-text">Texto</a>

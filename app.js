@@ -303,7 +303,7 @@ post_intent = (req,res,next)=>{
 	/**
 	 * Update a intent
 	 */
-	put_intent = (id,req,res,next)=>{
+	put_intent = (req,res,next)=>{
 		var postOptions;
 		var nombre = req.body.name;
 		var userText = req.body.user;
@@ -416,8 +416,50 @@ post_entity = (req,res,next)=>{
 		res.send("/entities");
 		});
 }
+/**
+ *
+ */
+put_entity = (req,res,next)=>{
+
+	let postOptions;
+	let id = req.body.id;
+	let name = req.body.name;
+	let synonyms = req.body.synonyms;
+	let entries = synonyms.map(function(element){
+		return {
+			synonyms: [element],
+			value: element
+		  };
+	})
+	postOptions = {
+		method: 'PUT',
+		url: 'https://api.dialogflow.com/v1/entities/'+id,
+		qs: { v: '20150910' },
+		headers:
+			{
+			'Cache-Control': 'no-cache',
+			Authorization: 'Bearer ' + TOKEN,
+			'Content-Type': 'application/json'
+			},
+		  body:{
+			entries: entries,
+			name: name
+		  },
+		json: true
+	};
+
+	request(postOptions, function (error, response, body) {
+	if (error) throw new Error(error);
+	console.log(response);
+	res.send("/entities");
+	});
+}
+
 app.post('/new_entity', function(req, res, next){
 	post_entity(req, res);
+});
+app.post('/edit_entity', function(req, res, next){
+	put_entity(req, res);
 });
 ////
 app.get('/', get_intents, function(req, res, next){
@@ -426,6 +468,14 @@ app.get('/', get_intents, function(req, res, next){
 
 app.get('/interaction',function(req,res,next){
 	res.render('interaction');
+});
+
+app.post('/show_entities', get_entities, function(req, res, next){
+	let names = [];
+	names = entities.map(function(el){
+		return el.name;
+	})
+	res.send(names);
 });
 
 app.get('/entities', get_entities, function(req,res,next){
@@ -450,8 +500,7 @@ app.post('/delete',function(req,res,next){
 	});
 });
 app.post('/update',function(req,res,next){
-	let id = req.body.id;
-	put_intent(id, req, res);
+	put_intent(req, res);
 });
 app.post('/edit', function(req, res,next){
 	let id = req.body.id;
@@ -465,6 +514,14 @@ app.get('/:id', function(req, res, next){
 app.post('/new_intent',function(req,res,next){
 	post_intent(req,res);
 });
+
+app.post('/search_entity'), get_entities, function(req, res, next){
+	let stringSearch = req.body.stringSearch
+	entities.forEach(function(value){
+		if(value.name.startsWith(stringSearch))
+			res.send(value.name);
+	});
+}
 
 app.listen( PORT , function(){
 	console.log('Server listening in port '+ PORT);

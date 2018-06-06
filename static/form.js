@@ -11,11 +11,13 @@ const MAX_RESPONSES = 10;
 let numResponses;
 let dropdown;
 let dropdown_options;
+let entities;
 let $select;
 let hasImage;
 let hasLink;
 var parameters = [];
 let $textResponse;
+let $inputSearch;
 
 let $contextIn;
 let $contextOut;
@@ -23,6 +25,7 @@ let $btnDeleteVariant;
 let init = function(){
 	numResponses = 0;
 	hasImage = false;
+	hasLink = false;
 	$select = $('.select');
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();
@@ -38,6 +41,8 @@ let init = function(){
 	redeclarate_btn_delete();
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
+	checkType();
+	redeclare_input_search();
 
 	$('.data_text').each(function(){
 		$span = $(this).children('span').text();
@@ -68,10 +73,9 @@ let init = function(){
 		create_entity();
 	});
 
-	$('#open-edit-intent').click(function(event){
-		//event.preventDefault();
-		//entity_id = $('#input-id').val();
-		//$.post('/edit',{id : entity_id});
+	$('#btn-edit-entity').click(function(event){
+		event.preventDefault();
+		edit_entity();
 	});
 	$('#btn_edit_intent').click(function(event){
 		event.preventDefault();
@@ -117,13 +121,15 @@ let init = function(){
 				str = $(this).val();
 				if(search_parameter(str)){
 					str = $(this).val().replace('#','$');
+				}
 				text.push(str);
 			});
 		}else if(responses.length == 1){
 			str = responses.val();
 			if(search_parameter(str)){
-				str = responses.val().replace('#','$');			
-				text = str;
+				str =responses.val().replace('#','$');
+			}
+			text = str;
 		}
 		if(type == 'link'){
 			url = $(this).children('div').children('.url').val();
@@ -134,17 +140,18 @@ let init = function(){
 
 	});
 	data = {
+		"id": intent_id,
 		"name": name,
 		"user": userSays,
 		"bot": botSays,
 		"contextIn" : context_in,
 		"contextOut" : context_out,
-		"parameters" : parameters,
-		"id" : intent_id
+		"parameters" : parameters
 	}
-		$.post('/update',data,function(res){
-			location.href = res;
-		})
+
+	$.post('/update',data, function(res){
+		location.href = res;
+	});
 	})
 	$btn_add_question.click(function(event){
 		event.preventDefault();
@@ -166,6 +173,34 @@ let init = function(){
 	})
 }
 /**
+ *
+ */
+let redeclare_input_search = function(){
+	let ul;
+	$inputSearch = $(".input");
+	$(".input-field ul").hide();
+	$inputSearch.keyup(function(e){
+		if(e.keyCode == 8)
+			if($(this).val().indexOf('#') <= 0)
+			$(this).siblings('span').html('');
+	});
+	$inputSearch.keypress(function(e){
+		if($(this).val().indexOf('#') <= 0)
+			$(this).siblings('span').html('');
+		if(String.fromCharCode(e.which) == '#'){
+			if($(this).val().indexOf('#') > -1)
+				$(this).siblings('span').html('No puedes usar más de una entidad en la misma frase');
+			else{
+				$(this).siblings('span').html('');
+				ul = $(this).parent('div').children('ul');
+				ul.show();
+				showAll(ul);
+			}
+
+		}
+	});
+}
+/**
  * Insert a new entity
  */
 let create_entity = function(){
@@ -182,6 +217,89 @@ let create_entity = function(){
 	});
 }
 /**
+ * Insert a new entity
+ */
+let edit_entity = function(){
+	let synonyms = [];
+	$('.synonym').each(function(){
+		synonyms.push($(this).val());
+	});
+	let data = {
+		id :  $('#id-entity').val(),
+		name : $('#name-entity').val(),
+		synonyms: synonyms
+	}
+
+	$.post('/edit_entity', data, function(res){
+		location.href = res;
+	});
+}
+let filter = (string)=>{
+	return entities.filter(el => el.toLowercase().indexOf(string.toLowercase()) > -1);
+}
+/**
+ * Search entity
+ */
+let searchEntity = function(input_value){
+	var data = {};
+	data.stringSearch = filter(input_value)[0];
+
+}
+
+/**
+ * Search entity
+ */
+let showAll = function(ul){
+	ul.children('li').remove();
+	ul.children('.search').remove();
+    $.post('/show_entities', function(res){
+		let $inputSearch;
+		ul.append('<input class= "search" type = "text">');
+		console.log(res);
+		entities = res;
+		$inputSearch = ul.children('.search');
+		$inputSearch.focus();
+		entities.forEach(element => {
+			ul.append('<li class="collection-item"><a href="">'+element+'</a></li>');
+		});
+		putLinkEvent(ul);
+		$inputSearch.keyup(function(e){
+			$(this).siblings('li').remove();
+			search($(this).val().toLowerCase(), $(this).parent('ul'));
+		});
+		putLinkEvent(ul);
+    });
+}
+
+let checkNumEntities = (ul) =>{
+
+}
+
+let putLinkEvent = (ul)=>{
+	ul.children('li').children('a').click(function(event){
+		event.preventDefault();
+		getEntity($(this));
+	});
+}
+
+let getEntity = (linkEntity)=>{
+	let input = linkEntity.parent('li').parent('ul').siblings('input');
+	let inputVal = input.val();
+	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
+	console.log(newText);
+	input.val(newText);
+	linkEntity.parent('li').parent('ul').hide();
+}
+
+let search = (word, ulParent) =>{
+	console.log(word);
+	entities.forEach(element => {
+		if (element.toLowerCase().indexOf(word) >= 0)
+			ulParent.append('<li class="collection-item"><a href="">'+element+'</a></li>');
+	});
+}
+
+/**
  *
  */
 let redeclarate_btn_delete = () =>{
@@ -195,8 +313,9 @@ let redeclarate_btn_delete = () =>{
 * Insert a new input for user says
 */
 let add_new_input = ($input)=>{
-	$input.before('<div><input class="user validate" name="user" type="text" > <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	$input.before('<div><input class="input user validate" name="user" type="text" ><span class="red-text"></span><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	redeclarate_btn_delete();
+	redeclare_input_search();
 }
 /**
 * Insert a new block for bot response
@@ -211,13 +330,29 @@ let add_new_block = (name) =>{
 	}
 	redeclarate_btn_delete();
 }
+let checkType = () =>{
+	let $typeText = $('.type-text');
+	if($('.type-image').length > 0){
+		hasImage = true;
+		numResponses++;
+	}
+	if($('.type-link').length > 0){
+		hasLink = true;
+		numResponses++;
+	}
+	if($typeText.length > 0){
+		$typeText.each(function(){
+			numResponses++;
+		});
+	}
+}
 /**
 * Insert a new block for type text response
 */
 let add_new_response = function (){
 	$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
-	+'<div><input class="response validate" type="text"><button class="btn-delete-variant btn btn-primary indigo">'
-	+'<i class="material-icons">delete</i></button></div>'
+	+'<div><input class="response validate input" type="text"><span class="red-text"></span>'
+	+'<ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>'
 	+'<button class="btnAddVariant btn-small waves-effect waves-light right"'
 	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div></div>';
 	if(checkNumResponses()){
@@ -229,13 +364,14 @@ let add_new_response = function (){
 			$select.before($textResponse);
 		numResponses++;
 	}
+	redeclare_input_search();
 }
 /**
  *  Insert a new block for type image/gif response
  */
 let add_new_image = function (title){
-	$imageResponse = '<div class="bloq type-image input-field col s12"><p>' + title +
-	'</p><div><input class="response" name="gifResponse" type="text" class="validate">'
+	$imageResponse = '<div class="bloq type-image input-field col s12"><div><p>'
+	+ title + '</p><input class="response" name="gifResponse" type="text" class="validate">'
 	+'<button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div></div>'
 
 	if(checkNumResponses()){
@@ -256,9 +392,9 @@ let add_new_image = function (title){
  */
 let add_new_link = function(title){
 	if(checkNumResponses()){
-		$select.before('<div class="bloq type-link input-field col s12"><p>' + title + '</p>'+
-		'<div><input class="response" id="linkResponse" type="text" class="validate">'+
-		'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-variant btn btn-primary indigo">'
+		$select.before('<div class="bloq type-link input-field col s12"><div><p>'
+		+ title + '</p><input class="response" id="linkResponse" type="text" class="validate">'
+		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-variant btn btn-primary indigo">'
 		+'<i class="material-icons">delete</i></button></div></div>');
 		numResponses++;
 		hasLink = true;
@@ -268,8 +404,9 @@ let add_new_link = function(title){
  * Insert a new variant for text response
  */
 let add_new_variant = ($btn)=>{
-	$btn.before('<div><input name="response'+numResponses+'" type="text" class=" response validate">'
+	$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><span class="red-text"></span><ul class="collection"></ul>'
 	+'<button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	redeclare_input_search();
 }
 /**
  * Insert a new synonym
@@ -337,7 +474,7 @@ let send_intent = ()=>{
 				str = $(this).val();
 				if(search_parameter(str)){
 					str = $(this).val().replace('#','$');
-				}			
+				}
 				text.push(str);
 			});
 		}else if(responses.length == 1){
