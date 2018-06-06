@@ -43,7 +43,7 @@ let init = function(){
 	$btnAddVariant = $(".btnAddVariant");
 	checkType();
 	redeclare_input_search();
-
+	transform_edit_responses();
 	$('.data_text').each(function(){
 		$span = $(this).children('span').text();
 		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
@@ -504,5 +504,12 @@ let send_intent = ()=>{
 	$.post('/new_intent',data, function(res){
 		location.href = res;
 	});
+}
+let transform_edit_responses = ()=>{
+	    $('.edit-responses .response').each(function(){
+            let original = $(this).val();
+			$(this).val(original.replace(/[$]/,' #'));
+        });
+    
 }
 $(init);
