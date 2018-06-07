@@ -528,6 +528,10 @@ app.get('/interaction',function(req,res,next){
 	res.render('interaction');
 });
 
+app.post('/get_intents', get_intents, function(req, res, next){
+	res.send(intents);
+});
+
 app.post('/show_entities', get_entities, function(req, res, next){
 	let names = [];
 	names = entities.map(function(el){
@@ -560,6 +564,7 @@ app.post('/delete',function(req,res,next){
 		res.send("/");
 	});
 });
+
 app.post('/update',function(req,res,next){
 	put_intent(req, res);
 });
