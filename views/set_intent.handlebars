@@ -10,7 +10,7 @@
             <p>Preguntas del usuario</p>
             {{#each this.userSays }}
                 <div class="data_text">
-                <span class="hide">
+                <span class="span-hide hide">
                 {{#each data}}
              		{{#if meta}}
 					        {{#isnt meta "@sys.ignore" }}
@@ -25,7 +25,9 @@
 
                 {{/each}}
                 </span>
-                <input class="user" name="user" type="text" class="validate">
+                <input class="user input" name="user" type="text" class="validate">
+                <span class="span red-text"></span>
+                <ul class="collection"></ul>
                 <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                 </div>
             {{/each}}
@@ -39,7 +41,9 @@
                     {{#if textToSpeech}}
                         <div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>
                         <div>
-                        <input class="response validate" type="text" value= "{{textToSpeech}}">
+                        <input class="response validate input" type="text" value= "{{textToSpeech}}">
+                        <span class="span red-text"></span>
+                        <ul class="collection"></ul>
                         <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                         </div>
                         <button class="btnAddVariant btn-small waves-effect waves-light right"
@@ -49,7 +53,9 @@
                         <div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>
                         {{#each items}}
                         <div>
-                        <input type="text" class=" response validate" value="{{textToSpeech}}">
+                        <input type="text" class="input response validate" value="{{textToSpeech}}">
+                        <span class="span red-text"></span>
+                        <ul class="collection"></ul>
                         <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                         </div>
                         {{/each}}

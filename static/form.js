@@ -46,7 +46,7 @@ let init = function(){
 	redeclare_input_search();
 	transform_edit_responses();
 	$('.data_text').each(function(){
-		$span = $(this).children('span').text();
+		$span = $(this).children('.span-hide').text();
 		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
 		$(this).children('input').prop('value',$clean_span);
 	})
@@ -187,17 +187,17 @@ let redeclare_input_search = function(){
 	$(".input-field ul").hide();
 	$inputSearch.keyup(function(e){
 		if(e.keyCode == 8)
-			if($(this).val().indexOf('#') <= 0)
-			$(this).siblings('span').html('');
+			if($(this).val().indexOf('#') != -1)
+				$(this).siblings('.span').html('');
 	});
 	$inputSearch.keypress(function(e){
-		if($(this).val().indexOf('#') <= 0)
-			$(this).siblings('span').html('');
+		if($(this).val().indexOf('#') != -1)
+			$(this).siblings('.span').html('');
 		if(String.fromCharCode(e.which) == '#'){
 			if($(this).val().indexOf('#') > -1)
-				$(this).siblings('span').html('No puedes usar más de una entidad en la misma frase');
+				$(this).siblings('.span').html('No puedes usar más de una entidad en la misma frase');
 			else{
-				$(this).siblings('span').html('');
+				$(this).siblings('.span').html('');
 				ul = $(this).parent('div').children('ul');
 				ul.show();
 				showAll(ul);
@@ -277,10 +277,6 @@ let showAll = function(ul){
     });
 }
 
-let checkNumEntities = (ul) =>{
-
-}
-
 let putLinkEvent = (ul)=>{
 	ul.children('li').children('a').click(function(event){
 		event.preventDefault();
@@ -293,8 +289,9 @@ let getEntity = (linkEntity)=>{
 	let inputVal = input.val();
 	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
 	console.log(newText);
-	input.val(newText);
-	linkEntity.parent('li').parent('ul').hide();
+	$.when(input.val(newText)).then(function(){
+		linkEntity.parent('li').parent('ul').children('li, .search').remove();
+	}).then(linkEntity.parent('li').parent('ul').hide());
 }
 
 let search = (word, ulParent) =>{
@@ -319,7 +316,7 @@ let redeclarate_btn_delete = () =>{
 * Insert a new input for user says
 */
 let add_new_input = ($input)=>{
-	$input.before('<div><input class="input user validate" name="user" type="text" ><span class="red-text"></span><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	$input.before('<div><input class="input user validate" name="user" type="text" ><span class="span red-text"></span><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	redeclarate_btn_delete();
 	redeclare_input_search();
 }
@@ -357,7 +354,7 @@ let checkType = () =>{
 */
 let add_new_response = function (){
 	$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
-	+'<div><input class="response validate input" type="text"><span class="red-text"></span>'
+	+'<div><input class="response validate input" type="text"><span class="span red-text"></span>'
 	+'<ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>'
 	+'<button class="btnAddVariant btn-small waves-effect waves-light right"'
 	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div></div>';
@@ -410,7 +407,7 @@ let add_new_link = function(title){
  * Insert a new variant for text response
  */
 let add_new_variant = ($btn)=>{
-	$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><span class="red-text"></span><ul class="collection"></ul>'
+	$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><span class="span red-text"></span><ul class="collection"></ul>'
 	+'<button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	redeclare_input_search();
 }
@@ -514,7 +511,7 @@ let send_intent = ()=>{
 let send_gif_intent = ()=>{
 	let data = {};
 	let n_inputs = 0;
-	
+
 	name = $('#name').val();
 	tag = $('.tag_gif').val();
 	input_user = $('.user');
@@ -545,6 +542,6 @@ let transform_edit_responses = ()=>{
             let original = $(this).val();
 			$(this).val(original.replace(/[$]/,' #'));
         });
-    
+
 }
 $(init);
