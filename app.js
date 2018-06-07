@@ -301,6 +301,64 @@ post_intent = (req,res,next)=>{
 		});
 	}
 	/**
+	 * Create a new intent with the random_gif format
+	 */
+	post_random_gif = (req,res,next)=>{
+		var postOptions;
+		var nombre = req.body.name;
+		var userText = req.body.user;
+		var gif_action = req.body.action;
+		console.log(req.body);
+	
+		promise = new Promise((resolve)=>{
+			resolve(userFormatted = formatter.format_user_request(userText));
+		});
+	
+		promise.then((userFormatted) => {			
+			console.log('--------USER MESSAGES--------\n');
+			userFormatted.forEach(function(element){
+				console.log(element);
+			})
+	
+			postOptions = {
+				method: 'POST',
+				url: 'https://api.dialogflow.com/v1/intents',
+				qs: { v: '20150910' },
+				headers:
+					{
+					'Cache-Control': 'no-cache',
+					Authorization: 'Bearer ' + TOKEN,
+					'Content-Type': 'application/json'
+					},
+			  body:{
+				contexts: [],
+				events: [],
+				fallbackIntent: false,
+				name: nombre,
+				priority: 500000,
+				responses:
+				[ { action: gif_action,
+					affectedContexts: [],
+					defaultResponsePlatforms: { google: true },
+					messages:[],
+					parameters: [],
+					resetContexts: false } ],
+				templates: [],
+				userSays:
+				 userFormatted,
+				webhookForSlotFilling: false,
+				webhookUsed: true },
+				json: true
+			};
+	
+			request(postOptions, function (error, response, body) {
+				if (error) throw new Error(error);
+				botMessages = [];
+				res.send("/");
+				});
+			});
+	}
+	/**
 	 * Update a intent
 	 */
 	put_intent = (req,res,next)=>{
@@ -484,6 +542,9 @@ app.get('/entities', get_entities, function(req,res,next){
 app.get('/create',function(req,res,next){
 	res.render('new_intent');
 });
+app.get('/create_gif',function(req,res,next){
+	res.render('new_gif');
+})
 app.get('/create_entity',function(req,res,next){
 	res.render('new_entity');
 });
@@ -514,7 +575,9 @@ app.get('/:id', function(req, res, next){
 app.post('/new_intent',function(req,res,next){
 	post_intent(req,res);
 });
-
+app.post('/new_gif_intent',function(req,res,next){
+	post_random_gif(req,res);
+})
 app.post('/search_entity'), get_entities, function(req, res, next){
 	let stringSearch = req.body.stringSearch
 	entities.forEach(function(value){
