@@ -31,6 +31,10 @@ let init = function(){
 	$.post('/get_entities', function(res){
 		entities = res;
 	});
+
+	$('#cancel').click(function(){
+		location.href = './';
+	});
 	hasImage = false;
 	hasLink = false;
 	$select = $('.select');
@@ -559,6 +563,18 @@ let send_intent = ()=>{
 		"parameters" : parameters
 	}
 
+	if(data.name == "")
+		$('#err').html('No se puede crear un intent sin nombre');
+	else if(data.user == "")
+				$('#err').html('No se puede crear un intent sin frases de usuario');
+	else if($.isArray(data.user)){
+		if( data.user.filter(word => word != "").length == 0)
+				$('#err').html('No se puede crear un intent sin frases de usuario');
+		else if( data.bot.filter(word => word != "").length == 0)
+				$('#err').html('No se puede crear un intent sin respuestas de chatbot');}
+	else if( data.bot.filter(word => word != "").length == 0)
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+	else
 	$.post('/new_intent',data, function(res){
 		location.href = res;
 	});
