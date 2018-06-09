@@ -266,7 +266,7 @@ post_intent = (req,res,next)=>{
 				{
 				'Cache-Control': 'no-cache',
 				Authorization: 'Bearer ' + TOKEN,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json; charset=utf-8'
 				},
 		  body:{
 			contexts: [contextIn],
@@ -405,7 +405,7 @@ post_intent = (req,res,next)=>{
 					{
 					'Cache-Control': 'no-cache',
 					Authorization: 'Bearer ' + TOKEN,
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json; charset=utf-8'
 					},
 			  body:{
 				contexts: [contextIn],
@@ -460,7 +460,7 @@ post_entity = (req,res,next)=>{
 				{
 				'Cache-Control': 'no-cache',
 				Authorization: 'Bearer ' + TOKEN,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json; charset=utf-8'
 				},
 		  	body:{
 				entries: entries,
@@ -497,7 +497,7 @@ put_entity = (req,res,next)=>{
 			{
 			'Cache-Control': 'no-cache',
 			Authorization: 'Bearer ' + TOKEN,
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json; charset=utf-8'
 			},
 		  body:{
 			entries: entries,

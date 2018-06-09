@@ -336,6 +336,15 @@ let search = (word, ulParent) =>{
 /**
  *
  */
+let redeclarate_btn_delete_bloq = () =>{
+	$btnDeleteBloq = $('.btn-delete-bloq');
+	$btnDeleteBloq.click(function(event){
+		event.preventDefault();
+		numResponses--;
+		checkNumResponses();
+		$(this).parent('div').remove();
+	})
+}
 let redeclarate_btn_delete = () =>{
 	$btnDeleteVariant = $('.btn-delete-variant');
 	$btnDeleteVariant.click(function(event){
@@ -362,6 +371,7 @@ let add_new_block = (name) =>{
 		case 'type-link': add_new_link("Link"); break;
 		case 'type-document': add_new_link("Documento"); break;
 	}
+	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
 }
 let checkType = () =>{
@@ -388,7 +398,8 @@ let add_new_response = function (){
 	+'<div><input class="response validate input" type="text"><span class="span red-text"></span>'
 	+'<ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>'
 	+'<button class="btnAddVariant btn-small waves-effect waves-light right"'
-	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div></div>';
+	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button>'
+	+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div></div>';
 	if(checkNumResponses()){
 		if(hasImage)
 			$('.type-image').before($textResponse);
@@ -397,6 +408,7 @@ let add_new_response = function (){
 		else
 			$select.before($textResponse);
 		numResponses++;
+		checkNumResponses();
 	}
 	redeclare_input_search();
 }
@@ -406,7 +418,7 @@ let add_new_response = function (){
 let add_new_image = function (title){
 	$imageResponse = '<div class="bloq type-image input-field col s12"><div><p>'
 	+ title + '</p><input class="response" name="gifResponse" type="text" class="validate">'
-	+'<button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div></div>'
+	+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div></div>'
 
 	if(checkNumResponses()){
 		if(hasLink)
@@ -416,6 +428,7 @@ let add_new_image = function (title){
 		numResponses++;
 		hasImage = true;
 		$('.image-li').css({pointerEvents: "none", color: "red"})
+		checkNumResponses();
 	}
 
 }
@@ -428,10 +441,11 @@ let add_new_link = function(title){
 	if(checkNumResponses()){
 		$select.before('<div class="bloq type-link input-field col s12"><div><p>'
 		+ title + '</p><input class="response" id="linkResponse" type="text" class="validate">'
-		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-variant btn btn-primary indigo">'
+		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-bloq btn btn-primary indigo">'
 		+'<i class="material-icons">delete</i></button></div></div>');
 		numResponses++;
 		hasLink = true;
+		checkNumResponses();
 	}
 }
 /**
@@ -439,7 +453,7 @@ let add_new_link = function(title){
  */
 let add_new_variant = ($btn)=>{
 	$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><span class="span red-text"></span><ul class="collection"></ul>'
-	+'<button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	redeclare_input_search();
 }
 /**
@@ -452,7 +466,13 @@ let add_new_synonym =()=>{
 * Check that the number of answers is less than the maximum number of responses allowed
 */
 let checkNumResponses = ()=>{
-	return numResponses < MAX_RESPONSES;
+	if(numResponses >= MAX_RESPONSES){
+		dropdown.hide();
+		return false;
+	}else{
+		dropdown.show();
+		return true;
+	}
 }
 
 /**
