@@ -46,6 +46,7 @@ let init = function(){
 	$btn_delete_intent = $("#btn-delete-intent");
 	$btn_delete_entity = $('#btn-delete-entity');
 	$btn_add_question = $("#addUserText");
+	$btnAddSynonym = $("#add-synonym");
 	redeclarate_btn_delete();
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
@@ -57,7 +58,7 @@ let init = function(){
 		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
 		$(this).children('input').prop('value',$clean_span);
 	})
-	$btnAddSynonym = $("#add-synonym").click(function(event){
+	$btnAddSynonym.click(function(event){
 		event.preventDefault();
 		add_new_synonym();
 	});
@@ -309,12 +310,15 @@ let showAll = function(ul){
 }
 
 let putLinkEvent = (ul)=>{
-	ul.children('li').children('a').click(function(event){
+	ul.children('li').children('a').on('click',function(event){
 		event.preventDefault();
 		getEntity($(this));
 	});
 }
-
+/**
+ * Insert the selected entity into the input text
+ * @param {*} linkEntity 
+ */
 let getEntity = (linkEntity)=>{
 	let input = linkEntity.parent('li').parent('ul').siblings('input');
 	let inputVal = input.val();
@@ -480,7 +484,7 @@ let checkNumResponses = ()=>{
  * @param {*} text
  */
 let search_parameter = (text)=>{
-	PATTERN_PARAMETER = /[^\w]#\w+[\-\_\w]*/
+	PATTERN_PARAMETER = /^(#)\w+|(\s#)\w+[\-\_\w]*/
 	return PATTERN_PARAMETER.test(text);
 }
 /**
@@ -521,7 +525,7 @@ let send_intent = ()=>{
 			type = 'link';
 		}
 		responses = $(this).children('div').children('.response');
-
+		
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){

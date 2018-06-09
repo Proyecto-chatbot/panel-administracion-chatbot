@@ -1,4 +1,4 @@
-const ENTITY_PATTERN = /[^\w]#\w+[\-\_\w]*/;
+const ENTITY_PATTERN = /^(#)\w+|(\s#)\w+[\-\_\w]*/;
 
 /**
 * Parse the text into valid JSON for body request
