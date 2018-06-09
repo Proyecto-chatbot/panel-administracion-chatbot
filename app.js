@@ -309,17 +309,17 @@ post_intent = (req,res,next)=>{
 		var userText = req.body.user;
 		var gif_action = req.body.action;
 		console.log(req.body);
-	
+
 		promise = new Promise((resolve)=>{
 			resolve(userFormatted = formatter.format_user_request(userText));
 		});
-	
-		promise.then((userFormatted) => {			
+
+		promise.then((userFormatted) => {
 			console.log('--------USER MESSAGES--------\n');
 			userFormatted.forEach(function(element){
 				console.log(element);
 			})
-	
+
 			postOptions = {
 				method: 'POST',
 				url: 'https://api.dialogflow.com/v1/intents',
@@ -350,7 +350,7 @@ post_intent = (req,res,next)=>{
 				webhookUsed: true },
 				json: true
 			};
-	
+
 			request(postOptions, function (error, response, body) {
 				if (error) throw new Error(error);
 				botMessages = [];
@@ -530,6 +530,10 @@ app.get('/interaction',function(req,res,next){
 
 app.post('/get_intents', get_intents, function(req, res, next){
 	res.send(intents);
+});
+
+app.post('/get_entities', get_entities, function(req, res, next){
+	res.send(entities);
 });
 
 app.post('/show_entities', get_entities, function(req, res, next){

@@ -28,6 +28,9 @@ let init = function(){
 	$.post('/get_intents', function(res){
 		intents = res;
 	});
+	$.post('/get_entities', function(res){
+		entities = res;
+	});
 	hasImage = false;
 	hasLink = false;
 	$select = $('.select');
@@ -189,6 +192,18 @@ let init = function(){
 				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
 					console.log('value name: ' + value.name)
 					$('#list_intent').append('<a class="collection-item intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
+				}
+			})
+		)
+	});
+
+	$('#search-entity').keyup(function(){
+		let stringSearch = $(this).val().toLowerCase();
+		$.when($('.entity').remove()).then(
+			entities.forEach(function(value){
+				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
+					console.log('value name: ' + value.name)
+					$('#list_entity').append('<a class="collection-item entity" id="entity" href="'+value.id+'">'+value.name+'</a>')
 				}
 			})
 		)
