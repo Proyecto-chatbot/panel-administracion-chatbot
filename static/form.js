@@ -321,7 +321,7 @@ let putLinkEvent = (ul)=>{
 }
 /**
  * Insert the selected entity into the input text
- * @param {*} linkEntity 
+ * @param {*} linkEntity
  */
 let getEntity = (linkEntity)=>{
 	let input = linkEntity.parent('li').parent('ul').siblings('input');
@@ -499,7 +499,7 @@ let send_intent = ()=>{
 	let botSays = [];
 	let n_inputs = 0;
 	let position = 0;
-	let responses;
+	let responses = [];
 	let text;
 	let type;
 	context_in = $contextIn.val();
@@ -529,7 +529,7 @@ let send_intent = ()=>{
 			type = 'link';
 		}
 		responses = $(this).children('div').children('.response');
-		
+
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
@@ -566,18 +566,49 @@ let send_intent = ()=>{
 	if(data.name == "")
 		$('#err').html('No se puede crear un intent sin nombre');
 	else if(data.user == "")
-				$('#err').html('No se puede crear un intent sin frases de usuario');
+		$('#err').html('No se puede crear un intent sin frases de usuario');
 	else if($.isArray(data.user)){
 		if( data.user.filter(word => word != "").length == 0)
-				$('#err').html('No se puede crear un intent sin frases de usuario');
-		else if( data.bot.filter(word => word != "").length == 0)
-				$('#err').html('No se puede crear un intent sin respuestas de chatbot');}
-	else if( data.bot.filter(word => word != "").length == 0)
+			$('#err').html('No se puede crear un intent sin frases de usuario');
+		else if(responses.length == 0)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+		else if( hasText() == false)
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+		else if(responseIsEmpty() == true)
+			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
+		else
+			$.post('/new_intent',data, function(res){
+				location.href = res;
+		});
+	}
+	else if(responses.length == 0)
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+	else if( hasText() == false){
+				$('#err').html('No se puede crear un intent sin respuestas de chatbot')
+		}
+	else if(responseIsEmpty() == true)
+		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 	else
-	$.post('/new_intent',data, function(res){
-		location.href = res;
+		$.post('/new_intent',data, function(res){
+			location.href = res;
+		});
+}
+let hasText = () =>{
+	let has_text = false;
+	$(".response").each(function(){
+		console.log('-->'+$(this).val());
+		if($(this).val() != "")
+			has_text = true;
+	})
+	return has_text;
+}
+let responseIsEmpty = () =>{
+	let isEmpty = false;
+	$(".response").each(function(){
+		if($(this).val() == "")
+			isEmpty = true;
 	});
+	return isEmpty;
 }
 let send_gif_intent = ()=>{
 	let data = {};
