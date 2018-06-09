@@ -27,7 +27,6 @@ let init = function(){
 	numResponses = 0;
 	$.post('/get_intents', function(res){
 		intents = res;
-		console.log(intents)
 	});
 	hasImage = false;
 	hasLink = false;
@@ -184,13 +183,12 @@ let init = function(){
 	});
 
 	$('#search-intent').keyup(function(){
-		let stringSearch = $(this).val();
-		console.log(stringSearch);
+		let stringSearch = $(this).val().toLowerCase();
 		$.when($('.intent').remove()).then(
 			intents.forEach(function(value){
-				if(value.name.startsWith(stringSearch)){
+				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
 					console.log('value name: ' + value.name)
-					$('#list_intent').append('<a class="collection-item intent" id="intent" href="'+value.id+'">'+value.name+'</a>')					
+					$('#list_intent').append('<a class="collection-item intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
 				}
 			})
 		)
