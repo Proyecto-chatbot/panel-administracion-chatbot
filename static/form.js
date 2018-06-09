@@ -22,8 +22,13 @@ let $inputSearch;
 let $contextIn;
 let $contextOut;
 let $btnDeleteVariant;
+let intents;
 let init = function(){
 	numResponses = 0;
+	$.post('/get_intents', function(res){
+		intents = res;
+		console.log(intents)
+	});
 	hasImage = false;
 	hasLink = false;
 	$select = $('.select');
@@ -176,6 +181,19 @@ let init = function(){
 	})
 	$('#dropdown-c li a').click(function(event){
 		window.location.href= $(this).prop('href');
+	});
+
+	$('#search-intent').keyup(function(){
+		let stringSearch = $(this).val();
+		console.log(stringSearch);
+		$.when($('.intent').remove()).then(
+			intents.forEach(function(value){
+				if(value.name.startsWith(stringSearch)){
+					console.log('value name: ' + value.name)
+					$('#list_intent').append('<a class="collection-item intent" id="intent" href="'+value.id+'">'+value.name+'</a>')					
+				}
+			})
+		)
 	});
 }
 /**

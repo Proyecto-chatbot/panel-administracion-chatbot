@@ -10,9 +10,10 @@
 	</ul>
 </p>
 <div id="body-wrapper">
+	<input id="search-intent" type="text">
 	<div id="list_intent" class="collection">
 		{{#each this}}
-		<a class="collection-item" id="intent" href="/{{ id }}">{{ name }}</a>
+		<a class="collection-item intent" id="intent" href="/{{ id }}">{{ name }}</a>
 		{{/each }}
 	</div>
 	<main></main>
