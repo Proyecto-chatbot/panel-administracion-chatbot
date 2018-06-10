@@ -224,7 +224,7 @@ let redeclare_input_search = function(){
 	$inputSearch = $(".input");
 	$(".input-field ul").hide();
 
-	$(".input").parent('div').children('ul').children('li').remove();
+	$(".input").parent('div').children('ul').children('a').remove();
 	$(".input").parent('div').children('ul').children('.search').remove();
 
 	$inputSearch.keyup(function(e){
@@ -314,7 +314,7 @@ let searchEntity = function(input_value){
  */
 let showAll = function(ul){
 	$.when(function(){
-		ul.children('li').remove();
+		ul.children('a').remove();
 		ul.children('.search').remove();
 	}).then(function(){
 		$.post('/show_entities', function(res){
@@ -325,19 +325,21 @@ let showAll = function(ul){
 			$inputSearch = ul.children('.search');
 			$inputSearch.bind('keydown',function(e){
 				if ( e.which == 27 ) {
-					ul.children('li').remove();
+					ul.children('a').remove();
 					ul.children('.search').remove();
 					ul.hide();
+					let newText = ul.siblings('.input').val().replace(/(#)(\w)*/, '');
+					ul.siblings('.input').val(newText);
 				};
 			});
 
 			$inputSearch.focus();
 			entitiesNames.forEach(element => {
-				ul.append('<li class="collection-item"><a href="#">'+element+'</a></li>');
+				ul.append('<a class="collection-item" href="#">'+element+'</a>');
 			});
 			putLinkEvent(ul);
 			$inputSearch.keyup(function(e){
-				$(this).siblings('li').remove();
+				$(this).siblings('a').remove();
 				search($(this).val().toLowerCase(), $(this).parent('ul'));
 			});
 		}).done(function(res){
@@ -348,7 +350,7 @@ let showAll = function(ul){
 }
 
 let putLinkEvent = (ul)=>{
-	ul.children('li').children('a').on('click',function(event){
+	ul.children('a').on('click',function(event){
 		event.preventDefault();
 		getEntity($(this));
 	});
@@ -358,21 +360,21 @@ let putLinkEvent = (ul)=>{
  * @param {*} linkEntity
  */
 let getEntity = (linkEntity)=>{
-	let input = linkEntity.parent('li').parent('ul').siblings('input');
+	let input = linkEntity.parent('ul').siblings('input');
 	let inputVal = input.val();
 	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
 	console.log(newText);
 	$.when(input.val(newText)).then(function(){
-		linkEntity.parent('li').parent('ul').children('li, .search').remove();
-	}).then(linkEntity.parent('li').parent('ul').hide());
+		linkEntity.parent('ul').children('li, .search').remove();
+	}).then(linkEntity.parent('ul').hide());
 }
 
 let search = (word, ulParent) =>{
 	entitiesNames.forEach(element => {
 		if (element.toLowerCase().indexOf(word) >= 0)
-			ulParent.append('<li class="collection-item"><a href="">'+element+'</a></li>');
+			ulParent.append('<a class="collection-item" href="">'+element+'</a>');
 	});
-	$('.collection-item a').on('click',function(){
+	ulParent.children('a').on('click',function(){
 		return false;
 	})
 	putLinkEvent(ulParent);
