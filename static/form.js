@@ -4,6 +4,7 @@ let $btn_delete_entity;
 let $btn_add_question;
 let $btn_submit;
 let $btnAddSynonym;
+let $btnDeleteSynonym;
 let $name;
 // El máximo de respuestas posibles son 10
 const MAX_RESPONSES = 10;
@@ -23,6 +24,7 @@ let $contextIn;
 let $contextOut;
 let $btnDeleteVariant;
 let intents;
+let entitiesNames;
 let init = function(){
 	numResponses = 0;
 	$.post('/get_intents', function(res){
@@ -92,19 +94,19 @@ let init = function(){
 		event.preventDefault();
 		intent_id = $("#input-id").val();
 		let data = {};
-	let botSays = [];
-	let n_inputs = 0;
-	let position = 0;
-	let responses;
-	let text;
-	let type;
-	context_in = $contextIn.val();
-	context_out = $contextOut.val();
-	name = $('#name').val();
-	input_user = $('.user');
-	input_user.each(function(){
-		n_inputs++;
-	});
+		let botSays = [];
+		let n_inputs = 0;
+		let position = 0;
+		let responses;
+		let text;
+		let type;
+		context_in = $contextIn.val();
+		context_out = $contextOut.val();
+		name = $('#name').val();
+		input_user = $('.user');
+		input_user.each(function(){
+			n_inputs++;
+		});
 	if(n_inputs > 1){
 		userSays = [];
 		input_user.each(function(index, element){
@@ -221,12 +223,17 @@ let redeclare_input_search = function(){
 	let ul;
 	$inputSearch = $(".input");
 	$(".input-field ul").hide();
+
+	$(".input").parent('div').children('ul').children('li').remove();
+	$(".input").parent('div').children('ul').children('.search').remove();
+
 	$inputSearch.keyup(function(e){
-		if(e.keyCode == 8)
+		if(e.keyCode == 8){
 			if($(this).val().indexOf('#') != -1)
 				$(this).siblings('.span').html('');
+		}
 	});
-	$inputSearch.keypress(function(e){
+	$inputSearch.unbind('keypress').bind('keypress',function(e){
 		if($(this).val().indexOf('#') != -1)
 			$(this).siblings('.span').html('');
 		if(String.fromCharCode(e.which) == '#'){
@@ -240,6 +247,7 @@ let redeclare_input_search = function(){
 			}
 
 		}
+
 	});
 }
 /**
@@ -254,9 +262,22 @@ let create_entity = function(){
 		name : $('#name-entity').val(),
 		synonyms: synonyms
 	}
+	if( $('#name-entity').val() == "")
+		$('#err-entity').html("La entidad no se puede crear sin un nombre");
+	else if(hasSynonym() == false)
+		$('#err-entity').html("La entidad no se puede crear con sinónimos vacíos");
+	else
 	$.post('/new_entity', data, function(res){
 		location.href = res;
 	});
+}
+let hasSynonym = () =>{
+	let has = true;
+	$('.synonym').each(function(){
+		if($(this).val() == "")
+			has = false;
+	});
+	return has;
 }
 /**
  * Insert a new entity
@@ -292,25 +313,30 @@ let searchEntity = function(input_value){
  * Search entity
  */
 let showAll = function(ul){
-	ul.children('li').remove();
-	ul.children('.search').remove();
-    $.post('/show_entities', function(res){
-		let $inputSearch;
-		ul.append('<input class= "search" type = "text">');
-		console.log(res);
-		entities = res;
-		$inputSearch = ul.children('.search');
-		$inputSearch.focus();
-		entities.forEach(element => {
-			ul.append('<li class="collection-item"><a href="">'+element+'</a></li>');
+	$.when(function(){
+		ul.children('li').remove();
+		ul.children('.search').remove();
+	}).then(function(){
+		$.post('/show_entities', function(res){
+			let $inputSearch;
+			ul.append('<input class= "search" type = "text">');
+			console.log(res);
+			entitiesNames = res;
+			$inputSearch = ul.children('.search');
+			$inputSearch.focus();
+			entitiesNames.forEach(element => {
+				ul.append('<li class="collection-item"><a href="#">'+element+'</a></li>');
+			});
+			putLinkEvent(ul);
+			$inputSearch.keyup(function(e){
+				$(this).siblings('li').remove();
+				search($(this).val().toLowerCase(), $(this).parent('ul'));
+			});
+		}).done(function(res){
+			putLinkEvent(ul);
 		});
-		putLinkEvent(ul);
-		$inputSearch.keyup(function(e){
-			$(this).siblings('li').remove();
-			search($(this).val().toLowerCase(), $(this).parent('ul'));
-		});
-		putLinkEvent(ul);
-    });
+	})
+
 }
 
 let putLinkEvent = (ul)=>{
@@ -334,11 +360,14 @@ let getEntity = (linkEntity)=>{
 }
 
 let search = (word, ulParent) =>{
-	console.log(word);
-	entities.forEach(element => {
+	entitiesNames.forEach(element => {
 		if (element.toLowerCase().indexOf(word) >= 0)
 			ulParent.append('<li class="collection-item"><a href="">'+element+'</a></li>');
 	});
+	$('.collection-item a').on('click',function(){
+		return false;
+	})
+	putLinkEvent(ulParent);
 }
 
 /**
@@ -356,6 +385,13 @@ let redeclarate_btn_delete_bloq = () =>{
 let redeclarate_btn_delete = () =>{
 	$btnDeleteVariant = $('.btn-delete-variant');
 	$btnDeleteVariant.click(function(event){
+		event.preventDefault();
+		$(this).parent('div').remove();
+	})
+}
+let redeclarate_btn_delete_synonym = () =>{
+	$btnDeleteSynonym = $('.btn-delete-synonym');
+	$btnDeleteSynonym.click(function(event){
 		event.preventDefault();
 		$(this).parent('div').remove();
 	})
@@ -468,7 +504,9 @@ let add_new_variant = ($btn)=>{
  * Insert a new synonym
  */
 let add_new_synonym =()=>{
-	$btnAddSynonym.before('<input class="synonym" name="sinonym" type="text" class="validate">');
+	$btnAddSynonym.before('<div><input class="synonym" name="sinonym" type="text" class="validate">'
+	+'<button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	redeclarate_btn_delete_synonym();
 }
 /**
 * Check that the number of answers is less than the maximum number of responses allowed
