@@ -198,7 +198,7 @@ let init = function(){
 			intents.forEach(function(value){
 				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
 					console.log('value name: ' + value.name)
-					$('#list_intent').append('<a class="collection-item intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
+					$('#list_intent').append('<a class="collection-item indigo-text intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
 				}
 			})
 		)
@@ -210,7 +210,7 @@ let init = function(){
 			entities.forEach(function(value){
 				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
 					console.log('value name: ' + value.name)
-					$('#list_entity').append('<a class="collection-item entity" id="entity" href="'+value.id+'">'+value.name+'</a>')
+					$('#list_entity').append('<a class="collection-item entity indigo-text" id="entity" href="'+value.id+'">'+value.name+'</a>')
 				}
 			})
 		)

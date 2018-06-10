@@ -1,5 +1,7 @@
+<div id="body-wrapper">
+<h5 class="indigo-text center">Intents</h5>
 <p class="center-align">
-	<a class='btn dropdown-create' href='#' data-target='dropdown-c'><i class="material-icons left">add</i> Añadir</a>
+	<a class='btn dropdown-create indigo right' href='#' data-target='dropdown-c'><i class="material-icons left">add</i> Añadir</a>
 	<ul id='dropdown-c' class='dropdown-content'>
 		<li>
 			<a class="text-li" href="/create" name="/create">Intent Básico</a>
@@ -9,12 +11,12 @@
 		</li>
 	</ul>
 </p>
-<div id="body-wrapper">
-	<input id="search-intent" type="text">
-	<div id="list_intent" class="collection">
+	<div class="row">
+	<input id="search-intent" class="col s8 m6 offset-m3 offset-s2 " type="text">
+	<div id="list_intent" class="collection col s10 m8 offset-m2 offset-s1">
 		{{#each this}}
-		<a class="collection-item intent" id="intent" href="/{{ id }}">{{ name }}</a>
+		<a class="collection-item intent indigo-text" id="intent" href="/{{ id }}">{{ name }}</a>
 		{{/each }}
 	</div>
-	<main></main>
+	</div>
 </div>

@@ -96,7 +96,6 @@ get_intent = (id, req, res)=>{
 			promise= new Promise (function(resolve, reject){
 				resolve(intent = JSON.parse(body));
 			}).catch((SyntaxError) => {
-
 			  });;
 			promise.then(function(intent){
 				res.render('detail',intent);

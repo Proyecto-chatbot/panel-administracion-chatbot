@@ -1,13 +1,116 @@
+body {
+  display: grid;
+  grid-template-columns: 15% 85%;
+  grid-template-areas: "nav nav" "aside aside" "main main" "footer footer";
+}
+
+@media screen and (min-width: 900px) {
+  body {
+    grid-template-areas: "nav nav" "aside main" "aside main" "footer footer";
+  }
+}
+
+nav {
+  min-height: 80px;
+  grid-area: nav;
+  background-color: #303F9F;
+}
+
+.nav-wrapper span {
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 624px) {
+  .nav-wrapper span {
+    font-size: 2.1rem;
+  }
+}
+
+#list_intent, #list_entity {
+  height: 75vh;
+}
+
+@media screen and (max-width: 624px) {
+  .dropdown-create, #btn_create_entity {
+    position: fixed;
+    right: 5px;
+    bottom: 10px;
+    z-index: 3;
+  }
+}
+
+@media screen and (min-width: 625px) {
+  .dropdown-create {
+    margin-right: 50px;
+  }
+}
+
+@media screen and (min-width: 625px) {
+  #btn_create_entity {
+    margin-right: 50px;
+  }
+}
+
 #btn_create {
   margin-top: 10px;
 }
 
-#logo {
-  font-size: 25px;
+aside {
+  grid-area: aside;
+  background-color: #3F51B5;
+}
+
+aside ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+@media screen and (min-width: 900px) {
+  aside ul {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+aside ul a {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+aside ul a:hover {
+  color: #FFAB00;
+}
+
+@media screen and (min-width: 900px) {
+  aside ul a {
+    line-height: 8em;
+  }
 }
 
 #body-wrapper {
-  display: grid;
-  grid-template-columns: 30% 70%;
+  grid-area: main;
+}
+
+footer {
+  box-shadow: 0 -3px 10px 3px rgba(0, 0, 0, 0.2);
+  grid-area: footer;
+}
+
+.page {
+  display: none;
+}
+
+.easyPaginateNav {
+  width: 160px !important;
+  margin: auto;
+}
+
+.easyPaginateNav a {
+  color: #303F9F;
+}
+
+iframe {
+  margin: 10px 0 10px 0;
 }
 /*# sourceMappingURL=frontend.css.map */

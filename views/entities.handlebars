@@ -1,12 +1,15 @@
-<div class="container">
-<h4>Entidades - Sinónimos</h4>
+<div id="body-wrapper">
+<h5 class="indigo-text center">Entidades - Sinónimos</h5>
 <p class="center-align">
-<a class="waves-effect waves-light btn-small" href="/create_entity" id="btn_create_entity"><i class="material-icons left">add</i>Añadir</a>
+<a class="waves-effect waves-light btn-small indigo right" href="/create_entity" id="btn_create_entity"><i class="material-icons left">add</i>Añadir</a>
 </p>
-    <input id="search-entity" type="text">
-    <div id="list_entity" class="collection">
+  <div class="row">
+    <input id="search-entity" class="col s8 m6 offset-m3 offset-s2" type="text">
+    <div id="list_entity" class="collection col s10 m8 offset-m2 offset-s1">
 		{{#each this}}
-              <a class="collection-item entity" id="entity" href="/entities/{{ id }}">{{ name }}</a>
+              <a class="collection-item entity indigo-text" id="entity" href="/entities/{{ id }}">{{ name }}</a>
         {{/each }}
-	</div>
+	  </div>
+  </div>
+</div>
 </div>

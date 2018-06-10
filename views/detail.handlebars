@@ -1,5 +1,5 @@
-<div class="container center-align">
-    <h4 class="indigo-text">{{this.name}}</h4>
+<div class="container center-align" id="body-wrapper">
+    <h5 class="indigo-text">{{this.name}}</h5>
 <form action="/edit" method="POST">
 <input type="hidden" name="id" id="input-id" value="{{this.id}}">
 <button class="left btn btn-primary right indigo" type="submit" id="open-edit-intent">
@@ -8,7 +8,7 @@
 </form>
     <div class="row ">
         <div class="input-field col s12">
-            <div class="collection">
+            <div class="collection col s10 m10 offset-m1 offset-s1">
             <h5 class="collection-item indigo-text">Preguntas del usuario</h5>
 			{{#each this.userSays }}
                 <p class="collection-item">
@@ -30,7 +30,7 @@
             {{/each}}
 
         </div>
-        <div class="select input-field col s12">
+        <div class="select input-field col s10 m10 offset-m1 offset-s1">
             {{#each this.responses }}
                 {{#each messages}}
                     {{#if textToSpeech}}

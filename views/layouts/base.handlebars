@@ -7,25 +7,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" rel="stylesheet" >
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="static/style/frontend.css" type="text/css" rel="stylesheet">
+    <link href="../../static/style/frontend.css" type="text/css" rel="stylesheet">
     <title>Administración Chatbot</title>
 </head>
 <body>
   <nav>
-    <div class="nav-wrapper indigo">
-      <span class="brand-logo center" id="logo">Gran Capibot</span>
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a href="/">Inicio</a></li>
+    <div class="nav-wrapper">
+      <span class="brand-logo center">Administración Chatbot</span>
+      <a href="#" class="brand-logo right"><img src="../../static/images/logo.png"></a>
+    </div>
+  </nav>
+  <aside>
+    <ul>
+        <li><a href="/">Intents</a></li>
         <li><a href="/entities">Entidades</a></li>
         <li><a href="/interaction">Interactuar</a></li>
       </ul>
-    </div>
-  </nav>
+  </aside>
 
 {{{body}}}
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <script src="../../static/form.js"></script>
+<script src="../../static/jquery.easyPaginate.js"></script>
 
 
         <footer class="page-footer indigo">
@@ -34,7 +38,6 @@
               <div class="col l6 s12">
                 <h5 class="white-text">Contacto</h5>
                 <p> informatica@iesgrancapitan.org</p>
-                <p>957 379 710</p>
               </div>
             </div>
           </div>
@@ -47,3 +50,27 @@
         </footer>
 </body>
 </html>
+<script>
+	$(function(){
+		$('#list_intent').easyPaginate({
+    paginateElement: 'a',
+    elementsPerPage: 11,
+    effect: 'climb',
+    prevButtonText: 'Anterior -',
+    nextButtonText: ' Siguiente',
+    firstButton: false,
+    lastButton: false
+});
+$('#list_entity').easyPaginate({
+    paginateElement: 'a',
+    elementsPerPage: 11,
+    effect: 'climb',
+    prevButtonText: 'Anterior -',
+    nextButtonText: ' Siguiente',
+    firstButton: false,
+    lastButton: false
+});
+	
+})
+  
+</script>

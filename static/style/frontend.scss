@@ -1,12 +1,97 @@
+body{
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-areas: "nav nav"
+                        "aside aside"
+                        "main main"
+                        "footer footer";
+    @media screen and (min-width:900px) {
+        grid-template-areas: "nav nav"
+                            "aside main"
+                            "aside main"
+                            "footer footer";
+    }                    
+}
+nav{
+    min-height:80px;
+    grid-area: nav;
+    background-color: #303F9F;
+}
+.nav-wrapper span{
+    font-size:1rem;
+    @media screen and (min-width:624px) {
+        font-size:2.1rem;
+    }    
+}
+
+#list_intent, #list_entity{
+    height: 75vh;
+}
+
+.dropdown-create, #btn_create_entity{
+    @media screen and (max-width:624px) {
+        position: fixed;
+        right: 5px;
+        bottom: 10px;
+        z-index: 3;
+    }   
+}
+.dropdown-create{
+    @media screen and (min-width:625px) {       
+        margin-right: 50px;
+    }
+}
+
+#btn_create_entity{
+    @media screen and (min-width:625px) {       
+        margin-right: 50px;
+    }
+}
+
 #btn_create{
     margin-top: 10px;
-    
 }
-#logo{
-    font-size: 25px;
+
+aside{
+    grid-area: aside;
+    background-color: #3F51B5;
+    ul{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    @media screen and (min-width:900px) {
+        flex-direction: column;
+        align-items: center;
+    }
+        a{
+            color: #fff;
+            text-transform: uppercase;
+            &:hover{
+                color: #FFAB00;    
+            }
+            @media screen and (min-width:900px) {
+                line-height: 8em;
+            }
+        }
+    }
 }
 #body-wrapper{
-    display: grid;
-    grid-template-columns: 30% 70%;
-
+    grid-area: main;
+}
+footer{
+    box-shadow: 0 -3px 10px 3px rgba(0, 0, 0, 0.2);
+    grid-area: footer;
+}
+.page{
+    display: none;
+}
+.easyPaginateNav{
+    width: 160px !important;
+    margin: auto;
+    a{
+        color: #303F9F;
+    }   
+}
+iframe{
+    margin: 10px 0 10px 0;
 }
