@@ -1,9 +1,10 @@
-let $btn_create;
+let $btn_create_gif;
 let $btn_delete_intent;
 let $btn_delete_entity;
 let $btn_add_question;
 let $btn_submit;
 let $btnAddSynonym;
+let $btnDeleteSynonym;
 let $name;
 // El máximo de respuestas posibles son 10
 const MAX_RESPONSES = 10;
@@ -11,46 +12,63 @@ const MAX_RESPONSES = 10;
 let numResponses;
 let dropdown;
 let dropdown_options;
+let entities;
 let $select;
 let hasImage;
 let hasLink;
-let parameters = [];
+var parameters = [];
 let $textResponse;
+let $inputSearch;
+
 let $contextIn;
 let $contextOut;
+let $btnDeleteVariant;
+let intents;
+let entitiesNames;
 let init = function(){
-
 	numResponses = 0;
+	$.post('/get_intents', function(res){
+		intents = res;
+	});
+	$.post('/get_entities', function(res){
+		entities = res;
+	});
+
+	$('#cancel').click(function(){
+		location.href = './';
+	});
 	hasImage = false;
+	hasLink = false;
 	$select = $('.select');
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();
+	$('.dropdown-create').dropdown();
 	dropdown_options = $('.dropdown-content li a');
 	$('.collapsible').collapsible();
 	$contextIn = $('#contextIn');
 	$contextOut = $('#contextOut');
 	let intent_id;
-
-	$btn_create = $('#btn_create');
+	$btn_create_gif = $('#send_new_gif');
 	$btn_delete_intent = $("#btn-delete-intent");
 	$btn_delete_entity = $('#btn-delete-entity');
 	$btn_add_question = $("#addUserText");
-
+	$btnAddSynonym = $("#add-synonym");
+	redeclarate_btn_delete();
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
-
+	checkType();
+	redeclare_input_search();
+	transform_edit_responses();
 	$('.data_text').each(function(){
-		$span = $(this).children('span').text();
+		$span = $(this).children('.span-hide').text();
 		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
 		$(this).children('input').prop('value',$clean_span);
 	})
-	$btnAddSynonym = $("#add-synonym").click(function(event){
+	$btnAddSynonym.click(function(event){
 		event.preventDefault();
 		add_new_synonym();
 	});
-	$btn_create.click(function(){
-		$.get('/create');
-	});
+
 	$btn_delete_intent.click(function(){
 		intent_id = $("#input-id").val();
 		$.post('/delete',{id : intent_id}, function(res){
@@ -68,28 +86,27 @@ let init = function(){
 		create_entity();
 	});
 
-	$('#open-edit-intent').click(function(event){
-		//event.preventDefault();
-		//entity_id = $('#input-id').val();
-		//$.post('/edit',{id : entity_id});
+	$('#btn-edit-entity').click(function(event){
+		event.preventDefault();
+		edit_entity();
 	});
 	$('#btn_edit_intent').click(function(event){
 		event.preventDefault();
 		intent_id = $("#input-id").val();
 		let data = {};
-	let botSays = [];
-	let n_inputs = 0;
-	let position = 0;
-	let responses;
-	let text;
-	let type;
-	context_in = $contextIn.val();
-	context_out = $contextOut.val();
-	name = $('#name').val();
-	input_user = $('.user');
-	input_user.each(function(){
-		n_inputs++;
-	});
+		let botSays = [];
+		let n_inputs = 0;
+		let position = 0;
+		let responses;
+		let text;
+		let type;
+		context_in = $contextIn.val();
+		context_out = $contextOut.val();
+		name = $('#name').val();
+		input_user = $('.user');
+		input_user.each(function(){
+			n_inputs++;
+		});
 	if(n_inputs > 1){
 		userSays = [];
 		input_user.each(function(index, element){
@@ -109,20 +126,26 @@ let init = function(){
 		if($(this).hasClass('type-link')){
 			type = 'link';
 		}
-		responses = $(this).children('.response');
+		responses = $(this).children('div').children('.response');
 
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
-				search_parameter($(this).val());
-				text.push($(this).val());
+				str = $(this).val();
+				if(search_parameter(str)){
+					str = $(this).val().replace('#','$');
+				}
+				text.push(str);
 			});
 		}else if(responses.length == 1){
-			search_parameter(responses.val());
-			text = responses.val();
+			str = responses.val();
+			if(search_parameter(str)){
+				str =responses.val().replace('#','$');
+			}
+			text = str;
 		}
 		if(type == 'link'){
-			url = $(this).children('.url').val();
+			url = $(this).children('div').children('.url').val();
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else
@@ -130,17 +153,18 @@ let init = function(){
 
 	});
 	data = {
+		"id": intent_id,
 		"name": name,
 		"user": userSays,
 		"bot": botSays,
 		"contextIn" : context_in,
 		"contextOut" : context_out,
-		"parameters" : parameters,
-		"id" : intent_id
+		"parameters" : parameters
 	}
-		$.post('/update',data,function(res){
-			location.href = res;
-		})
+
+	$.post('/update',data, function(res){
+		location.href = res;
+	});
 	})
 	$btn_add_question.click(function(event){
 		event.preventDefault();
@@ -156,10 +180,75 @@ let init = function(){
 		event.preventDefault();
 		send_intent();
 	});
+	$btn_create_gif.click(function(event){
+		event.preventDefault();
+		send_gif_intent();
+	})
 	dropdown_options.click(function(event){
 		event.preventDefault();
 		add_new_block($(this).prop('name'));
 	})
+	$('#dropdown-c li a').click(function(event){
+		window.location.href= $(this).prop('href');
+	});
+
+	$('#search-intent').keyup(function(){
+		let stringSearch = $(this).val().toLowerCase();
+		$.when($('.intent').remove()).then(
+			intents.forEach(function(value){
+				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
+					console.log('value name: ' + value.name)
+					$('#list_intent').append('<a class="collection-item intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
+				}
+			})
+		)
+	});
+
+	$('#search-entity').keyup(function(){
+		let stringSearch = $(this).val().toLowerCase();
+		$.when($('.entity').remove()).then(
+			entities.forEach(function(value){
+				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
+					console.log('value name: ' + value.name)
+					$('#list_entity').append('<a class="collection-item entity" id="entity" href="'+value.id+'">'+value.name+'</a>')
+				}
+			})
+		)
+	});
+}
+/**
+ *
+ */
+let redeclare_input_search = function(){
+	let ul;
+	$inputSearch = $(".input");
+	$(".input-field ul").hide();
+
+	$(".input").parent('div').children('ul').children('a').remove();
+	$(".input").parent('div').children('ul').children('.search').remove();
+
+	$inputSearch.keyup(function(e){
+		if(e.keyCode == 8){
+			if($(this).val().indexOf('#') != -1)
+				$(this).siblings('.span').html('');
+		}
+	});
+	$inputSearch.unbind('keypress').bind('keypress',function(e){
+		if($(this).val().indexOf('#') != -1)
+			$(this).siblings('.span').html('');
+		if(String.fromCharCode(e.which) == '#'){
+			if($(this).val().indexOf('#') > -1)
+				$(this).siblings('.span').html('No puedes usar más de una entidad en la misma frase');
+			else{
+				$(this).siblings('.span').html('');
+				ul = $(this).parent('div').children('ul');
+				ul.show();
+				showAll(ul);
+			}
+
+		}
+
+	});
 }
 /**
  * Insert a new entity
@@ -173,15 +262,157 @@ let create_entity = function(){
 		name : $('#name-entity').val(),
 		synonyms: synonyms
 	}
+	if( $('#name-entity').val() == "")
+		$('#err-entity').html("La entidad no se puede crear sin un nombre");
+	else if(hasSynonym() == false)
+		$('#err-entity').html("La entidad no se puede crear con sinónimos vacíos");
+	else
 	$.post('/new_entity', data, function(res){
 		location.href = res;
 	});
+}
+let hasSynonym = () =>{
+	let has = true;
+	$('.synonym').each(function(){
+		if($(this).val() == "")
+			has = false;
+	});
+	return has;
+}
+/**
+ * Insert a new entity
+ */
+let edit_entity = function(){
+	let synonyms = [];
+	$('.synonym').each(function(){
+		synonyms.push($(this).val());
+	});
+	let data = {
+		id :  $('#id-entity').val(),
+		name : $('#name-entity').val(),
+		synonyms: synonyms
+	}
+
+	$.post('/edit_entity', data, function(res){
+		location.href = res;
+	});
+}
+let filter = (string)=>{
+	return entities.filter(el => el.toLowercase().indexOf(string.toLowercase()) > -1);
+}
+/**
+ * Search entity
+ */
+let searchEntity = function(input_value){
+	var data = {};
+	data.stringSearch = filter(input_value)[0];
+
+}
+
+/**
+ * Search entity
+ */
+let showAll = function(ul){
+	$.when(function(){
+		ul.children('a').remove();
+		ul.children('.search').remove();
+	}).then(function(){
+		$.post('/show_entities', function(res){
+			let $inputSearch;
+			ul.append('<input class= "search" type = "text">');
+			console.log(res);
+			entitiesNames = res;
+			$inputSearch = ul.children('.search');
+			$inputSearch.bind('keydown',function(e){
+				if ( e.which == 27 ) {
+					ul.children('a').remove();
+					ul.children('.search').remove();
+					ul.hide();
+					let newText = ul.siblings('.input').val().replace(/(#)(\w)*/, '');
+					ul.siblings('.input').val(newText);
+				};
+			});
+
+			$inputSearch.focus();
+			entitiesNames.forEach(element => {
+				ul.append('<a class="collection-item" href="#">'+element+'</a>');
+			});
+			putLinkEvent(ul);
+			$inputSearch.keyup(function(e){
+				$(this).siblings('a').remove();
+				search($(this).val().toLowerCase(), $(this).parent('ul'));
+			});
+		}).done(function(res){
+			putLinkEvent(ul);
+		});
+	})
+
+}
+
+let putLinkEvent = (ul)=>{
+	ul.children('a').on('click',function(event){
+		event.preventDefault();
+		getEntity($(this));
+	});
+}
+/**
+ * Insert the selected entity into the input text
+ * @param {*} linkEntity
+ */
+let getEntity = (linkEntity)=>{
+	let input = linkEntity.parent('ul').siblings('input');
+	let inputVal = input.val();
+	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
+	console.log(newText);
+	$.when(input.val(newText)).then(function(){
+		linkEntity.parent('ul').children('li, .search').remove();
+	}).then(linkEntity.parent('ul').hide());
+}
+
+let search = (word, ulParent) =>{
+	entitiesNames.forEach(element => {
+		if (element.toLowerCase().indexOf(word) >= 0)
+			ulParent.append('<a class="collection-item" href="">'+element+'</a>');
+	});
+	ulParent.children('a').on('click',function(){
+		return false;
+	})
+	putLinkEvent(ulParent);
+}
+
+/**
+ *
+ */
+let redeclarate_btn_delete_bloq = () =>{
+	$btnDeleteBloq = $('.btn-delete-bloq');
+	$btnDeleteBloq.click(function(event){
+		event.preventDefault();
+		numResponses--;
+		checkNumResponses();
+		$(this).parent('div').remove();
+	})
+}
+let redeclarate_btn_delete = () =>{
+	$btnDeleteVariant = $('.btn-delete-variant');
+	$btnDeleteVariant.click(function(event){
+		event.preventDefault();
+		$(this).parent('div').remove();
+	})
+}
+let redeclarate_btn_delete_synonym = () =>{
+	$btnDeleteSynonym = $('.btn-delete-synonym');
+	$btnDeleteSynonym.click(function(event){
+		event.preventDefault();
+		$(this).parent('div').remove();
+	})
 }
 /**
 * Insert a new input for user says
 */
 let add_new_input = ($input)=>{
-	$input.before('<input class="user validate" name="user" type="text" >');
+	$input.before('<div><input class="input user validate" name="user" type="text" ><span class="span red-text"></span><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	redeclarate_btn_delete();
+	redeclare_input_search();
 }
 /**
 * Insert a new block for bot response
@@ -194,15 +425,35 @@ let add_new_block = (name) =>{
 		case 'type-link': add_new_link("Link"); break;
 		case 'type-document': add_new_link("Documento"); break;
 	}
+	redeclarate_btn_delete_bloq();
+	redeclarate_btn_delete();
+}
+let checkType = () =>{
+	let $typeText = $('.type-text');
+	if($('.type-image').length > 0){
+		hasImage = true;
+		numResponses++;
+	}
+	if($('.type-link').length > 0){
+		hasLink = true;
+		numResponses++;
+	}
+	if($typeText.length > 0){
+		$typeText.each(function(){
+			numResponses++;
+		});
+	}
 }
 /**
 * Insert a new block for type text response
 */
 let add_new_response = function (){
 	$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
-	+'<input class="response validate" type="text">'
+	+'<div><input class="response validate input" type="text"><span class="span red-text"></span>'
+	+'<ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>'
 	+'<button class="btnAddVariant btn-small waves-effect waves-light right"'
-	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>';
+	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button>'
+	+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div></div>';
 	if(checkNumResponses()){
 		if(hasImage)
 			$('.type-image').before($textResponse);
@@ -211,14 +462,17 @@ let add_new_response = function (){
 		else
 			$select.before($textResponse);
 		numResponses++;
+		checkNumResponses();
 	}
+	redeclare_input_search();
 }
 /**
  *  Insert a new block for type image/gif response
  */
 let add_new_image = function (title){
-	$imageResponse = '<div class="bloq type-image input-field col s12"><p>' + title +
-	'</p><input class="response" name="gifResponse" type="text" class="validate"></div>'
+	$imageResponse = '<div class="bloq type-image input-field col s12"><div><p>'
+	+ title + '</p><input class="response" name="gifResponse" type="text" class="validate">'
+	+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div></div>'
 
 	if(checkNumResponses()){
 		if(hasLink)
@@ -228,6 +482,7 @@ let add_new_image = function (title){
 		numResponses++;
 		hasImage = true;
 		$('.image-li').css({pointerEvents: "none", color: "red"})
+		checkNumResponses();
 	}
 
 }
@@ -238,31 +493,42 @@ let add_new_image = function (title){
  */
 let add_new_link = function(title){
 	if(checkNumResponses()){
-		$select.before('<div class="bloq type-link input-field col s12"><p>' + title + '</p>'+
-		'<input class="response" id="linkResponse" type="text" class="validate">'+
-		'<input class="url" id="linkUrl" type="text"  class="validate">'+
-		'</div>');
+		$select.before('<div class="bloq type-link input-field col s12"><div><p>'
+		+ title + '</p><input class="response" id="linkResponse" type="text" class="validate">'
+		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-bloq btn btn-primary indigo">'
+		+'<i class="material-icons">delete</i></button></div></div>');
 		numResponses++;
 		hasLink = true;
+		checkNumResponses();
 	}
 }
 /**
  * Insert a new variant for text response
  */
 let add_new_variant = ($btn)=>{
-	$btn.before('<input name="response'+numResponses+'" type="text" class=" response validate">');
+	$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><span class="span red-text"></span><ul class="collection"></ul>'
+	+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	redeclare_input_search();
 }
 /**
  * Insert a new synonym
  */
 let add_new_synonym =()=>{
-	$btnAddSynonym.before('<input class="synonym" name="sinonym" type="text" class="validate">');
+	$btnAddSynonym.before('<div><input class="synonym" name="sinonym" type="text" class="validate">'
+	+'<button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	redeclarate_btn_delete_synonym();
 }
 /**
 * Check that the number of answers is less than the maximum number of responses allowed
 */
 let checkNumResponses = ()=>{
-	return numResponses < MAX_RESPONSES;
+	if(numResponses >= MAX_RESPONSES){
+		dropdown.hide();
+		return false;
+	}else{
+		dropdown.show();
+		return true;
+	}
 }
 
 /**
@@ -270,15 +536,8 @@ let checkNumResponses = ()=>{
  * @param {*} text
  */
 let search_parameter = (text)=>{
-	PATTERN_PARAMETER = /[^\w]$\w+[\-\_\w]*/
-	if(PATTERN_PARAMETER.test(text)){
-		matches = PATTERN_PARAMETER.exec(text);
-		param = matches[0].trim();
-		parameter.push(	{ "dataType": "@"+param, "isList": false,
-			"name": param,
-			"value": "$"+param
-		  })
-	}
+	PATTERN_PARAMETER = /^(#)\w+|(\s#)\w+[\-\_\w]*/
+	return PATTERN_PARAMETER.test(text);
 }
 /**
 *
@@ -288,7 +547,7 @@ let send_intent = ()=>{
 	let botSays = [];
 	let n_inputs = 0;
 	let position = 0;
-	let responses;
+	let responses = [];
 	let text;
 	let type;
 	context_in = $contextIn.val();
@@ -317,20 +576,26 @@ let send_intent = ()=>{
 		if($(this).hasClass('type-link')){
 			type = 'link';
 		}
-		responses = $(this).children('.response');
+		responses = $(this).children('div').children('.response');
 
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
-				search_parameter($(this).val());
-				text.push($(this).val());
+				str = $(this).val();
+				if(search_parameter(str)){
+					str = $(this).val().replace('#','$');
+				}
+				text.push(str);
 			});
 		}else if(responses.length == 1){
-			search_parameter(responses.val());
-			text = responses.val();
+			str = responses.val();
+			if(search_parameter(str)){
+				str =responses.val().replace('#','$');
+			}
+			text = str;
 		}
 		if(type == 'link'){
-			url = $(this).children('.url').val();
+			url = $(this).children('div').children('.url').val();
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else
@@ -346,8 +611,87 @@ let send_intent = ()=>{
 		"parameters" : parameters
 	}
 
-	$.post('/new_intent',data, function(res){
+	if(data.name == "")
+		$('#err').html('No se puede crear un intent sin nombre');
+	else if(data.user == "")
+		$('#err').html('No se puede crear un intent sin frases de usuario');
+	else if($.isArray(data.user)){
+		if( data.user.filter(word => word != "").length == 0)
+			$('#err').html('No se puede crear un intent sin frases de usuario');
+		else if(responses.length == 0)
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+		else if( hasText() == false)
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+		else if(responseIsEmpty() == true)
+			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
+		else
+			$.post('/new_intent',data, function(res){
+				location.href = res;
+		});
+	}
+	else if(responses.length == 0)
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+	else if( hasText() == false){
+				$('#err').html('No se puede crear un intent sin respuestas de chatbot')
+		}
+	else if(responseIsEmpty() == true)
+		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
+	else
+		$.post('/new_intent',data, function(res){
+			location.href = res;
+		});
+}
+let hasText = () =>{
+	let has_text = false;
+	$(".response").each(function(){
+		console.log('-->'+$(this).val());
+		if($(this).val() != "")
+			has_text = true;
+	})
+	return has_text;
+}
+let responseIsEmpty = () =>{
+	let isEmpty = false;
+	$(".response").each(function(){
+		if($(this).val() == "")
+			isEmpty = true;
+	});
+	return isEmpty;
+}
+let send_gif_intent = ()=>{
+	let data = {};
+	let n_inputs = 0;
+
+	name = $('#name').val();
+	tag = $('.tag_gif').val();
+	input_user = $('.user');
+	input_user.each(function(){
+		n_inputs++;
+	});
+	if(n_inputs > 1){
+		userSays = [];
+		input_user.each(function(index, element){
+			userSays.push($(this).val());
+		});
+	}else{
+		userSays = '';
+		userSays = input_user.val();
+	}
+	data = {
+		"name": name,
+		"user": userSays,
+		"action" : tag
+	}
+
+	$.post('/new_gif_intent',data, function(res){
 		location.href = res;
 	});
+}
+let transform_edit_responses = ()=>{
+	    $('.edit-responses .response').each(function(){
+            let original = $(this).val();
+			$(this).val(original.replace(/[$]/,' #'));
+        });
+
 }
 $(init);

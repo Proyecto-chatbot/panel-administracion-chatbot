@@ -10,11 +10,11 @@
             <p>Preguntas del usuario</p>
             {{#each this.userSays }}
                 <div class="data_text">
-                <span class="hide">
+                <span class="span-hide hide">
                 {{#each data}}
              		{{#if meta}}
 					        {{#isnt meta "@sys.ignore" }}
-						        <span>@{{alias}}</span>
+						        <span>#{{alias}}</span>
 					        {{/isnt}}
 					        {{#eq meta "@sys.ignore"}}
 						        <span>{{text}}</span>
@@ -25,42 +25,62 @@
 
                 {{/each}}
                 </span>
-                <input class="user" name="user" type="text" class="validate">
+                <input class="user input" name="user" type="text" class="validate">
+                <span class="span red-text"></span>
+                <ul class="collection"></ul>
+                <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                 </div>
             {{/each}}
             <button class="btn btn-small waves-effect waves-light right" id="addUserText" name="addUserText">Añadir Pregunta
                 <i class="material-icons right">add</i>
             </button>
         </div>
-        <div class="select input-field col s12">
+        <div class="input-field col s12 edit-responses">
             {{#each this.responses }}
                 {{#each messages}}
                     {{#if textToSpeech}}
                         <div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>
-                        <input class="response validate" type="text" value= "{{textToSpeech}}"><button class="btnAddVariant btn-small waves-effect waves-light right"
+                        <div>
+                        <input class="response validate input" type="text" value= "{{textToSpeech}}">
+                        <span class="span red-text"></span>
+                        <ul class="collection"></ul>
+                        <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                        </div>
+                        <button class="btnAddVariant btn-small waves-effect waves-light right"
                         name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>
                     {{/if}}
                     {{#if items}}
                         <div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>
                         {{#each items}}
-                        <input type="text" class=" response validate" value="{{textToSpeech}}">
+                        <div>
+                        <input type="text" class="input response validate" value="{{textToSpeech}}">
+                        <span class="span red-text"></span>
+                        <ul class="collection"></ul>
+                        <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                        </div>
                         {{/each}}
                         <button class="btnAddVariant btn-small waves-effect waves-light right"
                         name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>
                     {{/if}}
                     {{#if image}}
                         <div class="bloq type-image input-field col s12"><p> Imagen/Gif</p>
+                        <div>
                         <input class="response" name="gifResponse" type="text" class="validate" value="{{image.url}}"></div>
+                        <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                        </div>
                     {{/if}}
                     {{#if url}}
                         <div class="bloq type-link input-field col s12"><p> Link/Documento</p>
+                        <div>
                             <input class="response" id="linkResponse" type="text" value="{{destinationName}}" class="validate">
                             <input class="url" id="linkUrl" type="text"  value="{{url}}" class="validate">
-                                </div>
+                            <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                        </div>
+                        </div>
                     {{/if}}
                 {{/each}}
             {{/each}}
-            <a class='dropdown-trigger btn' href='#' data-target='dropdown'>Añadir Respuesta</a>
+            <a class='dropdown-trigger btn select' href='#' data-target='dropdown'>Añadir Respuesta</a>
             <ul id='dropdown' class='dropdown-content'>
                 <li>
                     <a class="text-li" name="type-text">Texto</a>
@@ -92,11 +112,11 @@
                     <i class="material-icons">forum</i>Opciones avanzadas</div>
                 <div class="collapsible-body">
                     <div class="input-field col s6 offset-s3">
-                        <input id="contextIn" type="text" name="contextIn" class="validate">
+                        <input id="contextIn" type="text" name="contextIn" class="validate" value="{{ this.contexts }}">
                         <label for="contextIn">Contexto de entrada</label>
                     </div>
                     <div class="input-field col s6 offset-s3">
-                        <input id="contextOut" type="text" name="contextOut" class="validate">
+                        <input id="contextOut" type="text" name="contextOut" class="validate" value="{{ this.responses.0.affectedContexts.0.name }}">
                         <label for="contextOut">Contexto de salida</label>
                     </div>
                 </div>

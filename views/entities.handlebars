@@ -3,9 +3,10 @@
 <p class="center-align">
 <a class="waves-effect waves-light btn-small" href="/create_entity" id="btn_create_entity"><i class="material-icons left">add</i>Añadir</a>
 </p>
+    <input id="search-entity" type="text">
     <div id="list_entity" class="collection">
 		{{#each this}}
-              <a class="collection-item" id="intent" href="/entities/{{ id }}">{{ name }}</a>
+              <a class="collection-item entity" id="entity" href="/entities/{{ id }}">{{ name }}</a>
         {{/each }}
 	</div>
 </div>

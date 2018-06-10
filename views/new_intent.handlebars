@@ -7,7 +7,11 @@
         </div>
         <div class="input-field col s12">
             <p>Preguntas del usuario</p>
-            <input class="user" name="user" type="text" class="validate">
+            <div>
+                <input class="user input" name="user" type="text" class="validate">
+                <span class="span red-text"></span>
+                <ul class="collection"></ul>
+            </div>
             <button class="btn btn-small waves-effect waves-light right" id="addUserText" name="addUserText">Añadir Pregunta
                 <i class="material-icons right">add</i>
             </button>
@@ -35,8 +39,11 @@
         </div>
 
 
+        <span id="err"></span>
         <button class="btn waves-effect waves-light" type="submit" id="submit" name="submit">Enviar
             <i class="material-icons right">send</i>
+        </button>
+        <button class="btn waves-effect waves-light" type="submit" id="cancel" name="submit">Cancelar
         </button>
     </div>
    <ul class="collapsible">

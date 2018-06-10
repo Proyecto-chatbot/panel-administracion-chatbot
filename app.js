@@ -92,7 +92,6 @@ get_intent = (id, req, res)=>{
   	request(options, function (error, response, body) {
     		if (error){
 				  console.log(error);
-				  console.log('body--->'+response);
         }else{
 			promise= new Promise (function(resolve, reject){
 				resolve(intent = JSON.parse(body));
@@ -267,7 +266,7 @@ post_intent = (req,res,next)=>{
 				{
 				'Cache-Control': 'no-cache',
 				Authorization: 'Bearer ' + TOKEN,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json; charset=utf-8'
 				},
 		  body:{
 			contexts: [contextIn],
@@ -302,9 +301,67 @@ post_intent = (req,res,next)=>{
 		});
 	}
 	/**
+	 * Create a new intent with the random_gif format
+	 */
+	post_random_gif = (req,res,next)=>{
+		var postOptions;
+		var nombre = req.body.name;
+		var userText = req.body.user;
+		var gif_action = req.body.action;
+		console.log(req.body);
+
+		promise = new Promise((resolve)=>{
+			resolve(userFormatted = formatter.format_user_request(userText));
+		});
+
+		promise.then((userFormatted) => {
+			console.log('--------USER MESSAGES--------\n');
+			userFormatted.forEach(function(element){
+				console.log(element);
+			})
+
+			postOptions = {
+				method: 'POST',
+				url: 'https://api.dialogflow.com/v1/intents',
+				qs: { v: '20150910' },
+				headers:
+					{
+					'Cache-Control': 'no-cache',
+					Authorization: 'Bearer ' + TOKEN,
+					'Content-Type': 'application/json'
+					},
+			  body:{
+				contexts: [],
+				events: [],
+				fallbackIntent: false,
+				name: nombre,
+				priority: 500000,
+				responses:
+				[ { action: gif_action,
+					affectedContexts: [],
+					defaultResponsePlatforms: { google: true },
+					messages:[],
+					parameters: [],
+					resetContexts: false } ],
+				templates: [],
+				userSays:
+				 userFormatted,
+				webhookForSlotFilling: false,
+				webhookUsed: true },
+				json: true
+			};
+
+			request(postOptions, function (error, response, body) {
+				if (error) throw new Error(error);
+				botMessages = [];
+				res.send("/");
+				});
+			});
+	}
+	/**
 	 * Update a intent
 	 */
-	put_intent = (id,req,res,next)=>{
+	put_intent = (req,res,next)=>{
 		var postOptions;
 		var nombre = req.body.name;
 		var userText = req.body.user;
@@ -348,7 +405,7 @@ post_intent = (req,res,next)=>{
 					{
 					'Cache-Control': 'no-cache',
 					Authorization: 'Bearer ' + TOKEN,
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json; charset=utf-8'
 					},
 			  body:{
 				contexts: [contextIn],
@@ -403,7 +460,7 @@ post_entity = (req,res,next)=>{
 				{
 				'Cache-Control': 'no-cache',
 				Authorization: 'Bearer ' + TOKEN,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json; charset=utf-8'
 				},
 		  	body:{
 				entries: entries,
@@ -417,8 +474,50 @@ post_entity = (req,res,next)=>{
 		res.send("/entities");
 		});
 }
+/**
+ *
+ */
+put_entity = (req,res,next)=>{
+
+	let postOptions;
+	let id = req.body.id;
+	let name = req.body.name;
+	let synonyms = req.body.synonyms;
+	let entries = synonyms.map(function(element){
+		return {
+			synonyms: [element],
+			value: element
+		  };
+	})
+	postOptions = {
+		method: 'PUT',
+		url: 'https://api.dialogflow.com/v1/entities/'+id,
+		qs: { v: '20150910' },
+		headers:
+			{
+			'Cache-Control': 'no-cache',
+			Authorization: 'Bearer ' + TOKEN,
+			'Content-Type': 'application/json; charset=utf-8'
+			},
+		  body:{
+			entries: entries,
+			name: name
+		  },
+		json: true
+	};
+
+	request(postOptions, function (error, response, body) {
+	if (error) throw new Error(error);
+	console.log(response);
+	res.send("/entities");
+	});
+}
+
 app.post('/new_entity', function(req, res, next){
 	post_entity(req, res);
+});
+app.post('/edit_entity', function(req, res, next){
+	put_entity(req, res);
 });
 ////
 app.get('/', get_intents, function(req, res, next){
@@ -429,12 +528,31 @@ app.get('/interaction',function(req,res,next){
 	res.render('interaction');
 });
 
+app.post('/get_intents', get_intents, function(req, res, next){
+	res.send(intents);
+});
+
+app.post('/get_entities', get_entities, function(req, res, next){
+	res.send(entities);
+});
+
+app.post('/show_entities', get_entities, function(req, res, next){
+	let names = [];
+	names = entities.map(function(el){
+		return el.name;
+	})
+	res.send(names);
+});
+
 app.get('/entities', get_entities, function(req,res,next){
 	res.render('entities', entities);
 });
 app.get('/create',function(req,res,next){
 	res.render('new_intent');
 });
+app.get('/create_gif',function(req,res,next){
+	res.render('new_gif');
+})
 app.get('/create_entity',function(req,res,next){
 	res.render('new_entity');
 });
@@ -450,9 +568,9 @@ app.post('/delete',function(req,res,next){
 		res.send("/");
 	});
 });
+
 app.post('/update',function(req,res,next){
-	let id = req.body.id;
-	put_intent(id, req, res);
+	put_intent(req, res);
 });
 app.post('/edit', function(req, res,next){
 	let id = req.body.id;
@@ -466,6 +584,16 @@ app.get('/:id', function(req, res, next){
 app.post('/new_intent',function(req,res,next){
 	post_intent(req,res);
 });
+app.post('/new_gif_intent',function(req,res,next){
+	post_random_gif(req,res);
+})
+app.post('/search_entity'), get_entities, function(req, res, next){
+	let stringSearch = req.body.stringSearch
+	entities.forEach(function(value){
+		if(value.name.startsWith(stringSearch))
+			res.send(value.name);
+	});
+}
 
 app.listen( PORT , function(){
 	console.log('Server listening in port '+ PORT);

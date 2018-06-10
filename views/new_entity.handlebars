@@ -1,8 +1,9 @@
 <div class="container center-align">
     <h4>Crear una nueva Entidad</h4>
+    <input type="hidden" id=entity-id value={{this.id}}>
     <div class="row ">
         <div class="input-field col s6 offset-s3">
-            <input id="name-entity" type="text" name="name" class="validate">
+            <input id="name-entity" type="text" name="name" class="validate" value="{{ this.name }}">
             <label for="name">Nombre de la entidad</label>
         </div>
         <div class="input-field col s6 offset-s3">
@@ -13,6 +14,7 @@
             </button>
         </div>
         <div class="input-field col s6 offset-s3">
+        <span id="err-entity"></span>
         <button class="btn waves-effect waves-light" type="submit" id="btn-create-entity" name="submit">Enviar
             <i class="material-icons right">send</i>
         </button>

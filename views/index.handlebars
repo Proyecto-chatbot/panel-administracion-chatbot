@@ -1,11 +1,20 @@
 <p class="center-align">
-<a class="waves-effect waves-light btn-small" href="/create" id="btn_create"><i class="material-icons left">add</i>Añadir</a>
+	<a class='btn dropdown-create' href='#' data-target='dropdown-c'><i class="material-icons left">add</i> Añadir</a>
+	<ul id='dropdown-c' class='dropdown-content'>
+		<li>
+			<a class="text-li" href="/create" name="/create">Intent Básico</a>
+		</li>
+		<li>
+			<a class="image-li" href="/create_gif" name="/create_gif">Gif Aleatorio</a>
+		</li>
+	</ul>
 </p>
 <div id="body-wrapper">
+	<input id="search-intent" type="text">
 	<div id="list_intent" class="collection">
 		{{#each this}}
-              <a class="collection-item" id="intent" href="/{{ id }}">{{ name }}</a>
-        {{/each }}
+		<a class="collection-item intent" id="intent" href="/{{ id }}">{{ name }}</a>
+		{{/each }}
 	</div>
 	<main></main>
 </div>
