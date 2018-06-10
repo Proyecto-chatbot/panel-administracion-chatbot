@@ -323,6 +323,14 @@ let showAll = function(ul){
 			console.log(res);
 			entitiesNames = res;
 			$inputSearch = ul.children('.search');
+			$inputSearch.bind('keydown',function(e){
+				if ( e.which == 27 ) {
+					ul.children('li').remove();
+					ul.children('.search').remove();
+					ul.hide();
+				};
+			});
+
 			$inputSearch.focus();
 			entitiesNames.forEach(element => {
 				ul.append('<li class="collection-item"><a href="#">'+element+'</a></li>');
