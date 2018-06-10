@@ -335,7 +335,7 @@ let showAll = function(ul){
 
 			$inputSearch.focus();
 			entitiesNames.forEach(element => {
-				ul.append('<a class="collection-item" href="#">'+element+'</a>');
+				ul.append('<a class="collection-item indigo-text text-darken-1" href="#">'+element+'</a>');
 			});
 			putLinkEvent(ul);
 			$inputSearch.keyup(function(e){
@@ -451,9 +451,9 @@ let add_new_response = function (){
 	$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
 	+'<div><input class="response validate input" type="text"><span class="span red-text"></span>'
 	+'<ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>'
-	+'<button class="btnAddVariant btn-small waves-effect waves-light right"'
+	+'<button class="btnAddVariant indigo btn-small waves-effect waves-light right"'
 	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button>'
-	+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div></div>';
+	+'<button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div></div>';
 	if(checkNumResponses()){
 		if(hasImage)
 			$('.type-image').before($textResponse);
@@ -472,7 +472,7 @@ let add_new_response = function (){
 let add_new_image = function (title){
 	$imageResponse = '<div class="bloq type-image input-field col s12"><div><p>'
 	+ title + '</p><input class="response" name="gifResponse" type="text" class="validate">'
-	+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div></div>'
+	+'<button class="btn-delete-bloq btn left btn-primary indigo">Borrar respuesta</button></div></div>'
 
 	if(checkNumResponses()){
 		if(hasLink)
@@ -495,8 +495,8 @@ let add_new_link = function(title){
 	if(checkNumResponses()){
 		$select.before('<div class="bloq type-link input-field col s12"><div><p>'
 		+ title + '</p><input class="response" id="linkResponse" type="text" class="validate">'
-		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-bloq btn btn-primary indigo">'
-		+'<i class="material-icons">delete</i></button></div></div>');
+		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-bloq left btn btn-primary indigo">'
+		+'Borrar respuesta</button></div></div>');
 		numResponses++;
 		hasLink = true;
 		checkNumResponses();
