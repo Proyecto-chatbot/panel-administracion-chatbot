@@ -57,6 +57,14 @@ nav {
   margin-top: 10px;
 }
 
+#btn-delete-entity {
+  margin: 5px;
+}
+
+.btn-delete-variant, .btn-delete-synonym {
+  margin: 5px;
+}
+
 aside {
   grid-area: aside;
   background-color: #3F51B5;
@@ -99,6 +107,22 @@ footer {
   grid-area: footer;
 }
 
+.footer-copyright {
+  text-align: center;
+}
+
+.footer-copyright .container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 800px) {
+  .footer-copyright .container {
+    flex-direction: row;
+  }
+}
+
 .page {
   display: none;
 }
@@ -113,6 +137,14 @@ footer {
 }
 
 iframe {
+  height: 430px;
+  width: 300px;
   margin: 10px 0 10px 0;
+}
+
+@media screen and (min-width: 800px) {
+  iframe {
+    width: 350px;
+  }
 }
 /*# sourceMappingURL=frontend.css.map */

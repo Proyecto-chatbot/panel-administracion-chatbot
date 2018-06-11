@@ -1,4 +1,4 @@
-<div class="container center-align">
+<div id="body-wrapper" class="container center-align">
     <h4>Editar Intent</h4>
     <div class="row ">
         <div class="input-field col s12">
@@ -31,7 +31,7 @@
                 <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                 </div>
             {{/each}}
-            <button class="btn btn-small waves-effect waves-light right" id="addUserText" name="addUserText">Añadir Pregunta
+            <button class="btn btn-small waves-effect waves-light right indigo" id="addUserText" name="addUserText">Añadir Pregunta
                 <i class="material-icons right">add</i>
             </button>
         </div>
@@ -46,7 +46,7 @@
                         <ul class="collection"></ul>
                         <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                         </div>
-                        <button class="btnAddVariant btn-small waves-effect waves-light right"
+                        <button class="btnAddVariant btn-small indigo waves-effect waves-light right"
                         name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>
                     {{/if}}
                     {{#if items}}
@@ -80,29 +80,29 @@
                     {{/if}}
                 {{/each}}
             {{/each}}
-            <a class='dropdown-trigger btn select' href='#' data-target='dropdown'>Añadir Respuesta</a>
+            <a class='dropdown-trigger btn select indigo' href='#' data-target='dropdown'>Añadir Respuesta</a>
             <ul id='dropdown' class='dropdown-content'>
                 <li>
-                    <a class="text-li" name="type-text">Texto</a>
+                    <a class="text-li indigo-text" name="type-text">Texto</a>
                 </li>
                 <li>
-                    <a class="image-li" name="type-image">Imagen</a>
+                    <a class="image-li indigo-text" name="type-image">Imagen</a>
                 </li>
                 <li>
-                    <a class="image-li" name="type-gif">Gif</a>
+                    <a class="image-li indigo-text" name="type-gif">Gif</a>
                 </li>
                 <li>
-                    <a class="link-li" name="type-link">Enlace</a>
+                    <a class="link-li indigo-text" name="type-link">Enlace</a>
                 </li>
                 <li>
-                    <a class="link-li" name="type-document">Documento</a>
+                    <a class="link-li indigo-text" name="type-document">Documento</a>
                 </li>
             </ul>
 
         </div>
 
 
-        <button class="btn waves-effect waves-light" type="submit" id="btn_edit_intent" name="btn_edit_intent">Enviar
+        <button class="btn waves-effect waves-light indigo" type="submit" id="btn_edit_intent" name="btn_edit_intent">Enviar
             <i class="material-icons right">send</i>
         </button>
     </div>
