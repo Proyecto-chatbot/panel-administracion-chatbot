@@ -509,6 +509,7 @@ let add_new_variant = ($btn)=>{
 	$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><span class="span red-text"></span><ul class="collection"></ul>'
 	+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	redeclare_input_search();
+	redeclarate_btn_delete_bloq();
 }
 /**
  * Insert a new synonym
