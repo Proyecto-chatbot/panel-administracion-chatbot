@@ -197,7 +197,6 @@ let init = function(){
 		$.when($('.intent').remove()).then(
 			intents.forEach(function(value){
 				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-					console.log('value name: ' + value.name)
 					$('#list_intent').append('<a class="collection-item indigo-text intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
 				}
 			})
@@ -223,7 +222,7 @@ let redeclare_input_search = function(){
 	let ul;
 	$inputSearch = $(".input");
 	$(".input-field ul").hide();
-
+	console.log('redeclare input search');  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	$(".input").parent('div').children('ul').children('a').remove();
 	$(".input").parent('div').children('ul').children('.search').remove();
 
@@ -234,6 +233,7 @@ let redeclare_input_search = function(){
 		}
 	});
 	$inputSearch.unbind('keypress').bind('keypress',function(e){
+		console.log('key presss '); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		if($(this).val().indexOf('#') != -1)
 			$(this).siblings('.span').html('');
 		if(String.fromCharCode(e.which) == '#'){
@@ -343,10 +343,9 @@ let showAll = function(ul){
 				search($(this).val().toLowerCase(), $(this).parent('ul'));
 			});
 		}).done(function(res){
-			putLinkEvent(ul);
+			//putLinkEvent(ul);
 		});
 	})
-
 }
 
 let putLinkEvent = (ul)=>{
@@ -365,7 +364,7 @@ let getEntity = (linkEntity)=>{
 	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
 	console.log(newText);
 	$.when(input.val(newText)).then(function(){
-		linkEntity.parent('ul').children('li, .search').remove();
+		linkEntity.parent('ul').empty();//children('li, .search').remove();
 	}).then(linkEntity.parent('ul').hide());
 }
 
