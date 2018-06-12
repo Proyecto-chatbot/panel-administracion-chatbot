@@ -10,7 +10,10 @@
         <div class="input-field col m6 s8 offset-m3 offset-s2">
             <p>Sinónimos</p>
             {{#each this.entries }}
+                <div class="synonym_block">
                 <input class="synonym" name="sinonym" type="text" class="validate" value="{{ value }}">
+                <button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                </div>
 	        {{/each}}
             <button class="btn btn-small waves-effect waves-light indigo right" id="add-synonym" name="addSinonym">Añadir Sinónimo
                 <i class="material-icons right">add</i>

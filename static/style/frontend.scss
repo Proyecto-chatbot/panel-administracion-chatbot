@@ -25,11 +25,25 @@ nav{
         font-size:2.1rem;
     }    
 }
-
+.input-field input:focus + label {
+    color: #303F9F !important;
+  }
+.input-field input:focus {
+    border-bottom: 1px solid#303F9F !important;
+    box-shadow: 0 1px 0 0#303F9F !important
+  }
 #list_intent, #list_entity{
     height: 75vh;
 }
-
+#dropdown-c li a {
+    padding: 13px 5px;
+}
+.synonym_block{
+    display: block;
+    @media screen and (min-width:600px) {
+        display: flex;
+    }
+}
 .dropdown-create, #btn_create_entity{
     @media screen and (max-width:624px) {
         position: fixed;
@@ -73,8 +87,10 @@ aside{
         a{
             color: #fff;
             text-transform: uppercase;
+            transition: 0.8s;
             &:hover{
                 color: #FFAB00;    
+                text-decoration: underline;
             }
             @media screen and (min-width:900px) {
                 line-height: 8em;

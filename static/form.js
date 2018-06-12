@@ -54,6 +54,7 @@ let init = function(){
 	$btn_add_question = $("#addUserText");
 	$btnAddSynonym = $("#add-synonym");
 	redeclarate_btn_delete();
+	redeclarate_btn_delete_synonym();
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
 	checkType();
@@ -233,7 +234,6 @@ let redeclare_input_search = function(){
 		}
 	});
 	$inputSearch.unbind('keypress').bind('keypress',function(e){
-		console.log('key presss '); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		if($(this).val().indexOf('#') != -1)
 			$(this).siblings('.span').html('');
 		if(String.fromCharCode(e.which) == '#'){
@@ -514,7 +514,7 @@ let add_new_variant = ($btn)=>{
  * Insert a new synonym
  */
 let add_new_synonym =()=>{
-	$btnAddSynonym.before('<div><input class="synonym" name="sinonym" type="text" class="validate">'
+	$btnAddSynonym.before('<div class="synonym_block"><input class="synonym" name="sinonym" type="text" class="validate">'
 	+'<button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	redeclarate_btn_delete_synonym();
 }
