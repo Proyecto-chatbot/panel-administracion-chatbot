@@ -4,22 +4,28 @@
         <div class="input-field col s12">
             <input id="name" type="text" name="name" class="validate">
             <label for="name">Nombre del intent</label>
+            <span id="err-name" class="red-text"></span>
+
         </div>
         <div class="input-field col s12">
             <p>Preguntas del usuario</p>
             <div>
                 <input class="user input" name="user" type="text" class="validate">
-                <span class="red-text"></span>
+                <span class="red-text" id="err-user"></span>
                 <ul class="collection"></ul>
-                <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
-                </div>
+                <button class="btn-delete-variant btn btn-primary indigo">
+                    <i class="material-icons">delete</i>
+                </button>
+            </div>
             <button class="btn btn-small waves-effect waves-light right  indigo" id="addUserText" name="addUserText">Añadir Pregunta
                 <i class="material-icons right">add</i>
             </button>
         </div>
         <div class="select input-field col s12">
-             <p>Palabra clave</p>
-            <input class="tag_gif" name="tag_gif" type="text" class="validate">
+            <p>Palabra clave</p>
+            <input class="tag_gif" id="input-tag" name="tag_gif" type="text" class="validate">
+            <span id="err-tag" class="red-text"></span>
+
         </div>
 
         <button class="btn waves-effect waves-light  indigo" type="submit" id="send_new_gif" name="send_new_gif">Enviar

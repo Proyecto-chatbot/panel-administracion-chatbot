@@ -69,13 +69,17 @@ let init = function(){
 			$('#err-name').html('No se puede crear un intent sin nombre');
 		else
 			$('#err-name').html('');
+		checkGifName();
 	});
+	$('.user').blur(checkGifInputs);
 	$('#first-question').blur(function(){
 		if($(this).val()=='')
 			$('#err-user').html('No se puede crear un intent sin frases de usuario');
 		else
 			$('#err-user').html('');
 	});
+	$('#input-tag').blur(checkGifTag);
+	
 	$('.data_text').each(function(){
 		$span = $(this).children('.span-hide').text();
 		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
@@ -285,6 +289,8 @@ let create_entity = function(){
 	$.post('/new_entity', data, function(res){
 		location.href = res;
 	});
+	else
+	setTimeout(function(){$('#name-entity').focus();},200);
 }
 let hasSynonym = () =>{
 	let has = true;
@@ -294,10 +300,15 @@ let hasSynonym = () =>{
 	});
 	return has;
 }
-
+/**
+ * show error message if the entity hasnt any synonym
+ */
 let checkEmptySynonym = ()=>{
 	$('#err-entity-syn').html(hasSynonym()? "":"La entidad no se puede crear con sinónimos vacíos");
 }
+/**
+ * show error message if the entity hasnt a name
+ */
 let checkEntityName = ()=>{
 	$('#err-entity-name').html($('#name-entity').val() == "" ? "La entidad no se puede crear sin un nombre" : "");
 }
@@ -320,6 +331,7 @@ let edit_entity = function(){
 		location.href = res;
 	});
 }
+
 let filter = (string)=>{
 	return entities.filter(el => el.toLowercase().indexOf(string.toLowercase()) > -1);
 }
@@ -718,10 +730,41 @@ let send_gif_intent = ()=>{
 		"user": userSays,
 		"action" : tag
 	}
-
-	$.post('/new_gif_intent',data, function(res){
-		location.href = res;
-	});
+	if(checkValidGif())
+		$.post('/new_gif_intent',data, function(res){
+			location.href = res;
+		});
+}
+/**
+ * Check if the new gif Form is valid
+ */
+let checkValidGif = ()=>{
+	let isValid = false;
+	checkGifName();
+	checkGifTag();
+	checkGifInputs();
+	if($('#err-name').html() == "" && $('#err-tag').html() == "" && $('#err-user').html() == "" )
+		isValid = true;
+		return isValid;
+}
+let checkGifName = ()=>{
+	$('#err-name').html($('#name').val() == "" ? "Es necesario un nombre" : "");	
+}
+let checkGifTag = () =>{
+	$('#err-tag').html($('#input-tag').val() == "" ? "Es necesario un tag o clave" : "");	
+}
+let checkGifInputs = () =>{
+	$user = $('.user').val();
+	if($user == "")
+		$('#err-user').html('No se puede crear un intent sin frases de usuario');
+	else if($.isArray($user)){
+		if( $user.filter(word => word != "").length == 0)
+			$('#err-user').html('No se puede crear un intent sin frases de usuario');
+		else
+			$('#err-user').html('');
+	}
+	else 
+		$('#err-user').html('');
 }
 let transform_edit_responses = ()=>{
 	    $('.edit-responses .response').each(function(){
