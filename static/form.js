@@ -62,6 +62,8 @@ let init = function(){
 	checkType();
 	redeclare_input_search();
 	transform_edit_responses();
+	$('#name-entity').blur(checkEntityName);
+	$('.synonym').blur(checkEmptySynonym);
 	$('#name').blur(function(){
 		if($(this).val()=='')
 			$('#err-name').html('No se puede crear un intent sin nombre');
@@ -277,11 +279,9 @@ let create_entity = function(){
 		name : $('#name-entity').val(),
 		synonyms: synonyms
 	}
-	if( $('#name-entity').val() == "")
-		$('#err-entity').html("La entidad no se puede crear sin un nombre");
-	else if(hasSynonym() == false)
-		$('#err-entity').html("La entidad no se puede crear con sinónimos vacíos");
-	else
+	checkEmptySynonym();
+	checkEntityName();
+	if($('#err-entity-syn').html() == "" && $('#err-entity-name').html() == "")
 	$.post('/new_entity', data, function(res){
 		location.href = res;
 	});
@@ -294,6 +294,14 @@ let hasSynonym = () =>{
 	});
 	return has;
 }
+
+let checkEmptySynonym = ()=>{
+	$('#err-entity-syn').html(hasSynonym()? "":"La entidad no se puede crear con sinónimos vacíos");
+}
+let checkEntityName = ()=>{
+	$('#err-entity-name').html($('#name-entity').val() == "" ? "La entidad no se puede crear sin un nombre" : "");
+}
+
 /**
  * Insert a new entity
  */

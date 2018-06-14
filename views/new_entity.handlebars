@@ -3,18 +3,23 @@
     <input type="hidden" id=entity-id value={{this.id}}>
     <div class="row ">
         <div class="input-field col m6 s8 offset-m3 offset-s2">
+
             <input id="name-entity" type="text" name="name" class="validate" value="{{ this.name }}">
             <label for="name">Nombre de la entidad</label>
+            <span id="err-entity-name" class="red-text"></span>
+
         </div>
+        
         <div class="input-field col m6 s8 offset-m3 offset-s2">
             <p>Sinónimos</p>
             <input class="synonym" name="sinonym" type="text" class="validate">
+            <span id="err-entity-syn" class="red-text"></span>
             <button class="btn btn-small waves-effect waves-light right indigo" id="add-synonym" name="addSinonym">Añadir Sinónimo
                 <i class="material-icons right">add</i>
             </button>
         </div>
         <div class="input-field col m6 s8 offset-m3 offset-s2">
-        <span id="err-entity"></span>
+        
         <button class="btn waves-effect waves-light indigo" type="submit" id="btn-create-entity" name="submit">Enviar
             <i class="material-icons right">send</i>
         </button>
