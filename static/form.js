@@ -10,6 +10,7 @@ let $name;
 const MAX_RESPONSES = 10;
 // Contiene el número de respuestas añadidas
 let numResponses;
+let numLinks;
 let dropdown;
 let dropdown_options;
 let entities;
@@ -27,6 +28,7 @@ let intents;
 let entitiesNames;
 let init = function(){
 	numResponses = 0;
+	numLinks = 0;
 	$.post('/get_intents', function(res){
 		intents = res;
 	});
@@ -474,9 +476,12 @@ let add_new_response = function (){
 			$('.type-link').before($textResponse);
 		else
 			$select.before($textResponse);
-		$("#input"+numResponses).focus(); // HULK
-		numResponses++;
 		checkNumResponses();
+		setTimeout(function(){
+			$("#input"+numResponses).focus();
+			numResponses++;
+		}, 200);
+		
 	}
 	redeclare_input_search();
 }
@@ -485,7 +490,7 @@ let add_new_response = function (){
  */
 let add_new_image = function (title){
 	$imageResponse = '<div class="bloq type-image input-field col s12"><div><p>'
-	+ title + '</p><input class="response" name="gifResponse" type="text" class="validate">'
+	+ title + '</p><input class="response" name="gifResponse" type="text" id="input'+numResponses+'" class="validate">'
 	+'<button class="btn-delete-bloq btn left btn-primary indigo">Borrar respuesta</button></div></div>'
 
 	if(checkNumResponses()){
@@ -493,7 +498,10 @@ let add_new_image = function (title){
 			$('.type-link').before($imageResponse);
 		else
 			$select.before($imageResponse);
-		numResponses++;
+		setTimeout(function(){
+				$("#input"+numResponses).focus();
+				numResponses++;
+			}, 200);
 		hasImage = true;
 		$('.image-li').css({pointerEvents: "none", color: "red"})
 		checkNumResponses();
@@ -508,10 +516,15 @@ let add_new_image = function (title){
 let add_new_link = function(title){
 	if(checkNumResponses()){
 		$select.before('<div class="bloq type-link input-field col s12"><div><p>'
-		+ title + '</p><input class="response" id="linkResponse" type="text" class="validate">'
+		+ title + '</p><input class="response" id="linkResponse'+numLinks+'" type="text" class="validate">'
 		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-bloq left btn btn-primary indigo">'
 		+'Borrar respuesta</button></div></div>');
 		numResponses++;
+		setTimeout(function(){
+			$("#linkResponse"+numLinks).focus();
+			numResponses++;
+			numLinks
+		}, 200);
 		hasLink = true;
 		checkNumResponses();
 	}
