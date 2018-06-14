@@ -28,6 +28,10 @@ nav {
   }
 }
 
+.card-create {
+  padding: 20px;
+}
+
 .input-field input:focus + label {
   color: #303F9F !important;
 }

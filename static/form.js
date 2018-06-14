@@ -60,6 +60,18 @@ let init = function(){
 	checkType();
 	redeclare_input_search();
 	transform_edit_responses();
+	$('#name').blur(function(){
+		if($(this).val()=='')
+			$('#err-name').html('No se puede crear un intent sin nombre');
+		else
+			$('#err-name').html('');
+	});
+	$('#first-question').blur(function(){
+		if($(this).val()=='')
+			$('#err-user').html('No se puede crear un intent sin frases de usuario');
+		else
+			$('#err-user').html('');
+	});
 	$('.data_text').each(function(){
 		$span = $(this).children('.span-hide').text();
 		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
@@ -215,6 +227,7 @@ let init = function(){
 			})
 		)
 	});
+
 }
 /**
  *
@@ -426,6 +439,7 @@ let add_new_block = (name) =>{
 	}
 	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
+	$('#err').html('');
 }
 let checkType = () =>{
 	let $typeText = $('.type-text');
@@ -448,7 +462,7 @@ let checkType = () =>{
 */
 let add_new_response = function (){
 	$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
-	+'<div><input class="response validate input" type="text"><span class="span red-text"></span>'
+	+'<div><input class="response validate input" id="input'+numResponses+'" type="text"><span class="span red-text"></span>'
 	+'<ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>'
 	+'<button class="btnAddVariant indigo btn-small waves-effect waves-light right"'
 	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button>'
@@ -460,6 +474,7 @@ let add_new_response = function (){
 			$('.type-link').before($textResponse);
 		else
 			$select.before($textResponse);
+		$("#input"+numResponses).focus(); // HULK
 		numResponses++;
 		checkNumResponses();
 	}
@@ -612,12 +627,12 @@ let send_intent = ()=>{
 	}
 
 	if(data.name == "")
-		$('#err').html('No se puede crear un intent sin nombre');
+		$('#err-name').html('No se puede crear un intent sin nombre');
 	else if(data.user == "")
-		$('#err').html('No se puede crear un intent sin frases de usuario');
+		$('#err-user').html('No se puede crear un intent sin frases de usuario');
 	else if($.isArray(data.user)){
 		if( data.user.filter(word => word != "").length == 0)
-			$('#err').html('No se puede crear un intent sin frases de usuario');
+			$('#err-user').html('No se puede crear un intent sin frases de usuario');
 		else if(responses.length == 0)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
 		else if( hasText() == false)

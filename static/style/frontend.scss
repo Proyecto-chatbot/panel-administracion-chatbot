@@ -10,7 +10,7 @@ body{
                             "aside main"
                             "aside main"
                             "footer footer";
-    }                    
+    }
 }
 nav{
     min-height:80px;
@@ -23,8 +23,13 @@ nav{
     font-size:1rem;
     @media screen and (min-width:624px) {
         font-size:2.1rem;
-    }    
+    }
 }
+
+.card-create{
+    padding: 20px;
+}
+
 .input-field input:focus + label {
     color: #303F9F !important;
   }
@@ -50,16 +55,16 @@ nav{
         right: 5px;
         bottom: 10px;
         z-index: 3;
-    }   
+    }
 }
 .dropdown-create{
-    @media screen and (min-width:625px) {       
+    @media screen and (min-width:625px) {
         margin-right: 50px;
     }
 }
 
 #btn_create_entity{
-    @media screen and (min-width:625px) {       
+    @media screen and (min-width:625px) {
         margin-right: 50px;
     }
 }
@@ -89,7 +94,7 @@ aside{
             text-transform: uppercase;
             transition: 0.8s;
             &:hover{
-                color: #FFAB00;    
+                color: #FFAB00;
                 text-decoration: underline;
             }
             @media screen and (min-width:900px) {
@@ -124,10 +129,10 @@ footer{
     margin: auto;
     a{
         color: #303F9F;
-    }   
+    }
 }
 iframe{
-    height:430px; 
+    height:430px;
     width: 300px;
     margin: 10px 0 10px 0;
     @media screen and (min-width:800px) {
