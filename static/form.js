@@ -6,9 +6,13 @@ let $btn_submit;
 let $btnAddSynonym;
 let $btnDeleteSynonym;
 let $name;
-// El máximo de respuestas posibles son 10
+/**
+ * Max of available responses
+ */
 const MAX_RESPONSES = 10;
-// Contiene el número de respuestas añadidas
+/**
+ * count of responses added
+ */
 let numResponses;
 let numLinks;
 let dropdown;
@@ -734,6 +738,8 @@ let send_gif_intent = ()=>{
 		$.post('/new_gif_intent',data, function(res){
 			location.href = res;
 		});
+	else
+		setTimeout(function(){$('#name').focus()},200)
 }
 /**
  * Check if the new gif Form is valid

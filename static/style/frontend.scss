@@ -30,10 +30,10 @@ nav{
     padding: 20px;
 }
 
-.input-field input:focus + label {
+input[type="text"]:focus + label {
     color: #303F9F !important;
   }
-.input-field input:focus {
+input[type="text"]:focus {
     border-bottom: 1px solid#303F9F !important;
     box-shadow: 0 1px 0 0#303F9F !important
   }
