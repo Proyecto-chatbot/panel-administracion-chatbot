@@ -476,7 +476,7 @@ let redeclarate_btn_delete_synonym = () =>{
 * Insert a new input for user says
 */
 let add_new_input = ($input)=>{
-	$input.before('<div><input class="input user validate" name="user" type="text" ><span class="span red-text"></span><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	$input.before('<div><input class="input user validate" name="user" type="text" ><p class="span red-text"></p><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	redeclarate_btn_delete();
 	redeclare_input_search();
 }
@@ -516,8 +516,8 @@ let checkType = () =>{
 */
 let add_new_response = function (){
 	$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
-	+'<div><input class="response validate input" id="input'+numResponses+'" type="text"><span class="span red-text"></span>'
-	+'<ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>'
+	+'<div><input class="response validate input" id="input'+numResponses+'" type="text"><p class="span red-text"></p>'
+	+'<ul class="collection"></ul></div>'
 	+'<button class="btnAddVariant indigo btn-small waves-effect waves-light right"'
 	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button>'
 	+'<button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div></div>';
@@ -585,7 +585,7 @@ let add_new_link = function(title){
  * Insert a new variant for text response
  */
 let add_new_variant = ($btn)=>{
-	$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><span class="span red-text"></span><ul class="collection"></ul>'
+	$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	redeclare_input_search();
 	redeclarate_btn_delete_bloq();

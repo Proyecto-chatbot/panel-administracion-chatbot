@@ -30,7 +30,10 @@
                 <input class="user input" name="user" type="text" class="validate">
                 <p class="span red-text"></p>
                 <ul class="collection"></ul>
-                <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                 {{#if @index}}
+                    <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                 {{/if}}
+                
                 </div>
             {{/each}}
             <p id="err-user" class="red-text"></p>
@@ -47,7 +50,6 @@
                         <input class="response validate input" type="text" value= "{{textToSpeech}}">
                         <p class="span red-text"></p>
                         <ul class="collection"></ul>
-                        <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                         </div>
                         <button class="btnAddVariant btn-small indigo waves-effect waves-light right"
                         name="addResponse">Añadir variante<i class="material-icons right">add</i></button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div>
@@ -59,7 +61,10 @@
                         <input type="text" class="input response validate" value="{{textToSpeech}}">
                         <p class="span red-text"></p>
                         <ul class="collection"></ul>
-                        <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                         {{#if @index}}
+                        <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button> 
+                         {{/if}}
+                        
                         </div>
                         {{/each}}
                         <button class="btnAddVariant btn-small waves-effect waves-light right indigo"
