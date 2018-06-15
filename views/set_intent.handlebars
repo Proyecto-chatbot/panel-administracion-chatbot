@@ -1,10 +1,12 @@
 <div id="body-wrapper" class="container center-align">
-    <h4>Editar Intent</h4>
+     <div class="card-create card">
+    <h5>Editar Intent</h5>
     <div class="row ">
         <div class="input-field col s12">
             <input id="name" type="text" name="name" class="validate" value="{{this.name}}">
             <label for="name">Nombre del intent</label>
         </div>
+        <p id="err-name" class="red-text"></p>
         <input type="hidden" id="input-id" value={{this.id}}>
         <div class="input-field col s12">
             <p>Preguntas del usuario</p>
@@ -31,6 +33,7 @@
                 <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                 </div>
             {{/each}}
+            <p id="err-user" class="red-text"></p>
             <button class="btn btn-small waves-effect waves-light right indigo" id="addUserText" name="addUserText">Añadir Pregunta
                 <i class="material-icons right">add</i>
             </button>
@@ -100,10 +103,12 @@
             </ul>
 
         </div>
-
-
+        <p id="err" class="red-text"></p>
+        </div>
         <button class="btn waves-effect waves-light indigo" type="submit" id="btn_edit_intent" name="btn_edit_intent">Enviar
             <i class="material-icons right">send</i>
+        </button>
+        <button class="btn waves-effect waves-light indigo" type="submit" id="cancel" name="submit">Cancelar
         </button>
     </div>
    <ul class="collapsible">

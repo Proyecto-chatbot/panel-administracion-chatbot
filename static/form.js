@@ -83,7 +83,7 @@ let init = function(){
 			$('#err-user').html('');
 	});
 	$('#input-tag').blur(checkGifTag);
-	
+
 	$('.data_text').each(function(){
 		$span = $(this).children('.span-hide').text();
 		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
@@ -122,7 +122,7 @@ let init = function(){
 		let botSays = [];
 		let n_inputs = 0;
 		let position = 0;
-		let responses;
+		let responses =[];
 		let text;
 		let type;
 		context_in = $contextIn.val();
@@ -187,9 +187,35 @@ let init = function(){
 		"parameters" : parameters
 	}
 
-	$.post('/update',data, function(res){
-		location.href = res;
-	});
+	if(data.name == "")
+		$('#err-name').html('No se puede crear un intent sin nombre');
+	else if(data.userSays == "")
+		$('#err-user').html('No se puede crear un intent sin frases de usuario');
+	else if($.isArray(data.userSays)){
+		if( data.userSays.filter(word => word != "").length == 0)
+			$('#err-user').html('No se puede crear un intent sin frases de usuario');
+		else if(responses.length == 0)
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+		else if( hasText() == false)
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+		else if(responseIsEmpty() == true)
+			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
+		else
+			$.post('/new_intent',data, function(res){
+				location.href = res;
+		});
+	}
+	else if(responses.length == 0)
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+	else if( hasText() == false){
+				$('#err').html('No se puede crear un intent sin respuestas de chatbot')
+		}
+	else if(responseIsEmpty() == true)
+		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
+	else
+		$.post('/update',data, function(res){
+			location.href = res;
+		});
 	})
 	$btn_add_question.click(function(event){
 		event.preventDefault();
@@ -505,7 +531,7 @@ let add_new_response = function (){
 			$("#input"+numResponses).focus();
 			numResponses++;
 		}, 200);
-		
+
 	}
 	redeclare_input_search();
 }
@@ -754,10 +780,10 @@ let checkValidGif = ()=>{
 		return isValid;
 }
 let checkGifName = ()=>{
-	$('#err-name').html($('#name').val() == "" ? "Es necesario un nombre" : "");	
+	$('#err-name').html($('#name').val() == "" ? "Es necesario un nombre" : "");
 }
 let checkGifTag = () =>{
-	$('#err-tag').html($('#input-tag').val() == "" ? "Es necesario un tag o clave" : "");	
+	$('#err-tag').html($('#input-tag').val() == "" ? "Es necesario un tag o clave" : "");
 }
 let checkGifInputs = () =>{
 	$user = $('.user').val();
@@ -769,7 +795,7 @@ let checkGifInputs = () =>{
 		else
 			$('#err-user').html('');
 	}
-	else 
+	else
 		$('#err-user').html('');
 }
 let transform_edit_responses = ()=>{
