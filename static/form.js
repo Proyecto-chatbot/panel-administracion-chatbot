@@ -188,10 +188,15 @@ let init = function(){
 		"parameters" : parameters
 	}
 
-	if(data.name == "")
+	if(data.name == ""){
+		$('#name').focus();
 		$('#err-name').html('No se puede crear un intent sin nombre');
-	else if(data.userSays == "")
+	}
+	else if(data.userSays == ""){
+		if(data.name != "")
+		$('.user').focus();
 		$('#err-user').html('No se puede crear un intent sin frases de usuario');
+	}
 	else if($.isArray(data.userSays)){
 		if( data.userSays.filter(word => word != "").length == 0)
 			$('#err-user').html('No se puede crear un intent sin frases de usuario');
@@ -260,7 +265,6 @@ let init = function(){
 		$.when($('.entity').remove()).then(
 			entities.forEach(function(value){
 				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-					console.log('value name: ' + value.name)
 					$('#list_entity').append('<a class="collection-item entity indigo-text" id="entity" href="'+value.id+'">'+value.name+'</a>')
 				}
 			})
@@ -275,7 +279,6 @@ let redeclare_input_search = function(){
 	let ul;
 	$inputSearch = $(".input");
 	$(".input-field ul").hide();
-	console.log('redeclare input search');  
 	$(".input").parent('div').children('ul').children('a').remove();
 	$(".input").parent('div').children('ul').children('.search').remove();
 
@@ -386,7 +389,6 @@ let showAll = function(ul){
 		$.post('/show_entities', function(res){
 			let $inputSearch;
 			ul.append('<input class= "search" type = "text">');
-			console.log(res);
 			entitiesNames = res;
 			$inputSearch = ul.children('.search');
 			$inputSearch.bind('keydown',function(e){
@@ -428,7 +430,6 @@ let getEntity = (linkEntity)=>{
 	let input = linkEntity.parent('ul').siblings('input');
 	let inputVal = input.val();
 	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
-	console.log(newText);
 	$.when(input.val(newText)).then(function(){
 		linkEntity.parent('ul').empty();//children('li, .search').remove();
 	}).then(linkEntity.parent('ul').hide());
@@ -728,7 +729,6 @@ let send_intent = ()=>{
 let hasText = () =>{
 	let has_text = false;
 	$(".response").each(function(){
-		console.log('-->'+$(this).val());
 		if($(this).val() != "")
 			has_text = true;
 	})
