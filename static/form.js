@@ -59,6 +59,7 @@ let init = function(){
 	$btn_delete_entity = $('#btn-delete-entity');
 	$btn_add_question = $("#addUserText");
 	$btnAddSynonym = $("#add-synonym");
+	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
 	redeclarate_btn_delete_synonym();
 	$btn_submit = $('#submit');
@@ -213,7 +214,7 @@ let init = function(){
 	else if(responseIsEmpty() == true)
 		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 	else
-		$.post('/update',data, function(res){
+		$.post('/cancel',data, function(res){
 			location.href = res;
 		});
 	})
@@ -450,6 +451,7 @@ let search = (word, ulParent) =>{
 let redeclarate_btn_delete_bloq = () =>{
 	$btnDeleteBloq = $('.btn-delete-bloq');
 	$btnDeleteBloq.click(function(event){
+
 		event.preventDefault();
 		numResponses--;
 		checkNumResponses();
@@ -484,10 +486,10 @@ let add_new_input = ($input)=>{
 let add_new_block = (name) =>{
 	switch(name){
 		case 'type-text': add_new_response(); break;
-		case 'type-gif': add_new_image("Gif");break;
-		case 'type-image': add_new_image("Imagen"); break;
-		case 'type-link': add_new_link("Link"); break;
-		case 'type-document': add_new_link("Documento"); break;
+		case 'type-gif': add_new_image("Imagen/Gif");break;
+		case 'type-image': add_new_image("Imagen/Gif"); break;
+		case 'type-link': add_new_link("Link/Documento"); break;
+		case 'type-document': add_new_link("Lnk/Documento"); break;
 	}
 	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();

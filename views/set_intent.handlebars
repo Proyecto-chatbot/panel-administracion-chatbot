@@ -50,7 +50,7 @@
                         <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                         </div>
                         <button class="btnAddVariant btn-small indigo waves-effect waves-light right"
-                        name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>
+                        name="addResponse">Añadir variante<i class="material-icons right">add</i></button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div>
                     {{/if}}
                     {{#if items}}
                         <div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>
@@ -63,13 +63,13 @@
                         </div>
                         {{/each}}
                         <button class="btnAddVariant btn-small waves-effect waves-light right"
-                        name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>
+                        name="addResponse">Añadir variante<i class="material-icons right">add</i></button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div>
                     {{/if}}
                     {{#if image}}
                         <div class="bloq type-image input-field col s12"><p> Imagen/Gif</p>
                         <div>
                         <input class="response" name="gifResponse" type="text" class="validate" value="{{image.url}}"></div>
-                        <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                        </button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button>
                         </div>
                     {{/if}}
                     {{#if url}}
@@ -77,7 +77,7 @@
                         <div>
                             <input class="response" id="linkResponse" type="text" value="{{destinationName}}" class="validate">
                             <input class="url" id="linkUrl" type="text"  value="{{url}}" class="validate">
-                            <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                            </button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button>
                         </div>
                         </div>
                     {{/if}}
