@@ -12,7 +12,9 @@
             {{#each this.entries }}
                 <div class="synonym_block">
                 <input class="synonym" name="sinonym" type="text" class="validate" value="{{ value }}">
+                {{#if @index}}
                 <button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                {{/if}}
                 </div>
 	        {{/each}}
             <button class="btn btn-small waves-effect waves-light indigo right" id="add-synonym" name="addSinonym">Añadir Sinónimo
