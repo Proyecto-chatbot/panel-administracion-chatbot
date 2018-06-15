@@ -275,7 +275,7 @@ let redeclare_input_search = function(){
 	let ul;
 	$inputSearch = $(".input");
 	$(".input-field ul").hide();
-	console.log('redeclare input search');  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	console.log('redeclare input search');  
 	$(".input").parent('div').children('ul').children('a').remove();
 	$(".input").parent('div').children('ul').children('.search').remove();
 
@@ -401,7 +401,7 @@ let showAll = function(ul){
 
 			$inputSearch.focus();
 			entitiesNames.forEach(element => {
-				ul.append('<a class="collection-item indigo-text text-darken-1" href="#">'+element+'</a>');
+				ul.append('<a class="collection-item indigo-text" href="#">'+element+'</a>');
 			});
 			putLinkEvent(ul);
 			$inputSearch.keyup(function(e){
@@ -437,7 +437,7 @@ let getEntity = (linkEntity)=>{
 let search = (word, ulParent) =>{
 	entitiesNames.forEach(element => {
 		if (element.toLowerCase().indexOf(word) >= 0)
-			ulParent.append('<a class="collection-item" href="">'+element+'</a>');
+			ulParent.append('<a class="collection-item indigo-text" href="">'+element+'</a>');
 	});
 	ulParent.children('a').on('click',function(){
 		return false;

@@ -28,7 +28,7 @@
                 {{/each}}
                 </span>
                 <input class="user input" name="user" type="text" class="validate">
-                <span class="span red-text"></span>
+                <p class="span red-text"></p>
                 <ul class="collection"></ul>
                 <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                 </div>
@@ -45,7 +45,7 @@
                         <div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>
                         <div>
                         <input class="response validate input" type="text" value= "{{textToSpeech}}">
-                        <span class="span red-text"></span>
+                        <p class="span red-text"></p>
                         <ul class="collection"></ul>
                         <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                         </div>
@@ -57,12 +57,12 @@
                         {{#each items}}
                         <div>
                         <input type="text" class="input response validate" value="{{textToSpeech}}">
-                        <span class="span red-text"></span>
+                        <p class="span red-text"></p>
                         <ul class="collection"></ul>
                         <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                         </div>
                         {{/each}}
-                        <button class="btnAddVariant btn-small waves-effect waves-light right"
+                        <button class="btnAddVariant btn-small waves-effect waves-light right indigo"
                         name="addResponse">Añadir variante<i class="material-icons right">add</i></button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div>
                     {{/if}}
                     {{#if image}}
