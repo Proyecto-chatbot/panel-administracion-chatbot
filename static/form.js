@@ -214,7 +214,7 @@ let init = function(){
 	else if(responseIsEmpty() == true)
 		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 	else
-		$.post('/cancel',data, function(res){
+		$.post('/update',data, function(res){
 			location.href = res;
 		});
 	})
@@ -691,10 +691,14 @@ let send_intent = ()=>{
 		"parameters" : parameters
 	}
 
-	if(data.name == "")
+	if(data.name == ""){
 		$('#err-name').html('No se puede crear un intent sin nombre');
+		$('#name').focus();
+	}
 	else if(data.user == "")
 		$('#err-user').html('No se puede crear un intent sin frases de usuario');
+		if(data.name != "")
+			input_user.focus();
 	else if($.isArray(data.user)){
 		if( data.user.filter(word => word != "").length == 0)
 			$('#err-user').html('No se puede crear un intent sin frases de usuario');
