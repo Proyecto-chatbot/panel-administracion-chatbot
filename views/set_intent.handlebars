@@ -1,20 +1,22 @@
-<div class="container center-align">
-    <h4>Editar Intent</h4>
+<div id="body-wrapper" class="container center-align">
+     <div class="card-create card">
+    <h5>Editar Intent</h5>
     <div class="row ">
         <div class="input-field col s12">
             <input id="name" type="text" name="name" class="validate" value="{{this.name}}">
             <label for="name">Nombre del intent</label>
         </div>
+        <p id="err-name" class="red-text"></p>
         <input type="hidden" id="input-id" value={{this.id}}>
         <div class="input-field col s12">
             <p>Preguntas del usuario</p>
             {{#each this.userSays }}
                 <div class="data_text">
-                <span class="hide">
+                <span class="span-hide hide">
                 {{#each data}}
              		{{#if meta}}
 					        {{#isnt meta "@sys.ignore" }}
-						        <span>@{{alias}}</span>
+						        <span>#{{alias}}</span>
 					        {{/isnt}}
 					        {{#eq meta "@sys.ignore"}}
 						        <span>{{text}}</span>
@@ -25,65 +27,93 @@
 
                 {{/each}}
                 </span>
-                <input class="user" name="user" type="text" class="validate">
+                <input class="user input" name="user" type="text" class="validate">
+                <p class="span red-text"></p>
+                <ul class="collection"></ul>
+                 {{#if @index}}
+                    <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                 {{/if}}
+                
                 </div>
             {{/each}}
-            <button class="btn btn-small waves-effect waves-light right" id="addUserText" name="addUserText">Añadir Pregunta
+            <p id="err-user" class="red-text"></p>
+            <button class="btn btn-small waves-effect waves-light right indigo" id="addUserText" name="addUserText">Añadir Pregunta
                 <i class="material-icons right">add</i>
             </button>
         </div>
-        <div class="select input-field col s12">
+        <div class="input-field col s12 edit-responses">
             {{#each this.responses }}
                 {{#each messages}}
                     {{#if textToSpeech}}
                         <div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>
-                        <input class="response validate" type="text" value= "{{textToSpeech}}"><button class="btnAddVariant btn-small waves-effect waves-light right"
-                        name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>
+                        <div>
+                        <input class="response validate input" type="text" value= "{{textToSpeech}}">
+                        <p class="span red-text"></p>
+                        <ul class="collection"></ul>
+                        </div>
+                        <button class="btnAddVariant btn-small indigo waves-effect waves-light right"
+                        name="addResponse">Añadir variante<i class="material-icons right">add</i></button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div>
                     {{/if}}
                     {{#if items}}
                         <div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>
                         {{#each items}}
-                        <input type="text" class=" response validate" value="{{textToSpeech}}">
+                        <div>
+                        <input type="text" class="input response validate" value="{{textToSpeech}}">
+                        <p class="span red-text"></p>
+                        <ul class="collection"></ul>
+                         {{#if @index}}
+                        <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button> 
+                         {{/if}}
+                        
+                        </div>
                         {{/each}}
-                        <button class="btnAddVariant btn-small waves-effect waves-light right"
-                        name="addResponse">Añadir variante<i class="material-icons right">add</i></button></div>
+                        <button class="btnAddVariant btn-small waves-effect waves-light right indigo"
+                        name="addResponse">Añadir variante<i class="material-icons right">add</i></button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div>
                     {{/if}}
                     {{#if image}}
                         <div class="bloq type-image input-field col s12"><p> Imagen/Gif</p>
+                        <div>
                         <input class="response" name="gifResponse" type="text" class="validate" value="{{image.url}}"></div>
+                        </button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button>
+                        </div>
                     {{/if}}
                     {{#if url}}
                         <div class="bloq type-link input-field col s12"><p> Link/Documento</p>
+                        <div>
                             <input class="response" id="linkResponse" type="text" value="{{destinationName}}" class="validate">
                             <input class="url" id="linkUrl" type="text"  value="{{url}}" class="validate">
-                                </div>
+                            </button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button>
+                        </div>
+                        </div>
                     {{/if}}
                 {{/each}}
             {{/each}}
-            <a class='dropdown-trigger btn' href='#' data-target='dropdown'>Añadir Respuesta</a>
+            <a class='dropdown-trigger btn select indigo' href='#' data-target='dropdown'>Añadir Respuesta</a>
             <ul id='dropdown' class='dropdown-content'>
                 <li>
-                    <a class="text-li" name="type-text">Texto</a>
+                    <a class="text-li indigo-text" name="type-text">Texto</a>
                 </li>
                 <li>
-                    <a class="image-li" name="type-image">Imagen</a>
+                    <a class="image-li indigo-text" name="type-image">Imagen</a>
                 </li>
                 <li>
-                    <a class="image-li" name="type-gif">Gif</a>
+                    <a class="image-li indigo-text" name="type-gif">Gif</a>
                 </li>
                 <li>
-                    <a class="link-li" name="type-link">Enlace</a>
+                    <a class="link-li indigo-text" name="type-link">Enlace</a>
                 </li>
                 <li>
-                    <a class="link-li" name="type-document">Documento</a>
+                    <a class="link-li indigo-text" name="type-document">Documento</a>
                 </li>
             </ul>
 
         </div>
-
-
-        <button class="btn waves-effect waves-light" type="submit" id="btn_edit_intent" name="btn_edit_intent">Enviar
+        <p id="err" class="red-text"></p>
+        </div>
+        <button class="btn waves-effect waves-light indigo" type="submit" id="btn_edit_intent" name="btn_edit_intent">Enviar
             <i class="material-icons right">send</i>
+        </button>
+        <button class="btn waves-effect waves-light indigo" type="submit" id="cancel" name="submit">Cancelar
         </button>
     </div>
    <ul class="collapsible">
@@ -92,11 +122,11 @@
                     <i class="material-icons">forum</i>Opciones avanzadas</div>
                 <div class="collapsible-body">
                     <div class="input-field col s6 offset-s3">
-                        <input id="contextIn" type="text" name="contextIn" class="validate">
+                        <input id="contextIn" type="text" name="contextIn" class="validate" value="{{ this.contexts }}">
                         <label for="contextIn">Contexto de entrada</label>
                     </div>
                     <div class="input-field col s6 offset-s3">
-                        <input id="contextOut" type="text" name="contextOut" class="validate">
+                        <input id="contextOut" type="text" name="contextOut" class="validate" value="{{ this.responses.0.affectedContexts.0.name }}">
                         <label for="contextOut">Contexto de salida</label>
                     </div>
                 </div>

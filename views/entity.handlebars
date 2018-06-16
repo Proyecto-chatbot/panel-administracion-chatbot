@@ -1,19 +1,31 @@
-<div class = 'container'>
-	<input type="hidden" id=entity-id value={{this.id}}>
-	<h4> Entidad: {{ this.name }}</h4>
-    <div  class="card-title">
-	{{#each this.entries }}
-		<b><h5>{{value}}</h5></b>
-        {{#each synonyms}}
-        <ul class="collection-item">
-            <li>{{this}}</li>
-        </ul>
-        {{/each}}
-	{{/each}}
+<div id="body-wrapper"  >
+ 
+    <h4 class="center indigo-text">Editando Entidad</h4>
+    <input id="id-entity" type="hidden" name="name" class="validate" value="{{ this.id }}">
+    <div class="row ">
+        <div class="input-field col m6 s8 offset-m3 offset-s2">
+            <input id="name-entity" type="text" name="name" class="validate" value="{{ this.name }}">
+            <label for="name">Nombre de la entidad</label>
+        </div>
+        <div class="input-field col m6 s8 offset-m3 offset-s2">
+            <p>Sinónimos</p>
+            {{#each this.entries }}
+                <div class="synonym_block">
+                <input class="synonym" name="sinonym" type="text" class="validate" value="{{ value }}">
+                {{#if @index}}
+                    <button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                {{/if}}
+                </div>
+	        {{/each}}
+            <button class="btn btn-small waves-effect waves-light indigo right" id="add-synonym" name="addSinonym">Añadir Sinónimo
+                <i class="material-icons right">add</i>
+            </button>
+        </div>
+        <div class="input-field col m6 s8 offset-m3 offset-s2">
+        <button class="btn waves-effect waves-light indigo" type="submit" id="btn-edit-entity" name="submit">Enviar
+            <i class="material-icons right">send</i>
+        </button>
+        </div>
     </div>
-    <div class="row">
-        <button class="right btn btn-primary" id="btn-delete-entity">
-        <i class="material-icons">delete</i>
-    </button>
-    </div>
+   <button class="right btn btn-primary red" id="btn-delete-entity"><i class="material-icons right">delete</i> ELIMINAR</button>
 </div>

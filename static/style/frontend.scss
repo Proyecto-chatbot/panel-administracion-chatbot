@@ -1,12 +1,144 @@
+.p5{
+    padding: 5px;
+}
+body{
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-areas: "nav nav"
+                        "aside aside"
+                        "main main"
+                        "footer footer";
+    @media screen and (min-width:900px) {
+        grid-template-areas: "nav nav"
+                            "aside main"
+                            "aside main"
+                            "footer footer";
+    }
+}
+nav{
+    min-height:80px;
+    grid-area: nav;
+    background-color: #303F9F;
+    box-shadow: 0px 1px 11px 1px rgba(0,0,0,0.25);
+    z-index: 1;
+}
+.nav-wrapper span{
+    font-size:1rem;
+    @media screen and (min-width:624px) {
+        font-size:2.1rem;
+    }
+}
+
+.card-create{
+    padding: 20px;
+}
+
+input[type="text"]:focus + label {
+    color: #303F9F !important;
+  }
+input[type="text"]:focus {
+    border-bottom: 1px solid#303F9F !important;
+    box-shadow: 0 1px 0 0#303F9F !important
+  }
+#list_intent, #list_entity{
+    height: 75vh;
+}
+#dropdown-c li a {
+    padding: 13px 5px;
+}
+.synonym_block{
+    display: block;
+    @media screen and (min-width:600px) {
+        display: flex;
+    }
+}
+.dropdown-create, #btn_create_entity{
+    @media screen and (max-width:624px) {
+        position: fixed;
+        right: 5px;
+        bottom: 10px;
+        z-index: 3;
+    }
+}
+.dropdown-create{
+    @media screen and (min-width:625px) {
+        margin-right: 50px;
+    }
+}
+
+#btn_create_entity{
+    @media screen and (min-width:625px) {
+        margin-right: 50px;
+    }
+}
+
 #btn_create{
     margin-top: 10px;
-    
 }
-#logo{
-    font-size: 25px;
+#btn-delete-entity{
+    margin: 5px;
+}
+.btn-delete-variant, .btn-delete-synonym{
+    margin: 5px;
+}
+aside{
+    grid-area: aside;
+    background-color: #3F51B5;
+    ul{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    @media screen and (min-width:900px) {
+        flex-direction: column;
+        align-items: center;
+    }
+        a{
+            color: #fff;
+            text-transform: uppercase;
+            transition: 0.8s;
+            &:hover{
+                color: #FFAB00;
+                text-decoration: underline;
+            }
+            @media screen and (min-width:900px) {
+                line-height: 8em;
+            }
+        }
+    }
 }
 #body-wrapper{
-    display: grid;
-    grid-template-columns: 30% 70%;
-
+    grid-area: main;
+}
+footer{
+    box-shadow: 0 -3px 10px 3px rgba(0, 0, 0, 0.2);
+    grid-area: footer;
+}
+.footer-copyright{
+    text-align:center;
+    .container{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        @media screen and (min-width:800px) {
+            flex-direction: row;
+        }
+    }
+}
+.page{
+    display: none;
+}
+.easyPaginateNav{
+    width: 160px !important;
+    margin: auto;
+    a{
+        color: #303F9F;
+    }
+}
+iframe{
+    height:430px;
+    width: 300px;
+    margin: 10px 0 10px 0;
+    @media screen and (min-width:800px) {
+        width : 350px;
+    }
 }
