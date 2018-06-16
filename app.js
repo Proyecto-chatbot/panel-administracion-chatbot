@@ -23,7 +23,6 @@ app.set('views','./views');
 
 var botMessages = [];
 
-/// TODO refactorizar todas las peticiones a un mismo método en una clase
 var all_intents;
 var intents;
 var selected_intent;
@@ -367,7 +366,6 @@ post_intent = (req,res,next)=>{
 		var contextOut = req.body.contextOut;
 		var bot_parameters = req.body.parameters;
 		var id = req.body.id;
-		console.log(req.body);
 
 		var botFormatted;
 		promise = new Promise((resolve)=>{
@@ -505,7 +503,6 @@ put_entity = (req,res,next)=>{
 
 	request(postOptions, function (error, response, body) {
 	if (error) throw new Error(error);
-	console.log(response);
 	res.send("/entities");
 	});
 }
@@ -565,7 +562,14 @@ app.post('/delete',function(req,res,next){
 		res.send("/");
 	});
 });
-
+app.post('/delete_entity', function(req, res, next){
+	let id = req.body.id;
+	promise = new Promise((resolve)=>{
+		resolve(delete_entity(id,req,res));
+	}).then(()=>{
+		res.send("/entities");
+	});
+});
 app.post('/update',function(req,res,next){
 	put_intent(req, res);
 });
