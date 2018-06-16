@@ -7,7 +7,7 @@ let $btnAddSynonym;
 let $btnDeleteSynonym;
 let $name;
 /**
- * Max of available responses
+ * Max of available responses 
  */
 const MAX_RESPONSES = 10;
 /**
@@ -102,7 +102,7 @@ let init = function(){
 		});
 	});
 	$btn_delete_entity.click(function(){
-		entity_id = $("#entity-id").val();
+		entity_id = $("#id-entity").val();
 		$.post('/delete_entity',{id : entity_id},function(res){
 			location.href = res;
 		});
@@ -561,8 +561,6 @@ let add_new_image = function (title){
 	}
 
 }
-
-
 /**
  *  Insert a new block for type link response
  */
