@@ -230,7 +230,6 @@ post_intent = (req,res,next)=>{
 	var contextIn = req.body.contextIn;
 	var contextOut = req.body.contextOut;
 	var bot_parameters = req.body.parameters;
-	console.log(req.body);
 
 	var botFormatted;
 	promise = new Promise((resolve)=>{
@@ -307,7 +306,6 @@ post_intent = (req,res,next)=>{
 		var nombre = req.body.name;
 		var userText = req.body.user;
 		var gif_action = req.body.action;
-		console.log(req.body);
 
 		promise = new Promise((resolve)=>{
 			resolve(userFormatted = formatter.format_user_request(userText));

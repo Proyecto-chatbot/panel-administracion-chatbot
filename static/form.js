@@ -696,10 +696,11 @@ let send_intent = ()=>{
 		$('#err-name').html('No se puede crear un intent sin nombre');
 		$('#name').focus();
 	}
-	else if(data.user == "")
+	else if(data.user == ""){
 		$('#err-user').html('No se puede crear un intent sin frases de usuario');
 		if(data.name != "")
 			input_user.focus();
+	}
 	else if($.isArray(data.user)){
 		if( data.user.filter(word => word != "").length == 0)
 			$('#err-user').html('No se puede crear un intent sin frases de usuario');
