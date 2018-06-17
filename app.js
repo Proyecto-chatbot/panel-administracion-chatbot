@@ -94,10 +94,15 @@ get_intent = (id, req, res)=>{
         }else{
 			promise= new Promise (function(resolve, reject){
 				resolve(intent = JSON.parse(body));
+				
+				
 			}).catch((SyntaxError) => {
-			  });;
+			  });
 			promise.then(function(intent){
-				res.render('detail',intent);
+				if(intent.responses[0].action == "")
+					res.render('detail',intent);
+				else
+					res.render('detail_gif',intent);
 			});
         }
   	});
@@ -256,6 +261,7 @@ post_intent = (req,res,next)=>{
 		})
 
 		postOptions = {
+		
 			method: 'POST',
 			url: 'https://api.dialogflow.com/v1/intents',
 			qs: { v: '20150910' },
@@ -348,6 +354,61 @@ post_intent = (req,res,next)=>{
 			};
 
 			request(postOptions, function (error, response, body) {
+				if (error) throw new Error(error);
+				botMessages = [];
+				res.send("/");
+				});
+			});
+	}
+	put_random_gif = (req,res,next)=>{
+		var postOptions;
+		var nombre = req.body.name;
+		var userText = req.body.user;
+		var gif_action = req.body.action;
+		var id = req.body.id;
+		console.log(id +" - "+gif_action+" - "+nombre + " - " + userText);
+		promise = new Promise((resolve)=>{
+			resolve(userFormatted = formatter.format_user_request(userText));
+		});
+
+		promise.then((userFormatted) => {
+			console.log('--------USER MESSAGES--------\n');
+			userFormatted.forEach(function(element){
+				console.log(element);
+			})
+			postOptions = {
+				method: 'PUT',
+				url: 'https://api.dialogflow.com/v1/intents/'+id,
+				qs: { v: '20150910' },
+				headers:
+					{
+					'Cache-Control': 'no-cache',
+					Authorization: 'Bearer ' + TOKEN,
+					'Content-Type': 'application/json; charset=utf-8'
+					},
+			  body:{
+				contexts: [],
+				events: [],
+				fallbackIntent: false,
+				name: nombre,
+				priority: 500000,
+				responses:
+				[ { action: gif_action,
+					affectedContexts: [],
+					defaultResponsePlatforms: { google: true },
+					messages:[],
+					parameters: [],
+					resetContexts: false } ],
+				templates: [],
+				userSays:
+				 userFormatted,
+				webhookForSlotFilling: false,
+				webhookUsed: true },
+				json: true
+			};
+
+			request(postOptions, function (error, response, body) {
+				console.log(response);
 				if (error) throw new Error(error);
 				botMessages = [];
 				res.send("/");
@@ -588,6 +649,9 @@ app.post('/new_intent',function(req,res,next){
 app.post('/new_gif_intent',function(req,res,next){
 	post_random_gif(req,res);
 })
+app.post('/edit_gif_intent',function(req,res,next){
+	put_random_gif(req,res);
+});
 app.post('/search_entity'), get_entities, function(req, res, next){
 	let stringSearch = req.body.stringSearch
 	entities.forEach(function(value){
