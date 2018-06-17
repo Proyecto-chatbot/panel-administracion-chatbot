@@ -567,7 +567,9 @@ put_entity = (req,res,next)=>{
 	res.send("/entities");
 	});
 }
-
+app.get('/display',function(req,res,next){
+	res.render('display');
+})
 app.post('/new_entity', function(req, res, next){
 	post_entity(req, res);
 });
