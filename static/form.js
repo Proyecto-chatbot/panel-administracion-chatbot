@@ -301,7 +301,7 @@ let init = function(){
 		$.when($('.entity').remove()).then(
 			entities.forEach(function(value){
 				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-					$('#list_entity').append('<a class="collection-item entity indigo-text" id="entity" href="'+value.id+'">'+value.name+'</a>')
+					$('#list_entity').append('<a class="collection-item entity indigo-text" id="entity" href="/entities/'+value.id+'">'+value.name+'</a>')
 				}
 			})
 		)
