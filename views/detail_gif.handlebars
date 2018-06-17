@@ -1,0 +1,57 @@
+<div id="body-wrapper" class="container center-align">
+    <div class="card p5 card-create">
+    <h5>Crear un nuevo Intent: Gif Aleatorio</h5>
+    <div class="row ">
+        <div class="input-field col s12">
+            <input type="hidden" name="id" id="input-id" value="{{this.id}}">
+            <input id="name" type="text" name="name" class="validate" value="{{this.name}}">
+            <label for="name">Nombre del intent</label>
+            <p id="err-name" class="red-text"></p>
+
+        </div>
+        <p>Preguntas del usuario</p>
+            {{#each this.userSays }}
+                <div class="data_text">
+                <span class="span-hide hide">
+                {{#each data}}
+             		{{#if meta}}
+					        {{#isnt meta "@sys.ignore" }}
+						        <span>#{{alias}}</span>
+					        {{/isnt}}
+					        {{#eq meta "@sys.ignore"}}
+						        <span>{{text}}</span>
+					        {{/eq}}
+				    {{else}}
+					    <span> {{text}} </span>
+				    {{/if}}
+
+                {{/each}}
+                </span>
+                <input class="user input" name="user" type="text" class="validate">
+                <p class="span red-text"></p>
+                <ul class="collection"></ul>
+                 {{#if @index}}
+                    <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
+                 {{/if}}
+                
+                </div>
+            {{/each}}
+            <p id="err-user" class="red-text"></p>
+            <button class="btn btn-small waves-effect waves-light right indigo" id="addUserText" name="addUserText">Añadir Pregunta
+                <i class="material-icons right">add</i>
+            </button>
+        </div>
+        <div class="select input-field col s12">
+            <p>Palabra clave</p>
+                {{#each this.responses}}
+                    <input class="tag_gif" id="input-tag" name="tag_gif" type="text" class="validate" value="{{action}}">
+                    <p id="err-tag" class="red-text"></p>
+                {{/each}}
+        </div>
+
+        <button class="btn waves-effect waves-light  indigo" type="submit" id="edit_gif" name="edit_gif">Enviar
+            <i class="material-icons right">send</i>
+        </button>
+    </div>
+</div>
+</div>

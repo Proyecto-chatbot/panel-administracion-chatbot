@@ -6,6 +6,7 @@ let $btn_submit;
 let $btnAddSynonym;
 let $btnDeleteSynonym;
 let $name;
+let $btn_edit_gif;
 /**
  * Max of available responses 
  */
@@ -64,6 +65,41 @@ let init = function(){
 	redeclarate_btn_delete_synonym();
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
+	$btn_edit_gif = $('#edit_gif');
+	$btn_edit_gif.click(function(event){
+		event.preventDefault();
+		intent_id = $("#input-id").val();
+		let data = {};
+		let n_inputs = 0;
+
+		name = $('#name').val();
+		tag = $('.tag_gif').val();
+		input_user = $('.user');
+		input_user.each(function(){
+		n_inputs++;
+		});
+		if(n_inputs > 1){
+			userSays = [];
+			input_user.each(function(index, element){
+				userSays.push($(this).val());
+			});
+		}else{
+			userSays = '';
+			userSays = input_user.val();
+		}
+		data = {
+			"id" : intent_id,
+			"name": name,
+			"user": userSays,
+			"action" : tag
+		}
+		if(checkValidGif())
+			$.post('/edit_gif_intent',data, function(res){
+				location.href = res;
+			});
+		else
+			setTimeout(function(){$('#name').focus()},200)
+	})
 	checkType();
 	redeclare_input_search();
 	transform_edit_responses();
