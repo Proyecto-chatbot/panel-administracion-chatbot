@@ -9,6 +9,7 @@
             <p id="err-name" class="red-text"></p>
 
         </div>
+        <div class="input-field col s12">
         <p>Preguntas del usuario</p>
             {{#each this.userSays }}
                 <div class="data_text">
@@ -33,7 +34,7 @@
                  {{#if @index}}
                     <button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button>
                  {{/if}}
-                
+
                 </div>
             {{/each}}
             <p id="err-user" class="red-text"></p>
