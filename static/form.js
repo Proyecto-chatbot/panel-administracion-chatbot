@@ -32,6 +32,8 @@ let $btnDeleteVariant;
 let intents;
 let entitiesNames;
 let init = function(){
+	$('#btn-login').click(login);
+	$('#btn-register').click(register);
 	numResponses = 0;
 	numLinks = 0;
 	$.post('/get_intents', function(res){
@@ -308,6 +310,39 @@ let init = function(){
 	});
 
 }
+let login = function(event){
+	event.preventDefault();
+	let inputUser = $("#input-name-user").val();
+	let inputPassword = $("#input-password").val();
+	$.post('/login',{user: inputUser, password: inputPassword}, function(response){
+	if(typeof response == 'string')
+		location.href='/';
+	else
+		$("#span").html('Usuario o contraseña incorrecta');
+	});
+	}
+	let register = function(event){
+		event.preventDefault();
+		let inputUser = $("#input-user-r").val();
+		let inputPassword = $("#input-password-r").val();
+		let inputPassword2 = $("#input-password2-r").val();
+		let $errPasswd = $('#errPasswd');
+		if(inputPassword !== inputPassword2){
+			$errPasswd.html("Las contraseñas no coinciden");
+		}else{
+			$errPasswd.html("");
+			$.post('/register',{'data':{u: inputUser, p : inputPassword}}, function(response){
+			if(response == 'ok'){
+			$errPasswd.html("Registrado con éxito. En breve su registro será validado por un administrador.").css('color', 'green');
+			setTimeout(function(){
+				location.href = '/login';
+			},2500);
+		}
+		else
+		console.log(response);
+		});
+	}
+}	
 /**
  *
  */

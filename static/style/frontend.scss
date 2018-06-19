@@ -142,3 +142,16 @@ iframe{
         width : 350px;
     }
 }
+#btn-login, #btn-register{
+    margin: 10px 0 20px;
+}
+.card-login{
+    margin-top: 40px;
+}
+#login_link{
+    margin-left:10px;
+    @media screen and (max-width: 420px){
+        position: absolute;
+        top: 35px;
+    }
+}

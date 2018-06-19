@@ -17,6 +17,31 @@ app.engine(hbs.extname, hbs.engine);
 app.set('view engine', hbs.extname);
 HandlebarsIntl.registerWith(hbs.handlebars);
 
+const bcrypt = require('bcrypt');
+const PERSIST_SERVICE = require ('./service');
+const service = new PERSIST_SERVICE();
+service.get_all_users(function(err,object){console.log(object);});
+
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+app.use(cookieParser());
+app.use(session({
+	cookieName: 'session',
+	secret: '1234',
+	duration: 30 * 60 * 1000,
+	activeDuration: 5 * 60 * 1000,
+	resave: true,
+	saveUninitialized:true
+}));
+
+
+function requiresLogin(req, res, next) {
+	if (req.session && req.session.user) {
+		return next();
+	}else{
+		res.render('login');
+	}
+}
 
 app.use('/static',express.static(__dirname + '/static'));
 app.set('views','./views');
@@ -567,7 +592,7 @@ put_entity = (req,res,next)=>{
 	res.send("/entities");
 	});
 }
-app.get('/display',function(req,res,next){
+app.get('/display',requiresLogin,function(req,res,next){
 	res.render('display');
 })
 app.post('/new_entity', function(req, res, next){
@@ -577,11 +602,73 @@ app.post('/edit_entity', function(req, res, next){
 	put_entity(req, res);
 });
 ////
-app.get('/', get_intents, function(req, res, next){
-		res.render('index', intents);
+app.get('/',requiresLogin, get_intents, function(req, res, next){
+	res.render('index', intents);
+});
+app.get('/register',function(req,res,next){
+	res.render('register');
+})
+app.post('/register', function(req, res){
+	service.create_user(req.body.data.u, req.body.data.p);
+	res.send('ok');
 });
 
-app.get('/interaction',function(req,res,next){
+app.get('/login',function(req,res,next){
+	res.render('login');
+})
+
+app.post('/login', function(req,res){
+    promise = new Promise(function(resolve, reject){
+        let user = req.body.user;
+        let password = req.body.password;
+        datos = [];
+        let respuesta;
+        let keys;
+		let exist = false;
+        service.get_all_users(
+            function(err, reply) {
+                keys = Object.keys(reply);
+                datos = Object.values(reply);
+                data = datos.map(function(element){
+                    return JSON.parse(element);
+                });
+                map = keys.map( function(x, i){
+                    return {"user": x, "passwd": data[i].password, "valido": data[i].valido };
+				}.bind(this));
+                map.forEach(function(element) {
+                    if(element.user == user && element.valido == '0'){
+                        exist = true;
+                        reject(respuesta = false);
+                    }
+                    if(element.user == user && element.valido == '1'){
+                            exist = true;
+                            bcrypt.compare(password,element.passwd,function(err,res){
+                                if(res){
+                                    req.session.logged = true;
+									req.session.user = element;
+                                    resolve(respuesta = 'response ok');
+                                }else{
+                                    reject(respuesta = false);
+                                }
+                            });
+                    }
+                });
+                setTimeout(function(){
+                    if(exist == false){
+                        reject(respuesta = false);
+                    }
+                }, 100);
+            });
+    });
+    promise.then(function(respuesta) {		
+		res.send(respuesta);
+      }, function(respuesta){
+          res.send(respuesta);
+      });
+ 
+});
+
+app.get('/interaction',requiresLogin,function(req,res,next){
 	res.render('interaction');
 });
 
@@ -601,22 +688,23 @@ app.post('/show_entities', get_entities, function(req, res, next){
 	res.send(names);
 });
 
-app.get('/entities', get_entities, function(req,res,next){
+app.get('/entities', requiresLogin,get_entities, function(req,res,next){
 	res.render('entities', entities);
 });
-app.get('/create',function(req,res,next){
+app.get('/create',requiresLogin,function(req,res,next){
 	res.render('new_intent');
 });
-app.get('/create_gif',function(req,res,next){
+app.get('/create_gif',requiresLogin,function(req,res,next){
 	res.render('new_gif');
 })
-app.get('/create_entity',function(req,res,next){
+app.get('/create_entity',requiresLogin,function(req,res,next){
 	res.render('new_entity');
 });
-app.get('/entities/:id', function(req,res,next){
+app.get('/entities/:id',requiresLogin, function(req,res,next){
 	let id = req.params.id;
 	get_entity(id, req, res);
 });
+
 app.post('/delete',function(req,res,next){
 	let id = req.body.id;
 	promise = new Promise((resolve)=>{
@@ -640,7 +728,7 @@ app.post('/edit', function(req, res,next){
 	let id = req.body.id;
 	edit_intent(id, req, res,next);
 });
-app.get('/:id', function(req, res, next){
+app.get('/:id', requiresLogin,function(req, res, next){
 	let id = req.params.id;
 	get_intent(id, req, res);
 });
