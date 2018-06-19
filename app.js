@@ -20,6 +20,7 @@ HandlebarsIntl.registerWith(hbs.handlebars);
 const bcrypt = require('bcrypt');
 const PERSIST_SERVICE = require ('./service');
 const service = new PERSIST_SERVICE();
+//service.delete_users();
 service.get_all_users(function(err,object){console.log(object);});
 
 var cookieParser = require('cookie-parser');
@@ -119,8 +120,8 @@ get_intent = (id, req, res)=>{
         }else{
 			promise= new Promise (function(resolve, reject){
 				resolve(intent = JSON.parse(body));
-				
-				
+
+
 			}).catch((SyntaxError) => {
 			  });
 			promise.then(function(intent){
@@ -286,7 +287,7 @@ post_intent = (req,res,next)=>{
 		})
 
 		postOptions = {
-		
+
 			method: 'POST',
 			url: 'https://api.dialogflow.com/v1/intents',
 			qs: { v: '20150910' },
@@ -605,6 +606,11 @@ app.post('/edit_entity', function(req, res, next){
 app.get('/',requiresLogin, get_intents, function(req, res, next){
 	res.render('index', intents);
 });
+
+app.get('/logout', function(req, res) {
+    req.session.destroy();
+    res.render('login');
+});
 app.get('/register',function(req,res,next){
 	res.render('register');
 })
@@ -627,6 +633,8 @@ app.post('/login', function(req,res){
 		let exist = false;
         service.get_all_users(
             function(err, reply) {
+				if(reply == null || reply == undefined)
+					reject(respuesta = false)
                 keys = Object.keys(reply);
                 datos = Object.values(reply);
                 data = datos.map(function(element){
@@ -660,12 +668,12 @@ app.post('/login', function(req,res){
                 }, 100);
             });
     });
-    promise.then(function(respuesta) {		
+    promise.then(function(respuesta) {
 		res.send(respuesta);
       }, function(respuesta){
           res.send(respuesta);
       });
- 
+
 });
 
 app.get('/interaction',requiresLogin,function(req,res,next){
