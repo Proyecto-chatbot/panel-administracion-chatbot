@@ -8,48 +8,24 @@ var PersistService = class {
             process.env.REDIS_URL || 'redis://127.0.0.1:6379');
     }
 
-    create_user(user, password,valido) {
+    create_user(user, password) {
         var self = this;
-        let keys;
-        let exists;
-        let datos;
-        let data;
-        let map;
-        this.get_all_users(
-            function(err, reply) {
-                if(reply == null)
-                    return [];
-                keys = Object.keys(reply);
-                datos = Object.values(reply);
-                data = datos.map(function(element){
-                    return JSON.parse(element);
-                });
-                map = keys.map( function(x, i){
-                    return {"user": x, "passwd": data[i].password, "valido": data[i].valido};
-                }.bind(this));
-                map.forEach(function(element) {
-                    if(element.user == user){
-                       exists = 1;
-                    }else{
-                        exists = 0;
-                    }
-                });
-            });
-            if(exists == 0){
-                return self.client.hlen('users', function(err, userlength) {
-                    const valido = userlength == 0 ? '1' : '0';
-                    bcrypt.hash(password, 10, function(err, hash){
-                        self.client.hmset(
-                            'users',
-                            user,
-                            JSON.stringify(
-                                {'password': hash, 'valido': valido} ));
-                    });
-                });
-            }else{
-                return false;
-            }
+        return self.client.hlen('users', function(err, userlength) {
+            const valido = userlength == 0 ? '1' : '0';
 
+            bcrypt.hash(password, 10, function(err, hash){
+                self.client.hmset(
+                    'users',
+                    user,
+                    JSON.stringify(
+                        {'password': hash, 'valido': valido} ));
+            });
+        });
+
+    }
+
+    delete_users(){
+        this.client.del('users');
     }
 
     set_user(user, valido){

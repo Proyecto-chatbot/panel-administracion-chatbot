@@ -8,7 +8,7 @@ let $btnDeleteSynonym;
 let $name;
 let $btn_edit_gif;
 /**
- * Max of available responses 
+ * Max of available responses
  */
 const MAX_RESPONSES = 10;
 /**
@@ -342,7 +342,7 @@ let login = function(event){
 		console.log(response);
 		});
 	}
-}	
+}
 /**
  *
  */
