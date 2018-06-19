@@ -1,13 +1,13 @@
 const bcrypt = require('bcrypt');
 const redis = require('redis');
- 
- 
+
+
 var PersistService = class {
     constructor() {
         this.client = redis.createClient(
             process.env.REDIS_URL || 'redis://127.0.0.1:6379');
     }
- 
+
     create_user(user, password,valido) {
         var self = this;
         let keys;
@@ -17,6 +17,8 @@ var PersistService = class {
         let map;
         this.get_all_users(
             function(err, reply) {
+                if(reply == null)
+                    return [];
                 keys = Object.keys(reply);
                 datos = Object.values(reply);
                 data = datos.map(function(element){
@@ -47,9 +49,9 @@ var PersistService = class {
             }else{
                 return false;
             }
-        
+
     }
- 
+
     set_user(user, valido){
         var self = this;
         let keys;
@@ -86,7 +88,7 @@ var PersistService = class {
     }
     deny_user(user){
        this.set_user(user, '0');
-    } 
+    }
     get_all_users(callback) {
         return this.client.hgetall('users', callback);
     }
