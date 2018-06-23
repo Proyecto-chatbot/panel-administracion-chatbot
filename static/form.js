@@ -310,6 +310,10 @@ let init = function(){
 	});
 
 }
+/**
+ * Check user and password
+ * @param {*} event 
+ */
 let login = function(event){
 	event.preventDefault();
 	let inputUser = $("#input-name-user").val();
@@ -321,6 +325,10 @@ let login = function(event){
 		$("#span").html('Usuario o contraseña incorrecta');
 	});
 	}
+/**
+ * Create a new user
+ * @param {*} event 
+ */
 	let register = function(event){
 		event.preventDefault();
 		let inputUser = $("#input-user-r").val();
@@ -344,7 +352,7 @@ let login = function(event){
 	}
 }
 /**
- *
+ * Allow to keep functionality for input search
  */
 let redeclare_input_search = function(){
 	let ul;
@@ -397,6 +405,9 @@ let create_entity = function(){
 	else
 	setTimeout(function(){$('#name-entity').focus();},200);
 }
+/**
+ * @return boolean the existence of synonyms
+ */
 let hasSynonym = () =>{
 	let has = true;
 	$('.synonym').each(function(){
@@ -486,7 +497,10 @@ let showAll = function(ul){
 		});
 	})
 }
-
+/**
+ * recover the selected entity
+ * @param {*} ul 
+ */
 let putLinkEvent = (ul)=>{
 	ul.children('a').on('click',function(event){
 		event.preventDefault();
@@ -505,7 +519,11 @@ let getEntity = (linkEntity)=>{
 		linkEntity.parent('ul').empty();//children('li, .search').remove();
 	}).then(linkEntity.parent('ul').hide());
 }
-
+/**
+ * Live search 
+ * @param {*} word 
+ * @param {*} ulParent 
+ */
 let search = (word, ulParent) =>{
 	entitiesNames.forEach(element => {
 		if (element.toLowerCase().indexOf(word) >= 0)
@@ -518,7 +536,7 @@ let search = (word, ulParent) =>{
 }
 
 /**
- *
+* Allow to keep functionality for delete_block button
  */
 let redeclarate_btn_delete_bloq = () =>{
 	$btnDeleteBloq = $('.btn-delete-bloq');
@@ -530,6 +548,9 @@ let redeclarate_btn_delete_bloq = () =>{
 		$(this).parent('div').remove();
 	})
 }
+/**
+ * Allow to keep functionality for delete button
+ */
 let redeclarate_btn_delete = () =>{
 	$btnDeleteVariant = $('.btn-delete-variant');
 	$btnDeleteVariant.click(function(event){
@@ -537,6 +558,9 @@ let redeclarate_btn_delete = () =>{
 		$(this).parent('div').remove();
 	})
 }
+/**
+* Allow to keep functionality for delete_synonym button
+ */
 let redeclarate_btn_delete_synonym = () =>{
 	$btnDeleteSynonym = $('.btn-delete-synonym');
 	$btnDeleteSynonym.click(function(event){
@@ -567,6 +591,9 @@ let add_new_block = (name) =>{
 	redeclarate_btn_delete();
 	$('#err').html('');
 }
+/**
+ * 
+ */
 let checkType = () =>{
 	let $typeText = $('.type-text');
 	if($('.type-image').length > 0){
@@ -796,6 +823,9 @@ let send_intent = ()=>{
 			location.href = res;
 		});
 }
+/**
+ * @return boolean the existence of text in the input
+ */
 let hasText = () =>{
 	let has_text = false;
 	$(".response").each(function(){
@@ -804,6 +834,9 @@ let hasText = () =>{
 	})
 	return has_text;
 }
+/**
+ * @return boolean if response is or not
+ */
 let responseIsEmpty = () =>{
 	let isEmpty = false;
 	$(".response").each(function(){
@@ -812,6 +845,9 @@ let responseIsEmpty = () =>{
 	});
 	return isEmpty;
 }
+/**
+ * 
+ */
 let send_gif_intent = ()=>{
 	let data = {};
 	let n_inputs = 0;

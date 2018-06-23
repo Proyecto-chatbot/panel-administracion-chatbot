@@ -17,10 +17,10 @@ app.engine(hbs.extname, hbs.engine);
 app.set('view engine', hbs.extname);
 HandlebarsIntl.registerWith(hbs.handlebars);
 
+// Login Functionality
 const bcrypt = require('bcrypt');
 const PERSIST_SERVICE = require ('./service');
 const service = new PERSIST_SERVICE();
-//service.delete_users();
 service.get_all_users(function(err,object){console.log(object);});
 
 var cookieParser = require('cookie-parser');
@@ -35,7 +35,12 @@ app.use(session({
 	saveUninitialized:true
 }));
 
-
+/**
+ * Force the user to get logged
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 function requiresLogin(req, res, next) {
 	if (req.session && req.session.user) {
 		return next();
@@ -43,7 +48,7 @@ function requiresLogin(req, res, next) {
 		res.render('login');
 	}
 }
-
+//routes defined
 app.use('/static',express.static(__dirname + '/static'));
 app.set('views','./views');
 
@@ -52,6 +57,9 @@ var botMessages = [];
 var all_intents;
 var intents;
 var selected_intent;
+/**
+ * Get all the intents of the agent
+ */
 get_intents = (req, res, next)=>{
     var options = {
   		method: 'GET',
@@ -78,7 +86,9 @@ get_intents = (req, res, next)=>{
 var all_entities;
 var entities;
 var selected_entity;
-
+/**
+ * Get all the entities of the agent
+ */
 get_entities = (req, res, next)=>{
     var options = {
   		method: 'GET',
@@ -100,7 +110,9 @@ get_entities = (req, res, next)=>{
         }
   	});
 }
-
+/**
+ * Get a single intent
+ */
 get_intent = (id, req, res)=>{
 	var options = {
   		method: 'GET',
@@ -134,6 +146,9 @@ get_intent = (id, req, res)=>{
   	});
 
 }
+/**
+ * Remove the selected intent from the agent
+ */
 delete_intent =(id,req,res)=>{
     var options = {
 		method: 'DELETE',
@@ -173,6 +188,9 @@ edit_intent = (id, req, res,next)=>{
 		}
 	});
 }
+/**
+ * Get a single entity of the agent
+ */
 get_entity = (id, req, res)=>{
     var options = {
   		method: 'GET',
@@ -196,7 +214,9 @@ get_entity = (id, req, res)=>{
         }
   	});
 }
-
+/**
+ * Remove an entity from the agent
+ */
 delete_entity =(id,req,res)=>{
     var options = {
 		method: 'DELETE',
@@ -275,7 +295,7 @@ post_intent = (req,res,next)=>{
 			});
 		resolve(userFormatted = formatter.format_user_request(userText));
 	});
-
+	//Not neccesary but it clarify what we are sending
 	promise.then((userFormatted) => {
 		console.log('--------BOT MESSAGES--------\n');
 		botMessages.forEach(function(element){
@@ -287,7 +307,6 @@ post_intent = (req,res,next)=>{
 		})
 
 		postOptions = {
-
 			method: 'POST',
 			url: 'https://api.dialogflow.com/v1/intents',
 			qs: { v: '20150910' },
@@ -386,6 +405,9 @@ post_intent = (req,res,next)=>{
 				});
 			});
 	}
+	/**
+	 * Edit an intent with the 'random gif' format
+	 */
 	put_random_gif = (req,res,next)=>{
 		var postOptions;
 		var nombre = req.body.name;
@@ -557,7 +579,7 @@ post_entity = (req,res,next)=>{
 		});
 }
 /**
- *
+ * Edit the selected entity
  */
 put_entity = (req,res,next)=>{
 
@@ -593,6 +615,7 @@ put_entity = (req,res,next)=>{
 	res.send("/entities");
 	});
 }
+// Next, express is listening the diferent get/post requests from our panel
 app.get('/display',requiresLogin,function(req,res,next){
 	res.render('display');
 })
