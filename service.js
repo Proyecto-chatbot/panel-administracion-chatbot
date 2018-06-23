@@ -63,6 +63,10 @@ var PersistService = class {
         this.client.del('users');
     }
 
+    delete_bots(){
+        this.client.del('bots');
+    }
+
     set_user(user, valido){
         var self = this;
         let keys;

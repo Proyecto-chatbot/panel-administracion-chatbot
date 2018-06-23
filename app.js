@@ -33,7 +33,8 @@ app.use(session({
 	resave: true,
 	saveUninitialized:true
 }));
-
+//service.delete_users();
+//service.delete_bots();
 /**
  * Force the user to get logged
  * @param {*} req
@@ -55,18 +56,22 @@ function requiresToken(req,res,next){
 			datos = [];
 			let bot_list;
 			let keys;
-
 			service.get_all_bots(
 				function(err, reply) {
-					keys = Object.keys(reply);
-					datos = Object.values(reply);
-					data = datos.map(function(element){
-						return JSON.parse(element);
-					});
-					map= keys.map( function(x, i){
-						return {"name": x, "token": data[i].token};
-					}.bind(this));
-					resolve(bot_list = map);
+					if(reply == null)
+						resolve(bot_list = []);
+					else{
+						keys = Object.keys(reply);
+						datos = Object.values(reply);
+						data = datos.map(function(element){
+							return JSON.parse(element);
+						});
+						map= keys.map( function(x, i){
+							return {"name": x, "token": data[i].token};
+						}.bind(this));
+						resolve(bot_list = map);
+					}
+
 				});
 		});
 
@@ -664,15 +669,20 @@ app.get('/',requiresLogin, function(req, res, next){
 
 		service.get_all_bots(
 			function(err, reply) {
-				keys = Object.keys(reply);
-				datos = Object.values(reply);
-				data = datos.map(function(element){
-					return JSON.parse(element);
-				});
-				map= keys.map( function(x, i){
-					return {"name": x, "token": data[i].token};
-				}.bind(this));
-				resolve(bot_list = map);
+				if(reply == null)
+					resolve(bot_list = []);
+				else{
+					keys = Object.keys(reply);
+					datos = Object.values(reply);
+					data = datos.map(function(element){
+						return JSON.parse(element);
+					});
+					map= keys.map( function(x, i){
+						return {"name": x, "token": data[i].token};
+					}.bind(this));
+					resolve(bot_list = map);
+				}
+
 			});
 	});
 
@@ -715,32 +725,35 @@ app.post('/login', function(req,res){
             function(err, reply) {
 				if(reply == null || reply == undefined)
 					reject(respuesta = false)
-                keys = Object.keys(reply);
-                datos = Object.values(reply);
-                data = datos.map(function(element){
-                    return JSON.parse(element);
-                });
-                map = keys.map( function(x, i){
-                    return {"user": x, "passwd": data[i].password, "valido": data[i].valido };
-				}.bind(this));
-                map.forEach(function(element) {
-                    if(element.user == user && element.valido == '0'){
-                        exist = true;
-                        reject(respuesta = false);
-                    }
-                    if(element.user == user && element.valido == '1'){
-                            exist = true;
-                            bcrypt.compare(password,element.passwd,function(err,res){
-                                if(res){
-                                    req.session.logged = true;
-									req.session.user = element;
-                                    resolve(respuesta = 'response ok');
-                                }else{
-                                    reject(respuesta = false);
-                                }
-                            });
-                    }
-                });
+				else{
+					keys = Object.keys(reply);
+					datos = Object.values(reply);
+					data = datos.map(function(element){
+						return JSON.parse(element);
+					});
+					map = keys.map( function(x, i){
+						return {"user": x, "passwd": data[i].password, "valido": data[i].valido };
+					}.bind(this));
+					map.forEach(function(element) {
+						if(element.user == user && element.valido == '0'){
+							exist = true;
+							reject(respuesta = false);
+						}
+						if(element.user == user && element.valido == '1'){
+								exist = true;
+								bcrypt.compare(password,element.passwd,function(err,res){
+									if(res){
+										req.session.logged = true;
+										req.session.user = element;
+										resolve(respuesta = 'response ok');
+									}else{
+										reject(respuesta = false);
+									}
+								});
+						}
+					});
+				}
+
                 setTimeout(function(){
                     if(exist == false){
                         reject(respuesta = false);
@@ -756,7 +769,7 @@ app.post('/login', function(req,res){
 
 });
 
-app.get('/add',requiresLogin,requiresToken, function(req, res){
+app.get('/add',requiresLogin, function(req, res){
 	res.render('add_agent');
 });
 app.post('/add',function(req,res,next){
