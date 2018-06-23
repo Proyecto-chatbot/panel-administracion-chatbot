@@ -10,7 +10,6 @@ var HandlebarsIntl = require('handlebars-intl');
 var formatter = require('./static/request_formatter');
 var domain = process.env.APP_HOST;
 const PORT = process.env.PORT || 3000;
-const TOKEN =  process.env.token;
 var helpers = require('handlebars-helpers')(['math', 'comparison']);
 var hbs = exphbs.create({defaultLayout: 'base'});
 app.engine(hbs.extname, hbs.engine);
@@ -22,7 +21,7 @@ const bcrypt = require('bcrypt');
 const PERSIST_SERVICE = require ('./service');
 const service = new PERSIST_SERVICE();
 service.get_all_users(function(err,object){console.log(object);});
-
+service.get_all_bots(function(err,object){console.log(object);});
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 app.use(cookieParser());
@@ -37,15 +36,45 @@ app.use(session({
 
 /**
  * Force the user to get logged
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
 function requiresLogin(req, res, next) {
 	if (req.session && req.session.user) {
 		return next();
 	}else{
 		res.render('login');
+	}
+}
+function requiresToken(req,res,next){
+	if (req.session && req.session.token){
+		return next();
+	}else{
+		promise = new Promise(function(resolve, reject){
+			datos = [];
+			let bot_list;
+			let keys;
+
+			service.get_all_bots(
+				function(err, reply) {
+					keys = Object.keys(reply);
+					datos = Object.values(reply);
+					data = datos.map(function(element){
+						return JSON.parse(element);
+					});
+					map= keys.map( function(x, i){
+						return {"name": x, "token": data[i].token};
+					}.bind(this));
+					resolve(bot_list = map);
+				});
+		});
+
+		promise.then(function(bot_list) {
+			res.render('select_agent', bot_list);
+		  }, function(bot_list){
+			res.render('select_agent', bot_list);
+		  });
 	}
 }
 //routes defined
@@ -61,14 +90,14 @@ var selected_intent;
  * Get all the intents of the agent
  */
 get_intents = (req, res, next)=>{
-    var options = {
+	var options = {
   		method: 'GET',
     		url: 'https://api.dialogflow.com/v1/intents',
     		qs: { v: '20150910' },
     		headers:
      		{
        		'Cache-Control': 'no-cache',
-       		Authorization: 'Bearer ' + TOKEN }
+       		Authorization: 'Bearer ' + req.session.token }
        	};
 
   	request(options, function (error, response, body) {
@@ -77,6 +106,7 @@ get_intents = (req, res, next)=>{
         }else{
 		  all_intents = body;
 		  intents = Object.values(JSON.parse(all_intents));
+
 		  return next();
         }
   	});
@@ -97,7 +127,7 @@ get_entities = (req, res, next)=>{
     		headers:
      		{
        		'Cache-Control': 'no-cache',
-       		Authorization: 'Bearer ' + TOKEN }
+       		Authorization: 'Bearer ' + req.session.token }
        	};
 
   	request(options, function (error, response, body) {
@@ -123,7 +153,7 @@ get_intent = (id, req, res)=>{
      		{
 			'Accept': '*/*',
        		'Cache-Control': 'no-cache',
-       		Authorization: 'Bearer ' + TOKEN }
+       		Authorization: 'Bearer ' + req.session.token }
        	};
 
   	request(options, function (error, response, body) {
@@ -158,7 +188,7 @@ delete_intent =(id,req,res)=>{
 		  headers:
 		   {
 			 'Cache-Control': 'no-cache',
-			 Authorization: 'Bearer ' + TOKEN }
+			 Authorization: 'Bearer ' + req.session.token }
 		 };
 		request(options, function (error, response, body) {
 			if (error) throw new Error(error);
@@ -175,7 +205,7 @@ edit_intent = (id, req, res,next)=>{
 		headers:
 			{
 			'Cache-Control': 'no-cache',
-			Authorization: 'Bearer ' + TOKEN }
+			Authorization: 'Bearer ' + req.session.token }
 			};
 	request(options, function (error, response, body) {
 		if (error){
@@ -201,7 +231,7 @@ get_entity = (id, req, res)=>{
 			headers:
      		{
        		'Cache-Control': 'no-cache',
-       		Authorization: 'Bearer ' + TOKEN }
+       		Authorization: 'Bearer ' + req.session.token }
        	};
 
   	request(options, function (error, response, body) {
@@ -226,7 +256,7 @@ delete_entity =(id,req,res)=>{
 		  headers:
 		   {
 			 'Cache-Control': 'no-cache',
-			 Authorization: 'Bearer ' + TOKEN }
+			 Authorization: 'Bearer ' + req.session.token }
 		 };
 		request(options, function (error, response, body) {
 			if (error) throw new Error(error);
@@ -313,7 +343,7 @@ post_intent = (req,res,next)=>{
 			headers:
 				{
 				'Cache-Control': 'no-cache',
-				Authorization: 'Bearer ' + TOKEN,
+				Authorization: 'Bearer ' + req.session.token,
 				'Content-Type': 'application/json; charset=utf-8'
 				},
 		  body:{
@@ -374,7 +404,7 @@ post_intent = (req,res,next)=>{
 				headers:
 					{
 					'Cache-Control': 'no-cache',
-					Authorization: 'Bearer ' + TOKEN,
+					Authorization: 'Bearer ' + req.session.token,
 					'Content-Type': 'application/json'
 					},
 			  body:{
@@ -431,7 +461,7 @@ post_intent = (req,res,next)=>{
 				headers:
 					{
 					'Cache-Control': 'no-cache',
-					Authorization: 'Bearer ' + TOKEN,
+					Authorization: 'Bearer ' + req.session.token,
 					'Content-Type': 'application/json; charset=utf-8'
 					},
 			  body:{
@@ -508,7 +538,7 @@ post_intent = (req,res,next)=>{
 				headers:
 					{
 					'Cache-Control': 'no-cache',
-					Authorization: 'Bearer ' + TOKEN,
+					Authorization: 'Bearer ' + req.session.token,
 					'Content-Type': 'application/json; charset=utf-8'
 					},
 			  body:{
@@ -563,7 +593,7 @@ post_entity = (req,res,next)=>{
 			headers:
 				{
 				'Cache-Control': 'no-cache',
-				Authorization: 'Bearer ' + TOKEN,
+				Authorization: 'Bearer ' + req.session.token,
 				'Content-Type': 'application/json; charset=utf-8'
 				},
 		  	body:{
@@ -600,7 +630,7 @@ put_entity = (req,res,next)=>{
 		headers:
 			{
 			'Cache-Control': 'no-cache',
-			Authorization: 'Bearer ' + TOKEN,
+			Authorization: 'Bearer ' + req.session.token,
 			'Content-Type': 'application/json; charset=utf-8'
 			},
 		  body:{
@@ -626,9 +656,36 @@ app.post('/edit_entity', function(req, res, next){
 	put_entity(req, res);
 });
 ////
-app.get('/',requiresLogin, get_intents, function(req, res, next){
-	res.render('index', intents);
+app.get('/',requiresLogin, function(req, res, next){
+	promise = new Promise(function(resolve, reject){
+		datos = [];
+		let bot_list;
+		let keys;
+
+		service.get_all_bots(
+			function(err, reply) {
+				keys = Object.keys(reply);
+				datos = Object.values(reply);
+				data = datos.map(function(element){
+					return JSON.parse(element);
+				});
+				map= keys.map( function(x, i){
+					return {"name": x, "token": data[i].token};
+				}.bind(this));
+				resolve(bot_list = map);
+			});
+	});
+
+	promise.then(function(bot_list) {
+		res.render('select_agent', bot_list);
+	  }, function(bot_list){
+		res.render('select_agent', bot_list);
+	  });
 });
+
+app.get('/intents',requiresLogin, get_intents,requiresToken, function(req,res){
+	res.render('index', intents);
+})
 
 app.get('/logout', function(req, res) {
     req.session.destroy();
@@ -699,19 +756,75 @@ app.post('/login', function(req,res){
 
 });
 
-app.get('/interaction',requiresLogin,function(req,res,next){
-	res.render('interaction');
+app.get('/add',requiresLogin,requiresToken, function(req, res){
+	res.render('add_agent');
+});
+app.post('/add',function(req,res,next){
+	name = req.body.name;
+	token = req.body.token;
+	service.create_bot(name,token);
+	res.send('/');
+})
+
+app.post('/select',function(req,res,next){
+
+		req.session.token = req.body.token;
+		res.send('/intents');
+})
+
+app.get('/validate', requiresLogin, function(req,res){
+	promise = new Promise(function(resolve, reject){
+		let user = req.body.user;
+		let password = req.body.password;
+		datos = [];
+		let users_list;
+		let keys;
+		let validado;
+
+		service.get_all_users(
+			function(err, reply) {
+				keys = Object.keys(reply);
+				datos = Object.values(reply);
+				data = datos.map(function(element){
+					return JSON.parse(element);
+				});
+				map= keys.map( function(x, i){
+					return {"user": x, "passwd": data[i].password, "valido": data[i].valido};
+				}.bind(this));
+				resolve(users_list = map);
+			});
+	});
+
+	promise.then(function(users_list) {
+		res.render('validate', users_list);
+	  }, function(users_list){
+		res.render('validate', users_list);
+	  });
+
+
 });
 
-app.post('/get_intents', get_intents, function(req, res, next){
+app.post('/validate', function (req, res, next) {
+    let user = req.body.id;
+    service.validate_user(user);
+    res.send('ok');
+});
+
+app.post('/deny', function (req, res, next) {
+    let user = req.body.id;
+   	service.deny_user(user);
+    res.send('ok');
+});
+
+app.post('/get_intents', get_intents,requiresToken, function(req, res, next){
 	res.send(intents);
 });
 
-app.post('/get_entities', get_entities, function(req, res, next){
+app.post('/get_entities', get_entities,requiresToken, function(req, res, next){
 	res.send(entities);
 });
 
-app.post('/show_entities', get_entities, function(req, res, next){
+app.post('/show_entities', get_entities,requiresToken, function(req, res, next){
 	let names = [];
 	names = entities.map(function(el){
 		return el.name;
@@ -719,19 +832,19 @@ app.post('/show_entities', get_entities, function(req, res, next){
 	res.send(names);
 });
 
-app.get('/entities', requiresLogin,get_entities, function(req,res,next){
+app.get('/entities', requiresLogin,get_entities,requiresToken, function(req,res,next){
 	res.render('entities', entities);
 });
-app.get('/create',requiresLogin,function(req,res,next){
+app.get('/create',requiresLogin,requiresToken,function(req,res,next){
 	res.render('new_intent');
 });
-app.get('/create_gif',requiresLogin,function(req,res,next){
+app.get('/create_gif',requiresLogin,requiresToken,function(req,res,next){
 	res.render('new_gif');
 })
-app.get('/create_entity',requiresLogin,function(req,res,next){
+app.get('/create_entity',requiresLogin,requiresToken,function(req,res,next){
 	res.render('new_entity');
 });
-app.get('/entities/:id',requiresLogin, function(req,res,next){
+app.get('/entities/:id',requiresLogin,requiresToken, function(req,res,next){
 	let id = req.params.id;
 	get_entity(id, req, res);
 });
@@ -759,7 +872,7 @@ app.post('/edit', function(req, res,next){
 	let id = req.body.id;
 	edit_intent(id, req, res,next);
 });
-app.get('/:id', requiresLogin,function(req, res, next){
+app.get('/:id', requiresLogin,requiresToken,function(req, res, next){
 	let id = req.params.id;
 	get_intent(id, req, res);
 });

@@ -10,19 +10,54 @@ var PersistService = class {
 
     create_user(user, password) {
         var self = this;
+        let keys;
+        let datos;
+        let data;
+        let map;
+        let exists = false;
         return self.client.hlen('users', function(err, userlength) {
             const valido = userlength == 0 ? '1' : '0';
+            if(userlength == 0){
+                bcrypt.hash(password, 10, function(err, hash){
+                    self.client.hmset(
+                        'users',
+                        user,
+                        JSON.stringify(
+                            {'password': hash, 'valido': valido} ));
+                });
+            }else{
+                self.get_all_users(
+                    function(err, reply) {
+                        keys = Object.keys(reply);
+                        datos = Object.values(reply);
+                        data = datos.map(function(element){
+                            return JSON.parse(element);
+                        });
+                        map = keys.map( function(x, i){
+                            return {"user": x, "passwd": data[i].password, "valido": data[i].valido};
+                        }.bind(self));
 
-            bcrypt.hash(password, 10, function(err, hash){
-                self.client.hmset(
-                    'users',
-                    user,
-                    JSON.stringify(
-                        {'password': hash, 'valido': valido} ));
-            });
+                    map.forEach(function(element){
+                        if(element.user == user){
+                            exists = true;
+                        }
+                    });
+                    if(exists == true)
+                        return;
+                    else{
+                        bcrypt.hash(password, 10, function(err, hash){
+                            self.client.hmset(
+                                'users',
+                                user,
+                                JSON.stringify(
+                                    {'password': hash, 'valido': valido} ));
+                        });
+                    }
+                    });
+            }
         });
-
     }
+
 
     delete_users(){
         this.client.del('users');
@@ -32,7 +67,6 @@ var PersistService = class {
         var self = this;
         let keys;
         let password;
-        let role;
         let datos;
         let data;
         let map;
@@ -49,7 +83,6 @@ var PersistService = class {
                 map.forEach(function(element) {
                     if(element.user == user){
                         password = element.passwd;
-                        role = element.role;
                         self.client.hmset(
                             'users',
                                 user,
@@ -67,6 +100,18 @@ var PersistService = class {
     }
     get_all_users(callback) {
         return this.client.hgetall('users', callback);
+    }
+    create_bot(bot, token) {
+        var self = this;
+        return      self.client.hmset(
+                        'bots',
+                         bot,
+                         JSON.stringify(
+                            {'token': token } ));
+    }
+
+    get_all_bots(callback) {
+        return this.client.hgetall('bots', callback);
     }
 }
 
