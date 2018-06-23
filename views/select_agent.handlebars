@@ -1,5 +1,10 @@
 <div id="body-wrapper" class="container center-align">
     <h4>Selección de Agents/Chatbot</h4>
+    <div class="row">
+    <a class="btn-floating btn-large waves-effect waves-light indigo right" href="/add" >
+        <i class="material-icons">add</i>
+        </a>
+    </div>
     <ul id="bot_list" class="col s12  collection">
             {{#each this}}
                 {{#if token}}
@@ -15,4 +20,5 @@
 
             {{/each }}
     </ul>
+
 </div>
