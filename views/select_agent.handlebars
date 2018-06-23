@@ -1,0 +1,18 @@
+<div id="body-wrapper" class="container center-align">
+    <h4>Selección de Agents/Chatbot</h4>
+    <ul id="bot_list" class="col s12  collection">
+            {{#each this}}
+                {{#if token}}
+                    <li class="row collection-item">
+                    <span class="col s6 ">{{ name }}</span>
+                    <div class="divd col s6 right">
+                        <button id= {{ token }} class="token indigo left btn btn-primary">
+                            Seleccionar
+                        </button>
+                    </div>
+                    </li>
+                {{/if}}
+
+            {{/each }}
+    </ul>
+</div>

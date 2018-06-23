@@ -134,14 +134,6 @@ footer{
         color: #303F9F;
     }
 }
-iframe{
-    height:430px;
-    width: 300px;
-    margin: 10px 0 10px 0;
-    @media screen and (min-width:800px) {
-        width : 350px;
-    }
-}
 #btn-login, #btn-register{
     margin: 10px 0 20px;
 }

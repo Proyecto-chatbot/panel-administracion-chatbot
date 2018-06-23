@@ -1,0 +1,16 @@
+<div id="body-wrapper">
+  <div class="row">
+    <h4 class="center indigo white-text">Usuarios</h4>
+    <ul id="users_list" class="col s10 m8 offset-m2 offset-s1">
+            {{#each this}}
+            <li class="row li-group">
+              <input type="hidden" class='hidden' value= {{ valido }}>
+              <span class="col s6 m6 list-group">{{ user }}</span>
+              <div class="divd col s6 m6">
+                <button id= {{ user }} class="deny left btn indigo right"><i class="material-icons"></i></button>
+              </div>
+            </li>
+            {{/each }}
+    </ul>
+</div>
+</div>
