@@ -1,3 +1,7 @@
+/**
+* @author Nieves Borrero - Pablo León (2018)
+* Proyecto Panel de administración de chatbots en Node.js
+*/
 var fs = require('fs');
 var express = require('express');
 var app = express();
@@ -10,6 +14,7 @@ var HandlebarsIntl = require('handlebars-intl');
 var formatter = require('./static/request_formatter');
 var domain = process.env.APP_HOST;
 const PORT = process.env.PORT || 3000;
+// helpers for handlebars
 var helpers = require('handlebars-helpers')(['math', 'comparison']);
 var hbs = exphbs.create({defaultLayout: 'base'});
 app.engine(hbs.extname, hbs.engine);
@@ -48,6 +53,9 @@ function requiresLogin(req, res, next) {
 		res.render('login');
 	}
 }
+/**
+* Force the user to choose an agent
+*/
 function requiresToken(req,res,next){
 	if (req.session && req.session.token){
 		return next();
@@ -199,6 +207,9 @@ delete_intent =(id,req,res)=>{
 			if (error) throw new Error(error);
   		});
 };
+/**
+* 
+*/
 edit_intent = (id, req, res,next)=>{
 
 	var options = {
@@ -449,7 +460,6 @@ post_intent = (req,res,next)=>{
 		var userText = req.body.user;
 		var gif_action = req.body.action;
 		var id = req.body.id;
-		console.log(id +" - "+gif_action+" - "+nombre + " - " + userText);
 		promise = new Promise((resolve)=>{
 			resolve(userFormatted = formatter.format_user_request(userText));
 		});
@@ -491,7 +501,6 @@ post_intent = (req,res,next)=>{
 			};
 
 			request(postOptions, function (error, response, body) {
-				console.log(response);
 				if (error) throw new Error(error);
 				botMessages = [];
 				res.send("/");
