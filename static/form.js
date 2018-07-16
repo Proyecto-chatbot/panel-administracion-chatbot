@@ -144,7 +144,8 @@ let init = function(){
 		});
 	});
 	$btn_add_bot = $('#btn-add-bot');
-	$btn_add_bot.click(function(){
+	$btn_add_bot.click(function(event){
+		event.preventDefault();
 		let name = $('#input-bot').val();
 		let token = $('#input-token').val();
 		$.post('/add',{name :name,token:token},function(res){
