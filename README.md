@@ -21,8 +21,8 @@ El proyecto está conformado además por [este](https://github.com/NievesBorrero
 
 ## Built with
 
-* Express - como framework para Node.js
-* Handlebars - como motor de plantillas 
+* [Express](http://expressjs.com/es/) - como framework para Node.js
+* [Handlebars](https://handlebarsjs.com/) - como motor de plantillas 
 
 ## License
 [GNU General Public License v3.0](../master/LICENSE)
