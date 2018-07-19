@@ -29,4 +29,6 @@ El proyecto está conformado además por [este](https://github.com/NievesBorrero
 
 ## Acknowledgments
 
+## Wiki
 
+[Ver wiki](https://github.com/Proyecto-chatbot/panel-administracion-chatbot/wiki)
