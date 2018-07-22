@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const redis = require('redis');
 
-
 var PersistService = class {
     constructor() {
         this.client = redis.createClient(

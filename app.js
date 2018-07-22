@@ -38,8 +38,7 @@ app.use(session({
 	resave: true,
 	saveUninitialized:true
 }));
-//service.delete_users();
-//service.delete_bots();
+
 /**
  * Force the user to get logged
  * @param {*} req

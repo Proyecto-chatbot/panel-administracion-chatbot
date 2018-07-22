@@ -1,3 +1,7 @@
+/**
+ * @author Nieves Borrero & Pablo León
+ * @description Functionality of admin panel for the chatbot project
+ */
 let $btn_create_gif;
 let $btn_delete_intent;
 let $btn_delete_entity;
@@ -5,19 +9,12 @@ let $btn_add_question;
 let $btn_submit;
 let $btnAddSynonym;
 let $btnDeleteSynonym;
-let $name;
 let $btn_edit_gif;
 let $btnDeny;
 let $btn_add_bot;
 let $btn_select_bot;
-/**
- * Max of available responses
- */
-const MAX_RESPONSES = 10;
-/**
- * count of responses added
- */
-let numResponses;
+
+let $name;
 let numLinks;
 let dropdown;
 let dropdown_options;
@@ -34,9 +31,13 @@ let $contextOut;
 let $btnDeleteVariant;
 let intents;
 let entitiesNames;
+/** Max of available responses */
+const MAX_RESPONSES = 10;
+/** count of responses added*/
+let numResponses;
+
 let init = function(){
-	$('#btn-login').click(login);
-	$('#btn-register').click(register);
+	let intent_id;
 	numResponses = 0;
 	numLinks = 0;
 	$.post('/get_intents', function(res){
@@ -46,9 +47,6 @@ let init = function(){
 		entities = res;
 	});
 
-	$('#cancel').click(function(){
-		location.href = './';
-	});
 	hasImage = false;
 	hasLink = false;
 	$select = $('.select');
@@ -59,19 +57,19 @@ let init = function(){
 	$('.collapsible').collapsible();
 	$contextIn = $('#contextIn');
 	$contextOut = $('#contextOut');
-	let intent_id;
 	$btn_create_gif = $('#send_new_gif');
 	$btn_delete_intent = $("#btn-delete-intent");
 	$btn_delete_entity = $('#btn-delete-entity');
 	$btn_add_question = $("#addUserText");
 	$btnAddSynonym = $("#add-synonym");
 	$btnDeny = $(".deny");
-	redeclarate_btn_delete_bloq();
-	redeclarate_btn_delete();
-	redeclarate_btn_delete_synonym();
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
 	$btn_edit_gif = $('#edit_gif');
+
+	redeclarate_btn_delete_bloq();
+	redeclarate_btn_delete();
+	redeclarate_btn_delete_synonym();
 	$btn_edit_gif.click(function(event){
 		event.preventDefault();
 		intent_id = $("#input-id").val();
@@ -132,41 +130,9 @@ let init = function(){
 		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
 		$(this).children('input').prop('value',$clean_span);
 	})
-	$btnAddSynonym.click(function(event){
-		event.preventDefault();
-		add_new_synonym();
-	});
 
-	$btn_delete_intent.click(function(){
-		intent_id = $("#input-id").val();
-		$.post('/delete',{id : intent_id}, function(res){
-			location.href = res;
-		});
-	});
 	$btn_add_bot = $('#btn-add-bot');
-	$btn_add_bot.click(function(event){
-		event.preventDefault();
-		let name = $('#input-bot').val();
-		let token = $('#input-token').val();
-		$.post('/add',{name :name,token:token},function(res){
-			location.href = res;
-		})
-	})
-	$btn_delete_entity.click(function(){
-		entity_id = $("#id-entity").val();
-		$.post('/delete_entity',{id : entity_id},function(res){
-			location.href = res;
-		});
-	});
-	$('#btn-create-entity').click(function(event){
-		event.preventDefault();
-		create_entity();
-	});
 
-	$('#btn-edit-entity').click(function(event){
-		event.preventDefault();
-		edit_entity();
-	});
 	$('#btn_edit_intent').click(function(event){
 		event.preventDefault();
 		intent_id = $("#input-id").val();
@@ -274,31 +240,7 @@ let init = function(){
 			location.href = res;
 		});
 	})
-	$btn_add_question.click(function(event){
-		event.preventDefault();
-		add_new_input($(this));
-	});
 
-	$(document).on('click','.btnAddVariant',function(event){
-		event.preventDefault();
-		add_new_variant($(this));
-	});
-
-	$btn_submit.click(function(event){
-		event.preventDefault();
-		send_intent();
-	});
-	$btn_create_gif.click(function(event){
-		event.preventDefault();
-		send_gif_intent();
-	})
-	dropdown_options.click(function(event){
-		event.preventDefault();
-		add_new_block($(this).prop('name'));
-	})
-	$('#dropdown-c li a').click(function(event){
-		window.location.href= $(this).prop('href');
-	});
 
 	$('#search-intent').keyup(function(){
 		let stringSearch = $(this).val().toLowerCase();
@@ -335,6 +277,52 @@ let init = function(){
         }
     });
 
+	$btn_select_bot = $('.token');
+    set_click_events();
+}
+/** On click events */
+let set_click_events = () =>{
+	
+	$btn_add_bot.click(function(event){
+		event.preventDefault();
+		let name = $('#input-bot').val();
+		let token = $('#input-token').val();
+		$.post('/add',{name :name,token:token},function(res){
+			location.href = res;
+		})
+	})
+	
+	$btnAddSynonym.click(function(event){
+		event.preventDefault();
+		add_new_synonym();
+	});
+
+	$btn_delete_intent.click(function(){
+		intent_id = $("#input-id").val();
+		$.post('/delete',{id : intent_id}, function(res){
+			location.href = res;
+		});
+	});
+	$('#btn-login').click(login);
+	$('#btn-register').click(register);
+	$('#cancel').click(function(){
+		location.href = './';
+	});
+	$btn_delete_entity.click(function(){
+		entity_id = $("#id-entity").val();
+		$.post('/delete_entity',{id : entity_id},function(res){
+			location.href = res;
+		});
+	});
+	$('#btn-create-entity').click(function(event){
+		event.preventDefault();
+		create_entity();
+	});
+
+	$('#btn-edit-entity').click(function(event){
+		event.preventDefault();
+		edit_entity();
+	});
 	$btnDeny.click(function(){
 		let id = $(this).prop('id');
 		let mail = $(this).parent('div').siblings('.mail').html();
@@ -350,9 +338,8 @@ let init = function(){
 		$.post(url, {'id': id, 'mail': mail}, function(response) {
 			$.when(console.log(response)).then(location.href='/validate');
 		});
-	});
+	});	
 
-	$btn_select_bot = $('.token');
 	$btn_select_bot.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
@@ -361,8 +348,32 @@ let init = function(){
 			location.href = response;
 		});
 	});
-}
+	$btn_add_question.click(function(event){
+		event.preventDefault();
+		add_new_input($(this));
+	});
 
+	$(document).on('click','.btnAddVariant',function(event){
+		event.preventDefault();
+		add_new_variant($(this));
+	});
+
+	$btn_submit.click(function(event){
+		event.preventDefault();
+		send_intent();
+	});
+	$btn_create_gif.click(function(event){
+		event.preventDefault();
+		send_gif_intent();
+	})
+	dropdown_options.click(function(event){
+		event.preventDefault();
+		add_new_block($(this).prop('name'));
+	})
+	$('#dropdown-c li a').click(function(event){
+		window.location.href= $(this).prop('href');
+	});
+}
 /**
  * Check user and password
  * @param {*} event
@@ -970,4 +981,5 @@ let transform_edit_responses = ()=>{
         });
 
 }
+
 $(init);
