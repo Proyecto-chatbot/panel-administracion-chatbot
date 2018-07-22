@@ -25,7 +25,7 @@ let hasLink;
 var parameters = [];
 let $textResponse;
 let $inputSearch;
-
+let intent_id;
 let $contextIn;
 let $contextOut;
 let $btnDeleteVariant;
@@ -37,7 +37,6 @@ const MAX_RESPONSES = 10;
 let numResponses;
 
 let init = function(){
-	let intent_id;
 	numResponses = 0;
 	numLinks = 0;
 	$.post('/get_intents', function(res){
@@ -66,6 +65,7 @@ let init = function(){
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
 	$btn_edit_gif = $('#edit_gif');
+	$btn_add_bot = $('#btn-add-bot');
 
 	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
@@ -110,18 +110,14 @@ let init = function(){
 	$('#name-entity').blur(checkEntityName);
 	$('.synonym').blur(checkEmptySynonym);
 	$('#name').blur(function(){
-		if($(this).val()=='')
-			$('#err-name').html('No se puede crear un intent sin nombre');
-		else
-			$('#err-name').html('');
+	   	msg_error = $(this).val() == '' ? 'No se puede crear un intent sin nombre' : '';
+	   	$('#err-name').html(msg_error);
 		checkGifName();
 	});
 	$('.user').blur(checkGifInputs);
 	$('#first-question').blur(function(){
-		if($(this).val()=='')
-			$('#err-user').html('No se puede crear un intent sin frases de usuario');
-		else
-			$('#err-user').html('');
+		msg_error_user = $(this).val()== 'No se puede crear un intent sin frases de usuario' ? '' :
+		$('#err-user').html(msg_error_user);
 	});
 	$('#input-tag').blur(checkGifTag);
 
@@ -130,116 +126,11 @@ let init = function(){
 		$clean_span = $span.replace(/\s{2,}/g," ").replace(/\n/g,"").replace(/\t/g,"")
 		$(this).children('input').prop('value',$clean_span);
 	})
-
-	$btn_add_bot = $('#btn-add-bot');
-
+	
 	$('#btn_edit_intent').click(function(event){
 		event.preventDefault();
-		intent_id = $("#input-id").val();
-		let data = {};
-		let botSays = [];
-		let n_inputs = 0;
-		let position = 0;
-		let responses =[];
-		let text;
-		let type;
-		context_in = $contextIn.val();
-		context_out = $contextOut.val();
-		name = $('#name').val();
-		input_user = $('.user');
-		input_user.each(function(){
-			n_inputs++;
+		edit_intent();
 		});
-	if(n_inputs > 1){
-		userSays = [];
-		input_user.each(function(index, element){
-			userSays.push($(this).val());
-		});
-	}else{
-		userSays = '';
-		userSays = input_user.val();
-	}
-	$('.bloq').each(function(){
-		if($(this).hasClass('type-text')){
-			type = 'text';
-		}
-		if($(this).hasClass('type-image')){
-			type = 'image';
-		}
-		if($(this).hasClass('type-link')){
-			type = 'link';
-		}
-		responses = $(this).children('div').children('.response');
-
-		if(responses.length > 1){
-			text = [];
-			responses.each(function(){
-				str = $(this).val();
-				if(search_parameter(str)){
-					str = $(this).val().replace('#','$');
-				}
-				text.push(str);
-			});
-		}else if(responses.length == 1){
-			str = responses.val();
-			if(search_parameter(str)){
-				str =responses.val().replace('#','$');
-			}
-			text = str;
-		}
-		if(type == 'link'){
-			url = $(this).children('div').children('.url').val();
-			botSays.push({ 'type': type, 'text': text, 'url': url});
-		}
-		else
-			botSays.push({ 'type': type, 'text': text});
-
-	});
-	data = {
-		"id": intent_id,
-		"name": name,
-		"user": userSays,
-		"bot": botSays,
-		"contextIn" : context_in,
-		"contextOut" : context_out,
-		"parameters" : parameters
-	}
-
-	if(data.name == ""){
-		$('#name').focus();
-		$('#err-name').html('No se puede crear un intent sin nombre');
-	}
-	else if(data.userSays == ""){
-		if(data.name != "")
-		$('.user').focus();
-		$('#err-user').html('No se puede crear un intent sin frases de usuario');
-	}
-	else if($.isArray(data.userSays)){
-		if( data.userSays.filter(word => word != "").length == 0)
-			$('#err-user').html('No se puede crear un intent sin frases de usuario');
-		else if(responses.length == 0)
-			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
-		else if( hasText() == false)
-			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
-		else if(responseIsEmpty() == true)
-			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
-		else
-			$.post('/new_intent',data, function(res){
-				location.href = res;
-		});
-	}
-	else if(responses.length == 0)
-			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
-	else if( hasText() == false){
-				$('#err').html('No se puede crear un intent sin respuestas de chatbot')
-		}
-	else if(responseIsEmpty() == true)
-		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
-	else
-		$.post('/update',data, function(res){
-			location.href = res;
-		});
-	})
 
 
 	$('#search-intent').keyup(function(){
@@ -267,7 +158,6 @@ let init = function(){
 	$('.hidden').each(function(){
         access = $(this).prop('value');
 		$iconAdmin = $(this).parent().children(".divd").children('button').children('i');
-		//$btn = $iconAdmin = $(this).parent().children(".divd").children('button');
         if(access == '1'){
 			$iconAdmin.html('close');
 		}else if(access == '0'){
@@ -291,7 +181,7 @@ let set_click_events = () =>{
 			location.href = res;
 		})
 	})
-	
+
 	$btnAddSynonym.click(function(event){
 		event.preventDefault();
 		add_new_synonym();
@@ -494,7 +384,115 @@ let checkEntityName = ()=>{
 }
 
 /**
- * Insert a new entity
+ * Edit an intent
+ */
+let edit_intent = function(){
+	intent_id = $("#input-id").val();
+	let data = {};
+	let botSays = [];
+	let n_inputs = 0;
+	let responses =[];
+	let text;
+	let type;
+	context_in = $contextIn.val();
+	context_out = $contextOut.val();
+	name = $('#name').val();
+	input_user = $('.user');
+	input_user.each(function(){
+		n_inputs++;
+	});
+	if(n_inputs > 1){
+		userSays = [];
+		input_user.each(function(index, element){
+			userSays.push($(this).val());
+		});
+	}else{
+		userSays = '';
+		userSays = input_user.val();
+	}
+	$('.bloq').each(function(){
+		if($(this).hasClass('type-text')){
+			type = 'text';
+		}
+		if($(this).hasClass('type-image')){
+			type = 'image';
+		}
+		if($(this).hasClass('type-link')){
+			type = 'link';
+		}
+		responses = $(this).children('div').children('.response');
+
+		if(responses.length > 1){
+			text = [];
+			responses.each(function(){
+				str = $(this).val();
+				if(search_parameter(str)){
+					str = $(this).val().replace('#','$');
+				}
+				text.push(str);
+			});
+		}else if(responses.length == 1){
+			str = responses.val();
+			if(search_parameter(str)){
+				str =responses.val().replace('#','$');
+			}
+			text = str;
+		}
+		if(type == 'link'){
+			url = $(this).children('div').children('.url').val();
+			botSays.push({ 'type': type, 'text': text, 'url': url});
+		}
+		else
+			botSays.push({ 'type': type, 'text': text});
+
+	});
+	data = {
+		"id": intent_id,
+		"name": name,
+		"user": userSays,
+		"bot": botSays,
+		"contextIn" : context_in,
+		"contextOut" : context_out,
+		"parameters" : parameters
+	}
+
+	if(data.name == ""){
+		$('#name').focus();
+		$('#err-name').html('No se puede crear un intent sin nombre');
+	}
+	else if(data.userSays == ""){
+		if(data.name != "")
+		$('.user').focus();
+		$('#err-user').html('No se puede crear un intent sin frases de usuario');
+	}
+	else if($.isArray(data.userSays)){
+		if( data.userSays.filter(word => word != "").length == 0)
+			$('#err-user').html('No se puede crear un intent sin frases de usuario');
+		else if(responses.length == 0)
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+		else if( hasText() == false)
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+		else if(responseIsEmpty() == true)
+			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
+		else
+			$.post('/new_intent',data, function(res){
+				location.href = res;
+		});
+	}
+	else if(responses.length == 0)
+		$('#err').html('No se puede crear un intent sin respuestas de chatbot');
+	else if( hasText() == false)
+		$('#err').html('No se puede crear un intent sin respuestas de chatbot')
+	else if(responseIsEmpty() == true)
+		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
+	else
+		$.post('/update',data, function(res){
+			location.href = res;
+		});
+}
+ 
+/**
+ * Edit an entity
  */
 let edit_entity = function(){
 	let synonyms = [];
