@@ -29,6 +29,7 @@ service.get_all_users(function(err,object){console.log(object);});
 service.get_all_bots(function(err,object){console.log(object);});
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var api = require('./static/api');
 app.use(cookieParser());
 app.use(session({
 	cookieName: 'session',
@@ -41,9 +42,6 @@ app.use(session({
 
 /**
  * Force the user to get logged
- * @param {*} req
- * @param {*} res
- * @param {*} next
  */
 function requiresLogin(req, res, next) {
 	if (req.session && req.session.user) {
@@ -122,7 +120,6 @@ get_intents = (req, res, next)=>{
 		  return next();
         }
   	});
-
 }
 
 var all_entities;
@@ -192,19 +189,7 @@ get_intent = (id, req, res)=>{
  * Remove the selected intent from the agent
  */
 delete_intent =(id,req,res)=>{
-    var options = {
-		method: 'DELETE',
-		  url: 'https://api.dialogflow.com/v1/intents/'+id,
-		  qs: { v: '20150910' },
-		  contentType: "application/json",
-		  headers:
-		   {
-			 'Cache-Control': 'no-cache',
-			 Authorization: 'Bearer ' + req.session.token }
-		 };
-		request(options, function (error, response, body) {
-			if (error) throw new Error(error);
-  		});
+	api.delete_intent(id,req);
 };
 /**
 * 
@@ -263,19 +248,7 @@ get_entity = (id, req, res)=>{
  * Remove an entity from the agent
  */
 delete_entity =(id,req,res)=>{
-    var options = {
-		method: 'DELETE',
-		  url: 'https://api.dialogflow.com/v1/entities/'+id,
-		  qs: { v: '20150910' },
-		  contentType: "application/json",
-		  headers:
-		   {
-			 'Cache-Control': 'no-cache',
-			 Authorization: 'Bearer ' + req.session.token }
-		 };
-		request(options, function (error, response, body) {
-			if (error) throw new Error(error);
-  		});
+	api.delete_entity(id);
 };
 /**
  * Add a text message
@@ -302,7 +275,6 @@ format_bot_image =(url)=>{
 		botMessages.push({ "type": "basic_card", "platform": "google", "image": { "url": url },"lang": "es"}),
 		botMessages.push({ "type": 3, "platform": "telegram", "imageUrl": url, "lang": "es"}),
 		botMessages.push({ "type": 0,"speech": url})
-
 }
 /**
  * Add a link/document message
