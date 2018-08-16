@@ -116,8 +116,7 @@ get_intents = (req, res, next)=>{
         }else{
 		  all_intents = body;
 		  intents = Object.values(JSON.parse(all_intents));
-
-		  return next();
+		  next();
         }
   	});
 }
@@ -144,6 +143,7 @@ get_entities = (req, res, next)=>{
           console.log(error);
         }else{
 		  all_entities = body;
+		  console.log(all_entities)
 		  entities = Object.values(JSON.parse(all_entities));
 		  return next();
         }
@@ -153,6 +153,7 @@ get_entities = (req, res, next)=>{
  * Get a single intent
  */
 get_intent = (id, req, res)=>{
+
 	var options = {
   		method: 'GET',
     		url: 'https://api.dialogflow.com/v1/intents/'+id,

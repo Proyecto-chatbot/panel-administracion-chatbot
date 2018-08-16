@@ -13,6 +13,7 @@ let $btn_edit_gif;
 let $btnDeny;
 let $btn_add_bot;
 let $btn_select_bot;
+let $btnDeleteVariant;
 
 let $name;
 let numLinks;
@@ -28,7 +29,7 @@ let $inputSearch;
 let intent_id;
 let $contextIn;
 let $contextOut;
-let $btnDeleteVariant;
+
 let intents;
 let entitiesNames;
 /** Max of available responses */
@@ -131,7 +132,6 @@ let init = function(){
 		event.preventDefault();
 		edit_intent();
 		});
-
 
 	$('#search-intent').keyup(function(){
 		let stringSearch = $(this).val().toLowerCase();
@@ -332,9 +332,7 @@ let redeclare_input_search = function(){
 				ul.show();
 				showAll(ul);
 			}
-
 		}
-
 	});
 }
 /**
@@ -356,24 +354,14 @@ let create_entity = function(){
 		location.href = res;
 	});
 	else
-	setTimeout(function(){$('#name-entity').focus();},200);
+		setTimeout(function(){$('#name-entity').focus();},200);
 }
-/**
- * @return boolean the existence of synonyms
- */
-let hasSynonym = () =>{
-	let has = true;
-	$('.synonym').each(function(){
-		if($(this).val() == "")
-			has = false;
-	});
-	return has;
-}
+
 /**
  * show error message if the entity hasnt any synonym
  */
 let checkEmptySynonym = ()=>{
-	$('#err-entity-syn').html(hasSynonym()? "":"La entidad no se puede crear con sinónimos vacíos");
+	$('#err-entity-syn').html(tool_hasSynonym()? "":"La entidad no se puede crear con sinónimos vacíos");
 }
 /**
  * show error message if the entity hasnt a name
@@ -425,14 +413,14 @@ let edit_intent = function(){
 			text = [];
 			responses.each(function(){
 				str = $(this).val();
-				if(search_parameter(str)){
+				if(tool_search_parameter(str)){
 					str = $(this).val().replace('#','$');
 				}
 				text.push(str);
 			});
 		}else if(responses.length == 1){
 			str = responses.val();
-			if(search_parameter(str)){
+			if(tool_search_parameter(str)){
 				str =responses.val().replace('#','$');
 			}
 			text = str;
@@ -460,18 +448,19 @@ let edit_intent = function(){
 		$('#err-name').html('No se puede crear un intent sin nombre');
 	}
 	else if(data.userSays == ""){
-		if(data.name != "")
-		$('.user').focus();
-		$('#err-user').html('No se puede crear un intent sin frases de usuario');
+		if(data.name != ""){
+			$('.user').focus();
+			$('#err-user').html('No se puede crear un intent sin frases de usuario');
+		}
 	}
 	else if($.isArray(data.userSays)){
 		if( data.userSays.filter(word => word != "").length == 0)
 			$('#err-user').html('No se puede crear un intent sin frases de usuario');
 		else if(responses.length == 0)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
-		else if( hasText() == false)
+		else if( tool_hasText() == false)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
-		else if(responseIsEmpty() == true)
+		else if(tool_responseIsEmpty() == true)
 			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 		else
 			$.post('/new_intent',data, function(res){
@@ -480,9 +469,9 @@ let edit_intent = function(){
 	}
 	else if(responses.length == 0)
 		$('#err').html('No se puede crear un intent sin respuestas de chatbot');
-	else if( hasText() == false)
+	else if( tool_hasText() == false)
 		$('#err').html('No se puede crear un intent sin respuestas de chatbot')
-	else if(responseIsEmpty() == true)
+	else if(tool_responseIsEmpty() == true)
 		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 	else
 		$.post('/update',data, function(res){
@@ -518,7 +507,6 @@ let filter = (string)=>{
 let searchEntity = function(input_value){
 	var data = {};
 	data.stringSearch = filter(input_value)[0];
-
 }
 
 /**
@@ -577,7 +565,7 @@ let getEntity = (linkEntity)=>{
 	let inputVal = input.val();
 	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
 	$.when(input.val(newText)).then(function(){
-		linkEntity.parent('ul').empty();//children('li, .search').remove();
+		linkEntity.parent('ul').empty();
 	}).then(linkEntity.parent('ul').hide());
 }
 /**
@@ -770,14 +758,6 @@ let checkNumResponses = ()=>{
 }
 
 /**
- * Check if there are some parameter in the text
- * @param {*} text
- */
-let search_parameter = (text)=>{
-	PATTERN_PARAMETER = /^(#)\w+|(\s#)\w+[\-\_\w]*/
-	return PATTERN_PARAMETER.test(text);
-}
-/**
 *
 */
 let send_intent = ()=>{
@@ -820,14 +800,14 @@ let send_intent = ()=>{
 			text = [];
 			responses.each(function(){
 				str = $(this).val();
-				if(search_parameter(str)){
+				if(tools.search_parameter(str)){
 					str = $(this).val().replace('#','$');
 				}
 				text.push(str);
 			});
 		}else if(responses.length == 1){
 			str = responses.val();
-			if(search_parameter(str)){
+			if(tool_search_parameter(str)){
 				str =responses.val().replace('#','$');
 			}
 			text = str;
@@ -863,9 +843,9 @@ let send_intent = ()=>{
 			$('#err-user').html('No se puede crear un intent sin frases de usuario');
 		else if(responses.length == 0)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
-		else if( hasText() == false)
+		else if( tool_hasText() == false)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
-		else if(responseIsEmpty() == true)
+		else if(tool_responseIsEmpty() == true)
 			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 		else
 			$.post('/new_intent',data, function(res){
@@ -874,38 +854,18 @@ let send_intent = ()=>{
 	}
 	else if(responses.length == 0)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
-	else if( hasText() == false){
+	else if( tool_hasText() == false){
 				$('#err').html('No se puede crear un intent sin respuestas de chatbot')
 		}
-	else if(responseIsEmpty() == true)
+	else if(tool_responseIsEmpty() == true)
 		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 	else
 		$.post('/new_intent',data, function(res){
 			location.href = res;
 		});
 }
-/**
- * @return boolean the existence of text in the input
- */
-let hasText = () =>{
-	let has_text = false;
-	$(".response").each(function(){
-		if($(this).val() != "")
-			has_text = true;
-	})
-	return has_text;
-}
-/**
- * @return boolean if response is or not
- */
-let responseIsEmpty = () =>{
-	let isEmpty = false;
-	$(".response").each(function(){
-		if($(this).val() == "")
-			isEmpty = true;
-	});
-	return isEmpty;
-}
+
+
 /**
  *
  */

@@ -41,7 +41,34 @@ delete_entity =(id,req,res)=>{
   		});
 };
 
+/**
+ * Get a single intent
+ */
+get_intent = (id, req, res)=>{
+	var options = {
+  		method: 'GET',
+    		url: 'https://api.dialogflow.com/v1/intents/'+id,
+			qs: { v: '20150910' },
+			contentType: "application/json; charset=utf-8",
+			headers:
+     		{
+			'Accept': '*/*',
+       		'Cache-Control': 'no-cache',
+       		Authorization: 'Bearer ' + req.session.token }
+       	};
+
+  	request(options, function (error, response, body) {
+    	if (error){
+				  console.log(error);
+        }else{
+            console.log(body);
+            return body;
+        }
+  	});
+
+}
 module.exports = {
+    get_intent: get_intent,
     delete_intent: delete_intent,
     delete_entity: delete_entity
 }
