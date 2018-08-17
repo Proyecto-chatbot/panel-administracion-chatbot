@@ -30,3 +30,16 @@ let tool_hasText = () =>{
 	})
 	return has_text;
 }
+
+/**
+* Check that the number of answers is less than the maximum number of responses allowed
+*/
+let tool_checkNumResponses = ()=>{
+	if(numResponses >= MAX_RESPONSES){
+		dropdown.hide();
+		return false;
+	}else{
+		dropdown.show();
+		return true;
+	}
+}

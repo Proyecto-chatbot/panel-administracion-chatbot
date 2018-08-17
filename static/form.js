@@ -16,19 +16,19 @@ let $btn_select_bot;
 let $btnDeleteVariant;
 
 let $name;
+let $select;
+let $textResponse;
+let $inputSearch;
+let $contextIn;
+let $contextOut;
 let numLinks;
 let dropdown;
 let dropdown_options;
 let entities;
-let $select;
 let hasImage;
 let hasLink;
 var parameters = [];
-let $textResponse;
-let $inputSearch;
 let intent_id;
-let $contextIn;
-let $contextOut;
 
 let intents;
 let entitiesNames;
@@ -40,12 +40,12 @@ let numResponses;
 let init = function(){
 	numResponses = 0;
 	numLinks = 0;
-	$.post('/get_intents', function(res){
-		intents = res;
-	});
-	$.post('/get_entities', function(res){
-		entities = res;
-	});
+	// $.post('/get_intents', function(res){
+	// 	intents = res;
+	// });
+	// $.post('/get_entities', function(res){
+	// 	entities = res;
+	// });
 
 	hasImage = false;
 	hasLink = false;
@@ -117,7 +117,7 @@ let init = function(){
 	});
 	$('.user').blur(checkGifInputs);
 	$('#first-question').blur(function(){
-		msg_error_user = $(this).val()== 'No se puede crear un intent sin frases de usuario' ? '' :
+		let msg_error_user = $(this).val()== 'No se puede crear un intent sin frases de usuario' ? '' :
 		$('#err-user').html(msg_error_user);
 	});
 	$('#input-tag').blur(checkGifTag);
@@ -590,10 +590,9 @@ let search = (word, ulParent) =>{
 let redeclarate_btn_delete_bloq = () =>{
 	$btnDeleteBloq = $('.btn-delete-bloq');
 	$btnDeleteBloq.click(function(event){
-
 		event.preventDefault();
 		numResponses--;
-		checkNumResponses();
+		tool_checkNumResponses();
 		$(this).parent('div').remove();
 	})
 }
@@ -669,14 +668,14 @@ let add_new_response = function (){
 	+'<button class="btnAddVariant indigo btn-small waves-effect waves-light right"'
 	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button>'
 	+'<button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div></div>';
-	if(checkNumResponses()){
+	if(tool_checkNumResponses()){
 		if(hasImage)
 			$('.type-image').before($textResponse);
 		else if(hasLink)
 			$('.type-link').before($textResponse);
 		else
 			$select.before($textResponse);
-		checkNumResponses();
+		tool_checkNumResponses();
 		setTimeout(function(){
 			$("#input"+numResponses).focus();
 			numResponses++;
@@ -693,7 +692,7 @@ let add_new_image = function (title){
 	+ title + '</p><input class="response" name="gifResponse" type="text" id="input'+numResponses+'" class="validate">'
 	+'<button class="btn-delete-bloq btn left btn-primary indigo">Borrar respuesta</button></div></div>'
 
-	if(checkNumResponses()){
+	if(tool_checkNumResponses()){
 		if(hasLink)
 			$('.type-link').before($imageResponse);
 		else
@@ -704,7 +703,7 @@ let add_new_image = function (title){
 			}, 200);
 		hasImage = true;
 		$('.image-li').css({pointerEvents: "none", color: "red"})
-		checkNumResponses();
+		tool_checkNumResponses();
 	}
 
 }
@@ -712,7 +711,7 @@ let add_new_image = function (title){
  *  Insert a new block for type link response
  */
 let add_new_link = function(title){
-	if(checkNumResponses()){
+	if(tool_checkNumResponses()){
 		$select.before('<div class="bloq type-link input-field col s12"><div><p>'
 		+ title + '</p><input class="response" id="linkResponse'+numLinks+'" type="text" class="validate">'
 		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-bloq left btn btn-primary indigo">'
@@ -724,7 +723,7 @@ let add_new_link = function(title){
 			numLinks
 		}, 200);
 		hasLink = true;
-		checkNumResponses();
+		tool_checkNumResponses();
 	}
 }
 /**
@@ -744,18 +743,6 @@ let add_new_synonym =()=>{
 	+'<button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	redeclarate_btn_delete_synonym();
 }
-/**
-* Check that the number of answers is less than the maximum number of responses allowed
-*/
-let checkNumResponses = ()=>{
-	if(numResponses >= MAX_RESPONSES){
-		dropdown.hide();
-		return false;
-	}else{
-		dropdown.show();
-		return true;
-	}
-}
 
 /**
 *
@@ -764,7 +751,6 @@ let send_intent = ()=>{
 	let data = {};
 	let botSays = [];
 	let n_inputs = 0;
-	let position = 0;
 	let responses = [];
 	let text;
 	let type;
@@ -864,7 +850,6 @@ let send_intent = ()=>{
 			location.href = res;
 		});
 }
-
 
 /**
  *

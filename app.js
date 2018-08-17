@@ -2,7 +2,6 @@
 * @author Nieves Borrero - Pablo León (2018)
 * Proyecto Panel de administración de chatbots en Node.js
 */
-var fs = require('fs');
 var express = require('express');
 var app = express();
 var request = require('request');
@@ -12,8 +11,8 @@ app.use(bodyParser.urlencoded({extended : true}));
 var exphbs = require('express-handlebars');
 var HandlebarsIntl = require('handlebars-intl');
 var formatter = require('./static/request_formatter');
-var domain = process.env.APP_HOST;
 const PORT = process.env.PORT || 3000;
+var base_url = 'https://api.dialogflow.com/v1';
 // helpers for handlebars
 var helpers = require('handlebars-helpers')(['math', 'comparison']);
 var hbs = exphbs.create({defaultLayout: 'base'});
@@ -102,7 +101,7 @@ var selected_intent;
 get_intents = (req, res, next)=>{
 	var options = {
   		method: 'GET',
-    		url: 'https://api.dialogflow.com/v1/intents',
+    		url: base_url +'/intents',
     		qs: { v: '20150910' },
     		headers:
      		{
@@ -118,7 +117,8 @@ get_intents = (req, res, next)=>{
 		  intents = Object.values(JSON.parse(all_intents));
 		  next();
         }
-  	});
+	  });
+
 }
 
 var all_entities;
@@ -130,7 +130,7 @@ var selected_entity;
 get_entities = (req, res, next)=>{
     var options = {
   		method: 'GET',
-    		url: 'https://api.dialogflow.com/v1/entities',
+    		url: base_url+'/entities',
     		qs: { v: '20150910' },
     		headers:
      		{
@@ -156,7 +156,7 @@ get_intent = (id, req, res)=>{
 
 	var options = {
   		method: 'GET',
-    		url: 'https://api.dialogflow.com/v1/intents/'+id,
+    		url: base_url+'/intents/'+id,
 			qs: { v: '20150910' },
 			contentType: "application/json; charset=utf-8",
 			headers:
@@ -199,7 +199,7 @@ edit_intent = (id, req, res,next)=>{
 
 	var options = {
 	    method: 'GET',
-		url: 'https://api.dialogflow.com/v1/intents/'+id,
+		url: base_url+'/intents/'+id,
 		qs: { v: '20150910' },
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
@@ -225,7 +225,7 @@ edit_intent = (id, req, res,next)=>{
 get_entity = (id, req, res)=>{
     var options = {
   		method: 'GET',
-    		url: 'https://api.dialogflow.com/v1/entities/'+id,
+    		url: base_url+'/entities/'+id,
 			qs: { v: '20150910'},
 			dataType: "json",
 			contentType: "application/json; charset=utf-8",
