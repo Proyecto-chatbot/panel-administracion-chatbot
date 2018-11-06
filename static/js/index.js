@@ -26,5 +26,6 @@ window.addEventListener("load",function(){
 
     $(".opcionNombre").on("click", function(){
         console.log(this.val());
+        console.log("Algo");
     });
 });
