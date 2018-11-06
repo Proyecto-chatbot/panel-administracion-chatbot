@@ -2,58 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="author" content="Nieves Borrero & Pablo León">
+    <meta name="author" content="José Lucena & Juan Rueda">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" rel="stylesheet" >
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../../static/style/frontend.css" type="text/css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/mdb.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="./js/mdb.js"></script>
+    <script src="./js/index.js"></script>
+
+
     <title>Administración Chatbot</title>
 </head>
-<body>
-  <nav>
-    <div class="nav-wrapper">
-      <a id="login_link" href="/logout">Login/Logout</a>
-      <span class="brand-logo center">Administración Chatbot</span>
-      <a href="/" class="brand-logo right"><img src="../../static/images/logo.png"></a>
-    </div>
-  </nav>
-  <aside>
-    <ul>
-        <li><a href="/intents">Intents</a></li>
-        <li><a href="/entities">Entidades</a></li>
-        <li><a href="/">Bots</a></li>
-        <li><a href="/validate">Usuarios</a></li>
-      </ul>
-  </aside>
+<div id="contenedor">
+        <header>
+            <div id="background_shadow"></div>
+                <div id="menuLateral">
+                    <div id="cabeceraMenu">
+                        <div id="iconoMenuLateral"><i id="botonCancelar" class="fa fa-times"></i></div>
+                        <div id="divUsuario">
+                            <i class="fa fa-user-circle logoUsuario"></i>
+                            <p id="nombreUsuario"><b>Juan Ruedaa</b></p>
+                        </div>
+                    </div>
+                    <div class="botonesMenuLateral"><i class="fa fa-question opcionIcono"></i><p class="opcionNombre">Intents</p></div>
+                    <div class="botonesMenuLateral"><i class="fa fa-comment-alt opcionIcono"></i><p class="opcionNombre">Entidades</p></div>
+                    <div class="botonesMenuLateral"><i class="fa fa-robot opcionIcono"></i><p class="opcionNombre">Bots</p></div>
+                    <div class="botonesMenuLateral"><i class="fa fa-user opcionIcono"></i><p class="opcionNombre">Usuarios</p></div>
+                    <div id="divLog" class="botonesMenuLateral"><i class="fa fa-sign-out-alt opcionIcono"></i><p class="opcionNombre">Logout</p></div>
+                </div>
+                    
+            <div id="divBotonMenu">
+                <i id="botonMenu" class="fa fa-bars"></i>
+            </div>
 
-{{{body}}}
+            <div id="divTitulo"><h1 id="titulo">Administración</h1></div>
+            <div id="divLogo"><img src="./static/images/logo.png"></div>
+        </header>
+        <main>{{{body}}}</main>
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <script src="../../static/form.js"></script>
 <script src="../../static/jquery.easyPaginate.js"></script>
 
-
-        <footer class="page-footer indigo">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Contacto</h5>
-                <p> informatica@iesgrancapitan.org</p>
-              </div>
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            <span>© {{year}}  Nieves Borrero - Pablo León</span>
-            <span class="right">IES Gran Capitán - Departamento de Informática</span>
-          </div>
-        </div>
+       <footer>
+            <div id="divContacto"><h3>Contacto</h3><p>informatica@iesgrancapitan.org</p></div>
+            <div><p>IES Gran Capitán &copy; 2018</p></div>
+            <div><p>Juan Rueda Morales - Jose Lucena Morente</p></div>
         </footer>
+    </div>    
 </body>
 </html>
 <script>
-	$(function(){
+$(function(){
 		$('#list_intent').easyPaginate({
     paginateElement: 'a',
     elementsPerPage: 11,
