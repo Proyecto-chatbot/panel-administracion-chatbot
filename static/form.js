@@ -269,6 +269,7 @@ let set_click_events = () =>{
  * @param {*} event
  */
 let login = function(event){
+	console.log("Pasa por aqui");
 	event.preventDefault();
 	let inputUser = $("#input-name-user").val();
 	let inputPassword = $("#input-password").val();
