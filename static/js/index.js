@@ -25,6 +25,6 @@ window.addEventListener("load",function(){
 var fs = require('fs');
 const app = require("./app.js");
 
-$(".botonesMenuLateral").on("click", function(){
+$(".opcionNombre").on("click", function(){
     console.log(this.val());
 });
