@@ -20,3 +20,10 @@ window.addEventListener("load",function(){
     botonMenu.addEventListener("click", desplegarMenu);
     botonCancelar.addEventListener("click", cerrardesplegarMenu);
 });
+
+/**node jS */
+const app = require("./app.js");
+
+$(".botonesMenuLateral").on("click", () => {
+    console.log(this);
+});

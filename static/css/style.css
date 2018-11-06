@@ -408,6 +408,7 @@ header #menuLateral .botonesMenuLateral .opcionNombre {
 header #menuLateral .botonesMenuLateral:hover {
   background-color: #E0E0E0;
   color: #303F9F;
+  cursor: pointer;
 }
 
 header #menuLateral #divLog {
