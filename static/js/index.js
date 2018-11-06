@@ -22,8 +22,9 @@ window.addEventListener("load",function(){
 });
 
 /**node jS */
+var fs = require('fs');
 const app = require("./app.js");
 
-$(".botonesMenuLateral").on("click", () => {
-    console.log(this);
+$(".botonesMenuLateral").on("click", function(){
+    console.log(this.val());
 });
