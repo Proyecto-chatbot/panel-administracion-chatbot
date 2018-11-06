@@ -386,6 +386,10 @@ header #menuLateral .botonesMenuLateral .opcionIcono {
   margin-right: 4%;
 }
 
+header #menuLateral .botonesMenuLateral .opcionIcono a {
+  color: black;
+}
+
 header #menuLateral .botonesMenuLateral .opcionNombre {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -408,6 +412,7 @@ header #menuLateral .botonesMenuLateral .opcionNombre {
 header #menuLateral .botonesMenuLateral:hover {
   background-color: #E0E0E0;
   color: #303F9F;
+  cursor: pointer;
 }
 
 header #menuLateral #divLog {

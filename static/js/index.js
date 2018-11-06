@@ -20,10 +20,6 @@ window.addEventListener("load",function(){
     botonMenu.addEventListener("click", desplegarMenu);
     botonCancelar.addEventListener("click", cerrardesplegarMenu);
 
-    /**node jS */
-    var fs = require('fs');
-    const app = require("./app.js");
-
     $(".opcionNombre").on("click", function(){
         console.log(this.val());
         console.log("Algo");
