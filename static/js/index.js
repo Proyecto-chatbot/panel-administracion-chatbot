@@ -20,8 +20,4 @@ window.addEventListener("load",function(){
     botonMenu.addEventListener("click", desplegarMenu);
     botonCancelar.addEventListener("click", cerrardesplegarMenu);
 
-    $(".opcionNombre").on("click", function(){
-        console.log(this.val());
-        console.log("Algo");
-    });
 });

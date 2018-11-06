@@ -39,10 +39,7 @@ app.use(session({
 	saveUninitialized:true
 }));
 
-/**Añadido José Lucena y Juan Rueda */
-module.exports.redireccion = ($url) =>{
-	$.post("/" + $url);
-}
+
 /**
  * Force the user to get logged
  * @param {*} req
