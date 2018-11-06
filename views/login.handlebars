@@ -1,27 +1,19 @@
-<div id="body-wrapper" class="container center-align">
-    <form class="row">
-        <div class="card col s10 offset-s1 card-login">
-            <div class="input-field col s6 offset-s3 form-div">
-                <input type="text" class="form-control" id="input-name-user" name="input-name-user">
-                <label class="indigo-text" for="input-name-user">Usuario</label>
-
-            </div>
-            <div class="input-field col s6 offset-s3">
-                <input type="password" class="form-control" id="input-password" name="input-password">
-                <label class="indigo-text" for="input-password">Contraseña</label>
-            </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <div class=" col s6 offset-s3">
-                <button id="btn-login" class="left waves-effect waves-light btn indigo">Enviar</button>
-                <span id="span" class="red-text right"></span>
-
-            </div>
-        </div>
-    </form>
-    <br>
-    <br>
-    <a href="/register" id="btn-open-register" class="amber-text">Regístrate</a>
-</div>
+ <main>
+            <div class="card tarjeta" id="cardLogin" >
+                <div class="card-body d-flex flex-column cardBody">
+                  <h5 class="card-title">Login</h5>
+                  <form class="d-flex flex-column align-items-center"> 
+                    <div class="md-form">
+                        <input type="text" id="inputUsuario" class="form-control">
+                        <label for="inputUsuario">Usuario</label>
+                    </div>
+                    <div class="md-form">
+                        <input type="password" id="inputContraseña" class="form-control">
+                        <label for="inputContraseña">Contraseña</label>
+                      </div>
+                    <button type="button" class="btn btn-primary botonEntrar">Entrar</button>
+                </form>
+                </div>
+              </div>
+            <button type="button" class="btn btn-primary" id="botonRegistarme">Registrarme</button>          
+        </main>
