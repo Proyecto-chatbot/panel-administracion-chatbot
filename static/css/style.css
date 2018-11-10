@@ -192,7 +192,7 @@ header #divBotonMenu i {
   }
 }
 
-header #divBotonMenu i ::before {
+header #divBotonMenu i .fa.fa-bars::before {
   cursor: pointer;
 }
 
@@ -328,6 +328,7 @@ header #menuLateral #cabeceraMenu #botonCancelar {
   width: 10%;
   text-align: left;
   margin: 3% 2%;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 600px) {
@@ -340,10 +341,6 @@ header #menuLateral #cabeceraMenu #botonCancelar {
   header #menuLateral #cabeceraMenu #botonCancelar {
     font-size: 2.2em;
   }
-}
-
-header #menuLateral #cabeceraMenu #botonCancelar ::before {
-  cursor: pointer;
 }
 
 header #menuLateral .botonesMenuLateral {
