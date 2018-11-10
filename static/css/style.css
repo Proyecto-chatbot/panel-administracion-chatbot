@@ -159,6 +159,7 @@ header #divBotonMenu {
 header #divBotonMenu i {
   padding-left: 15%;
   font-size: 2em;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 600px) {
@@ -190,10 +191,6 @@ header #divBotonMenu i {
   header #divBotonMenu i {
     padding-left: 10%;
   }
-}
-
-header #divBotonMenu i .fa.fa-bars::before {
-  cursor: pointer;
 }
 
 header #background_shadow {
