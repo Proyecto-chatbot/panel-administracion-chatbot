@@ -714,6 +714,9 @@ app.get('/register',function(req,res,next){
 	res.render('register');
 })
 app.post('/register', function(req, res){
+	console.log(req.body.data.u);
+	console.log("Pass");
+	console.log(req.body.data.p);
 	service.create_user(req.body.data.u, req.body.data.p);
 	res.send('ok');
 });
