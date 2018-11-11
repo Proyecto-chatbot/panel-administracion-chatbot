@@ -138,7 +138,7 @@ let init = function(){
 		$.when($('.intent').remove()).then(
 			intents.forEach(function(value){
 				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-					$('#list_intent').append('<a class="collection-item indigo-text intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
+					$('#list_intent').append('<a class="nombreItemListado intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
 				}
 			})
 		)
@@ -149,7 +149,7 @@ let init = function(){
 		$.when($('.entity').remove()).then(
 			entities.forEach(function(value){
 				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-					$('#list_entity').append('<a class="collection-item entity indigo-text" id="entity" href="/entities/'+value.id+'">'+value.name+'</a>')
+					$('#list_entity').append('<a class="nombreItemListado entity" id="entity" href="/entities/'+value.id+'">'+value.name+'</a>')
 				}
 			})
 		)
@@ -525,34 +525,34 @@ let searchEntity = function(input_value){
 /**
  * Search entity
  */
-let showAll = function(ul){
+let showAll = function(div){
 	$.when(function(){
-		ul.children('a').remove();
-		ul.children('.search').remove();
+		div.children('a').remove();
+		div.children('.search').remove();
 	}).then(function(){
 		$.post('/show_entities', function(res){
 			let $inputSearch;
-			ul.append('<input class= "search" type = "text">');
+			div.append('<input class= "search" type = "text">');
 			entitiesNames = res;
-			$inputSearch = ul.children('.search');
+			$inputSearch = div.children('.search');
 			$inputSearch.bind('keydown',function(e){
 				if ( e.which == 27 ) {
-					ul.children('a').remove();
-					ul.children('.search').remove();
-					ul.hide();
-					let newText = ul.siblings('.input').val().replace(/(#)(\w)*/, '');
-					ul.siblings('.input').val(newText);
+					div.children('a').remove();
+					div.children('.search').remove();
+					div.hide();
+					let newText = div.siblings('.input').val().replace(/(#)(\w)*/, '');
+					div.siblings('.input').val(newText);
 				};
 			});
 
 			$inputSearch.focus();
 			entitiesNames.forEach(element => {
-				ul.append('<a class="collection-item indigo-text" href="#">'+element+'</a>');
+				div.append('<a class="collection-item indigo-text" href="#">'+element+'</a>');
 			});
-			putLinkEvent(ul);
+			putLinkEvent(div);
 			$inputSearch.keyup(function(e){
 				$(this).siblings('a').remove();
-				search($(this).val().toLowerCase(), $(this).parent('ul'));
+				search($(this).val().toLowerCase(), $(this).parent('div'));
 			});
 		}).done(function(res){
 			//putLinkEvent(ul);
@@ -584,17 +584,17 @@ let getEntity = (linkEntity)=>{
 /**
  * Live search
  * @param {*} word
- * @param {*} ulParent
+ * @param {*} divParent
  */
-let search = (word, ulParent) =>{
+let search = (word, divParent) =>{
 	entitiesNames.forEach(element => {
 		if (element.toLowerCase().indexOf(word) >= 0)
-			ulParent.append('<a class="collection-item indigo-text" href="">'+element+'</a>');
+			divParent.append('<a href="" id="intent" class="nombreItemListado">'+element+'</a>');
 	});
-	ulParent.children('a').on('click',function(){
+	divParent.children('a').on('click',function(){
 		return false;
 	})
-	putLinkEvent(ulParent);
+	putLinkEvent(div);
 }
 
 /**
