@@ -285,6 +285,7 @@ let login = function(event){
  * @param {*} event
  */
 	let register = function(event){
+		console.log("Registrar");
 		event.preventDefault();
 		let inputUser = $("#input-user-r").val();
 		let inputPassword = $("#input-password-r").val();
