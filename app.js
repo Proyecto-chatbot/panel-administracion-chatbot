@@ -919,3 +919,13 @@ app.post('/search_entity'), get_entities, function(req, res, next){
 app.listen( PORT , function(){
 	console.log('Server listening in port '+ PORT);
 });
+
+
+//Register Helpers
+Handlebars.registerHelper('if_eq', function(valido, options){
+	if(valido == 0){
+		return false;
+	} else {
+		return true;
+	}
+});
