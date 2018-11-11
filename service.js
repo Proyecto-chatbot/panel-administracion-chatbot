@@ -96,10 +96,10 @@ var PersistService = class {
             });
     }
     validate_user(user){
-        this.set_user(user, '1');
+        this.set_user(user, true);
     }
     deny_user(user){
-       this.set_user(user, '0');
+       this.set_user(user, false);
     }
     get_all_users(callback) {
         return this.client.hgetall('users', callback);

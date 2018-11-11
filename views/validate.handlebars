@@ -24,7 +24,11 @@
             <p class="nombreUsuario">{{user}}</p>
             <div>
               <button id="{{user}}" class="btn btn-primary botonValidar deny">
+                {{#if valido}}
                 <i class="fa fa-check"></i>
+                {{else}}
+                <i class="fa fa-close"></i>
+                {{/if}}
               </button>
             </div>
           </div>

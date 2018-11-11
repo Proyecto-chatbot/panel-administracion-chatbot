@@ -744,11 +744,11 @@ app.post('/login', function(req,res){
 						return {"user": x, "passwd": data[i].password, "valido": data[i].valido };
 					}.bind(this));
 					map.forEach(function(element) {
-						if(element.user == user && element.valido == '0'){
+						if(element.user == user && element.valido == 0){
 							exist = true;
 							reject(respuesta = false);
 						}
-						if(element.user == user && element.valido == '1'){
+						if(element.user == user && element.valido == 1){
 								exist = true;
 								bcrypt.compare(password,element.passwd,function(err,res){
 									if(res){
