@@ -220,9 +220,13 @@ let set_click_events = () =>{
 		let $iconClick = $(this).children('i');
 		if($(this).parent('div').parent('div').children('input').val() == "0"){
 			url = '/validate';
+			$(this).children('i').removeClass('fa-check');
+			$(this).children('i').addClass('fa-close');
 		}else{
 			console.log('entra');
 			url = '/deny';
+			$(this).children('i').removeClass('fa-close');
+			$(this).children('i').addClass('fa-check');
 		}
 
 		$.post(url, {'id': id, 'mail': mail}, function(response) {

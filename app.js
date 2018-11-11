@@ -822,7 +822,9 @@ app.get('/validate', requiresLogin, function(req,res){
 	  }, function(users_list){
 		res.render('validate', users_list);
 	  });
-
+	  $("#user_list").forEach(element => {
+		  console.log(element);
+	  });
 
 });
 
