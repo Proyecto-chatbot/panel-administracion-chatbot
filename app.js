@@ -922,9 +922,9 @@ app.listen( PORT , function(){
 
 
 //Register Helpers
-HandlebarsIntl.registerHelper('if_eq', function(valido, valor, opts){
+HandlebarsIntl.registerHelper('if_eq', function(valido, opts){
 	console.log("Entra en el helper");
-	if(valido == valor){
+	if(valido == 1){
 		return true;
 	} else {
 		return false;
