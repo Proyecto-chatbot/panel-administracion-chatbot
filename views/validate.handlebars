@@ -16,11 +16,10 @@
 </div> -->
 
       <div class="divTituloPagina"><h2 class="tituloPagina">Usuarios</h2></div>
-      <div class="listadoUsuarios">
-        <div class="divUsuario" id="users_list">
+      <div class="listadoUsuarios" id="users_list">
           {{#each this}}
             {{#if user}}
-            <div>
+            <div class="divUsuario">
               <input type="hidden" class="hidden" value="{{valido}}">
               <p class="nombreUsuario">{{user}}</p>
               <div>
