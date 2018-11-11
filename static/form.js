@@ -218,7 +218,7 @@ let set_click_events = () =>{
 		let mail = $(this).parent('div').siblings('.mail').html();
 		let url;
 		let $iconClick = $(this).children('i');
-		if($(this).parent('div').parent('div').children('input').val() == false){
+		if($(this).parent('div').parent('div').children('input').val() == 'false'){
 			url = '/validate';
 		}else{
 			console.log('entra');
