@@ -14,9 +14,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/pabloleonalcaide/panel-administracion-chatbot.git"
+    "url": "https://github.com/jlucena97/panel-administracion-chatbot.git"
   },
-  "author": "Nieves Borrero Barea, Pablo León Alcaide",
+  "author": "José Lucena, Juan Rueda",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^2.0.1",
