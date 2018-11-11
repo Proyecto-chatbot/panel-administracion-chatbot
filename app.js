@@ -670,7 +670,7 @@ app.post('/edit_entity', function(req, res, next){
 	put_entity(req, res);
 });
 ////
-app.get('/',/*requiresLogin*/, function(req, res, next){
+app.get('/',requiresLogin, function(req, res, next){
 	promise = new Promise(function(resolve, reject){
 		datos = [];
 		let bot_list;
