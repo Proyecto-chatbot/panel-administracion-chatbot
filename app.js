@@ -660,7 +660,7 @@ put_entity = (req,res,next)=>{
 	});
 }
 // Next, express is listening the diferent get/post requests from our panel
-app.get('/display',requiresLogin,function(req,res,next){
+app.get('/display',/*requiresLogin,*/function(req,res,next){
 	res.render('display');
 })
 app.post('/new_entity', function(req, res, next){
@@ -670,7 +670,7 @@ app.post('/edit_entity', function(req, res, next){
 	put_entity(req, res);
 });
 ////
-app.get('/',requiresLogin, function(req, res, next){
+app.get('/',/*requiresLogin*/, function(req, res, next){
 	promise = new Promise(function(resolve, reject){
 		datos = [];
 		let bot_list;
@@ -702,7 +702,7 @@ app.get('/',requiresLogin, function(req, res, next){
 	  });
 });
 
-app.get('/intents',requiresLogin, get_intents,requiresToken, function(req,res){
+app.get('/intents',/*requiresLogin,*/ get_intents,requiresToken, function(req,res){
 	res.render('index', intents);
 })
 
@@ -778,7 +778,7 @@ app.post('/login', function(req,res){
 
 });
 
-app.get('/add',requiresLogin, function(req, res){
+app.get('/add',/*requiresLogin,*/ function(req, res){
 	res.render('add_agent');
 });
 app.post('/add',function(req,res,next){
@@ -794,7 +794,7 @@ app.post('/select',function(req,res,next){
 		res.send('/intents');
 })
 
-app.get('/validate', requiresLogin, function(req,res){
+app.get('/validate', /*requiresLogin,*/ function(req,res){
 	promise = new Promise(function(resolve, reject){
 		let user = req.body.user;
 		let password = req.body.password;
@@ -854,19 +854,19 @@ app.post('/show_entities', get_entities,requiresToken, function(req, res, next){
 	res.send(names);
 });
 
-app.get('/entities', requiresLogin,get_entities,requiresToken, function(req,res,next){
+app.get('/entities', /*requiresLogin,*/get_entities,requiresToken, function(req,res,next){
 	res.render('entities', entities);
 });
-app.get('/create',requiresLogin,requiresToken,function(req,res,next){
+app.get('/create',/*requiresLogin,*/requiresToken,function(req,res,next){
 	res.render('new_intent');
 });
-app.get('/create_gif',requiresLogin,requiresToken,function(req,res,next){
+app.get('/create_gif',/*requiresLogin,*/requiresToken,function(req,res,next){
 	res.render('new_gif');
 })
-app.get('/create_entity',requiresLogin,requiresToken,function(req,res,next){
+app.get('/create_entity',/*requiresLogin,*/requiresToken,function(req,res,next){
 	res.render('new_entity');
 });
-app.get('/entities/:id',requiresLogin,requiresToken, function(req,res,next){
+app.get('/entities/:id',/*requiresLogin*/,requiresToken, function(req,res,next){
 	let id = req.params.id;
 	get_entity(id, req, res);
 });
@@ -894,7 +894,7 @@ app.post('/edit', function(req, res,next){
 	let id = req.body.id;
 	edit_intent(id, req, res,next);
 });
-app.get('/:id', requiresLogin,requiresToken,function(req, res, next){
+app.get('/:id', /*requiresLogin,*/requiresToken,function(req, res, next){
 	let id = req.params.id;
 	get_intent(id, req, res);
 });
