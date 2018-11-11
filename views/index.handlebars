@@ -37,14 +37,14 @@
         </div>
         
         <div class="card cardListado cardListadoSinBotones">
-            <div class="card-body cardBodyListado d-flex flex-column" >
-                <div class="itemListado listaSinBoton" id="list_intent">
+            <div class="card-body cardBodyListado d-flex flex-column" id="list_intent">
 					{{#each this}}
 						{{#if id}}
+            		    <div class="itemListado listaSinBoton">
 							<a href="/{{id}}" id="intent" class="intent nombreItemListado">{{name}}</a>
+						</div>
 						{{/if}}
 					{{/each}}
-                </div>
             </div>
         </div>
         <div class="flex-center divBotonesPequennos" >
