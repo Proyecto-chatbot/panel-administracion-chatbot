@@ -20,12 +20,14 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
         <script>
           //Register Helpers
-          Handlebars.registerHelper('ifeq', function(valido, opts){
-            if(valido == 1){
+          Handlebars.registerHelper('ifeq', function(valido){
+            console.log(valido);
+            return valido;
+            /*if(valido == 1){
               return opts.fn(this);
             } else {
               return opts.inverse(this);
-            }
+            }*/
           });
         </script>
         <div class="divUsuario" id="users_list">
@@ -35,11 +37,7 @@
             <p class="nombreUsuario">{{user}}</p>
             <div>
               <button id="{{user}}" class="btn btn-primary botonValidar deny">
-                {{#ifeq valido}}
-                <i class="fa fa-check"></i>
-                {{else}}
-                <i class="fa fa-close"></i>
-                {{/ifeq}}
+                {{{ifeq valido}}}
               </button>
             </div>
           </div>
