@@ -19,19 +19,21 @@
       <div class="listadoUsuarios">
         <div class="divUsuario" id="users_list">
           {{#each this}}
-          <div>
-            <input type="hidden" class="hidden" value="{{valido}}">
-            <p class="nombreUsuario">{{user}}</p>
+            {{#if user}}
             <div>
-              <button id="{{user}}" class="btn btn-primary botonValidar deny">
-                {{#if valido}}
-                <i class="fa fa-check"></i>
-                {{else}}
-                <i class="fa fa-close"></i>
-                {{/if}}
-              </button>
+              <input type="hidden" class="hidden" value="{{valido}}">
+              <p class="nombreUsuario">{{user}}</p>
+              <div>
+                <button id="{{user}}" class="btn btn-primary botonValidar deny">
+                  {{#if valido}}
+                  <i class="fa fa-check"></i>
+                  {{else}}
+                  <i class="fa fa-close"></i>
+                  {{/if}}
+                </button>
+              </div>
             </div>
-          </div>
+            {{/if}}
           {{/each}}
         </div>
       </div>  
