@@ -67,10 +67,6 @@ let init = function(){
 	$btn_edit_gif = $('#edit_gif');
 	$btn_add_bot = $('#btn-add-bot');
 
-	$("#user_list").forEach(element => {
-		console.log(element);
-	});
-
 	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
 	redeclarate_btn_delete_synonym();
