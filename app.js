@@ -923,6 +923,7 @@ app.listen( PORT , function(){
 
 //Register Helpers
 Handlebars.registerHelper('if_eq', function(valido, options){
+	console.log("Entra en el helper");
 	if(valido == 0){
 		return false;
 	} else {
