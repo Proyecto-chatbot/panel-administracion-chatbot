@@ -20,12 +20,12 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
         <script>
           //Register Helpers
-          Handlebars.registerHelper('if_eq', function(valido, valor, opts){
+          Handlebars.registerHelper('if_eq', function(valido){
             console.log("Entra en el helper");
-            if(valido == valor){
-              return opts.fn(this);
+            if(valido == 1){
+              return new Handlebars.safeString('<i class="fa fa-check"></i>');
             } else {
-              return opts.inverse(this);
+              return new Handlebars.safeString('<i class="fa fa-close"></i>');
             }
           });
         </script>
@@ -36,11 +36,7 @@
             <p class="nombreUsuario">{{user}}</p>
             <div>
               <button id="{{user}}" class="btn btn-primary botonValidar deny">
-                {{#if_eq valido '1'}}
-                <i class="fa fa-check"></i>
-                {{else}}
-                <i class="fa fa-close"></i>
-                {{/if_eq}}
+                {{if_eq valido}}
               </button>
             </div>
           </div>
