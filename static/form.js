@@ -138,7 +138,7 @@ let init = function(){
 			$.when($('.intent').remove()).then(
 				intents.forEach(function(value){
 					if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-						$('#list_intent').append('<a class="nombreItemListado intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
+						$('#list_intent').append('<div class="itemListado listaSinBoton intent"> <a class="nombreItemListado" id="intent" href="'+value.id+'">'+value.name+'</a></div>')
 					}
 				})
 			)
@@ -149,7 +149,7 @@ let init = function(){
 			$.when($('.entity').remove()).then(
 				entities.forEach(function(value){
 					if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-						$('#list_entity').append('<a class="nombreItemListado entity" id="entity" href="/entities/'+value.id+'">'+value.name+'</a>')
+						$('#list_entity').append('<div class="itemListado listaSinBoton intent"> <a class="nombreItemListado entity" id="entity" href="/entities/'+value.id+'">'+value.name+'</a></div>')
 					}
 				})
 			)
