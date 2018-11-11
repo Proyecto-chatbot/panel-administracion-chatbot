@@ -53,7 +53,7 @@ let init = function(){
 	dropdown.dropdown();
 	$('.dropdown-create').dropdown();
 	dropdown_options = $('.dropdown-content li a');
-	$('.collapsible').collapsible();
+	//$('.collapsible').collapsible();
 	$contextIn = $('#contextIn');
 	$contextOut = $('#contextOut');
 	$btn_create_gif = $('#send_new_gif');
