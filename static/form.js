@@ -133,27 +133,27 @@ let init = function(){
 		});
 
 
-	$('#search-intent').keyup(function(){
-		let stringSearch = $(this).val().toLowerCase();
-		$.when($('.intent').remove()).then(
-			intents.forEach(function(value){
-				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-					$('#list_intent').append('<a class="nombreItemListado intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
-				}
-			})
-		)
-	});
-
-	$('#search-entity').keyup(function(){
-		let stringSearch = $(this).val().toLowerCase();
-		$.when($('.entity').remove()).then(
-			entities.forEach(function(value){
-				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-					$('#list_entity').append('<a class="nombreItemListado entity" id="entity" href="/entities/'+value.id+'">'+value.name+'</a>')
-				}
-			})
-		)
-	});
+		$('#search-intent').keyup(function(){
+			let stringSearch = $(this).val().toLowerCase();
+			$.when($('.intent').remove()).then(
+				intents.forEach(function(value){
+					if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
+						$('#list_intent').append('<a class="nombreItemListado intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
+					}
+				})
+			)
+		});
+	
+		$('#search-entity').keyup(function(){
+			let stringSearch = $(this).val().toLowerCase();
+			$.when($('.entity').remove()).then(
+				entities.forEach(function(value){
+					if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
+						$('#list_entity').append('<a class="nombreItemListado entity" id="entity" href="/entities/'+value.id+'">'+value.name+'</a>')
+					}
+				})
+			)
+		});
 
 	$('.hidden').each(function(){
         access = $(this).prop('value');
@@ -525,34 +525,34 @@ let searchEntity = function(input_value){
 /**
  * Search entity
  */
-let showAll = function(div){
+let showAll = function(ul){
 	$.when(function(){
-		div.children('a').remove();
-		div.children('.search').remove();
+		ul.children('a').remove();
+		ul.children('.search').remove();
 	}).then(function(){
 		$.post('/show_entities', function(res){
 			let $inputSearch;
-			div.append('<input class= "search" type = "text">');
+			ul.append('<input class= "search" type = "text">');
 			entitiesNames = res;
-			$inputSearch = div.children('.search');
+			$inputSearch = ul.children('.search');
 			$inputSearch.bind('keydown',function(e){
 				if ( e.which == 27 ) {
-					div.children('a').remove();
-					div.children('.search').remove();
-					div.hide();
-					let newText = div.siblings('.input').val().replace(/(#)(\w)*/, '');
-					div.siblings('.input').val(newText);
+					ul.children('a').remove();
+					ul.children('.search').remove();
+					ul.hide();
+					let newText = ul.siblings('.input').val().replace(/(#)(\w)*/, '');
+					ul.siblings('.input').val(newText);
 				};
 			});
 
 			$inputSearch.focus();
 			entitiesNames.forEach(element => {
-				div.append('<a class="collection-item indigo-text" href="#">'+element+'</a>');
+				ul.append('<a class="collection-item indigo-text" href="#">'+element+'</a>');
 			});
-			putLinkEvent(div);
+			putLinkEvent(ul);
 			$inputSearch.keyup(function(e){
 				$(this).siblings('a').remove();
-				search($(this).val().toLowerCase(), $(this).parent('div'));
+				search($(this).val().toLowerCase(), $(this).parent('ul'));
 			});
 		}).done(function(res){
 			//putLinkEvent(ul);
@@ -584,17 +584,17 @@ let getEntity = (linkEntity)=>{
 /**
  * Live search
  * @param {*} word
- * @param {*} divParent
+ * @param {*} ulParent
  */
-let search = (word, divParent) =>{
+let search = (word, ulParent) =>{
 	entitiesNames.forEach(element => {
 		if (element.toLowerCase().indexOf(word) >= 0)
-			divParent.append('<a href="" id="intent" class="nombreItemListado">'+element+'</a>');
+			ulParent.append('<a class="collection-item indigo-text" href="">'+element+'</a>');
 	});
-	divParent.children('a').on('click',function(){
+	ulParent.children('a').on('click',function(){
 		return false;
 	})
-	putLinkEvent(div);
+	putLinkEvent(ulParent);
 }
 
 /**
