@@ -711,7 +711,7 @@ app.get('/logout', function(req, res) {
     res.render('login');
 });
 app.get('/register',function(req,res,next){
-	console.log("Va por get";
+	console.log("Va por get");
 	res.render('register');
 })
 app.post('/register', function(req, res){
