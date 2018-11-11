@@ -1,4 +1,4 @@
-<div id="body-wrapper">
+<!--<div id="body-wrapper">
   <div class="row">
     <h4 class="center indigo white-text">Usuarios</h4>
     <ul id="users_list" class="col s10 m8 offset-m2 offset-s1">
@@ -13,4 +13,15 @@
             {{/each }}
     </ul>
 </div>
-</div>
+</div> -->
+
+      <div class="divTituloPagina"><h2 class="tituloPagina">Usuarios</h2></div>
+      <div class="listadoUsuarios">
+        <div class="divUsuario" id="users_list">
+          {{#each this}}
+          <input type="hidden" class="hidden" value="{{valido}}">
+          <p class="nombreUsuario">{{user}}</p>
+          <button id="{{user}}" class="btn btn-primary botonValidar deny"><i class="fa fa-check"></i></button>
+          {{/each}}
+        </div>
+      </div>  
