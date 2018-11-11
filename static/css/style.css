@@ -690,6 +690,7 @@ main .cardListado .cardBodyListado .itemListado {
           align-items: center;
   -ms-flex-line-pack: center;
       align-content: center;
+  text-decoration: underline;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
