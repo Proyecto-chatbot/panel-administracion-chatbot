@@ -15,7 +15,7 @@ var PersistService = class {
         let map;
         let exists = false;
         return self.client.hlen('users', function(err, userlength) {
-            const valido = userlength == 0 ? '1' : '0';
+            const valido = userlength == 0 ? true : false;
             if(userlength == 0){
                 bcrypt.hash(password, 10, function(err, hash){
                     self.client.hmset(
