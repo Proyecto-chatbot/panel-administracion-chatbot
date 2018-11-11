@@ -1,4 +1,4 @@
-<div id="body-wrapper">
+<!--<div id="body-wrapper">
 <h5 class="indigo-text center">Intents</h5>
 <p class="center-align">
 	<a class='btn dropdown-create indigo right' href='#' data-target='dropdown-c'><i class="material-icons left">add</i> Añadir</a>
@@ -19,4 +19,34 @@
 		{{/each }}
 	</div>
 	</div>
-</div>
+</div>-->
+
+  <div class="divTituloPagina"><h2 class="tituloPagina">Intents</h2></div>        
+        <div class="dropdown divBotonDesplegable">
+            <button class="btn btn-primary dropdown-toggle divBotonDesplegable" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Añadir Intent</button>
+            <div class="dropdown-menu botonDesplegable" aria-labelledby="dropdownMenuMenu">
+              <button class="dropdown-item" type="button">Intent Básico</button>
+              <button class="dropdown-item" type="button">GIF Aleatorio</button>
+            </div>
+          </div>
+        <div class="divBusqueda">
+            <form class="form-inline md-form form-sm formularioBusqueda">
+                <input class="form-control form-control-sm mr-3 w-75" id="search-intent" type="text" placeholder="Search.." aria-label="Search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </form>
+        </div>
+        
+        <div class="card cardListado cardListadoSinBotones">
+            <div class="card-body cardBodyListado d-flex flex-column" >
+                <div class="itemListado listaSinBoton" id="list_intent">
+					{{#each this}}
+					<p class="nombreItemListado"><a href="/{{id}}" id="intent">{{name}}</a></p>
+					{{/each}}
+                </div>
+            </div>
+        </div>
+        <div class="flex-center divBotonesPequennos" >
+			<form action="/">
+            <button class="btn btn-warning botonPequenno">Volver</button> 
+			<form>
+        </div>  
