@@ -704,7 +704,7 @@ app.get('/',requiresLogin, function(req, res, next){
 });
 
 app.get('/intents',requiresLogin, get_intents,requiresToken, function(req,res){
-	intents_body = {"this": intents, "this" : {"userlog": req.session.username}};
+	intents_body = {intents, "this" : {"userlog": req.session.username}};
 	res.render('index', intents_body);
 })
 
@@ -815,7 +815,7 @@ app.get('/validate', requiresLogin, function(req,res){
 					return JSON.parse(element);
 				});
 				map= keys.map( function(x, i){
-					return {"user": x, "passwd": data[i].password, "valido": data[i].valido, "this": {'userlog': req.session.username}};
+					return {"user": x, "passwd": data[i].password, "valido": data[i].valido, 'userlog': req.session.username};
 				}.bind(this));
 				resolve(users_list = map);
 			});
@@ -858,7 +858,7 @@ app.post('/show_entities', get_entities,requiresToken, function(req, res, next){
 });
 
 app.get('/entities', requiresLogin,get_entities,requiresToken, function(req,res,next){
-	entities_body = {"this": entities, "this" : {"userlog": req.session.username}};
+	entities_body = {entities, "this" : {"userlog": req.session.username}};
 	res.render('entities', entities_body);
 });
 app.get('/create',requiresLogin,requiresToken,function(req,res,next){
