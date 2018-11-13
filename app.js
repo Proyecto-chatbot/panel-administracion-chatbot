@@ -687,7 +687,7 @@ app.get('/',requiresLogin, function(req, res, next){
 						return JSON.parse(element);
 					});
 					map= keys.map( function(x, i){
-						return {"name": x, "token": data[i].token, 'user': req.session.user};
+						return {"name": x, "token": data[i].token, 'user': req.session.username};
 					}.bind(this));
 					resolve(bot_list = map);
 				}
@@ -754,6 +754,7 @@ app.post('/login', function(req,res){
 									if(res){
 										req.session.logged = true;
 										req.session.user = element;
+										req.session.username = element.user;
 										resolve(respuesta = 'response ok');
 									}else{
 										reject(respuesta = false);
