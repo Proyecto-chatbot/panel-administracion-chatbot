@@ -19,6 +19,6 @@ window.addEventListener("load",function(){
 
     botonMenu.addEventListener("click", desplegarMenu);
     botonCancelar.addEventListener("click", cerrardesplegarMenu);
-    $("#btn_create_entity").on("click", $(this.location).attr('href', '/create_entity'));
+    $("#btn_create_entity").on("click", window.location.href ='/create_entity');
 
 });
