@@ -13,6 +13,7 @@ let $btn_edit_gif;
 let $btnDeny;
 let $btn_add_bot;
 let $btn_select_bot;
+let $btn_create_entity;
 
 let $name;
 let numLinks;
@@ -66,6 +67,7 @@ let init = function(){
 	$btnAddVariant = $(".btnAddVariant");
 	$btn_edit_gif = $('#edit_gif');
 	$btn_add_bot = $('#btn-add-bot');
+	$btn_create_entity = $("#btn_create_entity");
 
 	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
@@ -172,6 +174,11 @@ let init = function(){
 }
 /** On click events */
 let set_click_events = () =>{
+
+	$btn_create_entity.click(function(event){
+		event.preventDefault();
+		location.href = "/create_entity";
+	});
 	
 	$btn_add_bot.click(function(event){
 		event.preventDefault();
