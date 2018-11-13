@@ -25,9 +25,13 @@
         <div class="dropdown divBotonDesplegable">
             <button class="btn btn-primary dropdown-toggle divBotonDesplegable" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Añadir Intent</button>
             <div class="dropdown-menu botonDesplegable" aria-labelledby="dropdownMenuMenu">
-              <button class="dropdown-item" type="button">Intent Básico</button>
-              <button class="dropdown-item" type="button">GIF Aleatorio</button>
-            </div>
+			<form action="/create">
+              <button class="dropdown-item">Intent Básico</button>
+			</form>
+			<form action="/create_gif">
+              <button class="dropdown-item">GIF Aleatorio</button>
+			</form>
+			</div>
           </div>
         <div class="divBusqueda">
             <form class="form-inline md-form form-sm formularioBusqueda">
@@ -49,6 +53,6 @@
         </div>
         <div class="flex-center divBotonesPequennos" >
 			<form action="/">
-            <button class="btn btn-warning botonPequenno">Volver</button> 
-			<form>
+            	<button class="btn btn-warning botonPequenno">Volver</button> 
+			</form>
         </div>  

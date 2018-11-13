@@ -1,4 +1,4 @@
-<div id="body-wrapper">
+<!--<div id="body-wrapper">
 <h5 class="indigo-text center">Entidades - Sinónimos</h5>
 <p class="center-align">
 <a class="waves-effect waves-light btn-small indigo right" href="/create_entity" id="btn_create_entity"><i class="material-icons left">add</i>Añadir</a>
@@ -12,4 +12,31 @@
 	  </div>
   </div>
 </div>
+</div>-->
+
+<div class="divTituloPagina"><h2 class="tituloPagina">Entidades - Sinónimos</h2></div>        
+        <form action="/create_entity">
+          <button class="btn btn-primary botonNuevoBot" id="btn_create_entity">Añadir Entidad</button>
+        </form>
+        <div class="divBusqueda">
+            <form class="form-inline md-form form-sm formularioBusqueda">
+                <input class="form-control form-control-sm mr-3 w-75" id="#search-entity" type="text" placeholder="Search.." aria-label="Search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </form>
+        </div>
+        
+        <div class="card cardListado cardListadoSinBotones">
+            <div class="card-body cardBodyListado d-flex flex-column" id="list_entity">
+                {{#each this}}
+						      {{#if id}}
+            		    <div class="itemListado listaSinBoton entity">
+							        <a href="/entities/{{id}}" id="entity" class="nombreItemListado">{{name}}</a>
+						        </div>
+						      {{/if}}
+					      {{/each}}
+            </div>
+        </div>
+        <form action="/">
+            <button class="btn btn-warning botonPequenno">Volver</button> 
+			  </form>
 </div>
