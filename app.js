@@ -859,7 +859,7 @@ app.post('/show_entities', get_entities,requiresToken, function(req, res, next){
 
 app.get('/entities', requiresLogin,get_entities,requiresToken, function(req,res,next){
 	entities_body = {"this": entities, "this" : {"userlog": req.session.username}};
-	res.render('entities', entities);
+	res.render('entities', entities_body);
 });
 app.get('/create',requiresLogin,requiresToken,function(req,res,next){
 	let user = {"this": {'userlog': req.session.username}};
