@@ -676,24 +676,6 @@ app.get('/',requiresLogin, function(req, res, next){
 		let bot_list;
 		let keys;
 		let user;
-
-		service.get_user(
-			function(err, reply){
-				if(reply == null){
-					resolve(user = []);
-				} else {
-					keys = Object.keys(reply);
-					datos = Object.values(reply);
-					data = datos.map(function(element){
-						return JSON.parse(element);
-					});
-					map = keys.map( function(x, i){
-						return {"name": x}
-					}).bind(this);
-					resolve(user = map);
-				}
-			}
-		);
 		service.get_all_bots(
 			function(err, reply) {
 				if(reply == null)
@@ -714,9 +696,9 @@ app.get('/',requiresLogin, function(req, res, next){
 	});
 
 	promise.then(function(bot_list) {
-		res.render('select_agent', bot_list, user);
+		res.render('select_agent', bot_list);
 	  }, function(bot_list){
-		res.render('select_agent', bot_list, user);
+		res.render('select_agent', bot_list);
 	  });
 });
 
