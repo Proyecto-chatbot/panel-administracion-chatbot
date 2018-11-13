@@ -27,8 +27,10 @@
             <div class="card-body cardBodyListado d-flex flex-column" id="list_entity">
                 {{#each this}}
                   {{#each this}}
-                  <p></p>
-						        {{#if id}}
+                  {{#each this}}
+                    <p></p>
+                  {{/each}}
+                    {{#if id}}
             		      <div class="itemListado listaSinBoton entity">
 							          <a href="/entities/{{id}}" id="entity" class="nombreItemListado">{{name}}</a>
 						          </div>
