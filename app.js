@@ -677,13 +677,23 @@ app.get('/',requiresLogin, function(req, res, next){
 		let keys;
 		let user;
 
-		/*service.get_user(
+		service.get_user(
 			function(err, reply){
 				if(reply == null){
-					resolve(user )
+					resolve(user = []);
+				} else {
+					keys = Object.keys(reply);
+					datos = Object.values(reply);
+					data = datos.map(function(element){
+						return JSON.parse(element);
+					});
+					map = keys.map( function(x, i){
+						return {"name": x}
+					}).bind(this);
+					resolve(user = map);
 				}
 			}
-		)*/
+		);
 		service.get_all_bots(
 			function(err, reply) {
 				if(reply == null)
