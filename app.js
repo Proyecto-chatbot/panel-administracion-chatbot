@@ -814,7 +814,7 @@ app.get('/validate', requiresLogin, function(req,res){
 					return JSON.parse(element);
 				});
 				map= keys.map( function(x, i){
-					return {"user": x, "passwd": data[i].password, "valido": data[i].valido, 'userlog': req.session.username};
+					return {"user": x, "passwd": data[i].password, "valido": data[i].valido};
 				}.bind(this));
 				resolve(users_list = map);
 			});
