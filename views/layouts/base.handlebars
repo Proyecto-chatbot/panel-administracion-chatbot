@@ -29,8 +29,8 @@
                         <div id="divUsuario">
                             <i class="fa fa-user-circle logoUsuario"></i>
                             {{#each this}}
-                                {{#if user}}
-                                <b class="nombreUsuario">{{user}}</b>  
+                                {{#if userlog}}
+                                <p class="nombreUsuario"><b>{{userlog}}</b> </p> 
                                 {{/if}}
                             {{/each}}
                         </div>
@@ -40,7 +40,7 @@
                     <div class="botonesMenuLateral"><i class="fa fa-robot opcionIcono"></i><p class="opcionNombre"><a href="/">Bots</p></a></div>
                     <div class="botonesMenuLateral"><i class="fa fa-user opcionIcono"></i><p class="opcionNombre"><a href="/validate">Usuarios</p></a></div>
                      {{#each this}}
-                        {{#if user}}
+                        {{#if userlog}}
                             <div id="divLog" class="botonesMenuLateral"><i class="fa fa-sign-out-alt opcionIcono"></i><p class="opcionNombre">Logout</p></div>
                         {{/if}}
                     {{/each}}

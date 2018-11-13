@@ -661,7 +661,8 @@ put_entity = (req,res,next)=>{
 }
 // Next, express is listening the diferent get/post requests from our panel
 app.get('/display',requiresLogin,function(req,res,next){
-	res.render('display');
+	let user = {'userlog': req.session.username};
+	res.render('display', user);
 })
 app.post('/new_entity', function(req, res, next){
 	post_entity(req, res);
@@ -687,7 +688,7 @@ app.get('/',requiresLogin, function(req, res, next){
 						return JSON.parse(element);
 					});
 					map= keys.map( function(x, i){
-						return {"name": x, "token": data[i].token, 'user': req.session.username};
+						return {"name": x, "token": data[i].token, 'userlog': req.session.username};
 					}.bind(this));
 					resolve(bot_list = map);
 				}
@@ -780,7 +781,8 @@ app.post('/login', function(req,res){
 });
 
 app.get('/add',requiresLogin, function(req, res){
-	res.render('add_agent');
+	let user = {'userlog': req.session.username};
+	res.render('add_agent', user);
 });
 app.post('/add',function(req,res,next){
 	name = req.body.name;
@@ -812,7 +814,7 @@ app.get('/validate', requiresLogin, function(req,res){
 					return JSON.parse(element);
 				});
 				map= keys.map( function(x, i){
-					return {"user": x, "passwd": data[i].password, "valido": data[i].valido};
+					return {"user": x, "passwd": data[i].password, "valido": data[i].valido, 'userlog': req.session.username};
 				}.bind(this));
 				resolve(users_list = map);
 			});
@@ -855,16 +857,20 @@ app.post('/show_entities', get_entities,requiresToken, function(req, res, next){
 });
 
 app.get('/entities', requiresLogin,get_entities,requiresToken, function(req,res,next){
+	let user = {'userlog': req.session.username};
 	res.render('entities', entities);
 });
 app.get('/create',requiresLogin,requiresToken,function(req,res,next){
-	res.render('new_intent');
+	let user = {'userlog': req.session.username};
+	res.render('new_intent', user);
 });
 app.get('/create_gif',requiresLogin,requiresToken,function(req,res,next){
-	res.render('new_gif');
+	let user = {'userlog': req.session.username};
+	res.render('new_gif', user);
 })
 app.get('/create_entity',requiresLogin,requiresToken,function(req,res,next){
-	res.render('new_entity');
+	let user = {'userlog': req.session.username};
+	res.render('new_entity', user);
 });
 app.get('/entities/:id',requiresLogin,requiresToken, function(req,res,next){
 	let id = req.params.id;
