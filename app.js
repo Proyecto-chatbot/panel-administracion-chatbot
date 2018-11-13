@@ -704,7 +704,7 @@ app.get('/',requiresLogin, function(req, res, next){
 });
 
 app.get('/intents',requiresLogin, get_intents,requiresToken, function(req,res){
-	intents_body = {"body": intents, "this" : {"userlog": req.session.username}};
+	intents_body = {"this": intents, "this" : {"userlog": req.session.username}};
 	res.render('index', intents_body);
 })
 
@@ -782,7 +782,7 @@ app.post('/login', function(req,res){
 });
 
 app.get('/add',requiresLogin, function(req, res){
-	let user = {"userlog": req.session.username};
+	let user = {"this": {'userlog': req.session.username}};
 	res.render('add_agent', user);
 });
 app.post('/add',function(req,res,next){
@@ -858,19 +858,19 @@ app.post('/show_entities', get_entities,requiresToken, function(req, res, next){
 });
 
 app.get('/entities', requiresLogin,get_entities,requiresToken, function(req,res,next){
-	let user = {'userlog': req.session.username};
+	entities_body = {"this": entities, "this" : {"userlog": req.session.username}};
 	res.render('entities', entities);
 });
 app.get('/create',requiresLogin,requiresToken,function(req,res,next){
-	let user = {'userlog': req.session.username};
+	let user = {"this": {'userlog': req.session.username}};
 	res.render('new_intent', user);
 });
 app.get('/create_gif',requiresLogin,requiresToken,function(req,res,next){
-	let user = {'userlog': req.session.username};
+	let user = {"this": {'userlog': req.session.username}};
 	res.render('new_gif', user);
 })
 app.get('/create_entity',requiresLogin,requiresToken,function(req,res,next){
-	let user = {'userlog': req.session.username};
+	let user = {"this": {'userlog': req.session.username}};
 	res.render('new_entity', user);
 });
 app.get('/entities/:id',requiresLogin,requiresToken, function(req,res,next){
