@@ -714,9 +714,9 @@ app.get('/',requiresLogin, function(req, res, next){
 	});
 
 	promise.then(function(bot_list) {
-		res.render('select_agent', bot_list);
+		res.render('select_agent', bot_list, user);
 	  }, function(bot_list){
-		res.render('select_agent', bot_list);
+		res.render('select_agent', bot_list, user);
 	  });
 });
 
