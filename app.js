@@ -687,7 +687,7 @@ app.get('/',requiresLogin, function(req, res, next){
 						return JSON.parse(element);
 					});
 					map= keys.map( function(x, i){
-						return {"name": x, "token": data[i].token};
+						return {"name": x, "token": data[i].token, 'user': req.session.user};
 					}.bind(this));
 					resolve(bot_list = map);
 				}

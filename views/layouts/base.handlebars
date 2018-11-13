@@ -28,9 +28,9 @@
                         <div id="iconoMenuLateral"><i id="botonCancelar" class="fa fa-times"></i></div>
                         <div id="divUsuario">
                             <i class="fa fa-user-circle logoUsuario"></i>
-                            <div id="user">
-                                <p>{{this.name}}</p>
-                            </div>
+                            {{#each this}}
+                            <b>{{user}}</b>
+                            {{/each}}
                         </div>
                     </div>
                     <div class="botonesMenuLateral"><i class="fa fa-question opcionIcono"></i><p class="opcionNombre"><a href="/intents">Intents</a></p></div>
