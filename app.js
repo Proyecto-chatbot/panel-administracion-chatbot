@@ -675,7 +675,15 @@ app.get('/',requiresLogin, function(req, res, next){
 		datos = [];
 		let bot_list;
 		let keys;
+		let user;
 
+		/*service.get_user(
+			function(err, reply){
+				if(reply == null){
+					resolve(user )
+				}
+			}
+		)*/
 		service.get_all_bots(
 			function(err, reply) {
 				if(reply == null)

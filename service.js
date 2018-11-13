@@ -104,6 +104,9 @@ var PersistService = class {
     get_all_users(callback) {
         return this.client.hgetall('users', callback);
     }
+    get_user(user){
+        this.get_user(user, true);
+    }
     create_bot(bot, token) {
         var self = this;
         return      self.client.hmset(
