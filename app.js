@@ -858,11 +858,7 @@ app.post('/show_entities', get_entities,requiresToken, function(req, res, next){
 });
 
 app.get('/entities', requiresLogin,get_entities,requiresToken, function(req,res,next){
-	console.log(entities);
-	entities.forEach(element => {
-		console.log(element);
-	});
-	entities_body = {entities, "this" : {"userlog": req.session.username}};
+	entities_body = {"entities": entities, "this" : {"userlog": req.session.username}};
 	res.render('entities', entities_body);
 });
 app.get('/create',requiresLogin,requiresToken,function(req,res,next){
