@@ -29,7 +29,9 @@
                         <div id="divUsuario">
                             <i class="fa fa-user-circle logoUsuario"></i>
                             {{#each this}}
-                            <b>{{user}}</b>
+                                {{#each user}}
+                                    <b>{{id}}</b>
+                                 {{/each}}   
                             {{/each}}
                         </div>
                     </div>
