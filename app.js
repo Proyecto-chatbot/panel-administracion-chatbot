@@ -704,7 +704,8 @@ app.get('/',requiresLogin, function(req, res, next){
 });
 
 app.get('/intents',requiresLogin, get_intents,requiresToken, function(req,res){
-	res.render('index', intents);
+	intents_body = {"body": intents, "userlog": req.session.username};
+	res.render('index', intents_body);
 })
 
 app.get('/logout', function(req, res) {
@@ -814,7 +815,7 @@ app.get('/validate', requiresLogin, function(req,res){
 					return JSON.parse(element);
 				});
 				map= keys.map( function(x, i){
-					return {"user": x, "passwd": data[i].password, "valido": data[i].valido};
+					return {"user": x, "passwd": data[i].password, "valido": data[i].valido, 'userlog': req.session.username};
 				}.bind(this));
 				resolve(users_list = map);
 			});
