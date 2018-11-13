@@ -704,7 +704,7 @@ app.get('/',requiresLogin, function(req, res, next){
 });
 
 app.get('/intents',requiresLogin, get_intents,requiresToken, function(req,res){
-	intents_body = {"body": intents, this : {"userlog": req.session.username}};
+	intents_body = {"body": intents, "this" : {"userlog": req.session.username}};
 	res.render('index', intents_body);
 })
 
