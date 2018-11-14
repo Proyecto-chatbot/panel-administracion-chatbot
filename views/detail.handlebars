@@ -61,4 +61,79 @@
 <button class="right btn btn-primary red" id="btn-delete-intent"><i class="material-icons right">delete</i>ELIMINAR</button>
 
 </div>
-</div>
+</div>-->
+
+<div class="divTituloPagina"><h2 class="tituloPagina">{{this.name}}</h2></div>
+
+        <div class="card cardDetallesIntent">
+            <h6 class="subtituloEntidad">Preguntas del usuario</h6>
+            <hr class="hrTitulo">
+            <div class="card-body cardBodyListado d-flex flex-column" >
+                {{#each this.userSays }}
+                <div class="itemListado listaSinBoton">
+                {{#each data}}
+             		{{#if meta}}
+					        {{#isnt meta "@sys.ignore" }}
+						        <span>@{{alias}}</span>
+					        {{/isnt}}
+					        {{#eq meta "@sys.ignore"}}
+						        <span>{{text}}</span>
+					        {{/eq}}
+				    {{else}}
+					    <p class="nombreItemListado"> {{text}} </p>
+				    {{/if}}
+
+                {{/each}}
+                </div>
+
+            {{/each}}
+            </div>
+        </div>
+        <div class="card cardDetallesIntent cardResp">
+            <h6 class="subtituloEntidad">Respuesta 1</h6>
+            <hr class="hrTitulo">
+             {{#each this.responses }}
+                {{#each messages}}
+                    {{#if textToSpeech}}
+                        <div class="card-body cardBodyListado d-flex flex-column" >
+                            <div class="itemListado listaSinBoton">
+                                <p class="nombreItemListado">{{textToSpeech}}</p>
+                            </div>
+                        </div>
+                    {{/if}}
+                    {{#if items}}
+                        <div class="card-body cardBodyListado d-flex flex-column" >
+                            <div class="itemListado listaSinBoton">
+                                {{#each items}}
+                                   <p class="nombreItemListado">{{textToSpeech}}</p>
+                                {{/each}}
+                            </div>
+                        </div>
+                    {{/if}}
+                    {{#if image}}
+                        <div class="card-body cardBodyListado d-flex flex-column" >
+                            <div class="itemListado listaSinBoton">
+                                <p class="nombreItemListado">{{{{image.url}}}}</p>
+                            </div>
+                        </div>
+                    {{/if}}
+                    {{#if url}}
+                        <div class="card-body cardBodyListado d-flex flex-column" >
+                            <div class="itemListado listaSinBoton">
+                                <p class="nombreItemListado">{{{{destinationName}}}}</p>
+                                <p class="nombreItemListado">{{{{url}}}}</p>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            {{/each}}
+        </div>
+        <div class="flex-center divBotonesPequennos" >
+            <form action="/edit">
+                <input type="hidden" name="id" id="input-id" value="{{this.id}}">
+                <button type="submit" id="open-edit-intent" class="btn btn-secondary botonPequenno">Editar</button>
+            </form>
+            <form action="/intents">
+                <button class="btn btn-warning botonPequenno">Volver</button> 
+            </form>
+        </div>
