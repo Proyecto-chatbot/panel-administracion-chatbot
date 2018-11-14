@@ -82,7 +82,7 @@
                         <div>
                             <input class="response" id="linkResponse" type="text" value="{{destinationName}}" class="validate">
                             <input class="url" id="linkUrl" type="text"  value="{{url}}" class="validate">
-                            </button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button>
+                            <button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button>
                         </div>
                         </div>
                     {{/if}}
@@ -133,3 +133,125 @@
             </li>
         </ul>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="divTituloPagina"><h2 class="tituloPagina">Editar Intent</h2></div>
+        <form class="form-inline md-form form-sm inputEditable" id="inputNombreEntidad">
+            <div class="md-form">
+                <h6 class="subtituloEntidad">Nombre del Intent</h6>
+                <input id="name" type="text" name="name" class="form-control validate" value="{{this.name}}">
+            </div>
+        </form>
+        <input type="hidden" id="input-id" value={{this.id}}>
+        <div class="card cardDetallesIntent cardPreguntasUsuario">
+            <h6 class="subtituloEntidad">Preguntas del usuario</h6>
+            <hr class="hrTitulo">
+            <form class="form-inline md-form form-sm">
+            {{#each this.userSays }}
+                <div class="md-form divPregunta ">
+                {{#each data}}
+             		{{#if meta}}
+					        {{#isnt meta "@sys.ignore" }}
+						        <span>#{{alias}}</span>
+					        {{/isnt}}
+					        {{#eq meta "@sys.ignore"}}
+						        <span>{{text}}</span>
+					        {{/eq}}
+				    {{else}}
+					    <input type="text" class="form-control" placeholder="Pregunta" value="{{text}}">
+				    {{/if}}
+
+                {{/each}}
+                 {{#if @index}}
+                    <button type="button" class="btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                 {{/if}}
+                
+                </div>
+            {{/each}}
+                <div class="divBoton">
+                    <button type="button" id="addUserText" name="addUserText" class="btn btn-indigo botonMediano">Añadir</button>
+                </div>   
+            </form>     
+        </div>
+        <div class="card cardDetallesIntent cardResp cardRespuesta">
+            <h6 class="subtituloEntidad">Respuesta 1</h6>
+            <hr class="hrTitulo">
+            <form class="form-inline md-form form-sm">
+
+                 {{#each this.responses }}
+                {{#if messages}}
+                {{#each messages}}
+                    {{#if textToSpeech}}
+                         <div class="md-form divRespuesta ">
+                            <input type="text" class="form-control" placeholder="Respuesta" value="{{textToSpeech}}">
+                            <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                        </div>
+                    {{/if}}
+                    {{#if items}}
+                        <div class="md-form divRespuesta ">
+                            {{#each items}}
+                                <input type="text" class="form-control" placeholder="Respuesta" value="{{textToSpeech}}">
+                                {{#if @index}}
+                                    <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                                {{/if}}
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                    {{#if image}}
+                        <div class="md-form divRespuesta ">
+                            <input type="text" class="form-control" placeholder="Respuesta" value="{{image.url}}">
+                            <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                        </div>
+                    {{/if}}
+                    {{#if url}}
+                        <div class="md-form divRespuesta ">
+                            <input type="text" class="form-control" placeholder="Respuesta" value="{{destinationName}}">
+                            <input type="text" class="form-control" placeholder="Respuesta" value="{{url}}">
+                            <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                        </div>
+                    {{/if}}
+                {{/each}}
+                {{/if}}
+            {{/each}}
+                <div class="divBoton btns">
+                    <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button>
+                </div>   
+            </form>
+        </div>
+
+        <div id="accordion" class="cardDetallesIntent cardResp opAvan">
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h5 class="subtituloEntidad"
+                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Opciones Avanzadas</button>
+                    </h5>
+                  </div>
+                  <div id="collapseOne" class="collapse bodyOpAvan" aria-labelledby="headingOne" data-parent="#accordion">
+                    <form class="d-flex flex-column align-items-center formOpAvan"> 
+                        <div class="md-form">
+                            <input type="text" id="inputContEntrada" class="form-control" value="{{ this.contexts }}">
+                            <input type="text" id="inputContSalida" class="form-control" value="{{ this.responses.0.affectedContexts.0.name }}">
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+        <!--<div class="flex-center divBotonesPequennos" >
+            <button type="button" class="btn btn-indigo botonPequenno">Añadir Respuesta</button>
+        </div>-->
+        <div class="flex-center divBotonesPequennos" >
+            <form action="/{{this.id}}">
+                <button class="btn btn-warning botonPequenno">Cancelar</button>
+            </form>
+            <button type="submit" id="btn_edit_intent" name="btn_edit_intent" class="btn btn-indigo botonPequenno">Guardar</button> 
+        </div>

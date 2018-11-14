@@ -54,7 +54,7 @@ let init = function(){
 	hasImage = false;
 	hasLink = false;
 	$select = $('.btn-respuesta');
-	$before_botones = $(".divBoton");
+	$before_botones = $(".btns");
 	$annadirRespuesta = $("#annadir-respuesta");
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();

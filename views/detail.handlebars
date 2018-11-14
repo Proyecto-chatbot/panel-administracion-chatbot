@@ -103,6 +103,7 @@
                                 <p class="nombreItemListado">{{textToSpeech}}</p>
                             </div>
                         </div>
+                        <hr class="separadorItems">
                     {{/if}}
                     {{#if items}}
                         <div class="card-body cardBodyListado d-flex flex-column" >
@@ -112,6 +113,7 @@
                                 {{/each}}
                             </div>
                         </div>
+                        <hr class="separadorItems">
                     {{/if}}
                     {{#if image}}
                         <div class="card-body cardBodyListado d-flex flex-column" >
@@ -119,6 +121,7 @@
                                 <p class="nombreItemListado">{{image.url}}</p>
                             </div>
                         </div>
+                        <hr class="separadorItems">
                     {{/if}}
                     {{#if url}}
                         <div class="card-body cardBodyListado d-flex flex-column" >
@@ -127,8 +130,8 @@
                                 <p class="nombreItemListado">{{url}}</p>
                             </div>
                         </div>
+                        <hr class="separadorItems">
                     {{/if}}
-                <hr class="separadorItems">
                 {{/each}}
                 {{/if}}
             {{/each}}
