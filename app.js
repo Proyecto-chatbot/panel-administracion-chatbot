@@ -705,7 +705,7 @@ app.get('/',requiresLogin, function(req, res, next){
 
 app.get('/intents',requiresLogin, get_intents,requiresToken, function(req,res){
 	intents_body = {intents, "this" : {"userlog": req.session.username}};
-	res.render('index', intents_body);
+	res.render('index', intents);
 })
 
 app.get('/logout', function(req, res) {
@@ -859,7 +859,7 @@ app.post('/show_entities', get_entities,requiresToken, function(req, res, next){
 
 app.get('/entities', requiresLogin,get_entities,requiresToken, function(req,res,next){
 	entities_body = {entities, "this" : {"userlog": req.session.username}};
-	res.render('entities', entities_body);
+	res.render('entities', entities);
 });
 app.get('/create',requiresLogin,requiresToken,function(req,res,next){
 	let user = {"this": {'userlog': req.session.username}};
