@@ -1,4 +1,4 @@
-<div class="container center-align" id="body-wrapper">
+<!--<div class="container center-align" id="body-wrapper">
     <h4>Crear una nueva Entidad</h4>
     <input type="hidden" id=entity-id value={{this.id}}>
     <div class="row ">
@@ -26,4 +26,25 @@
         </div>
     </div>
 
-</div>
+</div>-->
+            <div class="card tarjeta">
+                <div class="card-body d-flex flex-column cardBody">
+                  <h5 class="card-title">Crear Entidad</h5>
+                  <form class="d-flex flex-column align-items-center"> 
+                    <!-- Material input -->
+                    <div class="md-form">
+                        <input type="text" id="name-entity" name="name" class="validate form-control" value="{{this.name}}">
+                        <label for="name">Nombre</label>
+                    </div>
+                    <div class="md-form">
+                        <h5 class="subtituloTarjeta">Sinónimos</h5>
+                        <input type="text" class="form-control inputSinonimo synonym validate" name="synonym">
+                    </div>
+                    <button type="button" class="btn btn-secondary botonAnnadir" id="add-synonym" name="addSinonym">Añadir</button>
+                    <button class="btn btn-primary botonEntrar" id="btn-create-entity">Crear</button>                    
+                </form>
+                </div>
+              </div>
+            <form action="/">
+                <button class="btn btn-warning" id="botonVolver">Volver</button>
+            </form>      
