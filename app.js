@@ -870,8 +870,8 @@ app.get('/create_gif',requiresLogin,requiresToken,function(req,res,next){
 	res.render('new_gif', user);
 });
 app.get('/create_entity',requiresLogin,requiresToken,function(req,res,next){
-	let user = {"this": {'userlog': req.session.username}};
-	res.render('new_entity', user);
+	//let user = {"this": {'userlog': req.session.username}};
+	res.render('new_entity',/* user*/);
 });
 app.get('/entities/:id',requiresLogin,requiresToken, function(req,res,next){
 	let id = req.params.id;
