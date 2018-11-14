@@ -54,7 +54,7 @@ let init = function(){
 	hasImage = false;
 	hasLink = false;
 	$select = $('.btn-respuesta');
-	$before_botones = $(".btns");
+	$before_botones = $(".divRespuesta");
 	$annadirRespuesta = $("#annadir-respuesta");
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();
@@ -701,7 +701,7 @@ let add_new_response = function (){
 	+'<button class="btnAddVariant indigo btn-small waves-effect waves-light right"'
 	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button>'
 	+'<button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div></div>';*/
-	$textResponse = '<div class="card cardDetallesIntent cardResp cardRespuesta"> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta "> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button> </div> <div class="divBoton btns"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button> </div> </form> </div>';
+	$textResponse = '<div class="card cardDetallesIntent cardResp cardRespuesta"> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta "> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button> </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button> </div> </form> </div>';
 	if(checkNumResponses()){
 		if(hasImage)
 			$('.type-image').before($textResponse);
@@ -767,7 +767,7 @@ let add_new_link = function(title){
 let add_new_variant = ($btn)=>{
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	$before_botones.before('<div class="md-form divRespuesta "> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-bloq"><i class="fa fa-trash"></i></button> </div>');
+	$before_botones.after('<div class="md-form divRespuesta "> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-bloq"><i class="fa fa-trash"></i></button> </div>');
 	redeclare_input_search();
 	redeclarate_btn_delete_bloq();
 }
