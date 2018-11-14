@@ -36,9 +36,10 @@
                         <input type="text" id="name-entity" name="name" class="validate form-control" value="{{this.name}}">
                         <label for="name">Nombre</label>
                     </div>
-                    <div class="md-form">
-                        <h5 class="subtituloTarjeta">Sinónimos</h5>
+                    <h5 class="subtituloTarjeta">Sinónimos</h5>
+                    <div class="md-form synonym_block">
                         <input type="text" class="form-control inputSinonimo synonym validate" name="synonym">
+                        <button class="btn btn-sm btn-indigo botonBorrar btn-delete-synonym"><i class="fa fa-trash"></i></button>
                     </div>
                     <button type="button" class="btn btn-secondary botonAnnadir" id="add-synonym" name="addSinonym">Añadir</button>
                     <button class="btn btn-primary botonEntrar" id="btn-create-entity">Crear</button>                    

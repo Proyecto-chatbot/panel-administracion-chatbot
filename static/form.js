@@ -775,8 +775,9 @@ let add_new_variant = ($btn)=>{
  * Insert a new synonym
  */
 let add_new_synonym =()=>{
-	$btnAddSynonym.before('<div class="synonym_block"><input class="synonym" name="sinonym" type="text" class="validate">'
-	+'<button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	/*$btnAddSynonym.before('<div class="synonym_block"><input class="synonym" name="sinonym" type="text" class="validate">'
+	+'<button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');*/
+	$btnAddSynonym.before('<div class="md-form synonym_block"> <input type="text" class="form-control inputSinonimo synonym validate" name="synonym"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-synonym"><i class="fa fa-trash"></i></button> </div>');
 	redeclarate_btn_delete_synonym();
 }
 /**
