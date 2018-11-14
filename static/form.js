@@ -438,8 +438,9 @@ let edit_intent = function(){
 		if($(this).hasClass('type-link')){
 			type = 'link';
 		}
-		responses = $(this).children('div').children('.response');
-
+		//responses = $(this).children('div').children('.response');
+		responses = $(".response");
+		
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
