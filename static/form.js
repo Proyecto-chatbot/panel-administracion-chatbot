@@ -32,6 +32,7 @@ let $contextOut;
 let $btnDeleteVariant;
 let intents;
 let entitiesNames;
+let $annadirRespuesta;
 /** Max of available responses */
 const MAX_RESPONSES = 10;
 /** count of responses added*/
@@ -50,6 +51,7 @@ let init = function(){
 	hasImage = false;
 	hasLink = false;
 	$select = $('.select');
+	$annadirRespuesta = ("#annadir-respuesta");
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();
 	$('.dropdown-create').dropdown();
@@ -178,6 +180,11 @@ let set_click_events = () =>{
 	$btn_create_entity.click(function(event){
 		event.preventDefault();
 		location.href = "/create_entity";
+	});
+
+	$annadirRespuesta.click(function(event){
+		event.preventDefault();
+		add_new_response();
 	});
 	
 	$btn_add_bot.click(function(event){
@@ -683,12 +690,13 @@ let checkType = () =>{
 * Insert a new block for type text response
 */
 let add_new_response = function (){
-	$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
+	/*$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
 	+'<div><input class="response validate input" id="input'+numResponses+'" type="text"><p class="span red-text"></p>'
 	+'<ul class="collection"></ul></div>'
 	+'<button class="btnAddVariant indigo btn-small waves-effect waves-light right"'
 	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button>'
-	+'<button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div></div>';
+	+'<button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div></div>';*/
+	$textResponse = '<div class="bloq type-text"> <h6 class="subtituloEntidad">Respuesta 1</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta "> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button> </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button> </div> </form> </div>';
 	if(checkNumResponses()){
 		if(hasImage)
 			$('.type-image').before($textResponse);
