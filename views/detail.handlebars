@@ -81,6 +81,7 @@
 					        {{/eq}}
 				    {{else}}
 					    <p class="nombreItemListado"> {{text}} </p>
+                        <hr class="separadorItems">
 				    {{/if}}
 
                 {{/each}}
@@ -125,11 +126,12 @@
                             </div>
                         </div>
                     {{/if}}
+                <hr class="separadorItems">
                 {{/each}}
             {{/each}}
         </div>
         <div class="flex-center divBotonesPequennos" >
-            <form action="/edit">
+            <form action="/edit" method="POST">
                 <input type="hidden" name="id" id="input-id" value="{{this.id}}">
                 <button type="submit" id="open-edit-intent" class="btn btn-secondary botonPequenno">Editar</button>
             </form>
