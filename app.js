@@ -798,7 +798,7 @@ app.post('/select',function(req,res,next){
 		res.send('/intents');
 })
 
-app.get('/validate', requiresLogin, function(req,res){
+app.get('/validate'/*, requiresLogin*/, function(req,res){
 	promise = new Promise(function(resolve, reject){
 		let user = req.body.user;
 		let password = req.body.password;
