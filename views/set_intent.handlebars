@@ -167,12 +167,12 @@
 						        <span>{{text}}</span>
 					        {{/eq}}
 				    {{else}}
-					    <input type="text" class="form-control" placeholder="Pregunta" value="{{text}}">
+					    <input type="text" class="form-control user input" placeholder="Pregunta" value="{{text}}">
 				    {{/if}}
 
                 {{/each}}
                  {{#if @index}}
-                    <button type="button" class="btn-delete-variant btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn-delete-variant btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
                  {{/if}}
                 
                 </div>
@@ -191,17 +191,17 @@
                 {{#if messages}}
                 {{#each messages}}
                     {{#if textToSpeech}}
-                         <div class="md-form divRespuesta ">
-                            <input type="text" class="form-control" placeholder="Respuesta" value="{{textToSpeech}}">
+                         <div class="md-form divRespuesta bloq type-text">
+                            <input type="text" class="form-control response" placeholder="Respuesta" value="{{textToSpeech}}">
                             {{#if @index}}
                                 <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
                             {{/if}}    
                          </div>
                     {{/if}}
                     {{#if items}}
-                        <div class="md-form divRespuesta ">
+                        <div class="md-form divRespuesta bloq type-text">
                             {{#each items}}
-                                <input type="text" class="form-control" placeholder="Respuesta" value="{{textToSpeech}}">
+                                <input type="text" class="form-control response" placeholder="Respuesta" value="{{textToSpeech}}">
                                 {{#if @index}}
                                     <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
                                 {{/if}}
@@ -209,15 +209,15 @@
                         </div>
                     {{/if}}
                     {{#if image}}
-                        <div class="md-form divRespuesta ">
-                            <input type="text" class="form-control" placeholder="Respuesta" value="{{image.url}}">
+                        <div class="md-form divRespuesta bloq type-image">
+                            <input type="text" class="form-control response" placeholder="Respuesta" value="{{image.url}}">
                             <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
                         </div>
                     {{/if}}
                     {{#if url}}
-                        <div class="md-form divRespuesta ">
-                            <input type="text" class="form-control" placeholder="Respuesta" value="{{destinationName}}">
-                            <input type="text" class="form-control" placeholder="Respuesta" value="{{url}}">
+                        <div class="md-form divRespuesta bloq type-link">
+                            <input type="text" class="form-control response" placeholder="Respuesta" value="{{destinationName}}">
+                            <input type="text" class="form-control url" placeholder="Respuesta" value="{{url}}">
                             <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
                         </div>
                     {{/if}}
