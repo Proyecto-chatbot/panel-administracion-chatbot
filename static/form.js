@@ -40,7 +40,7 @@ const MAX_RESPONSES = 10;
 let numResponses;
 
 let init = function(){
-	numResponses = 0;
+	numResponses = 1;
 	numLinks = 0;
 	$.post('/get_intents', function(res){
 		intents = res;
@@ -764,7 +764,7 @@ let add_new_link = function(title){
 let add_new_variant = ($btn)=>{
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	$before_botones.before('<div class="md-form divRespuesta "> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button> </div>');
+	$before_botones.before('<div class="md-form divRespuesta "> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-bloq"><i class="fa fa-trash"></i></button> </div>');
 	redeclare_input_search();
 	redeclarate_btn_delete_bloq();
 }
