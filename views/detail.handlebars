@@ -71,6 +71,7 @@
             <div class="card-body cardBodyListado d-flex flex-column" >
                 {{#each this.userSays }}
                 <div class="itemListado listaSinBoton">
+                {{#if data}}
                 {{#each data}}
              		{{#if meta}}
 					        {{#isnt meta "@sys.ignore" }}
@@ -81,12 +82,12 @@
 					        {{/eq}}
 				    {{else}}
 					    <p class="nombreItemListado"> {{text}} </p>
-                        <hr class="separadorItems">
 				    {{/if}}
 
                 {{/each}}
                 </div>
-
+                <hr class="separadorItems">
+                {{/if}}
             {{/each}}
             </div>
         </div>
@@ -94,6 +95,7 @@
             <h6 class="subtituloEntidad">Respuesta 1</h6>
             <hr class="hrTitulo">
              {{#each this.responses }}
+                {{#if messages}}
                 {{#each messages}}
                     {{#if textToSpeech}}
                         <div class="card-body cardBodyListado d-flex flex-column" >
@@ -128,6 +130,7 @@
                     {{/if}}
                 <hr class="separadorItems">
                 {{/each}}
+                {{/if}}
             {{/each}}
         </div>
         <div class="flex-center divBotonesPequennos" >
