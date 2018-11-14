@@ -54,7 +54,7 @@ let init = function(){
 	hasImage = false;
 	hasLink = false;
 	$select = $('.btn-respuesta');
-	$before_botones = $(".divRespuesta");
+	$before_botones = $(".divBoton");
 	$annadirRespuesta = $("#annadir-respuesta");
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();
@@ -767,7 +767,7 @@ let add_new_link = function(title){
 let add_new_variant = ($btn)=>{
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	$before_botones.after('<div class="md-form divRespuesta "> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-bloq"><i class="fa fa-trash"></i></button> </div>');
+	$before_botones.before('<div class="md-form divRespuesta "> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant"><i class="fa fa-trash"></i></button> </div>');
 	redeclare_input_search();
 	redeclarate_btn_delete_bloq();
 }
