@@ -88,9 +88,23 @@
                 </div>   
             </form>     
         </div>
-        <div class="card cardDetallesIntent cardResp cardRespuesta select">
-            
+        <div class="select">
+            <div class="card cardDetallesIntent cardResp cardRespuesta">
+                    <h6 class="subtituloEntidad">Respuesta 1</h6>
+                    <hr class="hrTitulo">
+                    <form class="form-inline md-form form-sm">
+                        <div class="md-form divRespuesta ">
+                            <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'">
+                            <button class="btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                        </div>
+                        <div class="divBoton">
+                                <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button>
+                            <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button>
+                        </div>   
+                    </form>
+            </div>
         </div>
+
 
         <div id="accordion" class="cardDetallesIntent cardResp opAvan">
                 <div class="card">
