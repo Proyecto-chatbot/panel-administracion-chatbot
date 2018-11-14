@@ -88,12 +88,13 @@
                 </div>   
             </form>     
         </div>
+        <div class="select">
             <div class="card cardDetallesIntent cardResp cardRespuesta">
-                    <h6 class="subtituloEntidad">Respuesta 1</h6>
+                    <h6 class="subtituloEntidad">Respuesta 0</h6>
                     <hr class="hrTitulo">
                     <form class="form-inline md-form form-sm">
-                        <div class="md-form divRespuesta">
-                            <input type="text" class="form-control response validate" placeholder="Respuesta" id="input0">
+                        <div class="md-form divRespuesta ">
+                            <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'">
                             <button class="btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
                         </div>
                         <div class="divBoton">
@@ -102,9 +103,10 @@
                         </div>   
                     </form>
             </div>
+        </div>
 
         <div class="flex-center divBotonesPequennos" >
-            <a href='#' id="annadir-respuesta"class="btn btn-indigo botonPequenno">Añadir Respuesta</a>
+            <a href='#' id="annadir-respuesta"class="btn btn-indigo botonPequenno">Añadir Respuesta</button>
         </div>
         <div class="flex-center divBotonesPequennos" >
             <button id="submit" name="submit" class="btn btn-warning botonPequenno">Cancelar</button>
