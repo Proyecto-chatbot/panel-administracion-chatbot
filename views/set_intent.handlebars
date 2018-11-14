@@ -172,7 +172,7 @@
 
                 {{/each}}
                  {{#if @index}}
-                    <button type="button" class="btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-sm btn-indigo botonBorrar btn-delete-variant"><i class="fa fa-trash"></i></button>
                  {{/if}}
                 
                 </div>
@@ -193,8 +193,10 @@
                     {{#if textToSpeech}}
                          <div class="md-form divRespuesta ">
                             <input type="text" class="form-control" placeholder="Respuesta" value="{{textToSpeech}}">
-                            <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
-                        </div>
+                            {{#if @index}}
+                                <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                            {{/if}}    
+                         </div>
                     {{/if}}
                     {{#if items}}
                         <div class="md-form divRespuesta ">
