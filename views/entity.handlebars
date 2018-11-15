@@ -29,3 +29,36 @@
     </div>
    <button class="right btn btn-primary red" id="btn-delete-entity"><i class="material-icons right">delete</i> ELIMINAR</button>
 </div>
+
+
+<div class="divTituloPagina"><h2 class="tituloPagina">Editar Entidad</h2></div>
+    <input id="id-entity" type="hidden" name="name" class="validate" value="{{ this.id }}">
+        <form class="form-inline md-form form-sm inputEditable" id="inputNombreEntidad">
+            <div class="md-form">
+                <h6 class="subtituloEntidad">Nombre de la entidad</h6>
+            <input id="name-entity" type="text" name="name" class="form-control validate" value="{{ this.name }}" placeholder="nombre">
+            </div>
+        </form>
+        <div class="card tarjeta divListadosSinonimos">
+            <h6 class="subtituloEntidad">Sinónimos</h6>
+            <form class="form-inline md-form form-sm" id="listaSinonimos">
+            {{#each this.entries }}
+                <div class="md-form divSinonimo">
+                <input class="synonym" name="sinonym" type="text" class="form-control validate" value="{{ value }}">
+                {{#if @index}}
+                    <button type="button" class="btn btn-sm btn-indigo botonBorrar btn-delete-synonym"><i class="fa fa-trash"></i></button>
+                {{/if}}
+                </div>
+	        {{/each}}
+            </form>  
+            <div class="flex-center divBotonesMedianos" >
+                    <button class="btn btn-indigo botonMediano" id="add-synonym" name="addSinonym">Añadir</button>
+                    <button class="btn btn-indigo botonMediano" type="submit" id="btn-edit-entity" name="submit">Enviar</button> 
+            </div> 
+        </div>
+        <div class="flex-center divBotonesPequennos" >
+            <button id="btn-delete-entity" class="btn btn-danger botonPequenno">Borrar</button>
+            <form action="/entities">
+                <button type="button" class="btn btn-warning botonPequenno">Volver</button> 
+            </form>
+        </div>

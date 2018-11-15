@@ -863,11 +863,11 @@ app.get('/entities', requiresLogin,get_entities,requiresToken, function(req,res,
 });
 app.get('/create',requiresLogin,requiresToken,function(req,res,next){
 	let user = {"this": {'userlog': req.session.username}};
-	res.render('new_intent', user);
+	res.render('new_intent', /*user*/);
 });
 app.get('/create_gif',requiresLogin,requiresToken,function(req,res,next){
 	let user = {"this": {'userlog': req.session.username}};
-	res.render('new_gif', user);
+	res.render('new_gif', /*user*/);
 });
 app.get('/create_entity',requiresLogin,requiresToken,function(req,res,next){
 	//let user = {"this": {'userlog': req.session.username}};
