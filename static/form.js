@@ -34,6 +34,7 @@ let intents;
 let entitiesNames;
 let $annadirRespuesta;
 let $before_botones;
+let $btn_edit_entity;
 /** Max of available responses */
 const MAX_RESPONSES = 10;
 /** count of responses added*/
@@ -68,6 +69,7 @@ let init = function(){
 	$btn_delete_entity = $('#btn-delete-entity');
 	$btn_add_question = $("#addUserText");
 	$btnAddSynonym = $("#add-synonym");
+	$btn_edit_entity = $("#edit-synonym");
 	$btnDeny = $(".deny");
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
@@ -203,6 +205,11 @@ let set_click_events = () =>{
 	$btnAddSynonym.click(function(event){
 		event.preventDefault();
 		add_new_synonym();
+	});
+
+	$btn_edit_entity.click(function(event){
+		event.preventDefault();
+		edit_new_synonym();
 	});
 
 	$btn_delete_intent.click(function(){
@@ -780,6 +787,12 @@ let add_new_synonym =()=>{
 	+'<button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');*/
 	$btnAddSynonym.before('<div class="md-form synonym_block"> <input type="text" class="form-control inputSinonimo synonym validate" name="synonym"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-synonym"><i class="fa fa-trash"></i></button> </div>');
 	redeclarate_btn_delete_synonym();
+}
+
+/**The same that add new synonym but for edit */
+let edit_new_synonym = () => {
+	$(".before").before('<div class="md-form synonym_block"> <input type="text" class="form-control inputSinonimo synonym validate" name="synonym"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-synonym"><i class="fa fa-trash"></i></button> </div>');
+	redeclarate_btn_delete_synonym();	
 }
 /**
 * Check that the number of answers is less than the maximum number of responses allowed
