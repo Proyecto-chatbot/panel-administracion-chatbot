@@ -500,7 +500,7 @@ let edit_intent = function(){
 			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 		else
 			$.post('/new_intent',data, function(res){
-				location.href = res;
+				location.href = '/:id';
 		});
 	}
 	else if(responses.length == 0)
@@ -511,7 +511,7 @@ let edit_intent = function(){
 		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 	else
 		$.post('/update',data, function(res){
-			location.href = res;
+			location.href = ':id';
 		});
 }
  
