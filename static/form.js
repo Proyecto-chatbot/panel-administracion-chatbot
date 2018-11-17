@@ -126,7 +126,7 @@ let init = function(){
 	});
 	$('.user').blur(checkGifInputs);
 	$('#first-question').blur(function(){
-		msg_error_user = $(this).val()== 'No se puede crear un intent sin frases de usuario' ? '' :
+		msg_error_user = $(this).val()== '' ? 'No se puede crear un intent sin frases de usuario' : '';
 		$('#err-user').html(msg_error_user);
 	});
 	$('#input-tag').blur(checkGifTag);
