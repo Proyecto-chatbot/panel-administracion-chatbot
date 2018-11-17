@@ -42,7 +42,7 @@ let numResponses;
 let numRespuestas;
 
 let init = function(){
-	numResponses = 0;
+	numResponses = 1;
 	numRespuestas = 1;
 	numLinks = 0;
 	$.post('/get_intents', function(res){
@@ -447,7 +447,7 @@ let edit_intent = function(){
 		}
 		//responses = $(this).children('div').children('.response');
 		responses = $(".response");
-		
+		console.log(responses.length);
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
@@ -455,6 +455,7 @@ let edit_intent = function(){
 				if(search_parameter(str)){
 					str = $(this).val().replace('#','$');
 				}
+				console.log(str);
 				text.push(str);
 			});
 		}else if(responses.length == 1){
@@ -462,14 +463,14 @@ let edit_intent = function(){
 			if(search_parameter(str)){
 				str =responses.val().replace('#','$');
 			}
+			console.log(str);
 			text = str;
 		}
 		if(type == 'link'){
 			url = $(this).children('div').children('.url').val();
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
-		else
-			botSays.push({ 'type': type, 'text': text});
+		else botSays.push({ 'type': type, 'text': text});
 
 	});
 	data = {
@@ -631,7 +632,7 @@ let redeclarate_btn_delete_bloq = () =>{
 	$btnDeleteBloq.click(function(event){
 
 		event.preventDefault();
-		numResponses--;
+		if(numResponses > 1) numResponses--;
 		checkNumResponses();
 		$(this).parent('div').remove();
 	})
@@ -661,7 +662,7 @@ let redeclarate_btn_delete_synonym = () =>{
 */
 let add_new_input = ($input)=>{
 	//$input.before('<div><input class="input user validate" name="user" type="text" ><p class="span red-text"></p><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	$input.before('<div class="md-form divPregunta "> <input type="text" class="form-control validate user" placeholder="Pregunta" id="first-question" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant"><i class="fa fa-trash"></i></button> </div>');
+	$input.before('<div class="md-form divPregunta "> <input type="text" class="form-control validate user" placeholder="Pregunta" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant"><i class="fa fa-trash"></i></button> </div>');
 	redeclarate_btn_delete();
 	redeclare_input_search();
 }
