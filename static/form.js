@@ -215,7 +215,7 @@ let set_click_events = () =>{
 	$btn_delete_intent.click(function(){
 		intent_id = $("#input-id").val();
 		$.post('/delete',{id : intent_id}, function(res){
-			location.href = res;
+			location.href = '/intents';
 		});
 	});
 	$('#btn-login').click(login);
