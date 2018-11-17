@@ -74,6 +74,7 @@
                 <h6 class="subtituloEntidad">Nombre del Intent</h6>
                 <input type="text" id="name" class="form-control validate" placeholder="Nombre" name="name" >
             </div>
+        <p id="err-name" class="red-text"></p>
         </form>
         <input type="hidden" id="input-id" value={{this.id}}>
         <div class="card cardDetallesIntent cardPreguntasUsuario">
@@ -86,7 +87,8 @@
                 <div class="divBoton">
                     <button type="button" class="btn btn-indigo botonMediano"  id="addUserText" name="addUserText">Añadir</button>
                 </div>   
-            </form>     
+            </form>
+            <p id="err-user" class="red-text"></p>     
         </div>
             <div class="card cardDetallesIntent cardResp cardRespuesta">
                     <h6 class="subtituloEntidad">Respuesta</h6>
@@ -100,6 +102,7 @@
                                 <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button>
                         </div>   
                     </form>
+                    <p id="err" class="red-text"></p>
             </div>
 
         <!--<div class="flex-center divBotonesPequennos btn-respuesta" >
