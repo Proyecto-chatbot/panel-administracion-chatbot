@@ -40,7 +40,7 @@
                     <div class="botonesMenuLateral"><i class="fa fa-robot opcionIcono"></i><p class="opcionNombre"><a href="/">Bots</p></a></div>
                     <div class="botonesMenuLateral"><i class="fa fa-user opcionIcono"></i><p class="opcionNombre"><a href="/validate">Usuarios</p></a></div>
                      {{#each this}}
-                        {{#if userlog}}
+                        {{#if token}}
                             <div id="divLog" class="botonesMenuLateral"><i class="fa fa-sign-out-alt opcionIcono"></i><p class="opcionNombre">Logout</p></div>
                         {{/if}}
                     {{/each}}

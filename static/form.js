@@ -790,7 +790,7 @@ let add_new_synonym =()=>{
 
 /**The same that add new synonym but for edit */
 let edit_new_synonym = () => {
-	$(".before").before('<div class="md-form divSinonimo"> <input class="synonym" name="sinonym" type="text" class="form-control validate" value="{{ value }}">  <button type="button" class="btn btn-sm btn-indigo botonBorrar btn-delete-synonym"><i class="fa fa-trash"></i></button>  </div>');
+	$(".before").before('<div class="md-form divSinonimo"> <input class="synonym" name="sinonym" type="text" class="form-control validate" value="">  <button type="button" class="btn btn-sm btn-indigo botonBorrar btn-delete-synonym"><i class="fa fa-trash"></i></button>  </div>');
 	redeclarate_btn_delete_synonym();	
 }
 /**
