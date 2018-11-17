@@ -447,7 +447,6 @@ let edit_intent = function(){
 		}
 		//responses = $(this).children('div').children('.response');
 		responses = $(".response");
-		console.log(responses.length);
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
@@ -455,7 +454,6 @@ let edit_intent = function(){
 				if(search_parameter(str)){
 					str = $(this).val().replace('#','$');
 				}
-				console.log(str);
 				text.push(str);
 			});
 		}else if(responses.length == 1){
@@ -463,7 +461,6 @@ let edit_intent = function(){
 			if(search_parameter(str)){
 				str =responses.val().replace('#','$');
 			}
-			console.log(str);
 			text = str;
 		}
 		if(type == 'link'){
@@ -845,6 +842,7 @@ let send_intent = ()=>{
 		userSays = input_user.val();
 	}
 	$('.bloq').each(function(){
+
 		if($(this).hasClass('type-text')){
 			type = 'text';
 		}
@@ -854,8 +852,9 @@ let send_intent = ()=>{
 		if($(this).hasClass('type-link')){
 			type = 'link';
 		}
-		responses = $(this).children('div').children('.response');
 
+		//responses = $(this).children('div').children('.response');
+		responses = $('.response');
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
