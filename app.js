@@ -662,7 +662,7 @@ put_entity = (req,res,next)=>{
 // Next, express is listening the diferent get/post requests from our panel
 app.get('/display',requiresLogin,function(req,res,next){
 	let user = {'userlog': req.session.username};
-	res.render('display', user);
+	res.render('display',/* user*/);
 })
 app.post('/new_entity', function(req, res, next){
 	post_entity(req, res);
@@ -688,7 +688,7 @@ app.get('/',requiresLogin, function(req, res, next){
 						return JSON.parse(element);
 					});
 					map= keys.map( function(x, i){
-						return {"name": x, "token": data[i].token, 'userlog': req.session.username};
+						return {"name": x, "token": data[i].token, /*'userlog': req.session.username*/};
 					}.bind(this));
 					resolve(bot_list = map);
 				}
@@ -783,7 +783,7 @@ app.post('/login', function(req,res){
 
 app.get('/add',requiresLogin, function(req, res){
 	let user = {"this": {'userlog': req.session.username}};
-	res.render('add_agent', user);
+	res.render('add_agent',/* user*/);
 });
 app.post('/add',function(req,res,next){
 	name = req.body.name;
@@ -815,7 +815,7 @@ app.get('/validate', requiresLogin, function(req,res){
 					return JSON.parse(element);
 				});
 				map= keys.map( function(x, i){
-					return {"user": x, "passwd": data[i].password, "valido": data[i].valido, 'userlog': req.session.username};
+					return {"user": x, "passwd": data[i].password, "valido": data[i].valido, /*'userlog': req.session.username*/};
 				}.bind(this));
 				resolve(users_list = map);
 			});
