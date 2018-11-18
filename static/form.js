@@ -643,6 +643,7 @@ let redeclarate_btn_delete_bloq = () =>{
 let redeclarate_btn_delete = () =>{
 	$btnDeleteVariant = $('.btn-delete-variant');
 	$btnDeleteVariant.click(function(event){
+		console.log($(this));
 		event.preventDefault();
 		$(this).parent('div').remove();
 	});
@@ -661,7 +662,6 @@ let redeclarate_btn_delete_synonym = () =>{
 * Insert a new input for user says
 */
 let add_new_input = ($input)=>{
-	console.log($input);
 	//$input.before('<div><input class="input user validate" name="user" type="text" ><p class="span red-text"></p><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	$(".btnPregunta").before('<div class="md-form divPregunta "> <input type="text" class="form-control validate user" placeholder="Pregunta" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
 	redeclarate_btn_delete();
@@ -779,7 +779,7 @@ let add_new_link = function(title){
 let add_new_variant = ($btn)=>{
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	$before_botones.before('<div class="md-form divRespuesta "> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button type="button" class="btn btn-sm btn-indigo botonBorrar btn-delete-variant"><i class="fa fa-trash"></i></button> </div>');
+	$before_botones.before('<div class="md-form divRespuesta "> <input type="text" class="form-control response validate" placeholder="Respuesta" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
 	redeclare_input_search();
 	redeclarate_btn_delete_bloq();
 }
