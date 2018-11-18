@@ -29,8 +29,9 @@
                         <div id="divUsuario">
                             <i class="fa fa-user-circle logoUsuario"></i>
                             {{#each this}}
-                                {{#if user}}
-                                <p id="nombreUsuario"><b>{{user}}</b> </p> 
+                                <u>---</u>
+                                {{#if name}}
+                                <p id="nombreUsuario"><b>{{name}}</b> </p> 
                                 {{/if}}
                             {{/each}}
                         </div>
