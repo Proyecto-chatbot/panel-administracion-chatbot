@@ -191,7 +191,7 @@ let set_click_events = () =>{
 	$annadirRespuesta.click(function(event){
 		event.preventDefault();
 		console.log(this.name);
-		add_new_block();
+		add_new_block(this.name);
 	});
 	
 	$btn_add_bot.click(function(event){
@@ -668,7 +668,7 @@ let add_new_input = ($input)=>{
 * Insert a new block for bot response
 */
 let add_new_block = (name) =>{
-	console.log(this.name);
+
 	switch(this.name){
 		case 'type-text': add_new_response(); break;
 		case 'type-gif': add_new_image("Imagen/Gif");break;
