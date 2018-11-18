@@ -190,7 +190,7 @@ let set_click_events = () =>{
 
 	$annadirRespuesta.click(function(event){
 		event.preventDefault();
-		add_new_response();
+		add_new_block();
 	});
 	
 	$btn_add_bot.click(function(event){
@@ -666,7 +666,7 @@ let add_new_input = ($input)=>{
 /**
 * Insert a new block for bot response
 */
-/*let add_new_block = (name) =>{
+let add_new_block = (name) =>{
 	switch(name){
 		case 'type-text': add_new_response(); break;
 		case 'type-gif': add_new_image("Imagen/Gif");break;
@@ -677,7 +677,7 @@ let add_new_input = ($input)=>{
 	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
 	$('#err').html('');
-}*/
+}
 /**
  *
  */
