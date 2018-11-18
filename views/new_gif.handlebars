@@ -1,4 +1,4 @@
-<div id="body-wrapper" class="container center-align">
+<!--<div id="body-wrapper" class="container center-align">
     <div class="card p5 card-create">
     <h5>Crear un nuevo Intent: Gif Aleatorio</h5>
     <div class="row ">
@@ -32,5 +32,46 @@
         </button>
     </div>
 </div>
-</div>
+</div>-->
+
+
+
+
+
+<div class="divTituloPagina"><h2 class="tituloPagina">Intent: GIF Aleatorio</h2></div>
+        <form class="form-inline md-form form-sm inputEditable" id="inputNombreEntidad">
+            <div class="md-form">
+                <h6 class="subtituloEntidad">Nombre del Intent</h6>
+                <input type="text" id="name" class="form-control validate" placeholder="Nombre">
+            </div>
+        </form>
+        <div class="card cardDetallesIntent cardPreguntasUsuario">
+            <h6 class="subtituloEntidad">Preguntas del usuario</h6>
+            <hr class="hrTitulo">
+            <form class="form-inline md-form form-sm">
+                <div class="md-form divPregunta ">
+                    <input type="text" class="form-control user input" name="user" placeholder="Pregunta">
+                </div>
+                <div class="divBoton">
+                    <button type="button" id="addUserText" name="addUserText" class="btn btn-indigo botonMediano">Añadir</button>
+                </div>   
+            </form>     
+        </div>
+        <div class="card cardDetallesIntent cardResp cardRespuesta">
+            <h6 class="subtituloEntidad">Palabras Clave</h6>
+            <hr class="hrTitulo">
+            <form class="form-inline md-form form-sm">
+                <div class="md-form divPalabrasClave ">
+                    <input type="text" class="form-control tag_gif validate" name="tag_gif" id="input-tag" placeholder="Respuesta">
+                    <p id="err-tag" class="red-text"></p>
+                </div>  
+            </form>
+        </div>
+
+        <div class="flex-center divBotonesPequennos">
+            <form action="/intents">
+                <button class="btn btn-warning botonPequenno">Cancelar</button>
+            </form>
+            <button type="submit" id="send_new_gif" name="send_new_gif" class="btn btn-indigo botonPequenno">Guardar</button> 
+        </div>
 
