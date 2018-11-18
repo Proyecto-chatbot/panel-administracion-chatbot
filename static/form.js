@@ -633,7 +633,7 @@ let redeclarate_btn_delete_bloq = () =>{
 		event.preventDefault();
 		if(numResponses > 1) numResponses--;
 		checkNumResponses();
-		$(this).parent('.cardRespuesta').remove();
+		$(this).parent('div').parent('div').remove();
 	})
 }
 /**
