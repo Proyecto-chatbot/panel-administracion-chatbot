@@ -667,7 +667,7 @@ let add_new_input = ($input)=>{
 * Insert a new block for bot response
 */
 let add_new_block = (name) =>{
-	console.log(name);
+	console.log(this);
 	switch(name){
 		case 'type-text': add_new_response(); break;
 		case 'type-gif': add_new_image("Imagen/Gif");break;
