@@ -643,7 +643,7 @@ let redeclarate_btn_delete = () =>{
 	$btnDeleteVariant = $('.btn-delete-variant');
 	$btnDeleteVariant.click(function(event){
 		event.preventDefault();
-		$(this).parent('div').remove();
+		$(this).parent('.cardRespuesta').remove();
 	})
 }
 /**
