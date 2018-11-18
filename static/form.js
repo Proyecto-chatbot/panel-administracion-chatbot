@@ -56,7 +56,7 @@ let init = function(){
 	hasLink = false;
 	$select = $('.btn-respuesta');
 	$before_botones = $(".btns");
-	$annadirRespuesta = $("#annadir-respuesta");
+	$annadirRespuesta = $(".addRespuesta");
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();
 	$('.dropdown-create').dropdown();
