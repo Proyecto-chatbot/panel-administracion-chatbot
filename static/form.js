@@ -781,7 +781,7 @@ let add_new_variant = ($btn)=>{
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	$before_botones.before('<div class="md-form divRespuesta"> <input type="text" class="form-control response validate" placeholder="Respuesta" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
 	redeclare_input_search();
-	redeclarate_btn_delete_bloq();
+	redeclarate_btn_delete();
 }
 /**
  * Insert a new synonym
