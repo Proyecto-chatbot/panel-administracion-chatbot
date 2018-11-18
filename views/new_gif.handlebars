@@ -42,7 +42,8 @@
         <form class="form-inline md-form form-sm inputEditable" id="inputNombreEntidad">
             <div class="md-form">
                 <h6 class="subtituloEntidad">Nombre del Intent</h6>
-                <input type="text" id="name" class="form-control validate" placeholder="Nombre">
+                <input type="text" id="name" name="name" class="form-control validate" placeholder="Nombre">
+                <p id="err-name" class="red-text"></p>
             </div>
         </form>
         <div class="card cardDetallesIntent cardPreguntasUsuario">
@@ -51,6 +52,7 @@
             <form class="form-inline md-form form-sm">
                 <div class="md-form divPregunta ">
                     <input type="text" class="form-control user input" name="user" placeholder="Pregunta">
+                    <p class="red-text" id="err-user"></p>
                 </div>
                 <div class="divBoton">
                     <button type="button" id="addUserText" name="addUserText" class="btn btn-indigo botonMediano">Añadir</button>
