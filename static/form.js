@@ -630,7 +630,7 @@ let redeclarate_btn_delete_bloq = () =>{
 	$btnDeleteBloq = $('.btn-delete-bloq');
 	$btnDeleteBloq.click(function(event){
 		event.preventDefault();
-		if(numResponses > 1) numResponses--;
+		if(numRespuestas > 1) numRespuestas--;
 		checkNumResponses();
 		console.log($(this));
 		console.log($(this).parent('div').parent('form').parent('div'));
@@ -711,7 +711,7 @@ let add_new_response = function (){
 	+'<button class="btnAddVariant indigo btn-small waves-effect waves-light right"'
 	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button>'
 	+'<button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div></div>';*/
-	$textResponse = '<div class="card cardDetallesIntent cardResp cardRespuesta"> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta bloq type-text"> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button> </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button> </div> </form> </div>';
+	$textResponse = '<div class="card cardDetallesIntent cardResp cardRespuesta"> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta bloq type-text"> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"></div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button> </div> </form> </div>';
 	if(checkNumResponses()){
 		if(hasImage)
 			$('.type-image').before($textResponse);
