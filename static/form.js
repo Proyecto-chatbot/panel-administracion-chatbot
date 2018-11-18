@@ -109,7 +109,7 @@ let init = function(){
 		}
 		if(checkValidGif())
 			$.post('/edit_gif_intent',data, function(res){
-				location.href = res;
+				location.href = '/intents';
 			});
 		else
 			setTimeout(function(){$('#name').focus()},200)
