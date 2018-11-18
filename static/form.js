@@ -629,11 +629,12 @@ let search = (word, ulParent) =>{
 let redeclarate_btn_delete_bloq = () =>{
 	$btnDeleteBloq = $('.btn-delete-bloq');
 	$btnDeleteBloq.click(function(event){
-
 		event.preventDefault();
 		if(numResponses > 1) numResponses--;
 		checkNumResponses();
-		$(this).parent('div').parent('div').remove();
+		console.log($(this));
+		console.log($(this).parent('div').parent('form').parent('div'));
+		$(this).parent().parent().parent().remove();
 	})
 }
 /**
