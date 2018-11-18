@@ -106,7 +106,12 @@
             </div>
 
         <div class="flex-center divBotonesPequennos btn-respuesta select input-field">
-            <a href='#' class="btn btn-indigo botonPequenno dropdown-trigger" data-target='dropdown'>Añadir Respuesta</a>
+            <h5 class="subtituloEntidad">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        Añadir Respuesta</button>
+            </h5>
+            <div id="collapsTwo" class="collapse bodyOpAvan" aria-labelledby="headingTwo" data-parent="#accordion">
+            <!--<a href='#' class="btn btn-indigo botonPequenno dropdown-trigger" data-target='dropdown'>Añadir Respuesta</a>-->
             <ul id='dropdown' class='dropdown-content'>
                 <li>
                     <a class="text-li indigo-text" name="type-text">Texto</a>
@@ -124,6 +129,7 @@
                     <a class="link-li indigo-text" name="type-document">Documento</a>
                 </li>
             </ul>
+            </div>
         </div>
         <div class="flex-center divBotonesPequennos" >
             <form action="/intents">
@@ -133,21 +139,21 @@
         </div>
 
         <div id="accordion" class="cardDetallesIntent cardResp opAvan">
-                <div class="card">
-                  <div class="card-header" id="headingOne">
+            <div class="card">
+                <div class="card-header" id="headingOne">
                     <h5 class="subtituloEntidad">
-                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Opciones Avanzadas</button>
                     </h5>
-                  </div>
-                  <div id="collapseOne" class="collapse bodyOpAvan" aria-labelledby="headingOne" data-parent="#accordion">
-                    <form class="d-flex flex-column align-items-center formOpAvan"> 
+                </div>
+                <div id="collapseOne" class="collapse bodyOpAvan" aria-labelledby="headingOne" data-parent="#accordion">
+                   <form class="d-flex flex-column align-items-center formOpAvan"> 
                         <div class="md-form">
                             <input type="text" id="contextIn" class="form-control" placeholder="Cont. Entrada">
                             <input type="text" id="contextOut" class="form-control" placeholder="Cont. Salida">
                         </div>
                     </form>
-                  </div>
                 </div>
-              </div>
+            </div>
+        </div>
 
