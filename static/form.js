@@ -633,7 +633,7 @@ let redeclarate_btn_delete_bloq = () =>{
 		event.preventDefault();
 		if(numResponses > 1) numResponses--;
 		checkNumResponses();
-		$(this).parent('div').remove();
+		$(this).parent('.cardRespuesta').remove();
 	})
 }
 /**
@@ -643,7 +643,7 @@ let redeclarate_btn_delete = () =>{
 	$btnDeleteVariant = $('.btn-delete-variant');
 	$btnDeleteVariant.click(function(event){
 		event.preventDefault();
-		$(this).parent('.cardRespuesta').remove();
+		$(this).parent('div').remove();
 	})
 }
 /**
@@ -669,7 +669,7 @@ let add_new_input = ($input)=>{
 * Insert a new block for bot response
 */
 let add_new_block = (name) =>{
-	
+
 	switch(name){
 		case 'type-text': add_new_response(); break;
 		case 'type-gif': add_new_image("Imagen/Gif");break;
