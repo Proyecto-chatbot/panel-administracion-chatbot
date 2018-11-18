@@ -28,10 +28,9 @@
                         <div id="iconoMenuLateral"><i id="botonCancelar" class="fa fa-times"></i></div>
                         <div id="divUsuario">
                             <i class="fa fa-user-circle logoUsuario"></i>
-                            <input type="hidden" name="hidden" value="{{this.token}}">
                             {{#each this}}
-                                {{#if userlog}}
-                                <p id="nombreUsuario"><b>{{userlog}}</b> </p> 
+                                {{#if user}}
+                                <p id="nombreUsuario"><b>{{user}}</b> </p> 
                                 {{/if}}
                             {{/each}}
                         </div>
