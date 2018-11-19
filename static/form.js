@@ -879,8 +879,7 @@ let send_intent = ()=>{
 			url = $(this).children('div').children('.url').val();
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
-		else
-			botSays.push({ 'type': type, 'text': text});
+		else botSays.push({ 'type': type, 'text': text});
 
 	});
 	data = {
