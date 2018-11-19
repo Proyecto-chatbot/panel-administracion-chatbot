@@ -760,7 +760,7 @@ let add_new_link = function(title){
 		+ title + '</p><input class="response" id="linkResponse'+numLinks+'" type="text" class="validate">'
 		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-bloq left btn btn-primary indigo">'
 		+'Borrar respuesta</button></div></div>');*/
-		$select.before('<div class="card cardDetallesIntent cardResp cardRespuesta bloq type-link"> <input type="hidden" name="hidden" value="'+numRespuestas+'"/> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta bloq text-image"> <input type="text" class="form-control response validate" placeholder="Respuesta Documento" id="linkResponse'+numLinks+'"> <input class="url" id="linkUrl" type="text" class="form-control validate" placeholder="Respuesta Link> </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> </div> </form> </div>');
+		$select.before('<div class="card cardDetallesIntent cardResp cardRespuesta bloq type-link"> <input type="hidden" name="hidden" value="'+numRespuestas+'"/> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta"> <input type="text" class="form-control response validate" placeholder="Respuesta Documento" id="linkResponse'+numLinks+'"> <input class="url" id="linkUrl" type="text" class="form-control validate" placeholder="Respuesta Link> </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> </div> </form> </div>');
 		setTimeout(function(){
 			$("#linkResponse"+numLinks).focus();
 			numResponses++;
