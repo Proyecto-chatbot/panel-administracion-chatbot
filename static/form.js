@@ -902,9 +902,10 @@ let send_intent = ()=>{
 			input_user.focus();
 	}
 	else if($.isArray(data.user)){
-		if( data.user.filter(word => word != "").length == 0)
+		if( data.user.filter(word => word != "").length == 0){
 			$('#err-user').html('No se puede crear un intent sin frases de usuario');
-		else if(responses.length == 0)
+			input_user.focus();
+		}else if(responses.length == 0)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
 		else if( hasText() == false)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
