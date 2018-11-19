@@ -215,7 +215,7 @@
                             <form class="form-inline md-form form-sm">
                                 {{#each items}}
                                     <div class="md-form divRespuesta">
-                                        <input type="text" class="form-control response" placeholder="Respuesta" value="{{textToSpeech}}">
+                                        <input type="text" class="form-control response validate" placeholder="Respuesta" value="{{textToSpeech}}">
                                         {{#if @index}}
                                             <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
                                         {{/if}}
@@ -300,7 +300,7 @@
                     <div id="collapseOne" class="collapse bodyOpAvan" aria-labelledby="headingOne" data-parent="#accordion">
                         <form class="d-flex flex-column align-items-center formOpAvan"> 
                             <div class="md-form">
-                                <input type="text" id="#contextIn" class="form-control" value="{{ this.contexts }}">
+                                <input type="text" id="contextIn" class="form-control" value="{{ this.contexts }}">
                                 <input type="text" id="contextOut" class="form-control" value="{{ this.responses.0.affectedContexts.0.name }}">
                             </div>
                         </form>
