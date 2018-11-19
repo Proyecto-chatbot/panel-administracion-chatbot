@@ -33,7 +33,6 @@ let $btnDeleteVariant;
 let intents;
 let entitiesNames;
 let $annadirRespuesta;
-let $before_botones;
 let $btn_edit_entity;
 /** Max of available responses */
 const MAX_RESPONSES = 10;
@@ -55,7 +54,6 @@ let init = function(){
 	hasImage = false;
 	hasLink = false;
 	$select = $('.btn-respuesta');
-	$before_botones = $(".btnRespuesta");
 	$annadirRespuesta = $(".addRespuesta");
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();
@@ -779,11 +777,11 @@ let add_new_link = function(title){
  * Insert a new variant for text response
  */
 let add_new_variant = ($btn)=>{
-	$before = $('.' + $before_botones + $btn);
+	$before = $('.btnRespuesta' + $btn);
 	console.log($before);
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	$before_botones.before('<div class="md-form divRespuesta"> <input type="text" class="form-control response validate" placeholder="Respuesta" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
+	$before.before('<div class="md-form divRespuesta"> <input type="text" class="form-control response validate" placeholder="Respuesta" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
 	redeclare_input_search();
 	redeclarate_btn_delete();
 }
