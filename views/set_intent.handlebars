@@ -251,6 +251,13 @@
         </div>
         <p id="err" class="red-text"></p>
 
+        <div class="flex-center divBotonesPequennos" >
+            <form action="/{{this.id}}">
+                <button class="btn btn-warning botonPequenno">Cancelar</button>
+            </form>
+            <button type="submit" id="btn_edit_intent" name="btn_edit_intent" class="btn btn-indigo botonPequenno">Guardar</button> 
+        </div>
+
             <div id="accordion" class="cardDetallesIntent cardResp opAvan">
                 <div class="card">
                     <div class="card-header" id="headingOne">
@@ -269,10 +276,3 @@
                     </div>
                 </div>
             </div>
-        
-        <div class="flex-center divBotonesPequennos" >
-            <form action="/{{this.id}}">
-                <button class="btn btn-warning botonPequenno">Cancelar</button>
-            </form>
-            <button type="submit" id="btn_edit_intent" name="btn_edit_intent" class="btn btn-indigo botonPequenno">Guardar</button> 
-        </div>
