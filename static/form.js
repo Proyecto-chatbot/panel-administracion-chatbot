@@ -189,7 +189,6 @@ let set_click_events = () =>{
 	$annadirRespuesta.click(function(event){
 		event.preventDefault();
 		let name = this.name;
-		console.log($(this).prop('name'));
 		add_new_block(name);
 	});
 	
