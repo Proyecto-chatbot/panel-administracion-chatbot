@@ -107,12 +107,15 @@
                         </div>
                         {{/if}}
                         {{#if items}}
+                        {{#if item}}
+                        <u></u>
+                        {{/if}}
                         <div class="card cardDetallesIntent cardResp">
-                            <h6 class="subtituloEntidad">Respuesta Texto</h6>
+                            <h6 class="subtituloEntidad">Respuestas de Texto</h6>
                             <hr class="hrTitulo">
                                 <div class="card-body cardBodyListado d-flex flex-column" >
                                     <div class="itemListado listaSinBoton">
-                                        {{#each textToSpeech}}
+                                        {{#each items}}
                                             <p class="nombreItemListado">{{textToSpeech}}</p>
                                         {{/if}}
                                     </div>
