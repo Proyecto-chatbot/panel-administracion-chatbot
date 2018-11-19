@@ -232,6 +232,25 @@
             </form>
         </div>
 
+        <div class="flex-center divBotonesPequennos btn-respuesta" id="accordion2">
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="subtituloEntidad">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Añadir Respuesta</button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse bodyOpAvan" aria-labelledby="headingTwo" data-parent="#accordion2">
+                    <div class="md-form">
+                        <button type="button" class="text-li indigo-text addRespuesta form-control btn btn-indigo" name="type-text">Texto</button>
+                        <button type="button" class="image-li indigo-text addRespuesta form-control btn btn-indigo" name="type-image">Imagen/Gif</button>
+                        <button type="button" class="link-li indigo-text addRespuesta form-control btn btn-indigo" name="type-link">Enlace/Documento</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p id="err" class="red-text"></p>
+
             <div id="accordion" class="cardDetallesIntent cardResp opAvan">
                 <div class="card">
                     <div class="card-header" id="headingOne">
@@ -251,24 +270,6 @@
                 </div>
             </div>
         
-        <div class="flex-center divBotonesPequennos btn-respuesta" id="accordion2">
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="subtituloEntidad">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                Añadir Respuesta</button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse bodyOpAvan" aria-labelledby="headingTwo" data-parent="#accordion2">
-                    <div class="md-form">
-                        <button type="button" class="text-li indigo-text addRespuesta form-control btn btn-indigo" name="type-text">Texto</button>
-                        <button type="button" class="image-li indigo-text addRespuesta form-control btn btn-indigo" name="type-image">Imagen/Gif</button>
-                        <button type="button" class="link-li indigo-text addRespuesta form-control btn btn-indigo" name="type-link">Enlace/Documento</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <p id="err" class="red-text"></p>
         <div class="flex-center divBotonesPequennos" >
             <form action="/{{this.id}}">
                 <button class="btn btn-warning botonPequenno">Cancelar</button>

@@ -106,14 +106,14 @@
                         <hr class="separadorItems">
                     {{/if}}
                     {{#if items}}
+                        {{#each items}}
                         <div class="card-body cardBodyListado d-flex flex-column" >
                             <div class="itemListado listaSinBoton">
-                                {{#each items}}
-                                   <p class="nombreItemListado">{{textToSpeech}}</p>
-                                {{/each}}
+                                <p class="nombreItemListado">{{textToSpeech}}</p>
                             </div>
                         </div>
                         <hr class="separadorItems">
+                        {{/each}}
                     {{/if}}
                     {{#if image}}
                         <div class="card-body cardBodyListado d-flex flex-column" >
