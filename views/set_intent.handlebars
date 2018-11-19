@@ -184,44 +184,64 @@
                 </div>   
             </form>     
         </div>
-        <div class="card cardDetallesIntent cardResp cardRespuesta">
-            <h6 class="subtituloEntidad">Respuesta 1</h6>
-            <hr class="hrTitulo">
-            <form class="form-inline md-form form-sm">
 
-                 {{#each this.responses }}
-                {{#if messages}}
+        {{#each this.responses }}
+            {{#if messages}}
                 {{#each messages}}
                     {{#if textToSpeech}}
-                         <div class="md-form divRespuesta bloq type-text">
-                            <input type="text" class="form-control response" placeholder="Respuesta" value="{{textToSpeech}}">
-                            {{#if @index}}
-                                <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
-                            {{/if}}    
-                         </div>
+                        <div class="card cardDetallesIntent cardResp cardRespuesta">
+                            <h6 class="subtituloEntidad">Respuesta 1</h6>
+                            <hr class="hrTitulo">
+                            <form class="form-inline md-form form-sm">
+                                <div class="md-form divRespuesta bloq type-text">
+                                    <input type="text" class="form-control response" placeholder="Respuesta" value="{{textToSpeech}}">
+                                    {{#if @index}}
+                                        <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                                    {{/if}}    
+                                </div>
+                            </form>
+                        </div>
                     {{/if}}
                     {{#if items}}
-                        {{#each items}}
-                            {{#if @index}}
-                            <div class="md-form divRespuesta bloq type-text">
-                                <input type="text" class="form-control response" placeholder="Respuesta" value="{{textToSpeech}}">
-                                
-                                    <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
-                            </div>
-                            {{/if}}
-                        {{/each}}
+                        {{#if @index}}
+                        <div class="card cardDetallesIntent cardResp cardRespuesta">
+                            <h6 class="subtituloEntidad">Respuesta 1</h6>
+                            <hr class="hrTitulo">
+                            <form class="form-inline md-form form-sm">
+                                {{#each items}}
+                                    <div class="md-form divRespuesta bloq type-text">
+                                        <input type="text" class="form-control response" placeholder="Respuesta" value="{{textToSpeech}}">
+                                        
+                                            <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                {{/each}}
+                            </form>
+                        </div>
+                        {{/if}}
                     {{/if}}
                     {{#if image}}
-                        <div class="md-form divRespuesta bloq type-image">
-                            <input type="text" class="form-control response" placeholder="Respuesta" value="{{image.url}}">
-                            <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                        <div class="card cardDetallesIntent cardResp cardRespuesta">
+                            <h6 class="subtituloEntidad">Respuesta 1</h6>
+                            <hr class="hrTitulo">
+                            <form class="form-inline md-form form-sm">
+                                <div class="md-form divRespuesta bloq type-image">
+                                    <input type="text" class="form-control response" placeholder="Respuesta" value="{{image.url}}">
+                                    <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </form>
                         </div>
                     {{/if}}
                     {{#if url}}
-                        <div class="md-form divRespuesta bloq type-link">
-                            <input type="text" class="form-control response" placeholder="Respuesta" value="{{destinationName}}">
-                            <input type="text" class="form-control url" placeholder="Respuesta" value="{{url}}">
-                            <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                        <div class="card cardDetallesIntent cardResp cardRespuesta">
+                            <h6 class="subtituloEntidad">Respuesta 1</h6>
+                            <hr class="hrTitulo">
+                            <form class="form-inline md-form form-sm">
+                                <div class="md-form divRespuesta bloq type-link">
+                                    <input type="text" class="form-control response" placeholder="Respuesta" value="{{destinationName}}">
+                                    <input type="text" class="form-control url" placeholder="Respuesta" value="{{url}}">
+                                    <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </form>
                         </div>
                     {{/if}}
                 {{/each}}
