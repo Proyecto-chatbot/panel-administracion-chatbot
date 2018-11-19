@@ -94,64 +94,45 @@
         
              {{#each this.responses }}
                 {{#if messages}}
-                {{#each messages}}
-                    {{#if name}}
-                    <u></u>
-                    {{/if}}
-                    {{#if id}}
-                    <i></i>
-                    {{/if}}
-                    {{#if textToSpeech}}
-                    <div class="card cardDetallesIntent cardResp">
-                        <h6 class="subtituloEntidad">Respuesta Texto</h6>
-                        <hr class="hrTitulo">
-                        <div class="card-body cardBodyListado d-flex flex-column" >
-                            <div class="itemListado listaSinBoton">
-                                <p class="nombreItemListado">{{textToSpeech}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    {{/if}}
-                    {{#if items}}
-                            <div class="card cardDetallesIntent cardResp">
-                                <h6 class="subtituloEntidad">Respuesta Texto</h6>
-                                <hr class="hrTitulo">
-                                <div class="card-body cardBodyListado d-flex flex-column" >
-                                    {{#each items}}
-                                        <div class="itemListado listaSinBoton">
-                                            <p class="nombreItemListado">{{textToSpeech}}</p>
-                                        </div>
-                                    {{/each}}
+                    {{#each messages}}
+                        <div class="card cardDetallesIntent cardResp">
+                            <h6 class="subtituloEntidad">Respuesta Texto</h6>
+                            <hr class="hrTitulo">
+                        {{#if textToSpeech}}
+                            <div class="card-body cardBodyListado d-flex flex-column" >
+                                <div class="itemListado listaSinBoton">
+                                    <p class="nombreItemListado">{{textToSpeech}}</p>
                                 </div>
                             </div>
-                    {{/if}}
-                    {{#if image}}
-                        <div class="card cardDetallesIntent cardResp">
-                            <h6 class="subtituloEntidad">Respuesta Imagen</h6>
-                            <hr class="hrTitulo">
+                        {{/if}}
+                        {{#if items}}
+                            <div class="card-body cardBodyListado d-flex flex-column" >
+                                {{#each items}}
+                                    <div class="itemListado listaSinBoton">
+                                        <p class="nombreItemListado">{{textToSpeech}}</p>
+                                    </div>
+                                {{/each}}
+                            </div>
+                        {{/if}}
+                        {{#if image}}
                             <div class="card-body cardBodyListado d-flex flex-column" >
                                 <div class="itemListado listaSinBoton">
                                     <p class="nombreItemListado">{{image.url}}</p>
                                 </div>
                             </div>
-                        </div>
-                    {{/if}}
-                    {{#if url}}
-                        <div class="card cardDetallesIntent cardResp">
-                            <h6 class="subtituloEntidad">Respuesta Link</h6>
-                            <hr class="hrTitulo">
+                        {{/if}}
+                        {{#if url}}
                             <div class="card-body cardBodyListado d-flex flex-column" >
                                 <div class="itemListado listaSinBoton">
                                     <p class="nombreItemListado">{{destinationName}}</p>
                                     <p class="nombreItemListado">{{url}}</p>
                                 </div>
                             </div>
+                        {{/if}}
                         </div>
-                    {{/if}}
-                {{/each}}
+                    {{/each}}
                 {{/if}}
             {{/each}}
-        </div>
         <div class="flex-center divBotonesPequennos" >
             <form action="/edit" method="POST">
                 <input type="hidden" name="id" id="input-id" value="{{this.id}}">
