@@ -150,6 +150,7 @@
                 <h6 class="subtituloEntidad">Nombre del Intent</h6>
                 <input id="name" type="text" name="name" class="form-control validate" value="{{this.name}}">
             </div>
+            <p id="err-name" class="red-text"></p>
         </form>
         <input type="hidden" id="input-id" value={{this.id}}>
         <div class="card cardDetallesIntent cardPreguntasUsuario">
@@ -177,6 +178,7 @@
                 
                 </div>
             {{/each}}
+                <p id="err-user" class="red-text"></p>
                 <div class="divBoton btnPregunta">
                     <button type="button" id="addUserText" name="addUserText" class="btn btn-indigo botonMediano">Añadir</button>
                 </div>   
@@ -230,24 +232,25 @@
             </form>
         </div>
 
-        <div id="accordion" class="cardDetallesIntent cardResp opAvan">
+            <div id="accordion" class="cardDetallesIntent cardResp opAvan">
                 <div class="card">
-                  <div class="card-header" id="headingOne">
-                    <h5 class="subtituloEntidad"
-                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Opciones Avanzadas</button>
-                    </h5>
-                  </div>
-                  <div id="collapseOne" class="collapse bodyOpAvan" aria-labelledby="headingOne" data-parent="#accordion">
-                    <form class="d-flex flex-column align-items-center formOpAvan"> 
-                        <div class="md-form">
-                            <input type="text" id="#contextIn" class="form-control" value="{{ this.contexts }}">
-                            <input type="text" id="contextOut" class="form-control" value="{{ this.responses.0.affectedContexts.0.name }}">
-                        </div>
-                    </form>
-                  </div>
+                    <div class="card-header" id="headingOne">
+                        <h5 class="subtituloEntidad"
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Opciones Avanzadas</button>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse bodyOpAvan" aria-labelledby="headingOne" data-parent="#accordion">
+                        <form class="d-flex flex-column align-items-center formOpAvan"> 
+                            <div class="md-form">
+                                <input type="text" id="#contextIn" class="form-control" value="{{ this.contexts }}">
+                                <input type="text" id="contextOut" class="form-control" value="{{ this.responses.0.affectedContexts.0.name }}">
+                            </div>
+                        </form>
+                    </div>
                 </div>
-              </div>
+            </div>
+        
         <div class="flex-center divBotonesPequennos btn-respuesta" id="accordion2">
             <div class="card">
                 <div class="card-header" id="headingTwo">
@@ -265,6 +268,7 @@
                 </div>
             </div>
         </div>
+        <p id="err" class="red-text"></p>
         <div class="flex-center divBotonesPequennos" >
             <form action="/{{this.id}}">
                 <button class="btn btn-warning botonPequenno">Cancelar</button>
