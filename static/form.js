@@ -272,8 +272,8 @@ let set_click_events = () =>{
 
 	$(document).on('click','.btnAddVariant',function(event){
 		event.preventDefault();
-		console.log($(this).parent().parent().parent().children('input'));
-		add_new_variant($(this));
+		let inputValue = $(this).parent().parent().parent().children('input').val();
+		add_new_variant(inputValue);
 	});
 
 	$btn_submit.click(function(event){
