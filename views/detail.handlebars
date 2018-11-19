@@ -91,46 +91,60 @@
             {{/each}}
             </div>
         </div>
-        <div class="card cardDetallesIntent cardResp">
-            <h6 class="subtituloEntidad">Respuesta 1</h6>
-            <hr class="hrTitulo">
+        
              {{#each this.responses }}
                 {{#if messages}}
                 {{#each messages}}
+                    {{#if name}}
+                    <u></u>
+                    {{/if}}
+                    {{#if id}}
+                    <i></i>
+                    {{/if}}
                     {{#if textToSpeech}}
+                    <div class="card cardDetallesIntent cardResp">
+                        <h6 class="subtituloEntidad">Respuesta Texto</h6>
+                        <hr class="hrTitulo">
                         <div class="card-body cardBodyListado d-flex flex-column" >
                             <div class="itemListado listaSinBoton">
                                 <p class="nombreItemListado">{{textToSpeech}}</p>
                             </div>
                         </div>
-                        <hr class="separadorItems">
+                    </div>
                     {{/if}}
                     {{#if items}}
-                        {{#each items}}
-                        <div class="card-body cardBodyListado d-flex flex-column" >
-                            <div class="itemListado listaSinBoton">
-                                <p class="nombreItemListado">{{textToSpeech}}</p>
+                        <div class="card cardDetallesIntent cardResp">
+                            <h6 class="subtituloEntidad">Respuesta Texto</h6>
+                            <hr class="hrTitulo">
+                            <div class="card-body cardBodyListado d-flex flex-column" >
+                                <div class="itemListado listaSinBoton">
+                                    <p class="nombreItemListado">{{textToSpeech}}</p>
+                                </div>
                             </div>
                         </div>
-                        <hr class="separadorItems">
-                        {{/each}}
                     {{/if}}
                     {{#if image}}
-                        <div class="card-body cardBodyListado d-flex flex-column" >
-                            <div class="itemListado listaSinBoton">
-                                <p class="nombreItemListado">{{image.url}}</p>
+                        <div class="card cardDetallesIntent cardResp">
+                            <h6 class="subtituloEntidad">Respuesta Imagen</h6>
+                            <hr class="hrTitulo">
+                            <div class="card-body cardBodyListado d-flex flex-column" >
+                                <div class="itemListado listaSinBoton">
+                                    <p class="nombreItemListado">{{image.url}}</p>
+                                </div>
                             </div>
                         </div>
-                        <hr class="separadorItems">
                     {{/if}}
                     {{#if url}}
-                        <div class="card-body cardBodyListado d-flex flex-column" >
-                            <div class="itemListado listaSinBoton">
-                                <p class="nombreItemListado">{{destinationName}}</p>
-                                <p class="nombreItemListado">{{url}}</p>
+                        <div class="card cardDetallesIntent cardResp">
+                            <h6 class="subtituloEntidad">Respuesta Link</h6>
+                            <hr class="hrTitulo">
+                            <div class="card-body cardBodyListado d-flex flex-column" >
+                                <div class="itemListado listaSinBoton">
+                                    <p class="nombreItemListado">{{destinationName}}</p>
+                                    <p class="nombreItemListado">{{url}}</p>
+                                </div>
                             </div>
                         </div>
-                        <hr class="separadorItems">
                     {{/if}}
                 {{/each}}
                 {{/if}}
