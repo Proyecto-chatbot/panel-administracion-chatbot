@@ -95,41 +95,55 @@
              {{#each this.responses }}
                 {{#if messages}}
                     {{#each messages}}
+                        {{#if textToSpeech}}
                         <div class="card cardDetallesIntent cardResp">
                             <h6 class="subtituloEntidad">Respuesta Texto</h6>
                             <hr class="hrTitulo">
-                        {{#if textToSpeech}}
                             <div class="card-body cardBodyListado d-flex flex-column" >
                                 <div class="itemListado listaSinBoton">
                                     <p class="nombreItemListado">{{textToSpeech}}</p>
                                 </div>
                             </div>
+                        </div>
                         {{/if}}
                         {{#if items}}
-                            <div class="card-body cardBodyListado d-flex flex-column" >
-                                {{#each items}}
+                        <div class="card cardDetallesIntent cardResp">
+                            <h6 class="subtituloEntidad">Respuesta Texto</h6>
+                            <hr class="hrTitulo">
+                            {{#each items}}
+                                <div class="card-body cardBodyListado d-flex flex-column" >
                                     <div class="itemListado listaSinBoton">
-                                        <p class="nombreItemListado">{{textToSpeech}}</p>
+                                        {{#if textToSpeech}}
+                                            <p class="nombreItemListado">{{textToSpeech}}</p>
+                                        {{/if}}
                                     </div>
-                                {{/each}}
-                            </div>
+                                </div>
+                            {{/each}}
+                        </div>
                         {{/if}}
                         {{#if image}}
+                        <div class="card cardDetallesIntent cardResp">
+                            <h6 class="subtituloEntidad">Respuesta Texto</h6>
+                            <hr class="hrTitulo">
                             <div class="card-body cardBodyListado d-flex flex-column" >
                                 <div class="itemListado listaSinBoton">
                                     <p class="nombreItemListado">{{image.url}}</p>
                                 </div>
                             </div>
+                        </div>
                         {{/if}}
                         {{#if url}}
+                        <div class="card cardDetallesIntent cardResp">
+                            <h6 class="subtituloEntidad">Respuesta Texto</h6>
+                            <hr class="hrTitulo">
                             <div class="card-body cardBodyListado d-flex flex-column" >
                                 <div class="itemListado listaSinBoton">
                                     <p class="nombreItemListado">{{destinationName}}</p>
                                     <p class="nombreItemListado">{{url}}</p>
                                 </div>
                             </div>
-                        {{/if}}
                         </div>
+                        {{/if}}
                     {{/each}}
                 {{/if}}
             {{/each}}
