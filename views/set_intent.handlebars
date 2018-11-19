@@ -208,11 +208,11 @@
                     {{#if items}}
                         {{#if @index}}
                         <div class="card cardDetallesIntent cardResp cardRespuesta bloq type-text">
+                            <input type="hidden" name="hidden" value=""/>
                             <h6 class="subtituloEntidad">Respuesta {{@index}}</h6>
                             <hr class="hrTitulo">
                             <form class="form-inline md-form form-sm">
                                 {{#each items}}
-                                    <input type="hidden" name="hidden" value="{{@index}}"/>
                                     <div class="md-form divRespuesta">
                                         <input type="text" class="form-control response" placeholder="Respuesta" value="{{textToSpeech}}">
                                         {{#if @index}}
