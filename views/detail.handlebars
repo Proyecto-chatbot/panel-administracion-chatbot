@@ -116,11 +116,13 @@
                         <div class="card cardDetallesIntent cardResp">
                             <h6 class="subtituloEntidad">Respuesta Texto</h6>
                             <hr class="hrTitulo">
+                            {{#each items}}
                             <div class="card-body cardBodyListado d-flex flex-column" >
                                 <div class="itemListado listaSinBoton">
                                     <p class="nombreItemListado">{{textToSpeech}}</p>
                                 </div>
                             </div>
+                            {{/each}}
                         </div>
                     {{/if}}
                     {{#if image}}
