@@ -271,7 +271,6 @@ let set_click_events = () =>{
 	$(document).on('click','.btnAddVariant',function(event){
 		event.preventDefault();
 		let inputValue = $(this).parent().parent().parent().children('input').val();
-		console.log(inputValue);
 		add_new_variant(inputValue);
 	});
 
@@ -674,10 +673,8 @@ let add_new_block = (name) =>{
 
 	switch(name){
 		case 'type-text': add_new_response(); break;
-		case 'type-gif': add_new_image("Imagen/Gif");break;
 		case 'type-image': add_new_image("Imagen/Gif"); break;
 		case 'type-link': add_new_link("Link/Documento"); break;
-		case 'type-document': add_new_link("Lnk/Documento"); break;
 	}
 	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
@@ -737,7 +734,7 @@ let add_new_image = function (title){
 	/*$imageResponse = '<div class="bloq type-image input-field col s12"><div><p>'
 	+ title + '</p><input class="response" name="gifResponse" type="text" id="input'+numResponses+'" class="validate">'
 	+'<button class="btn-delete-bloq btn left btn-primary indigo">Borrar respuesta</button></div></div>'*/
-	$imageResponse = '<div class="card cardDetallesIntent cardResp cardRespuesta"> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta bloq type-image"> <input type="text" name="gifResponse" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button> </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button> </div> </form> </div>';
+	$imageResponse = '<div class="card cardDetallesIntent cardResp cardRespuesta bloq type-image"> <input type="hidden" name="hidden" value="'+numRespuestas+'"/> <h6 class="subtituloEntidad">Imagen/Gif '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta"> <input type="text" name="gifResponse" class="form-control response validate" placeholder="Respuesta Imagen" id="input'+numResponses+'">  </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> </div> </form> </div>';
 	if(checkNumResponses()){
 		if(hasLink)
 			$('.type-link').before($imageResponse);
@@ -746,6 +743,7 @@ let add_new_image = function (title){
 		setTimeout(function(){
 				$("#input"+numResponses).focus();
 				numResponses++;
+				numRespuestas++;
 			}, 200);
 		hasImage = true;
 		$('.image-li').css({pointerEvents: "none", color: "red"})
@@ -762,12 +760,12 @@ let add_new_link = function(title){
 		+ title + '</p><input class="response" id="linkResponse'+numLinks+'" type="text" class="validate">'
 		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-bloq left btn btn-primary indigo">'
 		+'Borrar respuesta</button></div></div>');*/
-		$select.before('<div class="card cardDetallesIntent cardResp cardRespuesta"> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta bloq text-image"> <input type="text" class="form-control response validate" placeholder="Respuesta" id="linkResponse'+numResponses+'"> <button class="btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button> </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button> </div> </form> </div>');
-		numResponses++;
+		$select.before('<div class="card cardDetallesIntent cardResp cardRespuesta bloq type-link"> <input type="hidden" name="hidden" value="'+numRespuestas+'"/> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta bloq text-image"> <input type="text" class="form-control response validate" placeholder="Respuesta" id="linkResponse'+numLinks+'"> <input class="url" id="linkUrl" type="text" class="form-control validate"> </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> </div> </form> </div>');
 		setTimeout(function(){
 			$("#linkResponse"+numLinks).focus();
 			numResponses++;
-			numLinks
+			numRespuestas++;
+			numLinks++;
 		}, 200);
 		hasLink = true;
 		checkNumResponses();
@@ -778,7 +776,6 @@ let add_new_link = function(title){
  */
 let add_new_variant = ($btn)=>{
 	$before = $('.btnRespuesta' + $btn);
-	console.log($before);
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	$before.before('<div class="md-form divRespuesta"> <input type="text" class="form-control response validate" placeholder="Respuesta" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
