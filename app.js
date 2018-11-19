@@ -330,7 +330,6 @@ post_intent = (req,res,next)=>{
 	var botFormatted;
 	promise = new Promise((resolve)=>{
 		botText.forEach(function(element){
-				console.log(element.type);
 				switch(element.type){
 					case 'text':
 					format_bot_response(element.text); break;

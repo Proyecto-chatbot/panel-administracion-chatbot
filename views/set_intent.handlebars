@@ -201,14 +201,15 @@
                          </div>
                     {{/if}}
                     {{#if items}}
-                        <div class="md-form divRespuesta bloq type-text">
-                            {{#each items}}
+                        {{#each items}}
+                            {{#if @index}}
+                            <div class="md-form divRespuesta bloq type-text">
                                 <input type="text" class="form-control response" placeholder="Respuesta" value="{{textToSpeech}}">
-                                {{#if @index}}
+                                
                                     <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
-                                {{/if}}
-                            {{/each}}
-                        </div>
+                            </div>
+                            {{/if}}
+                        {{/each}}
                     {{/if}}
                     {{#if image}}
                         <div class="md-form divRespuesta bloq type-image">
