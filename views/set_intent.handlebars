@@ -212,7 +212,7 @@
                             <hr class="hrTitulo">
                             <form class="form-inline md-form form-sm">
                                 {{#each items}}
-                                    <input type="hidden" name="hidden" value="{{index}}"/>
+                                    <input type="hidden" name="hidden" value="{{@index}}"/>
                                     <div class="md-form divRespuesta">
                                         <input type="text" class="form-control response" placeholder="Respuesta" value="{{textToSpeech}}">
                                         {{#if @index}}
