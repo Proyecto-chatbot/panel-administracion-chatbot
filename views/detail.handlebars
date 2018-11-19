@@ -107,20 +107,20 @@
                         </div>
                         {{/if}}
                         {{#if items}}
-                        {{#if @index}}
-                        <p>{{@index}}</p>
-                        <div class="card cardDetallesIntent cardResp">
-                            <h6 class="subtituloEntidad">Respuestas de Texto</h6>
-                            <hr class="hrTitulo">
-                            {{#each items}}
-                                <div class="card-body cardBodyListado d-flex flex-column" >
-                                    <div class="itemListado listaSinBoton">
-                                        <p class="nombreItemListado">{{textToSpeech}}</p>
-                                    </div>
+                            {{#if @index}}
+                                <div class="card cardDetallesIntent cardResp">
+                                    <h6 class="subtituloEntidad">Respuestas de Texto</h6>
+                                    <hr class="hrTitulo">
+                                    {{#each items}}
+                                        <div class="card-body cardBodyListado d-flex flex-column" >
+                                            <div class="itemListado listaSinBoton">
+                                                <p class="nombreItemListado">{{textToSpeech}}</p>
+                                            </div>
+                                        </div>
+                                        <hr class="separadorItems">
+                                    {{/each}}
                                 </div>
-                            {{/each}}
-                        </div>
-                        {{/if}}
+                            {{/if}}
                         {{/if}}
                         {{#if image}}
                         <div class="card cardDetallesIntent cardResp">
