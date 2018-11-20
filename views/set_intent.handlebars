@@ -191,7 +191,7 @@
                     {{#if textToSpeech}}
                         <div class="card cardDetallesIntent cardResp cardRespuesta bloq type-text">
                             <input type="hidden" name="hidden" value=""/>
-                            <h6 class="subtituloEntidad">Respuesta 0</h6>
+                            <h6 class="subtituloEntidad">Respuesta de Texto</h6>
                             <hr class="hrTitulo">
                             <form class="form-inline md-form form-sm">
                                 <div class="md-form divRespuesta">
@@ -210,7 +210,7 @@
                         {{#if @index}}
                         <div class="card cardDetallesIntent cardResp cardRespuesta bloq type-text">
                             <input type="hidden" name="hidden" value=""/>
-                            <h6 class="subtituloEntidad">Respuesta 0</h6>
+                            <h6 class="subtituloEntidad">Respuestas de Texto</h6>
                             <hr class="hrTitulo">
                             <form class="form-inline md-form form-sm">
                                 {{#each items}}
@@ -230,7 +230,7 @@
                     {{/if}}
                     {{#if image}}
                         <div class="card cardDetallesIntent cardResp cardRespuesta bloq type-image">
-                            <h6 class="subtituloEntidad">Respuesta 1</h6>
+                            <h6 class="subtituloEntidad">Respuesta Imagen</h6>
                             <hr class="hrTitulo">
                             <form class="form-inline md-form form-sm">
                                 <div class="md-form divRespuesta">
@@ -245,7 +245,7 @@
                     {{/if}}
                     {{#if url}}
                         <div class="card cardDetallesIntent cardResp cardRespuesta bloq type-link">
-                            <h6 class="subtituloEntidad">Respuesta 1</h6>
+                            <h6 class="subtituloEntidad">Respuesta Link</h6>
                             <hr class="hrTitulo">
                             <form class="form-inline md-form form-sm">
                                 <div class="md-form divRespuesta">
@@ -282,20 +282,11 @@
         </div>-->
         <p id="err" class="red-text"></p>
 
-        <div class="flex-center divBotonesPequennos" >
-            <form action="/{{this.id}}">
-                <button class="btn btn-warning botonPequenno">Cancelar</button>
-            </form>
-            <button type="submit" id="btn_edit_intent" name="btn_edit_intent" class="btn btn-indigo botonPequenno">Guardar</button> 
-        </div>
-
             <div id="accordion" class="cardDetallesIntent cardResp opAvan">
                 <div class="card">
                     <div class="card-header" id="headingOne">
-                        <h5 class="subtituloEntidad"
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="btn btn-link OpAv" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             Opciones Avanzadas</button>
-                        </h5>
                     </div>
                     <div id="collapseOne" class="collapse bodyOpAvan" aria-labelledby="headingOne" data-parent="#accordion">
                         <form class="d-flex flex-column align-items-center formOpAvan"> 
@@ -307,3 +298,10 @@
                     </div>
                 </div>
             </div>
+
+        <div class="flex-center divBotonesPequennos" >
+            <form action="/{{this.id}}">
+                <button class="btn btn-warning botonPequenno">Cancelar</button>
+            </form>
+            <button type="submit" id="btn_edit_intent" name="btn_edit_intent" class="btn btn-indigo botonPequenno">Guardar</button> 
+        </div>
