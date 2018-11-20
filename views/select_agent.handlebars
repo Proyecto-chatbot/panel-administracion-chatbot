@@ -1,4 +1,4 @@
-<div id="body-wrapper" class="container center-align">
+<!--<div id="body-wrapper" class="container center-align">
     <h4>Selección de Agents/Chatbot</h4>
     <div class="row">
     <a class="btn-floating btn-large waves-effect waves-light indigo right" href="/add" >
@@ -21,4 +21,22 @@
             {{/each }}
     </ul>
 
-</div>
+</div>-->
+
+
+ <form action="/add">
+    <button class="btn btn-primary botonNuevoBot">Nuevo Bot</button>
+ </form>
+        <div class="card cardListado">
+            <div class="card-body cardBodyListado d-flex flex-column" id="bot_list">
+                {{#each}}
+                    {{#if token}}
+                        <div class="itemListado">
+                            <p class="nombreItemListado">{{name}}</p>
+                             <button type="button" class="btn btn-primary seleccionarItemListado" id="{{token}}">Seleccionar</button>
+                        </div>
+                        <hr>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>     
