@@ -412,7 +412,7 @@ header #menuLateral .botonesMenuLateral .opcionNombre a {
   color: black;
 }
 
-header #menuLateral .botonesMenuLateral .opcionNombre a a:hover {
+header #menuLateral .botonesMenuLateral .opcionNombre a:hover {
   color: #303F9F;
 }
 
@@ -484,6 +484,16 @@ main {
   /***** Fin Mid Page *****/
   /***** Bottom Page *****/
   /***** Fin Bottom Page *****/
+}
+
+main .formBots {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 main .divTituloPagina {
