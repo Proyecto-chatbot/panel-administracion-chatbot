@@ -412,6 +412,10 @@ header #menuLateral .botonesMenuLateral .opcionNombre a {
   color: black;
 }
 
+header #menuLateral .botonesMenuLateral .opcionNombre a a:hover {
+  color: #303F9F;
+}
+
 header #menuLateral .botonesMenuLateral:hover {
   background-color: #E0E0E0;
   color: #303F9F;
