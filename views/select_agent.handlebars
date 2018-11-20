@@ -28,12 +28,12 @@
     <button class="btn btn-primary botonNuevoBot">Nuevo Bot</button>
  </form>
         <div class="card cardListado">
-            <div class="card-body cardBodyListado d-flex flex-column" id="bot_list">
+            <div class="card-body cardBodyListado d-flex flex-column collection" id="bot_list">
                 {{#each}}
                     {{#if token}}
                         <div class="itemListado">
                             <p class="nombreItemListado">{{name}}</p>
-                             <button type="button" class="btn btn-primary seleccionarItemListado" id="{{token}}">Seleccionar</button>
+                             <button type="button" class="btn btn-primary seleccionarItemListado token" id="{{token}}">Seleccionar</button>
                         </div>
                         <hr>
                     {{/if}}
