@@ -499,7 +499,7 @@ let edit_intent = function(){
 		else if(responseIsEmpty() == true)
 			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 		else
-			$.post('/new_intent',data, function(res){
+			$.post('/update',data, function(res){
 				location.href = '/'+intent_id;
 		});
 	}
