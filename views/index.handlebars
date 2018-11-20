@@ -35,13 +35,17 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
             </form>
         </div>
-        
+		<!--
+			Modificar del listado de intents a negro
+			Y ponerle hr
+			dentro del intent ponerles un flex center
+		-->
         <div class="card cardListado cardListadoSinBotones">
             <div class="card-body cardBodyListado d-flex flex-column" id="list_intent">
 					{{#each this}}
 						{{#if id}}
             		    <div class="itemListado listaSinBoton intent">
-							<a href="/{{id}}" id="intent" class=" nombreItemListado">{{name}}</a>
+							<a href="/{{id}}" class="nombreItemListado">{{name}}</a>
 						</div>
 						{{/if}}
 					{{/each}}
