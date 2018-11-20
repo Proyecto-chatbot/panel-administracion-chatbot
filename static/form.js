@@ -777,7 +777,7 @@ let add_new_variant = ($btn)=>{
 	$before = $('.btnRespuesta' + $btn);
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	$before.before('<div class="md-form divRespuesta"> <input type="text" class="form-control response validate" placeholder="Respuesta" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
+	$before.before('<div class="md-form divRespuesta bloq type-text"> <input type="text" class="form-control response validate" placeholder="Respuesta" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
 	redeclare_input_search();
 	redeclarate_btn_delete();
 }
