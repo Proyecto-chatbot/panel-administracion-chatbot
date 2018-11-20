@@ -496,6 +496,11 @@ main .formBots {
           justify-content: center;
 }
 
+main .btnDetail {
+  padding: 15% 15%;
+  margin: 15%;
+}
+
 main .divTituloPagina {
   width: 100%;
   text-align: center;
