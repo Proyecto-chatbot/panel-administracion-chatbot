@@ -408,6 +408,10 @@ header #menuLateral .botonesMenuLateral .opcionNombre {
   margin: 0%;
 }
 
+header #menuLateral .botonesMenuLateral .opcionNombre a {
+  color: black;
+}
+
 header #menuLateral .botonesMenuLateral:hover {
   background-color: #E0E0E0;
   color: #303F9F;
@@ -416,11 +420,14 @@ header #menuLateral .botonesMenuLateral:hover {
 
 header #menuLateral #divLog {
   font-size: 1.4em;
-  color: white;
 }
 
 header #menuLateral #divLog:hover {
   background-color: rgba(228, 5, 5, 0.47);
+  color: white;
+}
+
+header #menuLateral #divLog a:hover {
   color: white;
 }
 
