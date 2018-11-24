@@ -705,6 +705,8 @@ main .cardListado .cardBodyListado {
 
 main .cardListado .cardBodyListado .itemListado {
   width: 90%;
+  -webkit-box-shadow: 0px 0px 1px grey;
+          box-shadow: 0px 0px 1px grey;
   padding: 3% 4%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1379,8 +1381,8 @@ main form .botonPequenno {
 
 @media screen and (min-width: 1280px) {
   main form .botonPequenno {
-    padding: 10% 20%;
-    margin: 2% 1%;
+    padding: 8% 20%;
+    margin: 10% 1%;
   }
 }
 
