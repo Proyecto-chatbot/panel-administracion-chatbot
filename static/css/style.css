@@ -790,7 +790,6 @@ main .cardListado .cardBodyListado hr {
 }
 
 main .cardListadoSinBotones {
-  padding: 2% 0%;
   width: 60%;
   text-align: center;
 }
@@ -914,7 +913,7 @@ main .cardDetallesIntent .cardBodyListado {
 }
 
 main .cardDetallesIntent .cardBodyListado .itemListado {
-  width: 90%;
+  width: 100%;
   padding: 3% 0%;
   display: -webkit-box;
   display: -ms-flexbox;
