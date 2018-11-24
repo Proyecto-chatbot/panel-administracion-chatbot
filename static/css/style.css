@@ -1351,6 +1351,39 @@ main .divBotonesPequennos {
   width: 90%;
 }
 
+main form .botonPequenno {
+  margin-top: 7%;
+  padding: 5% 5%;
+  font-size: .7em;
+  margin: 4% 3%;
+}
+
+@media screen and (min-width: 600px) {
+  main form .botonPequenno {
+    padding: 3% 3%;
+    font-size: .85em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main form .botonPequenno {
+    font-size: .9em;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main form .botonPequenno {
+    padding: 4% 3%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main form .botonPequenno {
+    padding: 10% 20%;
+    margin: 2% 1%;
+  }
+}
+
 main .botonPequenno {
   margin-top: 5%;
   padding: 3% 3%;
