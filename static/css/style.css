@@ -1350,6 +1350,12 @@ main #botonRegistarme {
 
 main .divBotonesPequennos {
   width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 main form .botonPequenno {
@@ -1380,7 +1386,7 @@ main form .botonPequenno {
 
 @media screen and (min-width: 1280px) {
   main form .botonPequenno {
-    padding: 8% 20%;
+    padding: 8% 10%;
     margin: 10% 1%;
   }
 }
