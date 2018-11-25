@@ -510,6 +510,11 @@ main .btnDetail {
   margin: 15%;
 }
 
+main .btn-delete-variant {
+  margin: 0% 9% 4% 0%;
+  padding: 0.65rem 1.4rem;
+}
+
 main .divTituloPagina {
   width: 100%;
   text-align: center;
