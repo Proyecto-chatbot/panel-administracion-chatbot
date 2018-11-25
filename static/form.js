@@ -269,8 +269,7 @@ let set_click_events = () =>{
 
 	$(document).on('click','.btnAddVariant',function(event){
 		event.preventDefault();
-		let inputValue = $(this).parent().parent().parent().children('input').val();
-		add_new_variant(inputValue);
+		add_new_variant($(this));
 	});
 
 	$btn_submit.click(function(event){
@@ -774,7 +773,7 @@ let add_new_link = function(title){
  * Insert a new variant for text response
  */
 let add_new_variant = ($btn)=>{
-	$before = $('.btnRespuesta' + $btn);
+	$before = $('.btnRespuesta');
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	$before.before('<div class="md-form divRespuesta bloq type-text"> <input type="text" class="form-control response validate" placeholder="Respuesta" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
