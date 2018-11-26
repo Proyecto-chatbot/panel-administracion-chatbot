@@ -515,6 +515,10 @@ main .btn-delete-variant {
   padding: 0.65rem 1.4rem;
 }
 
+main .divPalabrasClave {
+  width: 90%;
+}
+
 main .divTituloPagina {
   width: 100%;
   text-align: center;
