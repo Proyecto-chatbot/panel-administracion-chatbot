@@ -519,6 +519,10 @@ main .divPalabrasClave {
   width: 90%;
 }
 
+main .divPalabrasClave input {
+  width: 100%;
+}
+
 main .divTituloPagina {
   width: 100%;
   text-align: center;
