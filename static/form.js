@@ -558,7 +558,7 @@ let showAll = function(ul){
 	}).then(function(){
 		$.post('/show_entities', function(res){
 			let $inputSearch;
-			ul.append('<input class= "search" type = "text">');
+			ul.append('<input class="form-control form-control-sm mr-3 w-75 search" type="text" placeholder="Search.." aria-label="Search">');
 			entitiesNames = res;
 			$inputSearch = ul.children('.search');
 			$inputSearch.bind('keydown',function(e){
@@ -572,9 +572,11 @@ let showAll = function(ul){
 			});
 
 			$inputSearch.focus();
+			ul.append('<div class="itemListado listaSinBoton intent">');
 			entitiesNames.forEach(element => {
 				ul.append('<a class="collection-item indigo-text" href="#">'+element+'</a>');
 			});
+			ul.append('</div>');
 			putLinkEvent(ul);
 			$inputSearch.keyup(function(e){
 				$(this).siblings('a').remove();
