@@ -346,8 +346,7 @@ let redeclare_input_search = function(){
 		}
 	});
 	$inputSearch.unbind('keypress').bind('keypress',function(e){
-		console.log("E: " + e);
-		console.log("This: " + $(this));
+
 		if($(this).val().indexOf('#') != -1)
 			$(this).siblings('.span').html('');
 		if(String.fromCharCode(e.which) == '#'){
@@ -356,7 +355,7 @@ let redeclare_input_search = function(){
 			else{
 				console.log($(this));
 				$(this).siblings('.span').html('');
-				ul = $(this).parent('div').children('ul');
+				ul = $(".collection");
 				ul.show();
 				showAll(ul);
 			}
@@ -580,7 +579,7 @@ let showAll = function(ul){
 			putLinkEvent(ul);
 			$inputSearch.keyup(function(e){
 				$(this).siblings('a').remove();
-				search($(this).val().toLowerCase(), $(this).parent('ul'));
+				search($(this).val().toLowerCase(), $(this).parent('div'));
 			});
 		}).done(function(res){
 			//putLinkEvent(ul);
