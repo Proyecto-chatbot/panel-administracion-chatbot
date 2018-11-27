@@ -431,11 +431,11 @@ let edit_intent = function(){
 	if(n_inputs > 1){
 		userSays = [];
 		input_user.each(function(index, element){
-			userSays.push($(this).val());
+			userSays.push($.trim($(this).val()));
 		});
 	}else{
 		userSays = '';
-		userSays = input_user.val();
+		userSays = $.trim(input_user.val());
 	}
 	$('.bloq').each(function(){
 		if($(this).hasClass('type-text')){
