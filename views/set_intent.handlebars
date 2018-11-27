@@ -159,6 +159,7 @@
             <form class="form-inline md-form form-sm">
             {{#each this.userSays }}
                 <div class="md-form divPregunta ">
+                {{#if data}}
                 {{#each data}}
              		{{#if meta}}
 					        {{#isnt meta "@sys.ignore" }}
@@ -174,6 +175,7 @@
 				    {{/if}}
 
                 {{/each}}
+                {{/if}}
                  {{#if @index}}
                     <button type="button" class="btn-delete-variant btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
                  {{/if}}
