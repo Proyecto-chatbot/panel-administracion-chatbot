@@ -357,7 +357,7 @@ let redeclare_input_search = function(){
 					$('.span').html('');
 					ul = $("#collection");
 					ul.show();
-					showAll(ul);
+					showAll(ul, $(this));
 				}
 			}
 
@@ -551,7 +551,7 @@ let searchEntity = function(input_value){
 /**
  * Search entity
  */
-let showAll = function(ul){
+let showAll = function(ul, input){
 	$.when(function(){
 		ul.children('div').remove();
 		ul.children('.search').remove();
@@ -566,8 +566,8 @@ let showAll = function(ul){
 					ul.children('div').remove();
 					ul.children('.search').remove();
 					ul.hide();
-					let newText = $('.input').val().replace(/(#)(\w)*/, '');
-					$('.input').val(newText);
+					let newText = input.val().replace(/(#)(\w)*/, '');
+					input.val(newText);
 				};
 			});
 
@@ -576,7 +576,7 @@ let showAll = function(ul){
 				console.log(element);
 				ul.append('<div class="itemListado listaSinBoton intent collectionItem"><a class="collection-item indigo-text" href="#">'+element+'</a></div>');
 			});
-			putLinkEvent(ul);
+			putLinkEvent(ul, input);
 			$inputSearch.keyup(function(e){
 				$("#collection").children('div').remove();
 				search($(this).val().toLowerCase(), $("#collection"));
@@ -590,19 +590,17 @@ let showAll = function(ul){
  * recover the selected entity
  * @param {*} ul
  */
-let putLinkEvent = (ul)=>{
+let putLinkEvent = (ul, input)=>{
 	ul.children('div').children('a').on('click',function(event){
 		event.preventDefault();
-		console.log($(this));
-		getEntity($(this));
+		getEntity($(this), input);
 	});
 }
 /**
  * Insert the selected entity into the input text
  * @param {*} linkEntity
  */
-let getEntity = (linkEntity)=>{
-	let input = $('.input');
+let getEntity = (linkEntity, input)=>{
 	let inputVal = input.val();
 	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
 	$.when(input.val(newText)).then(function(){
@@ -665,7 +663,7 @@ let redeclarate_btn_delete_synonym = () =>{
 */
 let add_new_input = ($input)=>{
 	//$input.before('<div><input class="input user validate" name="user" type="text" ><p class="span red-text"></p><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	$(".btnPregunta").before('<div class="md-form divPregunta "> <input type="text" class="form-control validate user input" placeholder="Pregunta" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
+	$("#collection").before('<div class="md-form divPregunta "> <input type="text" class="form-control validate user input" placeholder="Pregunta" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
 	redeclarate_btn_delete();
 	redeclare_input_search();
 }
