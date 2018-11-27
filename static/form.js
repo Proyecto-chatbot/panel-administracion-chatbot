@@ -335,9 +335,9 @@ let login = function(event){
 let redeclare_input_search = function(){
 	let ul;
 	$inputSearch = $(".input");
-	$(".collection").hide();
-	$(".collection").children('div').remove();
-	$(".collection").children('.search').remove();
+	$("#collection").hide();
+	$("#collection").children('div').remove();
+	$("#collection").children('.search').remove();
 
 	$inputSearch.keyup(function(e){
 		if(e.keyCode == 8){
@@ -355,7 +355,7 @@ let redeclare_input_search = function(){
 			else{
 				console.log($(this));
 				$(this).siblings('.span').html('');
-				ul = $(".collection");
+				ul = $("#collection");
 				ul.show();
 				showAll(ul);
 			}
@@ -577,7 +577,7 @@ let showAll = function(ul){
 			});
 			putLinkEvent(ul);
 			$inputSearch.keyup(function(e){
-				$(".collection").children('div').remove();
+				$("#collection").children('div').remove();
 				search($(this).val().toLowerCase(), $(this).parent('div'));
 			});
 		}).done(function(res){
