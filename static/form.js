@@ -335,9 +335,9 @@ let login = function(event){
 let redeclare_input_search = function(){
 	let ul;
 	$inputSearch = $(".input");
-	$(".input-field ul").hide();
-	$(".input").parent('div').children('ul').children('a').remove();
-	$(".input").parent('div').children('ul').children('.search').remove();
+	$(".collection").hide();
+	$(".collection").children('div').remove();
+	$(".collection").children('.search').remove();
 
 	$inputSearch.keyup(function(e){
 		if(e.keyCode == 8){
@@ -552,7 +552,7 @@ let searchEntity = function(input_value){
  */
 let showAll = function(ul){
 	$.when(function(){
-		ul.children('a').remove();
+		ul.children('div').remove();
 		ul.children('.search').remove();
 	}).then(function(){
 		$.post('/show_entities', function(res){
@@ -572,11 +572,12 @@ let showAll = function(ul){
 
 			$inputSearch.focus();
 			entitiesNames.forEach(element => {
+				console.log(element);
 				ul.append('<div class="itemListado listaSinBoton intent"><a class="collection-item indigo-text" href="#">'+element+'</a></div>');
 			});
 			putLinkEvent(ul);
 			$inputSearch.keyup(function(e){
-				$(this).siblings('a').remove();
+				$(".collection").children('div').remove();
 				search($(this).val().toLowerCase(), $(this).parent('div'));
 			});
 		}).done(function(res){
