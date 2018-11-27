@@ -346,12 +346,15 @@ let redeclare_input_search = function(){
 		}
 	});
 	$inputSearch.unbind('keypress').bind('keypress',function(e){
+		console.log("E: " + e);
+		console.log("This: " + $(this));
 		if($(this).val().indexOf('#') != -1)
 			$(this).siblings('.span').html('');
 		if(String.fromCharCode(e.which) == '#'){
 			if($(this).val().indexOf('#') > -1)
 				$(this).siblings('.span').html('No puedes usar más de una entidad en la misma frase');
 			else{
+				console.log($(this));
 				$(this).siblings('.span').html('');
 				ul = $(this).parent('div').children('ul');
 				ul.show();
