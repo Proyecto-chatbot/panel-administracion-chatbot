@@ -590,8 +590,9 @@ let showAll = function(ul){
  * @param {*} ul
  */
 let putLinkEvent = (ul)=>{
-	ul.children('a').on('click',function(event){
+	ul.children('div').children('a').on('click',function(event){
 		event.preventDefault();
+		console.log($(this));
 		getEntity($(this));
 	});
 }
@@ -600,12 +601,12 @@ let putLinkEvent = (ul)=>{
  * @param {*} linkEntity
  */
 let getEntity = (linkEntity)=>{
-	let input = linkEntity.parent('ul').siblings('input');
+	let input = $('.input');
 	let inputVal = input.val();
 	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
 	$.when(input.val(newText)).then(function(){
-		linkEntity.parent('ul').empty();//children('li, .search').remove();
-	}).then(linkEntity.parent('ul').hide());
+		$('#collection').empty();//children('li, .search').remove();
+	}).then($('#collection').hide());
 }
 /**
  * Live search
