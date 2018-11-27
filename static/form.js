@@ -615,7 +615,7 @@ let getEntity = (linkEntity)=>{
 let search = (word, ulParent) =>{
 	entitiesNames.forEach(element => {
 		if (element.toLowerCase().indexOf(word) >= 0)
-		ul.append('<div class="itemListado listaSinBoton intent collectionItem"><a class="collection-item indigo-text" href="#">'+element+'</a></div>');
+		ulParent.append('<div class="itemListado listaSinBoton intent collectionItem"><a class="collection-item indigo-text" href="#">'+element+'</a></div>');
 	});
 	ulParent.children('div').children('a').on('click',function(){
 		return false;
