@@ -342,22 +342,23 @@ let redeclare_input_search = function(){
 	$inputSearch.keyup(function(e){
 		if(e.keyCode == 8){
 			if($(this).val().indexOf('#') != -1)
-				$(this).siblings('.span').html('');
+				$('.span').html('');
 		}
 	});
 	$inputSearch.unbind('keypress').bind('keypress',function(e){
 
 		if($(this).val().indexOf('#') != -1)
-			$(this).siblings('.span').html('');
+			$('.span').html('');
 		if(String.fromCharCode(e.which) == '#'){
 			if($(this).val().indexOf('#') > -1)
-				$(this).siblings('.span').html('No puedes usar más de una entidad en la misma frase');
+				$('.span').html('No puedes usar más de una entidad en la misma frase');
 			else{
-				console.log($(this));
-				$(this).siblings('.span').html('');
-				ul = $("#collection");
-				ul.show();
-				showAll(ul);
+				if(!$("#collection").is(":visible")){
+					$('.span').html('');
+					ul = $("#collection");
+					ul.show();
+					showAll(ul);
+				}
 			}
 
 		}
