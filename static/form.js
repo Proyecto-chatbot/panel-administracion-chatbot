@@ -571,11 +571,11 @@ let showAll = function(ul){
 			});
 
 			$inputSearch.focus();
-			ul.append('<div class="itemListado listaSinBoton intent">');
 			entitiesNames.forEach(element => {
-				ul.append('<a class="collection-item indigo-text" href="#">'+element+'</a>');
+				ul.append('<div class="itemListado listaSinBoton intent">');	
+					ul.append('<a class="collection-item indigo-text" href="#">'+element+'</a>');
+				ul.append('</div>');
 			});
-			ul.append('</div>');
 			putLinkEvent(ul);
 			$inputSearch.keyup(function(e){
 				$(this).siblings('a').remove();
