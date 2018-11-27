@@ -562,11 +562,11 @@ let showAll = function(ul){
 			$inputSearch = ul.children('.search');
 			$inputSearch.bind('keydown',function(e){
 				if ( e.which == 27 ) {
-					ul.children('a').remove();
+					ul.children('div').remove();
 					ul.children('.search').remove();
 					ul.hide();
-					let newText = ul.siblings('.input').val().replace(/(#)(\w)*/, '');
-					ul.siblings('.input').val(newText);
+					let newText = $('.input').val().replace(/(#)(\w)*/, '');
+					$('.input').val(newText);
 				};
 			});
 
@@ -578,7 +578,7 @@ let showAll = function(ul){
 			putLinkEvent(ul);
 			$inputSearch.keyup(function(e){
 				$("#collection").children('div').remove();
-				search($(this).val().toLowerCase(), $(this).parent('div'));
+				search($(this).val().toLowerCase(), $("#collection"));
 			});
 		}).done(function(res){
 			//putLinkEvent(ul);
