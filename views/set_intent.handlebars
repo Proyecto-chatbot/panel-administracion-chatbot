@@ -162,13 +162,15 @@
                 {{#each data}}
              		{{#if meta}}
 					        {{#isnt meta "@sys.ignore" }}
-						        <span>#{{alias}}</span>
+						        <input type="text" class="form-control user input" placeholder="Pregunta" value="#{{alias}}">
 					        {{/isnt}}
 					        {{#eq meta "@sys.ignore"}}
-						        <span>{{text}}</span>
+						        <input type="text" class="form-control user input" placeholder="Pregunta" value="{{text}}">
 					        {{/eq}}
 				    {{else}}
-					    <input type="text" class="form-control user input" placeholder="Pregunta" value="{{text}}">
+                        {{#if text}}
+					        <input type="text" class="form-control user input" placeholder="Pregunta" value="{{text}}">
+                        {{/if}}
 				    {{/if}}
 
                 {{/each}}
