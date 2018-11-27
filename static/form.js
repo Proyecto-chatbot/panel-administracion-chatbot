@@ -572,9 +572,7 @@ let showAll = function(ul){
 
 			$inputSearch.focus();
 			entitiesNames.forEach(element => {
-				ul.append('<div class="itemListado listaSinBoton intent">');	
-					ul.append('<a class="collection-item indigo-text" href="#">'+element+'</a>');
-				ul.append('</div>');
+				ul.append('<div class="itemListado listaSinBoton intent"><a class="collection-item indigo-text" href="#">'+element+'</a></div>');
 			});
 			putLinkEvent(ul);
 			$inputSearch.keyup(function(e){
