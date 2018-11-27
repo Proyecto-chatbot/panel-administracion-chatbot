@@ -579,7 +579,7 @@ let showAll = function(ul, input){
 			putLinkEvent(ul, input);
 			$inputSearch.keyup(function(e){
 				$("#collection").children('div').remove();
-				search($(this).val().toLowerCase(), $("#collection"));
+				search($(this).val().toLowerCase(), $("#collection"),input);
 			});
 		}).done(function(res){
 			//putLinkEvent(ul);
@@ -593,6 +593,7 @@ let showAll = function(ul, input){
 let putLinkEvent = (ul, input)=>{
 	ul.children('div').children('a').on('click',function(event){
 		event.preventDefault();
+		console.log(input);
 		getEntity($(this), input);
 	});
 }
@@ -612,7 +613,7 @@ let getEntity = (linkEntity, input)=>{
  * @param {*} word
  * @param {*} ulParent
  */
-let search = (word, ulParent) =>{
+let search = (word, ulParent, input) =>{
 	entitiesNames.forEach(element => {
 		if (element.toLowerCase().indexOf(word) >= 0)
 		ulParent.append('<div class="itemListado listaSinBoton intent collectionItem"><a class="collection-item indigo-text" href="#">'+element+'</a></div>');
@@ -620,7 +621,7 @@ let search = (word, ulParent) =>{
 	ulParent.children('div').children('a').on('click',function(){
 		return false;
 	})
-	putLinkEvent(ulParent);
+	putLinkEvent(ulParent, input);
 }
 
 /**
