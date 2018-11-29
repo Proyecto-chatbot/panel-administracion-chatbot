@@ -348,7 +348,6 @@ let redeclare_input_search = function(){
 	$("#collection").children('.search').remove();
 
 	$inputSearch.keyup(function(e){
-		console.log(e);
 		if(e.keyCode == 8){
 			if($(this).val().indexOf('#') != -1)
 				$(this).siblings('.span').html('');
@@ -607,7 +606,6 @@ let showAll = function(ul, input){
 let putLinkEvent = (ul, input)=>{
 	ul.children('div').children('a').on('click',function(event){
 		event.preventDefault();
-		console.log(input);
 		getEntity($(this), input);
 	});
 }
@@ -620,6 +618,7 @@ let getEntity = (linkEntity, input)=>{
 	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
 	$.when(input.val(newText)).then(function(){
 		$("#collection").empty();//children('li, .search').remove();
+		input.focus();
 	}).then($("#collection").hide());
 }
 /**
@@ -647,8 +646,6 @@ let redeclarate_btn_delete_bloq = () =>{
 		event.preventDefault();
 		if(numRespuestas > 1) numRespuestas--;
 		checkNumResponses();
-		console.log($(this));
-		console.log($(this).parent('div').parent('form').parent('div'));
 		$(this).parent().parent().parent().remove();
 	});
 }
