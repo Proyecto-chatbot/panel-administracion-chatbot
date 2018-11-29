@@ -418,6 +418,10 @@ header #menuLateral .botonesMenuLateral:hover {
   cursor: pointer;
 }
 
+header #menuLateral .botonesMenuLateral:hover .opcionNombre a {
+  color: #303F9F;
+}
+
 header #menuLateral #divLog {
   font-size: 1.4em;
 }
@@ -427,7 +431,7 @@ header #menuLateral #divLog:hover {
   color: white;
 }
 
-header #menuLateral #divLog a:hover {
+header #menuLateral #divLog:hover a {
   color: white;
 }
 
@@ -544,6 +548,11 @@ main .formBots {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+main .formBots .intentButton {
+  margin: 2%;
+  padding: 1% 2%;
 }
 
 main .btnDetail {
@@ -1003,6 +1012,7 @@ main .cardDetallesIntent .listaSinBoton .nombreItemListado {
   width: 100%;
   text-align: center;
   margin: 0%;
+  color: black;
 }
 
 main .cardDetallesIntent .separadorItems {
