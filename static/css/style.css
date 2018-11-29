@@ -486,20 +486,20 @@ main {
   /***** Fin Bottom Page *****/
 }
 
-main #collection {
+main .collection_enitities {
   width: 100%;
   display: inline-block;
   padding: 0% 5% 5%;
 }
 
-main #collection .collectionItem {
+main .collection_enitities .collectionItem {
   width: 80%;
   display: inline-block;
   -webkit-box-shadow: 0px 0.5px 0.5px 0px midnightblue;
           box-shadow: 0px 0.5px 0.5px 0px midnightblue;
 }
 
-main #collection .collectionItem a {
+main .collection_enitities .collectionItem a {
   width: 100%;
   display: inline-block;
 }
