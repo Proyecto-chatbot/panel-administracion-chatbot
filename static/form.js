@@ -664,7 +664,7 @@ let redeclarate_btn_delete_synonym = () =>{
 */
 let add_new_input = ($input)=>{
 	//$input.before('<div><input class="input user validate" name="user" type="text" ><p class="span red-text"></p><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	$(".btnPregunta").before('<div class="md-form divPregunta intentQuestion"> <input type="text" class="form-control validate user input" placeholder="Pregunta" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> <div class="collection_enitities"></div><p class="span red-text"></p> </div>');
+	$(".btnPregunta").before('<div class="md-form divPregunta"> <input type="text" class="form-control validate user input" placeholder="Pregunta" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> <div class="collection_enitities"></div><p class="span red-text"></p> </div>');
 	redeclarate_btn_delete();
 	redeclare_input_search();
 }
