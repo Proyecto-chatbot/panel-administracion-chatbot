@@ -353,9 +353,9 @@ let redeclare_input_search = function(){
 			if($(this).val().indexOf('#') > -1)
 				$(this).siblings('.span').html('No puedes usar más de una entidad en la misma frase');
 			else{
-				if(!$(this).siblings("collection_enitities").is(":visible")){
+				if(!$(this).siblings(".collection_enitities").is(":visible")){
 					$('.span').html('');
-					ul = $(this).siblings("collection_enitities");
+					ul = $(this).siblings(".collection_enitities");
 					ul.show();
 					showAll(ul, $(this));
 				}
@@ -578,8 +578,8 @@ let showAll = function(ul, input){
 			});
 			putLinkEvent(ul, input);
 			$inputSearch.keyup(function(e){
-				input.siblings("collection_enitities").children('div').remove();
-				search($(this).val().toLowerCase(), input.siblings("collection_enitities"),input);
+				input.siblings(".collection_enitities").children('div').remove();
+				search($(this).val().toLowerCase(), input.siblings(".collection_enitities"),input);
 			});
 		}).done(function(res){
 			//putLinkEvent(ul);
