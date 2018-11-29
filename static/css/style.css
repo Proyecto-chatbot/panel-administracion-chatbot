@@ -486,6 +486,10 @@ main {
   /***** Fin Bottom Page *****/
 }
 
+main .intentQuestion {
+  display: table-column;
+}
+
 main .collection_enitities {
   width: 100%;
   display: inline-block;
