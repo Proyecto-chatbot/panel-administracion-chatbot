@@ -147,7 +147,7 @@ let init = function(){
 			$.when($('.intent').remove()).then(
 				intents.forEach(function(value){
 					if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-						if(num <= 11) {
+						if(num < 11) {
 							$('#list_intent').append('<div class="itemListado listaSinBoton intent"> <a class="nombreItemListado" id="intent" href="'+value.id+'">'+value.name+'</a></div>')
 						}
 						num++;
@@ -162,7 +162,7 @@ let init = function(){
 			$.when($('.entity').remove()).then(
 				entities.forEach(function(value){
 					if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-						if(num <= 11) {
+						if(num < 11) {
 							$('#list_entity').append('<div class="itemListado listaSinBoton entity"> <a class="nombreItemListado" id="entity" href="/entities/'+value.id+'">'+value.name+'</a></div>')
 						}
 						num++;
@@ -272,8 +272,7 @@ let set_click_events = () =>{
 	});
 	$btn_add_question.click(function(event){
 		event.preventDefault();
-		console.log($(this));
-		add_new_input($(this));
+		if(!$('.user').val() == "") add_new_input($(this));
 	});
 
 	$(document).on('click','.btnAddVariant',function(event){
@@ -344,9 +343,9 @@ let login = function(event){
 let redeclare_input_search = function(){
 	let ul;
 	$inputSearch = $(".input");
-	$inputSearch.siblings(".collection_enitities").hide();
-	$inputSearch.siblings(".collection_enitities").children('div').remove();
-	$inputSearch.siblings(".collection_enitities").children('.search').remove();
+	$("#collection").hide();
+	$("#collection").children('div').remove();
+	$("#collection").children('.search').remove();
 
 	$inputSearch.keyup(function(e){
 		if(e.keyCode == 8){
@@ -362,9 +361,9 @@ let redeclare_input_search = function(){
 			if($(this).val().indexOf('#') > -1)
 				$(this).siblings('.span').html('No puedes usar más de una entidad en la misma frase');
 			else{
-				if(!$(this).siblings(".collection_enitities").is(":visible")){
+				if(!$("#collection").is(":visible")){
 					$('.span').html('');
-					ul = $(this).siblings(".collection_enitities");
+					ul =$("#collection");
 					ul.show();
 					showAll(ul, $(this));
 				}
@@ -587,8 +586,8 @@ let showAll = function(ul, input){
 			});
 			putLinkEvent(ul, input);
 			$inputSearch.keyup(function(e){
-				input.siblings(".collection_enitities").children('div').remove();
-				search($(this).val().toLowerCase(), input.siblings(".collection_enitities"),input);
+				$("#collection").children('div').remove();
+				search($(this).val().toLowerCase(), $("#collection"),input);
 			});
 		}).done(function(res){
 			//putLinkEvent(ul);
@@ -614,8 +613,8 @@ let getEntity = (linkEntity, input)=>{
 	let inputVal = input.val();
 	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
 	$.when(input.val(newText)).then(function(){
-		input.siblings('.collection_enitities').empty();//children('li, .search').remove();
-	}).then(input.siblings('.collection_enitities').hide());
+		$("#collection").empty();//children('li, .search').remove();
+	}).then($("#collection").hide());
 }
 /**
  * Live search
@@ -673,7 +672,7 @@ let redeclarate_btn_delete_synonym = () =>{
 */
 let add_new_input = ($input)=>{
 	//$input.before('<div><input class="input user validate" name="user" type="text" ><p class="span red-text"></p><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	$(".btnPregunta").before('<div class="md-form divPregunta"> <input type="text" class="form-control validate user input" placeholder="Pregunta" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> <div class="collection_enitities"></div><p class="span red-text"></p> </div>');
+	$(".btnPregunta").before('<div class="md-form divPregunta"> <input type="text" class="form-control validate user input" placeholder="Pregunta" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button></div>');
 	redeclarate_btn_delete();
 	redeclare_input_search();
 }
