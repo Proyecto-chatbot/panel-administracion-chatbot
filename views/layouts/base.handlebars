@@ -77,8 +77,8 @@
 </html>
 <script>
 $(function(){
-$('#list_intent').children('.intent').easyPaginate({
-    paginateElement: 'a',
+$('#list_intent').easyPaginate({
+    paginateElement: 'div',
     elementsPerPage: 11,
     effect: 'climb',
     prevButtonText: 'Anterior -',
@@ -86,8 +86,8 @@ $('#list_intent').children('.intent').easyPaginate({
     firstButton: false,
     lastButton: false
 });
-$('#list_entity').children('entity').easyPaginate({
-    paginateElement: 'a',
+$('#list_entity').children('.entity').easyPaginate({
+    paginateElement: 'div',
     elementsPerPage: 11,
     effect: 'climb',
     prevButtonText: 'Anterior -',
