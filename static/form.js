@@ -147,7 +147,7 @@ let init = function(){
 			$.when($('.intent').remove()).then(
 				intents.forEach(function(value){
 					if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-						if(num <= 0) {
+						if(num <= 11) {
 							$('#list_intent').append('<div class="itemListado listaSinBoton intent"> <a class="nombreItemListado" id="intent" href="'+value.id+'">'+value.name+'</a></div>')
 						}
 						num++;
