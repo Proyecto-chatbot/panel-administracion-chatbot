@@ -154,8 +154,6 @@ let init = function(){
 				paginateElement: 'div',
 				elementsPerPage: 11,
 				effect: 'climb',
-				prevButtonText: 'Anterior -',
-				nextButtonText: ' - Siguiente',
 				firstButton: false,
 				lastButton: false
 			})
@@ -174,8 +172,6 @@ let init = function(){
 				paginateElement: 'div',
 				elementsPerPage: 11,
 				effect: 'climb',
-				prevButtonText: 'Anterior - ',
-				nextButtonText: ' - Siguiente',
 				firstButton: false,
 				lastButton: false
 			});
@@ -282,6 +278,7 @@ let set_click_events = () =>{
 	});
 	$btn_add_question.click(function(event){
 		event.preventDefault();
+		console.log($(this));
 		add_new_input($(this));
 	});
 
