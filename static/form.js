@@ -352,7 +352,12 @@ let redeclare_input_search = function(){
 		if(e.keyCode == 8){
 			if($(this).val().indexOf('#') != -1)
 				$(this).siblings('.span').html('');
+			else {
+				$("#collection").hide();
+				$("#collection").children('div').remove();
+				$("#collection").children('.search').remove();				
 			}
+		}
 	});
 	$inputSearch.unbind('keypress').bind('keypress',function(e){
 		console.log($(this));
