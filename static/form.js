@@ -346,7 +346,7 @@ let redeclare_input_search = function(){
 		}
 	});
 	$inputSearch.unbind('keypress').bind('keypress',function(e){
-
+		console.log($(this));
 		if($(this).val().indexOf('#') != -1)
 			$(this).siblings('.span').html('');
 		if(String.fromCharCode(e.which) == '#'){
