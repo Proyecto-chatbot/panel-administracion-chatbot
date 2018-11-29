@@ -153,9 +153,7 @@ let init = function(){
 			$('#list_intent').easyPaginate({
 				paginateElement: 'div',
 				elementsPerPage: 11,
-				effect: 'climb',
-				firstButton: false,
-				lastButton: false
+				effect: 'climb'
 			})
 		});
 	
@@ -171,9 +169,7 @@ let init = function(){
 			$('#list_entity').children('.entity').easyPaginate({
 				paginateElement: 'div',
 				elementsPerPage: 11,
-				effect: 'climb',
-				firstButton: false,
-				lastButton: false
+				effect: 'climb'
 			});
 		});
 
