@@ -143,34 +143,32 @@ let init = function(){
 
 		$('#search-intent').keyup(function(){
 			let stringSearch = $(this).val().toLowerCase();
+			let num = 0;
 			$.when($('.intent').remove()).then(
 				intents.forEach(function(value){
 					if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-						$('#list_intent').append('<div class="itemListado listaSinBoton intent"> <a class="nombreItemListado" id="intent" href="'+value.id+'">'+value.name+'</a></div>')
+						if(num <= 0) {
+							$('#list_intent').append('<div class="itemListado listaSinBoton intent"> <a class="nombreItemListado" id="intent" href="'+value.id+'">'+value.name+'</a></div>')
+						}
+						num++;
 					}
 				})
 			)
-			$('#list_intent').easyPaginate({
-				paginateElement: 'div',
-				elementsPerPage: 11,
-				effect: 'climb'
-			})
 		});
 	
 		$('#search-entity').keyup(function(){
 			let stringSearch = $(this).val().toLowerCase();
+			let num = 0;
 			$.when($('.entity').remove()).then(
 				entities.forEach(function(value){
 					if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-						$('#list_entity').append('<div class="itemListado listaSinBoton entity"> <a class="nombreItemListado" id="entity" href="/entities/'+value.id+'">'+value.name+'</a></div>')
+						if(num <= 11) {
+							$('#list_entity').append('<div class="itemListado listaSinBoton entity"> <a class="nombreItemListado" id="entity" href="/entities/'+value.id+'">'+value.name+'</a></div>')
+						}
+						num++;
 					}
 				})
 			)
-			$('#list_entity').children('.entity').easyPaginate({
-				paginateElement: 'div',
-				elementsPerPage: 11,
-				effect: 'climb'
-			});
 		});
 
 	$('.hidden').each(function(){
