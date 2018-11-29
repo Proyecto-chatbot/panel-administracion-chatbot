@@ -150,6 +150,15 @@ let init = function(){
 					}
 				})
 			)
+			$('#list_intent').easyPaginate({
+				paginateElement: 'div',
+				elementsPerPage: 11,
+				effect: 'climb',
+				prevButtonText: 'Anterior -',
+				nextButtonText: ' - Siguiente',
+				firstButton: false,
+				lastButton: false
+			})
 		});
 	
 		$('#search-entity').keyup(function(){
@@ -161,6 +170,15 @@ let init = function(){
 					}
 				})
 			)
+			$('#list_entity').children('.entity').easyPaginate({
+				paginateElement: 'div',
+				elementsPerPage: 11,
+				effect: 'climb',
+				prevButtonText: 'Anterior - ',
+				nextButtonText: ' - Siguiente',
+				firstButton: false,
+				lastButton: false
+			});
 		});
 
 	$('.hidden').each(function(){

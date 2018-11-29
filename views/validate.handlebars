@@ -23,10 +23,11 @@
               <input type="hidden" class="hidden" value="{{valido}}">
               <p class="nombreUsuario">{{user}}</p>
               <div>
-                <button id="{{user}}" class="btn btn-primary botonValidar deny">
                   {{#if valido}}
+                  <button id="{{user}}" class="btn btn-primary botonValidar deny"></button>
                   <i class="fa fa-check"></i>
                   {{else}}
+                  <button id="{{user}}" class="btn btn-primary botonValidar deny diez"></button>
                   <i class="fa fa-times"></i>
                   {{/if}}
                 </button>
