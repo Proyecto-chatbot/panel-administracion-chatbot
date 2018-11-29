@@ -335,27 +335,27 @@ let login = function(event){
 let redeclare_input_search = function(){
 	let ul;
 	$inputSearch = $(".input");
-	$("#collection").hide();
-	$("#collection").children('div').remove();
-	$("#collection").children('.search').remove();
+	$inputSearch.siblings(".collection#").hide();
+	$inputSearch.siblings(".collection#").children('div').remove();
+	$inputSearch.siblings(".collection#").children('.search').remove();
 
 	$inputSearch.keyup(function(e){
 		if(e.keyCode == 8){
 			if($(this).val().indexOf('#') != -1)
-				$('.span').html('');
+				$(this).siblings('.span').html('');
 		}
 	});
 	$inputSearch.unbind('keypress').bind('keypress',function(e){
 
 		if($(this).val().indexOf('#') != -1)
-			$('.span').html('');
+			$(this).siblings('.span').html('');
 		if(String.fromCharCode(e.which) == '#'){
 			if($(this).val().indexOf('#') > -1)
-				$('.span').html('No puedes usar más de una entidad en la misma frase');
+				$(this).siblings('.span').html('No puedes usar más de una entidad en la misma frase');
 			else{
-				if(!$("#collection").is(":visible")){
+				if(!$(this).siblings(".collection#").is(":visible")){
 					$('.span').html('');
-					ul = $("#collection");
+					ul = $(this).siblings(".collection#");
 					ul.show();
 					showAll(ul, $(this));
 				}
@@ -578,8 +578,8 @@ let showAll = function(ul, input){
 			});
 			putLinkEvent(ul, input);
 			$inputSearch.keyup(function(e){
-				$("#collection").children('div').remove();
-				search($(this).val().toLowerCase(), $("#collection"),input);
+				input.siblings(".collection#").children('div').remove();
+				search($(this).val().toLowerCase(), input.siblings(".collection#"),input);
 			});
 		}).done(function(res){
 			//putLinkEvent(ul);
@@ -605,8 +605,8 @@ let getEntity = (linkEntity, input)=>{
 	let inputVal = input.val();
 	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
 	$.when(input.val(newText)).then(function(){
-		$('#collection').empty();//children('li, .search').remove();
-	}).then($('#collection').hide());
+		input.siblings('.collection#').empty();//children('li, .search').remove();
+	}).then(input.siblings('.collection#').hide());
 }
 /**
  * Live search
@@ -664,7 +664,7 @@ let redeclarate_btn_delete_synonym = () =>{
 */
 let add_new_input = ($input)=>{
 	//$input.before('<div><input class="input user validate" name="user" type="text" ><p class="span red-text"></p><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	$("#collection").before('<div class="md-form divPregunta "> <input type="text" class="form-control validate user input" placeholder="Pregunta" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
+	$(".btnPregunta").before('<div class="md-form divPregunta "> <input type="text" class="form-control validate user input" placeholder="Pregunta" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> <div class="collection#"></div><p class="span red-text"></p> </div>');
 	redeclarate_btn_delete();
 	redeclare_input_search();
 }
