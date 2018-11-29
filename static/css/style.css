@@ -486,6 +486,15 @@ main {
   /***** Fin Bottom Page *****/
 }
 
+main .botonDesplegable {
+  width: 90%;
+  margin: 0% 1%;
+}
+
+main .botonDesplegable a {
+  text-align: center;
+}
+
 main .diez {
   margin-right: 10px;
 }
@@ -879,6 +888,7 @@ main .cardListadoSinBotones .subtituloEntidad {
 main .cardListadoSinBotones .listaSinBoton .nombreItemListado {
   width: 100%;
   text-align: center;
+  color: black;
 }
 
 main .cardDetallesIntent {
