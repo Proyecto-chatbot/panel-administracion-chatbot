@@ -51,6 +51,14 @@
 					{{/each}}
             </div>
         </div>
+		<div class="row">
+			<input id="search-intent" class="col s8 m6 offset-m3 offset-s2 " type="text">
+			<div id="list_intent" class="collection col s10 m8 offset-m2 offset-s1">
+				{{#each this}}
+					<a class="collection-item intent indigo-text" id="intent" href="/{{ id }}">{{ name }}</a>
+				{{/each }}
+			</div>
+		</div>
         <div class="flex-center divBotonesPequennos" >
 			<form action="/">
             	<button class="btn btn-warning botonPequenno backButton">Volver</button> 
