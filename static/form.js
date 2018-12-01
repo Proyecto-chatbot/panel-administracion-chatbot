@@ -197,8 +197,9 @@ let set_click_events = () =>{
 
 	$btns_lateral_menu.click(function(event){
 		event.preventDefault();
-		console.log($(this).children('a'));
-		console.log($(this).children('a').href);
+		console.log($(this).children('.opcionNombre').children('a'));
+		console.log($(this).children('.opcionNombre').children('a').attr("href"));
+		console.log($(this).children('.opcionNombre').children('a').href);
 		//location.href = $(this).children('a').attr("href");
 	});
 
