@@ -14,6 +14,7 @@ let $btnDeny;
 let $btn_add_bot;
 let $btn_select_bot;
 let $btn_create_entity;
+let $btns_lateral_menu;
 
 let $name;
 let numLinks;
@@ -74,7 +75,7 @@ let init = function(){
 	$btn_edit_gif = $('#edit_gif');
 	$btn_add_bot = $('#btn-add-bot');
 	$btn_create_entity = $("#btn_create_entity");
-
+	$btns_lateral_menu = $(".botonesMenuLateral");
 	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
 	redeclarate_btn_delete_synonym();
@@ -192,6 +193,13 @@ let set_click_events = () =>{
 	$btn_create_entity.click(function(event){
 		event.preventDefault();
 		location.href = "/create_entity";
+	});
+
+	$btns_lateral_menu.click(function(event){
+		event.preventDefault();
+		console.log($(this).children('a'));
+		console.log($(this).children('a').attr("href"));
+		location.href = $(this).children('a').attr("href");
 	});
 
 	$annadirRespuesta.click(function(event){

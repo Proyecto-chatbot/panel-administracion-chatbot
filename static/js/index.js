@@ -19,5 +19,6 @@ window.addEventListener("load",function(){
 
     botonMenu.addEventListener("click", desplegarMenu);
     botonCancelar.addEventListener("click", cerrardesplegarMenu);
+    background_shadow.addEventListener("click", cerrardesplegarMenu);
 
 });
