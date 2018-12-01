@@ -14,6 +14,7 @@ var HandlebarsIntl = require('handlebars-intl');
 var formatter = require('./static/request_formatter');
 var domain = process.env.APP_HOST;
 const PORT = process.env.PORT || 3000;
+
 // helpers for handlebars
 var helpers = require('handlebars-helpers')(['math', 'comparison']);
 var hbs = exphbs.create({defaultLayout: 'base'});
