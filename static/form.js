@@ -198,8 +198,8 @@ let set_click_events = () =>{
 	$btns_lateral_menu.click(function(event){
 		event.preventDefault();
 		console.log($(this).children('a'));
-		console.log($(this).children('a').attr("href"));
-		location.href = $(this).children('a').attr("href");
+		console.log($(this).children('a').href);
+		//location.href = $(this).children('a').attr("href");
 	});
 
 	$annadirRespuesta.click(function(event){
