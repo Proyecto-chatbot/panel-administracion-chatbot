@@ -147,14 +147,14 @@
                 {{/if}}
             {{/each}}
         <div class="flex-center divBotonesPequennos" >
-            <form action="/edit" method="POST">
+            <form action="/edit" method="POST" class="editIntentButtons">
                 <input type="hidden" name="id" id="input-id" value="{{this.id}}">
                 <button type="submit" id="open-edit-intent" class="btn btn-secondary botonPequenno btnDetail">Editar</button>
             </form>
-            <form action="/intents">
+            <form action="/intents" class="editIntentButtons">
                 <button class="btn btn-warning botonPequenno btnDetail">Volver</button> 
             </form>
-            <form>
+            <form action="#" class="editIntentButtons">
                 <button id="btn-delete-intent" type="submit" class="btn btn-danger botonPequenno btnDetail">Borrar</button>
             </form>
         </div>

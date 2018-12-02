@@ -1411,6 +1411,10 @@ main .botonAnnadir {
   }
 }
 
+main .editIntentButtons {
+  margin: 0 5%;
+}
+
 main #botonRegistarme {
   font-size: .9em;
 }
@@ -1426,9 +1430,8 @@ main .divBotonesPequennos {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 main form .botonPequenno {
