@@ -859,13 +859,15 @@ let send_intent = ()=>{
 	if(n_inputs > 1){
 		userSays = [];
 		input_user.each(function(index, element){
-			console.log(element);
-			console.log(index);
-			userSays.push($.trim($(this).val()));
+			if($(this).val() != "" && $(this).val() != " "){
+				userSays.push($(this).val());
+			}
 		});
 	}else{
 		userSays = '';
-		userSays = $.trim(input_user.val());
+		if(input_user.val() != "" && input_user.val() != " "){
+			userSays = input_user.val();
+		}
 	}
 	$('.bloq').each(function(){
 
