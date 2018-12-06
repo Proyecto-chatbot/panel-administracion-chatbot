@@ -72,6 +72,7 @@
                 {{#each this.userSays }}
                 <div class="itemListado listaSinBoton">
                 {{#if data}}
+                <p class="nombreItemListado">
                 {{#each data}}
              		{{#if meta}}
 					        {{#isnt meta "@sys.ignore" }}
@@ -81,10 +82,11 @@
 						        <span>{{text}}</span>
 					        {{/eq}}
 				    {{else}}
-					    <p class="nombreItemListado"> {{text}} </p>
+					     {{text}} </p>
 				    {{/if}}
 
                 {{/each}}
+                </p>
                 </div>
                 <hr class="separadorItems">
                 {{/if}}
