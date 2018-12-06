@@ -907,6 +907,7 @@ let send_intent = ()=>{
 		else botSays.push({ 'type': type, 'text': text});
 
 	});
+	console.log(userSays);
 	data = {
 		"name": name,
 		"user": userSays,
