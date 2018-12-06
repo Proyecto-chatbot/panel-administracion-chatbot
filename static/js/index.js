@@ -16,7 +16,6 @@ window.addEventListener("load",function(){
         background_shadow.style.visibility = "hidden";
     }
 
-
     botonMenu.addEventListener("click", desplegarMenu);
     botonCancelar.addEventListener("click", cerrardesplegarMenu);
     background_shadow.addEventListener("click", cerrardesplegarMenu);

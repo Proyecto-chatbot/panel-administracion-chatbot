@@ -158,9 +158,9 @@
             <hr class="hrTitulo">
             <form class="form-inline md-form form-sm">
             {{#each this.userSays }}
-                <div class="md-form divPregunta ">
+                <div class="md-form divPregunta editIntent">
                 {{#if data}}
-                <span class="hide span-hide">
+                <span style="display: none" class="hide">
                 {{#each data}}
              		{{#if meta}}
 					        {{#isnt meta "@sys.ignore" }}
