@@ -856,7 +856,6 @@ let send_intent = ()=>{
 	input_user.each(function(){
 		n_inputs++;
 	});
-	console.log(input_user);
 	if(n_inputs > 1){
 		userSays = [];
 		input_user.each(function(index, element){
@@ -907,7 +906,6 @@ let send_intent = ()=>{
 		else botSays.push({ 'type': type, 'text': text});
 
 	});
-	console.log(userSays);
 	data = {
 		"name": name,
 		"user": userSays,
@@ -916,6 +914,7 @@ let send_intent = ()=>{
 		"contextOut" : context_out,
 		"parameters" : parameters
 	}
+	console.log(data);
 
 	if(data.name == ""){
 		$('#err-name').html('No se puede crear un intent sin nombre');
