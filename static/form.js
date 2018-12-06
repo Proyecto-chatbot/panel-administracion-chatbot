@@ -859,6 +859,8 @@ let send_intent = ()=>{
 	if(n_inputs > 1){
 		userSays = [];
 		input_user.each(function(index, element){
+			console.log(element);
+			console.log(index);
 			userSays.push($.trim($(this).val()));
 		});
 	}else{
