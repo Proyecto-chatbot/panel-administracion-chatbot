@@ -160,21 +160,23 @@
             {{#each this.userSays }}
                 <div class="md-form divPregunta ">
                 {{#if data}}
+                <span class="hide span-hide">
                 {{#each data}}
              		{{#if meta}}
 					        {{#isnt meta "@sys.ignore" }}
-						        <input type="text" class="form-control user input" placeholder="Pregunta" value="#{{alias}}">
+						        <span>#{{alias}}</span>
 					        {{/isnt}}
 					        {{#eq meta "@sys.ignore"}}
-						        <input type="text" class="form-control user input" placeholder="Pregunta" value="{{text}}">
+						        <span>{{text}}</span>
 					        {{/eq}}
 				    {{else}}
-                    {{#isnt text " " }}
-					        <input type="text" class="form-control user input" placeholder="Pregunta" value="{{text}}">
-                    {{/isnt}}
+                        <span>{{text}}</span>
+                        
 				    {{/if}}
 
                 {{/each}}
+                </span>
+                <input type="text" class="form-control user input" placeholder="Pregunta">
                 {{/if}}
                  {{#if @index}}
                     <button type="button" class="btn-delete-variant btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
