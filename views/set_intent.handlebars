@@ -176,7 +176,7 @@
 
                 {{/each}}
                 </span>
-                <input type="text" class="form-control user input" name="user" placeholder="Pregunta">
+                <input type="text" class="form-control user input" name="user" placeholder="Pregunta" value="">
                 {{/if}}
                  {{#if @index}}
                     <button type="button" class="btn-delete-variant btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
@@ -314,3 +314,8 @@
                 <button type="submit" id="btn_edit_intent" name="btn_edit_intent" class="btn btn-indigo botonPequenno">Guardar</button> 
             </form>
         </div>
+        <script>
+            $(function(){
+                $(".editIntent").children('input').val($(".editIntent").children('.hide').html());
+            });
+        </script>

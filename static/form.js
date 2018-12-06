@@ -76,7 +76,6 @@ let init = function(){
 	$btn_add_bot = $('#btn-add-bot');
 	$btn_create_entity = $("#btn_create_entity");
 	$btns_lateral_menu = $(".botonesMenuLateral");
-	$(".editIntent").children('input').val($(".editIntent").children('.hide').val());
 	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
 	redeclarate_btn_delete_synonym();
