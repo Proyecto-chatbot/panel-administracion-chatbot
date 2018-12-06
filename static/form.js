@@ -935,10 +935,10 @@ let send_intent = ()=>{
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
 		else if(responseIsEmpty() == true)
 			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
-		else
+		/*else
 			$.post('/new_intent',data, function(res){
 				location.href = '/intents';
-		});
+		});*/
 	}
 	else if(responses.length == 0)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
@@ -947,10 +947,10 @@ let send_intent = ()=>{
 	}
 	else if(responseIsEmpty() == true)
 		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
-	else
+	/*else
 		$.post('/new_intent',data, function(res){
 			location.href = '/intents';
-		});
+		});*/
 }
 /**
  * @return boolean the existence of text in the input
