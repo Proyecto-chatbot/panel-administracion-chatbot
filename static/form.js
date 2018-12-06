@@ -856,6 +856,7 @@ let send_intent = ()=>{
 	input_user.each(function(){
 		n_inputs++;
 	});
+	console.log(input_user);
 	if(n_inputs > 1){
 		userSays = [];
 		input_user.each(function(index, element){

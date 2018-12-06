@@ -899,6 +899,9 @@ app.post('/update',function(req,res,next){
 });
 app.post('/edit', function(req, res,next){
 	let id = req.body.id;
+	console.log(req);
+	console.log(res);
+	console.log(next);	
 	edit_intent(id, req, res,next);
 });
 app.get('/:id', requiresLogin,requiresToken,function(req, res, next){
