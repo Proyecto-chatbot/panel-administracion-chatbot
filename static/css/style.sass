@@ -295,7 +295,16 @@ main
     padding: 5%
 
     #open-edit-intent
-        padding: 12% 15%
+        @include media(tablet7p)
+            padding: 3% 3%
+            font-size: .85em 
+        @include media(tablet8p)
+            font-size: .9em 
+        @include media(tablet10p)
+            padding: 4% 3%
+        @include media(laptopS)
+            padding: 11% 14%
+            margin: 10% 1%  
 
     .botonDesplegable
         width: 90%
