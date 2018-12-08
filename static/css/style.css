@@ -490,6 +490,10 @@ main {
   /***** Fin Bottom Page *****/
 }
 
+main #open-edit-intent {
+  padding: 12% 15%;
+}
+
 main .botonDesplegable {
   width: 90%;
   margin: 0% 1%;
@@ -1460,7 +1464,7 @@ main form .botonPequenno {
 
 @media screen and (min-width: 1280px) {
   main form .botonPequenno {
-    padding: 8% 10%;
+    padding: 10% 14%;
     margin: 10% 1%;
   }
 }
