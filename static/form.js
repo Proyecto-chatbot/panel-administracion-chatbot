@@ -41,6 +41,18 @@ const MAX_RESPONSES = 10;
 let numResponses;
 let numRespuestas;
 
+let ftrim = function(text) {
+	let newText = "";
+	let texts = text.split(" ");
+	for (let index = 0; index <texts.length; index++) {
+		if(/^[a-zA-Z()#]$/.test(texts[index][0])){
+			if(newText) newText += " ";
+			newText += texts[index];
+		}
+	}
+	return newText;
+}
+
 let init = function(){
 	numResponses = 1;
 	numRespuestas = 1;
@@ -50,6 +62,11 @@ let init = function(){
 	});
 	$.post('/get_entities', function(res){
 		entities = res;
+	});
+
+	$(".editIntent").each(function(index, element){
+		let text = $(this).children('span').html();
+		$(this).children('input').val(ftrim(text));	
 	});
 
 	hasImage = false;
