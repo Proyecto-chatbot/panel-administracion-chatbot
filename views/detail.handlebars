@@ -1,4 +1,4 @@
-<div class="container center-align" id="body-wrapper">
+<!--<div class="container center-align" id="body-wrapper">
     <h5 class="indigo-text">{{this.name}}</h5>
 <form action="/edit" method="POST">
 <input type="hidden" name="id" id="input-id" value="{{this.id}}">
@@ -61,4 +61,102 @@
 <button class="right btn btn-primary red" id="btn-delete-intent"><i class="material-icons right">delete</i>ELIMINAR</button>
 
 </div>
-</div>
+</div>-->
+
+<div class="divTituloPagina"><h2 class="tituloPagina">{{this.name}}</h2></div>
+
+        <div class="card cardDetallesIntent">
+            <h6 class="subtituloEntidad">Preguntas del usuario</h6>
+            <hr class="hrTitulo">
+            <div class="card-body cardBodyListado d-flex flex-column" >
+                {{#each this.userSays }}
+                <div class="itemListado listaSinBoton">
+                {{#if data}}
+                <p class="nombreItemListado">
+                {{#each data}}
+             		{{#if meta}}
+					        {{#isnt meta "@sys.ignore" }}
+						        <span>@{{alias}}</span>
+					        {{/isnt}}
+					        {{#eq meta "@sys.ignore"}}
+						        <span>{{text}}</span>
+					        {{/eq}}
+				    {{else}}
+					     <span>{{text}}</span>
+				    {{/if}}
+
+                {{/each}}
+                </p>
+                </div>
+                <hr class="separadorItems">
+                {{/if}}
+            {{/each}}
+            </div>
+        </div>
+        
+             {{#each this.responses }}
+                {{#if messages}}
+                    {{#each messages}}
+                        {{#if textToSpeech}}
+                        <div class="card cardDetallesIntent cardResp">
+                            <h6 class="subtituloEntidad">Respuesta Texto</h6>
+                            <hr class="hrTitulo">
+                            <div class="card-body cardBodyListado d-flex flex-column" >
+                                <div class="itemListado listaSinBoton">
+                                    <p class="nombreItemListado">{{textToSpeech}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{#if items}}
+                                <div class="card cardDetallesIntent cardResp">
+                                    <h6 class="subtituloEntidad">Respuestas de Texto</h6>
+                                    <hr class="hrTitulo">
+                                        <div class="card-body cardBodyListado d-flex flex-column" >
+                                            {{#each items}}
+                                                <div class="itemListado listaSinBoton">
+                                                        <p class="nombreItemListado">{{textToSpeech}}</p>
+                                                </div>
+                                                <hr class="separadorItems">
+                                            {{/each}}
+                                        </div>
+                                </div>
+                        {{/if}}
+                        {{#if image}}
+                        <div class="card cardDetallesIntent cardResp">
+                            <h6 class="subtituloEntidad">Respuesta Imagen</h6>
+                            <hr class="hrTitulo">
+                            <div class="card-body cardBodyListado d-flex flex-column" >
+                                <div class="itemListado listaSinBoton">
+                                    <p class="nombreItemListado">{{image.url}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{#if url}}
+                        <div class="card cardDetallesIntent cardResp">
+                            <h6 class="subtituloEntidad">Respuesta Link</h6>
+                            <hr class="hrTitulo">
+                            <div class="card-body cardBodyListado d-flex flex-column" >
+                                <div class="itemListado listaSinBoton">
+                                    <p class="nombreItemListado">{{destinationName}}</p>
+                                    <p class="nombreItemListado">{{url}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+            {{/each}}
+        <div class="flex-center divBotonesPequennos" >
+            <form action="/edit" method="POST" class="editIntentButtons">
+                <input type="hidden" name="id" id="input-id" value="{{this.id}}">
+                <button type="submit" id="open-edit-intent" class="btn btn-secondary botonPequenno btnDetail">Editar</button>
+            </form>
+            <form action="/intents" class="editIntentButtons">
+                <button class="btn btn-warning botonPequenno btnDetail">Volver</button> 
+            </form>
+            <form action="#" class="editIntentButtons">
+                <button id="btn-delete-intent" type="submit" class="btn btn-danger botonPequenno btnDetail">Borrar</button>
+            </form>
+        </div>

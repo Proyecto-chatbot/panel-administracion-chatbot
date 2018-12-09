@@ -1,4 +1,4 @@
-<div id="body-wrapper" class="container center-align">
+<!--<div id="body-wrapper" class="container center-align">
     <div class="card p5 card-create">
     <h5>Crear un nuevo Intent: Gif Aleatorio</h5>
     <div class="row ">
@@ -55,4 +55,71 @@
         </button>
     </div>
 </div>
-</div>
+</div>-->
+
+
+
+
+
+
+
+<div class="divTituloPagina"><h2 class="tituloPagina">Intent: GIF Aleatorio</h2></div>
+        <form class="form-inline md-form form-sm inputEditable" id="inputNombreEntidad">
+            <div class="md-form">
+                <h6 class="subtituloEntidad">Nombre del Intent</h6>
+                <input type="hidden" name="id" id="input-id" value="{{this.id}}">
+                <input type="text" id="name" name="name" class="form-control validate" value="{{this.name}}">
+                <p id="err-name" class="red-text"></p>
+            </div>
+        </form>
+        <div class="card cardDetallesIntent cardPreguntasUsuario">
+            <h6 class="subtituloEntidad">Preguntas del usuario</h6>
+            <hr class="hrTitulo">
+            <form class="form-inline md-form form-sm">
+                {{#each this.userSays }}
+                <div class="md-form divPregunta ">
+                {{#each data}}
+             		{{#if meta}}
+					        {{#isnt meta "@sys.ignore" }}
+						        <span>#{{alias}}</span>
+					        {{/isnt}}
+					        {{#eq meta "@sys.ignore"}}
+						        <span>{{text}}</span>
+					        {{/eq}}
+				    {{else}}
+					    <input type="text" class="form-control user input" name="user" value="{{text}}">
+                        <p class="red-text" id="err-user"></p>
+				    {{/if}}
+
+                {{/each}}
+                
+                    {{#if @index}}
+                        <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant"><i class="fa fa-trash"></i></button>
+                    {{/if}}
+                
+                </div>
+                {{/each}}
+                <div class="divBoton btnPregunta">
+                    <button type="button" id="addUserText" name="addUserText" class="btn btn-indigo botonMediano">Añadir</button>
+                </div>   
+            </form>     
+        </div>
+        <div class="card cardDetallesIntent cardResp cardRespuesta">
+            <h6 class="subtituloEntidad">Palabras Clave</h6>
+            <hr class="hrTitulo">
+            <form class="form-inline md-form form-sm">
+                <div class="md-form divPalabrasClave ">
+                    {{#each this.responses}}
+                    <input type="text" class="form-control tag_gif validate" name="tag_gif" id="input-tag" value="{{action}}">
+                    <p id="err-tag" class="red-text"></p>
+                    {{/each}}
+                </div>  
+            </form>
+        </div>
+
+        <div class="flex-center divBotonesPequennos">
+            <form action="/intents">
+                <button class="btn btn-warning botonPequenno backButton">Volver</button>
+            </form>
+            <button type="submit" id="edit_gif" name="edit_gif" class="btn btn-indigo botonPequenno">Guardar</button> 
+        </div>

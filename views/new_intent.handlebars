@@ -1,4 +1,4 @@
-<div id="body-wrapper" class="container center-align">
+<!--<div id="body-wrapper" class="container center-align">
     <div class="card-create card">
     <h5>Crear un nuevo Intent</h5>
     <div class="row ">
@@ -64,4 +64,94 @@
                 </div>
             </li>
         </ul>
-</div>
+</div>-->
+
+
+
+<div class="divTituloPagina"><h2 class="tituloPagina">Crear Intent</h2></div>
+        <form class="form-inline md-form form-sm inputEditable" id="inputNombreEntidad">
+            <div class="md-form">
+                <h6 class="subtituloEntidad">Nombre del Intent</h6>
+                <input type="text" id="name" class="form-control validate" placeholder="Nombre" name="name" >
+            </div>
+        <p id="err-name" class="red-text"></p>
+        </form>
+        <input type="hidden" id="input-id" value={{this.id}}>
+        <div class="card cardDetallesIntent cardPreguntasUsuario">
+            <h6 class="subtituloEntidad">Preguntas del usuario</h6>
+            <hr class="hrTitulo">
+            <form class="form-inline md-form form-sm">
+                <div class="md-form divPregunta">
+                    <input type="text" class="form-control validate user input" placeholder="Pregunta" id="first-question" name="user">
+                </div>
+                <div id="collection"></div>
+                <p class="span red-text"></p>
+                <div class="divBoton btnPregunta">
+                    <button type="button" class="btn btn-indigo botonMediano"  id="addUserText" name="addUserText">Añadir</button>
+                </div>   
+            </form>
+            <p id="err-user" class="red-text"></p>     
+        </div>
+        <!--
+
+            -->
+            <div class="card cardDetallesIntent cardResp cardRespuesta bloq type-text">
+                    <input type="hidden" name="hidden" value=""/>
+                    <h6 class="subtituloEntidad">Respuesta</h6>
+                    <hr class="hrTitulo">
+                    <form class="form-inline md-form form-sm">
+                        <div class="md-form divRespuesta">
+                            <input type="text" class="form-control response validate" placeholder="Respuesta" id="input0">
+                        </div>
+                        <div class="divBoton btnRespuesta">
+                                <!--<button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button>-->
+                                <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button>
+                        </div>   
+                    </form>
+            </div>
+
+        <!--<div class="flex-center divBotonesPequennos btn-respuesta" id="accordion2">
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="subtituloEntidad">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Añadir Respuesta</button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse bodyOpAvan" aria-labelledby="headingTwo" data-parent="#accordion2">
+                    <div class="md-form">
+                        <button type="button" class="text-li indigo-text addRespuesta form-control btn btn-indigo" name="type-text">Texto</button>
+                        <button type="button" class="image-li indigo-text addRespuesta form-control btn btn-indigo" name="type-image">Imagen/Gif</button>
+                        <button type="button" class="link-li indigo-text addRespuesta form-control btn btn-indigo" name="type-link">Enlace/Documento</button>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <p id="err" class="red-text"></p>
+
+        <div id="accordion" class="cardDetallesIntent cardResp opAvan">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <button class="btn btn-link OpAv" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Opciones Avanzadas</button>
+                </div>
+                <div id="collapseOne" class="collapse bodyOpAvan" aria-labelledby="headingOne" data-parent="#accordion">
+                   <form class="d-flex flex-column align-items-center formOpAvan"> 
+                        <div class="md-form">
+                            <input type="text" id="contextIn" class="form-control" placeholder="Cont. Entrada">
+                            <input type="text" id="contextOut" class="form-control" placeholder="Cont. Salida">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-center divBotonesPequennos" >
+            <form action="/intents" class="editIntentButtons">
+                <button name="submit" class="btn btn-warning botonPequenno backButton">Cancelar</button>
+            </form>
+            <form action="#" class="editIntentButtons">
+                <button id="submit" name="submit" class="btn btn-indigo botonPequenno">Guardar</button> 
+            </form>
+        </div>
+

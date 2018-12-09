@@ -39,6 +39,7 @@ app.use(session({
 	saveUninitialized:true
 }));
 
+
 /**
  * Force the user to get logged
  * @param {*} req
@@ -660,7 +661,8 @@ put_entity = (req,res,next)=>{
 }
 // Next, express is listening the diferent get/post requests from our panel
 app.get('/display',requiresLogin,function(req,res,next){
-	res.render('display');
+	let user = {'userlog': req.session.username};
+	res.render('display',/* user*/);
 })
 app.post('/new_entity', function(req, res, next){
 	post_entity(req, res);
@@ -674,7 +676,7 @@ app.get('/',requiresLogin, function(req, res, next){
 		datos = [];
 		let bot_list;
 		let keys;
-
+		let user;
 		service.get_all_bots(
 			function(err, reply) {
 				if(reply == null)
@@ -686,7 +688,7 @@ app.get('/',requiresLogin, function(req, res, next){
 						return JSON.parse(element);
 					});
 					map= keys.map( function(x, i){
-						return {"name": x, "token": data[i].token};
+						return {"name": x, "token": data[i].token, /*'userlog': req.session.username*/};
 					}.bind(this));
 					resolve(bot_list = map);
 				}
@@ -702,6 +704,7 @@ app.get('/',requiresLogin, function(req, res, next){
 });
 
 app.get('/intents',requiresLogin, get_intents,requiresToken, function(req,res){
+	intents_body = {intents, "this" : {"userlog": req.session.username}};
 	res.render('index', intents);
 })
 
@@ -743,16 +746,17 @@ app.post('/login', function(req,res){
 						return {"user": x, "passwd": data[i].password, "valido": data[i].valido };
 					}.bind(this));
 					map.forEach(function(element) {
-						if(element.user == user && element.valido == '0'){
+						if(element.user == user && element.valido == false){
 							exist = true;
 							reject(respuesta = false);
 						}
-						if(element.user == user && element.valido == '1'){
+						if(element.user == user && element.valido == true){
 								exist = true;
 								bcrypt.compare(password,element.passwd,function(err,res){
 									if(res){
 										req.session.logged = true;
 										req.session.user = element;
+										req.session.username = element.user;
 										resolve(respuesta = 'response ok');
 									}else{
 										reject(respuesta = false);
@@ -778,7 +782,8 @@ app.post('/login', function(req,res){
 });
 
 app.get('/add',requiresLogin, function(req, res){
-	res.render('add_agent');
+	let user = {"this": {'userlog': req.session.username}};
+	res.render('add_agent',/* user*/);
 });
 app.post('/add',function(req,res,next){
 	name = req.body.name;
@@ -810,7 +815,7 @@ app.get('/validate', requiresLogin, function(req,res){
 					return JSON.parse(element);
 				});
 				map= keys.map( function(x, i){
-					return {"user": x, "passwd": data[i].password, "valido": data[i].valido};
+					return {"user": x, "passwd": data[i].password, "valido": data[i].valido, /*'userlog': req.session.username*/};
 				}.bind(this));
 				resolve(users_list = map);
 			});
@@ -821,7 +826,6 @@ app.get('/validate', requiresLogin, function(req,res){
 	  }, function(users_list){
 		res.render('validate', users_list);
 	  });
-
 
 });
 
@@ -854,16 +858,20 @@ app.post('/show_entities', get_entities,requiresToken, function(req, res, next){
 });
 
 app.get('/entities', requiresLogin,get_entities,requiresToken, function(req,res,next){
+	entities_body = {entities, "this" : {"userlog": req.session.username}};
 	res.render('entities', entities);
 });
 app.get('/create',requiresLogin,requiresToken,function(req,res,next){
-	res.render('new_intent');
+	let user = {"this": {'userlog': req.session.username}};
+	res.render('new_intent', /*user*/);
 });
 app.get('/create_gif',requiresLogin,requiresToken,function(req,res,next){
-	res.render('new_gif');
-})
+	let user = {"this": {'userlog': req.session.username}};
+	res.render('new_gif', /*user*/);
+});
 app.get('/create_entity',requiresLogin,requiresToken,function(req,res,next){
-	res.render('new_entity');
+	//let user = {"this": {'userlog': req.session.username}};
+	res.render('new_entity',/* user*/);
 });
 app.get('/entities/:id',requiresLogin,requiresToken, function(req,res,next){
 	let id = req.params.id;

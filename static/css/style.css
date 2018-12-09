@@ -1,0 +1,1582 @@
+@charset "UTF-8";
+* {
+  margin: 0px;
+  padding: 0px;
+  *background: #FAFAFA;
+}
+
+#contenedor {
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+/************ Header ************/
+header {
+  background-color: #303F9F;
+  min-height: 10vh;
+  *border: 1px solid red;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  /***---Menú lateral---***/
+}
+
+header #divLogo {
+  *border: 3px solid red;
+  width: 100%;
+  height: 10vh;
+  text-align: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+header #divLogo img {
+  margin: 0% 10%;
+  width: 30%;
+  *border: 3px solid red;
+}
+
+@media screen and (min-width: 600px) {
+  header #divLogo img {
+    width: 20%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  header #divLogo img {
+    width: 15%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  header #divLogo img {
+    width: 10%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  header #divLogo img {
+    width: 8%;
+    *padding-right: 8%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  header #divLogo img {
+    *width: 10%;
+    *padding-top: 2%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  header #divLogo img {
+    *width: 15%;
+    *padding-top: 1%;
+  }
+}
+
+header #divTitulo {
+  *border: 3px solid red;
+  text-align: center;
+  width: 100%;
+}
+
+header #divTitulo h1 {
+  font-size: 1.3em;
+}
+
+@media screen and (min-width: 600px) {
+  header #divTitulo h1 {
+    font-size: 1.7em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  header #divTitulo h1 {
+    font-size: 1.9em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  header #divTitulo h1 {
+    font-size: 2.1em;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  header #divTitulo h1 {
+    font-size: 2.3em;
+  }
+}
+
+header #divBotonMenu {
+  *border: 3px solid red;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+header #divBotonMenu i {
+  padding-left: 15%;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  header #divBotonMenu i {
+    font-size: 2.5em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  header #divBotonMenu i {
+    font-size: 2.6em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  header #divBotonMenu i {
+    font-size: 2.7em;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  header #divBotonMenu i {
+    padding-left: 12%;
+    font-size: 2.8em;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  header #divBotonMenu i {
+    padding-left: 10%;
+  }
+}
+
+header #background_shadow {
+  z-index: 100;
+  position: fixed;
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100vh;
+  background: #000000;
+  opacity: 0.0;
+  visibility: hidden;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+header #menuLateral {
+  background-color: #F5F5F5;
+  color: #424242;
+  position: fixed;
+  left: -100%;
+  top: 0px;
+  width: 65%;
+  height: 100vh;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 101;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+}
+
+@media screen and (min-width: 600px) {
+  header #menuLateral {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  header #menuLateral {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  header #menuLateral {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  header #menuLateral {
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  header #menuLateral {
+    width: 22%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  header #menuLateral {
+    width: 22%;
+  }
+}
+
+header #menuLateral #cabeceraMenu {
+  background-color: #303F9F;
+  color: white;
+  width: 100%;
+  height: auto;
+  min-height: 15%;
+  padding: 5%;
+  font-size: 0.9em;
+}
+
+header #menuLateral #cabeceraMenu #divUsuario {
+  padding-top: 5%;
+  *border: 1px solid red;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+header #menuLateral #cabeceraMenu #divUsuario .logoUsuario {
+  font-size: 1.4em;
+}
+
+header #menuLateral #cabeceraMenu #divUsuario #nombreUsuario {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0%;
+  padding-left: 3%;
+  text-align: right;
+  text-transform: capitalize;
+}
+
+@media screen and (min-width: 600px) {
+  header #menuLateral #cabeceraMenu #divUsuario #nombreUsuario {
+    font-size: 1.4em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  header #menuLateral #cabeceraMenu #divUsuario #nombreUsuario {
+    font-size: 1.5em;
+  }
+}
+
+header #menuLateral #cabeceraMenu #botonCancelar {
+  width: 10%;
+  text-align: left;
+  margin: 3% 2%;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  header #menuLateral #cabeceraMenu #botonCancelar {
+    font-size: 2em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  header #menuLateral #cabeceraMenu #botonCancelar {
+    font-size: 2.2em;
+  }
+}
+
+header #menuLateral .botonesMenuLateral {
+  *border: 1px solid red;
+  width: 100%;
+  padding: 4% 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (min-width: 600px) {
+  header #menuLateral .botonesMenuLateral {
+    font-size: 1.2em;
+  }
+}
+
+header #menuLateral .botonesMenuLateral .opcionIcono {
+  *border: 1px solid red;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 15%;
+  margin-right: 4%;
+}
+
+header #menuLateral .botonesMenuLateral .opcionNombre {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0%;
+}
+
+header #menuLateral .botonesMenuLateral .opcionNombre a {
+  color: black;
+}
+
+header #menuLateral .botonesMenuLateral:hover {
+  background-color: #E0E0E0;
+  color: #303F9F;
+  cursor: pointer;
+}
+
+header #menuLateral .botonesMenuLateral:hover .opcionNombre a {
+  color: #303F9F;
+}
+
+header #menuLateral #divLog {
+  font-size: 1.4em;
+}
+
+header #menuLateral #divLog:hover {
+  background-color: rgba(228, 5, 5, 0.47);
+  color: white;
+}
+
+header #menuLateral #divLog:hover a {
+  color: white;
+}
+
+header #menuLateral .separadorMenu {
+  width: 98%;
+  background-color: #BDBDBD;
+  padding: 0%;
+  margin: 0%;
+}
+
+header #menuLateral #cabeceraMenuLateral {
+  min-width: 100%;
+  height: 15%;
+  background-image: url("static/images/banner.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+header #menuLateral #cabeceraMenuLateral #iconoMenuLateral {
+  *border: 1px solid;
+  width: 12%;
+}
+
+/************ Final Header ************/
+main {
+  *min-height: 80vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 5%;
+  /***** Top Page *****/
+  /***** Fin Top Page *****/
+  /***** Mid Page *****/
+  /*--- Tarjetas para listar intents, entidades, bots y usuarios ---*/
+  /*--- Modificación de las tarjetas de listado para adaptar el texto y tamaño cuando no llevan botones ---*/
+  /*--- Fin modificación de las tarjetas de listado para adaptar el texto y tamaño cuando no llevan botones ---*/
+  /*--- Fin Tarjetas para listar intents, entidades, bots y usuarios ---*/
+  /*--- Div Preguntas del usuario ---*/
+  /* Redimensionar para ajustar responsive */
+  /*--- Estilos para listado de usuarios ---*/
+  /*--- Fin Estilos para listado de usuarios ---*/
+  /*--- Estilos para la edición de la entidad ---*/
+  /*--- Final Estilos para la edición de la entidad ---*/
+  /***** Fin Mid Page *****/
+  /***** Bottom Page *****/
+  /***** Fin Bottom Page *****/
+}
+
+@media screen and (min-width: 600px) {
+  main #open-edit-intent {
+    padding: 4% 4%;
+    font-size: .85em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main #open-edit-intent {
+    font-size: .9em;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main #open-edit-intent {
+    padding: 5% 4%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main #open-edit-intent {
+    padding: 11% 14%;
+    margin: 10% 1%;
+  }
+}
+
+main .botonDesplegable {
+  width: 90%;
+  margin: 0% 1%;
+}
+
+main .botonDesplegable a {
+  text-align: center;
+}
+
+main .diez {
+  margin-right: 10px;
+}
+
+main .easyPaginateNav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100% !important;
+  padding: 6%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 0 0 .25rem .25rem;
+  background-color: #303F9F;
+}
+
+main .easyPaginateNav a {
+  color: white;
+  text-align: center;
+}
+
+main #collection {
+  width: 100%;
+  display: inline-block;
+  padding: 0% 5% 5%;
+}
+
+main #collection .collectionItem {
+  width: 80%;
+  display: inline-block;
+  -webkit-box-shadow: 0px 0.5px 0.5px 0px midnightblue;
+          box-shadow: 0px 0.5px 0.5px 0px midnightblue;
+}
+
+main #collection .collectionItem a {
+  width: 100%;
+  display: inline-block;
+}
+
+main .backButton {
+  padding: 15%;
+  margin-top: 15%;
+}
+
+main .OpAv {
+  width: 100%;
+}
+
+main .formBots {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main .formBots .intentButton {
+  margin: 2%;
+  padding: 1% 2%;
+}
+
+main .btnDetail {
+  padding: 15% 15%;
+  margin: 15%;
+}
+
+main .btn-delete-variant {
+  margin: 0% 9% 4% 0%;
+  padding: 0.65rem 1.4rem;
+}
+
+main .divPalabrasClave {
+  width: 90%;
+}
+
+main .divPalabrasClave input {
+  width: 100%;
+}
+
+main .divTituloPagina {
+  width: 100%;
+  text-align: center;
+}
+
+main .divBusqueda {
+  *border: 1px solid red;
+  width: 60%;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  padding: 0%;
+}
+
+@media screen and (min-width: 800px) {
+  main .divBusqueda {
+    width: 45%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main .divBusqueda {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main .divBusqueda {
+    width: 35%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  main .divBusqueda {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  main .divBusqueda {
+    width: 25%;
+  }
+}
+
+main .divBusqueda .formularioBusqueda {
+  width: 100%;
+  *border: 1px solid red;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+main .tarjeta {
+  width: 90%;
+  margin-bottom: 45px;
+}
+
+@media screen and (min-width: 600px) {
+  main .tarjeta {
+    width: 60%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main .tarjeta {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main .tarjeta {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  main .tarjeta {
+    width: 35%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  main .tarjeta {
+    width: 30%;
+  }
+}
+
+main .tarjeta .cardBody {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (min-width: 600px) {
+  main .tarjeta .cardBody h5 {
+    font-size: 1.7em;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  main .tarjeta .cardBody h5 {
+    font-size: 2em;
+  }
+}
+
+main .tarjeta .cardBody form {
+  width: 80%;
+  *border: 1px solid red;
+}
+
+main .tarjeta .cardBody form .md-form {
+  width: 100%;
+  font-size: 0.8em;
+}
+
+@media screen and (min-width: 600px) {
+  main .tarjeta .cardBody form .md-form {
+    font-size: 1em;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main .tarjeta .cardBody form .md-form {
+    font-size: 1.2em;
+  }
+}
+
+main .cardListado {
+  width: 90%;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardListado {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main .cardListado {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main .cardListado {
+    width: 60%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  main .cardListado {
+    width: 45%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  main .cardListado {
+    width: 30%;
+  }
+}
+
+main .cardListado .cardBodyListado {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0px;
+}
+
+main .cardListado .cardBodyListado .itemListado {
+  width: 100%;
+  -webkit-box-shadow: 0px 0px 1px grey;
+          box-shadow: 0px 0px 1px grey;
+  padding: 3% 4%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+main .cardListado .cardBodyListado p {
+  height: 100%;
+  margin: 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardListado .cardBodyListado p {
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main .cardListado .cardBodyListado p {
+    font-size: 1.4em;
+  }
+}
+
+main .cardListado .cardBodyListado button {
+  font-size: .7em;
+  margin: 2% 0%;
+  padding: 3% 5%;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardListado .cardBodyListado button {
+    font-size: 0.7em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main .cardListado .cardBodyListado button {
+    font-size: .8em;
+    width: 30%;
+    padding: 2% 4%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  main .cardListado .cardBodyListado button {
+    margin: 3% 0%;
+  }
+}
+
+main .cardListado .cardBodyListado hr {
+  background-color: #c2c2c2;
+  width: 96%;
+  margin: 0px;
+}
+
+main .cardListadoSinBotones {
+  width: 60%;
+  text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardListadoSinBotones {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main .cardListadoSinBotones {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main .cardListadoSinBotones {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  main .cardListadoSinBotones {
+    width: 25%;
+  }
+}
+
+main .cardListadoSinBotones .hrTitulo {
+  background-color: black;
+}
+
+main .cardListadoSinBotones .separadorItems {
+  width: 90% !important;
+}
+
+main .cardListadoSinBotones .subtituloEntidad {
+  font-size: 1.3em;
+  margin-bottom: 4%;
+}
+
+main .cardListadoSinBotones .listaSinBoton .nombreItemListado {
+  width: 100%;
+  text-align: center;
+  color: black;
+}
+
+main .cardDetallesIntent {
+  margin: 3% 0%;
+  padding: 5% 0% 2% 0%;
+  width: 90%;
+  text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardDetallesIntent {
+    padding: 3% 0% 2% 0%;
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main .cardDetallesIntent {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main .cardDetallesIntent {
+    margin: 2% 0%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main .cardDetallesIntent {
+    width: 60%;
+    padding: 2% 0% 2% 0%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  main .cardDetallesIntent {
+    width: 45%;
+    padding: 1% 0% 1% 0%;
+    margin: 1% 0%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  main .cardDetallesIntent {
+    width: 30%;
+  }
+}
+
+main .cardDetallesIntent .subtituloEntidad {
+  font-size: 1.3em;
+  margin: 0%;
+}
+
+main .cardDetallesIntent .hrTitulo {
+  background-color: black;
+  margin: 4% 0%;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardDetallesIntent .hrTitulo {
+    margin: 3% 0%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main .cardDetallesIntent .hrTitulo {
+    margin: 2% 0%;
+  }
+}
+
+main .cardDetallesIntent .cardBodyListado {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0px;
+}
+
+main .cardDetallesIntent .cardBodyListado .itemListado {
+  width: 100%;
+  padding: 3% 0%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardDetallesIntent .cardBodyListado .itemListado {
+    padding: 2% 0%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  main .cardDetallesIntent .cardBodyListado .itemListado {
+    padding: 1% 0%;
+  }
+}
+
+main .cardDetallesIntent .listaSinBoton .nombreItemListado {
+  width: 100%;
+  text-align: center;
+  margin: 0%;
+  color: black;
+}
+
+main .cardDetallesIntent .separadorItems {
+  width: 90% !important;
+  margin: 2% 0%;
+}
+
+main .cardResp {
+  width: 85%;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardResp {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main .cardResp {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main .cardResp {
+    width: 55%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  main .cardResp {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  main .cardResp {
+    width: 25%;
+  }
+}
+
+main .cardPreguntasUsuario form {
+  padding-left: 3%;
+  margin: 0%;
+}
+
+main .cardPreguntasUsuario .divPregunta {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+main .cardPreguntasUsuario .divPregunta input {
+  width: 65%;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardPreguntasUsuario .divPregunta input {
+    width: 75%;
+  }
+}
+
+main .cardPreguntasUsuario .divBoton {
+  width: 100%;
+}
+
+main .cardPreguntasUsuario .divBoton .botonMediano {
+  font-size: .7em;
+  padding: 3% 4%;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardPreguntasUsuario .divBoton .botonMediano {
+    font-size: .75em;
+    padding: 2% 4%;
+  }
+}
+
+main .cardRespuesta form {
+  padding-left: 3%;
+  margin: 0%;
+}
+
+main .cardRespuesta .divRespuesta {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+main .cardRespuesta .divRespuesta input {
+  max-width: 65%;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardRespuesta .divRespuesta input {
+    width: 75%;
+  }
+}
+
+main .cardRespuesta .divBoton {
+  width: 100%;
+}
+
+main .cardRespuesta .divBoton .botonMediano {
+  font-size: .8em;
+  padding: 3% 3%;
+}
+
+@media screen and (min-width: 600px) {
+  main .cardRespuesta .divBoton .botonMediano {
+    font-size: .75em;
+    padding: 2% 4%;
+  }
+}
+
+main .opAvan {
+  padding: 0%;
+}
+
+main .opAvan .subtituloEntidad {
+  font-size: 1.3em;
+  padding: 4%;
+}
+
+@media screen and (min-width: 1024px) {
+  main .opAvan .subtituloEntidad {
+    padding: 3%;
+  }
+}
+
+main .opAvan .card .card-header {
+  padding: 0%;
+  background-color: white;
+}
+
+main .opAvan .card .bodyOpAvan {
+  *border: 1px solid red;
+}
+
+main .opAvan .card .bodyOpAvan .formOpAvan {
+  *border: 1px solid red;
+}
+
+main .opAvan .card .bodyOpAvan .formOpAvan .md-form {
+  width: 90%;
+}
+
+@media screen and (min-width: 1024px) {
+  main .opAvan .card .bodyOpAvan .formOpAvan .md-form {
+    width: 80%;
+  }
+}
+
+main .listadoUsuarios {
+  *border: 1px solid red;
+  width: 90%;
+  margin-top: 10%;
+}
+
+main .listadoUsuarios .divUsuario {
+  *border: 1px solid red;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  margin: 1% 0%;
+}
+
+main .listadoUsuarios .divUsuario .botonValidar {
+  width: 20%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  width: 15%;
+}
+
+@media screen and (min-width: 600px) {
+  main .listadoUsuarios {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main .listadoUsuarios {
+    width: 65%;
+    font-size: 1.3em;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main .listadoUsuarios {
+    width: 50%;
+    margin-top: 7%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main .listadoUsuarios {
+    width: 45%;
+    margin-top: 6%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main .listadoUsuarios {
+    margin-top: 5%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  main .listadoUsuarios {
+    width: 35%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  main .listadoUsuarios {
+    width: 25%;
+    font-size: 1.4em;
+  }
+}
+
+main .divListadosSinonimos {
+  *border: 1px solid red;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  padding: 10px;
+}
+
+@media screen and (min-width: 1024px) {
+  main .divListadosSinonimos {
+    padding: 20px;
+  }
+}
+
+main .divListadosSinonimos .subtituloEntidad {
+  font-size: 1.3em;
+}
+
+main .divListadosSinonimos #listaSinonimos {
+  *border: 1px solid red;
+  width: 80%;
+}
+
+@media screen and (min-width: 600px) {
+  main .divListadosSinonimos #listaSinonimos {
+    width: 60%;
+  }
+}
+
+main .divListadosSinonimos #listaSinonimos .divSinonimo {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+main .divListadosSinonimos #listaSinonimos .divSinonimo input {
+  max-width: 65%;
+}
+
+main .botonNuevoBot {
+  font-size: .7em;
+  padding: 4% 5%;
+  width: 40%;
+  margin-bottom: 4%;
+}
+
+@media screen and (min-width: 600px) {
+  main .botonNuevoBot {
+    font-size: .9em;
+    padding: 2% 2%;
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main .botonNuevoBot {
+    font-size: 1em;
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main .botonNuevoBot {
+    width: 20%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main .botonNuevoBot {
+    width: 15%;
+    padding: 1% 2%;
+  }
+}
+
+main .botonAnnadir {
+  font-size: .7em;
+  padding: 3% 2%;
+  width: 35%;
+}
+
+@media screen and (min-width: 600px) {
+  main .botonAnnadir {
+    padding: 3% 2%;
+    width: 32%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main .botonAnnadir {
+    font-size: .8em;
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main .botonAnnadir {
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main .botonAnnadir {
+    width: 18%;
+    *padding: 1% 2%;
+  }
+}
+
+main .editIntentButtons {
+  margin: 0 5%;
+}
+
+main #botonRegistarme {
+  font-size: .9em;
+}
+
+@media screen and (min-width: 1024px) {
+  main #botonRegistarme {
+    font-size: 1em;
+  }
+}
+
+main .divBotonesPequennos {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+main form .botonPequenno {
+  margin-top: 7%;
+  padding: 5% 5%;
+  font-size: .7em;
+  margin: 4% 3%;
+}
+
+@media screen and (min-width: 600px) {
+  main form .botonPequenno {
+    padding: 3% 3%;
+    font-size: .85em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main form .botonPequenno {
+    font-size: .9em;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main form .botonPequenno {
+    padding: 4% 3%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main form .botonPequenno {
+    padding: 10% 14%;
+    margin: 10% 1%;
+  }
+}
+
+main .botonPequenno {
+  margin-top: 5%;
+  padding: 3% 3%;
+  font-size: .7em;
+  margin: 3% 2%;
+}
+
+@media screen and (min-width: 600px) {
+  main .botonPequenno {
+    padding: 2% 2%;
+    font-size: .75em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main .botonPequenno {
+    font-size: .8em;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main .botonPequenno {
+    padding: 1% 2%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main .botonPequenno {
+    padding: 0.7% 1%;
+    margin: 2% 1%;
+  }
+}
+
+/* --- Footer --- */
+footer {
+  background-color: #303F9F;
+  *min-height: 10vh;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1%;
+  text-align: center;
+  font-size: 0.9rem;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+footer div {
+  font-size: 1em;
+  margin: 3% 0%;
+}
+
+@media screen and (min-width: 600px) {
+  footer div {
+    font-size: .8em;
+    margin: 1% 0%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  footer div {
+    font-size: 1em;
+    margin: 1% 0%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  footer div {
+    margin: 5px 0%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  footer div {
+    margin: 7px 0px;
+  }
+}
+/*# sourceMappingURL=style.css.map */

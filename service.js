@@ -15,7 +15,7 @@ var PersistService = class {
         let map;
         let exists = false;
         return self.client.hlen('users', function(err, userlength) {
-            const valido = userlength == 0 ? '1' : '0';
+            const valido = userlength == 0 ? true : false;
             if(userlength == 0){
                 bcrypt.hash(password, 10, function(err, hash){
                     self.client.hmset(
@@ -96,13 +96,16 @@ var PersistService = class {
             });
     }
     validate_user(user){
-        this.set_user(user, '1');
+        this.set_user(user, true);
     }
     deny_user(user){
-       this.set_user(user, '0');
+       this.set_user(user, false);
     }
     get_all_users(callback) {
         return this.client.hgetall('users', callback);
+    }
+    get_user(){
+        return this.client;
     }
     create_bot(bot, token) {
         var self = this;

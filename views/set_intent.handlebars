@@ -1,4 +1,4 @@
-<div id="body-wrapper" class="container center-align">
+<!--<div id="body-wrapper" class="container center-align">
      <div class="card-create card">
     <h5>Editar Intent</h5>
     <div class="row ">
@@ -82,7 +82,7 @@
                         <div>
                             <input class="response" id="linkResponse" type="text" value="{{destinationName}}" class="validate">
                             <input class="url" id="linkUrl" type="text"  value="{{url}}" class="validate">
-                            </button><button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button>
+                            <button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button>
                         </div>
                         </div>
                     {{/if}}
@@ -132,4 +132,185 @@
                 </div>
             </li>
         </ul>
-</div>
+</div>-->
+
+
+
+
+
+
+
+
+
+
+
+<div class="divTituloPagina"><h2 class="tituloPagina">Editar Intent</h2></div>
+        <form class="form-inline md-form form-sm inputEditable" id="inputNombreEntidad">
+            <div class="md-form">
+                <h6 class="subtituloEntidad">Nombre del Intent</h6>
+                <input id="name" type="text" name="name" class="form-control validate" value="{{this.name}}">
+            </div>
+            <p id="err-name" class="red-text"></p>
+        </form>
+        <input type="hidden" id="input-id" value={{this.id}}>
+        <div class="card cardDetallesIntent cardPreguntasUsuario">
+            <h6 class="subtituloEntidad">Preguntas del usuario</h6>
+            <hr class="hrTitulo">
+            <form class="form-inline md-form form-sm">
+            {{#each this.userSays }}
+                <div class="md-form divPregunta editIntent">
+                {{#if data}}
+                <span style="display: none" class="hide">
+                {{#each data}}
+             		{{#if meta}}
+					        {{#isnt meta "@sys.ignore" }}
+						        #{{alias}}
+					        {{/isnt}}
+					        {{#eq meta "@sys.ignore"}}
+						        {{text}}
+					        {{/eq}}
+				    {{else}}
+                        {{text}}
+                        
+				    {{/if}}
+
+                {{/each}}
+                </span>
+                <input type="text" class="form-control user input" name="user" placeholder="Pregunta" value="">
+                {{/if}}
+                 {{#if @index}}
+                    <button type="button" class="btn-delete-variant btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                 {{/if}}
+                
+                </div>
+            {{/each}}
+                <div id="collection"></div>
+                <p class="span red-text"></p>
+                <p id="err-user" class="red-text"></p>
+                <div class="divBoton btnPregunta">
+                    <button type="button" id="addUserText" name="addUserText" class="btn btn-indigo botonMediano">Añadir</button>
+                </div>   
+            </form>     
+        </div>
+
+        {{#each this.responses }}
+            {{#if messages}}
+                {{#each messages}}
+                    {{#if textToSpeech}}
+                        <div class="card cardDetallesIntent cardResp cardRespuesta bloq type-text">
+                            <input type="hidden" name="hidden" value=""/>
+                            <h6 class="subtituloEntidad">Respuesta de Texto</h6>
+                            <hr class="hrTitulo">
+                            <form class="form-inline md-form form-sm">
+                                <div class="md-form divRespuesta">
+                                    <input type="text" class="form-control response" placeholder="Respuesta" value="{{textToSpeech}}">
+                                    {{#if @index}}
+                                        <button type="button" class="btn-delete-variant btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                                    {{/if}}    
+                                </div>
+                                <div class="divBoton btnRespuesta">
+                                    <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button>
+                                </div>
+                            </form>
+                        </div>
+                    {{/if}}
+                    {{#if items}}
+                        <div class="card cardDetallesIntent cardResp cardRespuesta bloq type-text">
+                            <input type="hidden" name="hidden" value=""/>
+                            <h6 class="subtituloEntidad">Respuestas de Texto</h6>
+                            <hr class="hrTitulo">
+                            <form class="form-inline md-form form-sm">
+                                {{#each items}}
+                                    <div class="md-form divRespuesta">
+                                        <input type="text" class="form-control response validate" placeholder="Respuesta" value="{{textToSpeech}}">
+                                        {{#if @index}}
+                                            <button type="button" class="btn-delete-variant btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                                        {{/if}}
+                                    </div>
+                                {{/each}}
+                                <div class="divBoton btnRespuesta">
+                                    <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button>
+                                </div>
+                            </form>
+                        </div>
+                    {{/if}}
+                    {{#if image}}
+                        <div class="card cardDetallesIntent cardResp cardRespuesta bloq type-image">
+                            <h6 class="subtituloEntidad">Respuesta Imagen</h6>
+                            <hr class="hrTitulo">
+                            <form class="form-inline md-form form-sm">
+                                <div class="md-form divRespuesta">
+                                    <input type="text" class="form-control response" placeholder="Respuesta" value="{{image.url}}">
+                                    <button type="button" class="btn-delete-variant btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                                </div>
+                                <div class="divBoton btnRespuesta">
+                                    <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button>
+                                </div>
+                            </form>
+                        </div>
+                    {{/if}}
+                    {{#if url}}
+                        <div class="card cardDetallesIntent cardResp cardRespuesta bloq type-link">
+                            <h6 class="subtituloEntidad">Respuesta Link</h6>
+                            <hr class="hrTitulo">
+                            <form class="form-inline md-form form-sm">
+                                <div class="md-form divRespuesta">
+                                    <input type="text" class="form-control response" placeholder="Respuesta" value="{{destinationName}}">
+                                    <input type="text" class="form-control url" placeholder="Respuesta" value="{{url}}">
+                                    <button type="button" class="btn-delete-bloq btn btn-sm btn-indigo botonBorrar"><i class="fa fa-trash"></i></button>
+                                </div>
+                                <div class="divBoton btnRespuesta">
+                                    <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button>
+                                </div>  
+                            </form>
+                        </div>
+                    {{/if}}
+                {{/each}}
+                {{/if}}
+            {{/each}}
+
+        <!--<div class="flex-center divBotonesPequennos btn-respuesta" id="accordion2">
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="subtituloEntidad">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Añadir Respuesta</button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse bodyOpAvan" aria-labelledby="headingTwo" data-parent="#accordion2">
+                    <div class="md-form">
+                        <button type="button" class="text-li indigo-text addRespuesta form-control btn btn-indigo" name="type-text">Texto</button>
+                        <button type="button" class="image-li indigo-text addRespuesta form-control btn btn-indigo" name="type-image">Imagen/Gif</button>
+                        <button type="button" class="link-li indigo-text addRespuesta form-control btn btn-indigo" name="type-link">Enlace/Documento</button>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <p id="err" class="red-text"></p>
+
+            <div id="accordion" class="cardDetallesIntent cardResp opAvan">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <button class="btn btn-link OpAv" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Opciones Avanzadas</button>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse bodyOpAvan" aria-labelledby="headingOne" data-parent="#accordion">
+                        <form class="d-flex flex-column align-items-center formOpAvan"> 
+                            <div class="md-form">
+                                <input type="text" id="contextIn" class="form-control" value="{{ this.contexts }}">
+                                <input type="text" id="contextOut" class="form-control" value="{{ this.responses.0.affectedContexts.0.name }}">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        <div class="flex-center divBotonesPequennos" >
+            <form action="/{{this.id}}" class="editIntentButtons">
+                <button class="btn btn-warning botonPequenno ">Cancelar</button>
+            </form>
+            <form action="#" class="editIntentButtons">
+                <button type="submit" id="btn_edit_intent" name="btn_edit_intent" class="btn btn-indigo botonPequenno">Guardar</button> 
+            </form>
+        </div>

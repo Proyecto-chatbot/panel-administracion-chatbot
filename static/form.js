@@ -13,6 +13,8 @@ let $btn_edit_gif;
 let $btnDeny;
 let $btn_add_bot;
 let $btn_select_bot;
+let $btn_create_entity;
+let $btns_lateral_menu;
 
 let $name;
 let numLinks;
@@ -31,13 +33,29 @@ let $contextOut;
 let $btnDeleteVariant;
 let intents;
 let entitiesNames;
+let $annadirRespuesta;
+let $btn_edit_entity;
 /** Max of available responses */
 const MAX_RESPONSES = 10;
 /** count of responses added*/
 let numResponses;
+let numRespuestas;
+
+let ftrim = function(text) {
+	let newText = "";
+	let texts = text.split(" ");
+	for (let index = 0; index <texts.length; index++) {
+		if(/^[a-zA-Z()#]$/.test(texts[index][0])){
+			if(newText) newText += " ";
+			newText += texts[index];
+		}
+	}
+	return newText;
+}
 
 let init = function(){
-	numResponses = 0;
+	numResponses = 1;
+	numRespuestas = 1;
 	numLinks = 0;
 	$.post('/get_intents', function(res){
 		intents = res;
@@ -46,14 +64,20 @@ let init = function(){
 		entities = res;
 	});
 
+	$(".editIntent").each(function(index, element){
+		let text = $(this).children('span').html();
+		$(this).children('input').val(ftrim(text));	
+	});
+
 	hasImage = false;
 	hasLink = false;
-	$select = $('.select');
+	$select = $('.btn-respuesta');
+	$annadirRespuesta = $(".addRespuesta");
 	dropdown = $('.dropdown-trigger');
 	dropdown.dropdown();
 	$('.dropdown-create').dropdown();
 	dropdown_options = $('.dropdown-content li a');
-	$('.collapsible').collapsible();
+	//$('.collapsible').collapsible();
 	$contextIn = $('#contextIn');
 	$contextOut = $('#contextOut');
 	$btn_create_gif = $('#send_new_gif');
@@ -61,12 +85,14 @@ let init = function(){
 	$btn_delete_entity = $('#btn-delete-entity');
 	$btn_add_question = $("#addUserText");
 	$btnAddSynonym = $("#add-synonym");
+	$btn_edit_entity = $("#edit-synonym");
 	$btnDeny = $(".deny");
 	$btn_submit = $('#submit');
 	$btnAddVariant = $(".btnAddVariant");
 	$btn_edit_gif = $('#edit_gif');
 	$btn_add_bot = $('#btn-add-bot');
-
+	$btn_create_entity = $("#btn_create_entity");
+	$btns_lateral_menu = $(".botonesMenuLateral");
 	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
 	redeclarate_btn_delete_synonym();
@@ -99,7 +125,7 @@ let init = function(){
 		}
 		if(checkValidGif())
 			$.post('/edit_gif_intent',data, function(res){
-				location.href = res;
+				location.href = '/intents';
 			});
 		else
 			setTimeout(function(){$('#name').focus()},200)
@@ -116,7 +142,7 @@ let init = function(){
 	});
 	$('.user').blur(checkGifInputs);
 	$('#first-question').blur(function(){
-		msg_error_user = $(this).val()== 'No se puede crear un intent sin frases de usuario' ? '' :
+		msg_error_user = $(this).val()== '' ? 'No se puede crear un intent sin frases de usuario' : '';
 		$('#err-user').html(msg_error_user);
 	});
 	$('#input-tag').blur(checkGifTag);
@@ -130,30 +156,38 @@ let init = function(){
 	$('#btn_edit_intent').click(function(event){
 		event.preventDefault();
 		edit_intent();
+	});
+
+
+		$('#search-intent').keyup(function(){
+			let stringSearch = $(this).val().toLowerCase();
+			let num = 0;
+			$.when($('.intent').remove()).then(
+				intents.forEach(function(value){
+					if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
+						if(num < 11) {
+							$('#list_intent').append('<div class="itemListado listaSinBoton intent"> <a class="nombreItemListado" id="intent" href="'+value.id+'">'+value.name+'</a></div>')
+						}
+						num++;
+					}
+				})
+			)
 		});
-
-
-	$('#search-intent').keyup(function(){
-		let stringSearch = $(this).val().toLowerCase();
-		$.when($('.intent').remove()).then(
-			intents.forEach(function(value){
-				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-					$('#list_intent').append('<a class="collection-item indigo-text intent" id="intent" href="'+value.id+'">'+value.name+'</a>')
-				}
-			})
-		)
-	});
-
-	$('#search-entity').keyup(function(){
-		let stringSearch = $(this).val().toLowerCase();
-		$.when($('.entity').remove()).then(
-			entities.forEach(function(value){
-				if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
-					$('#list_entity').append('<a class="collection-item entity indigo-text" id="entity" href="/entities/'+value.id+'">'+value.name+'</a>')
-				}
-			})
-		)
-	});
+	
+		$('#search-entity').keyup(function(){
+			let stringSearch = $(this).val().toLowerCase();
+			let num = 0;
+			$.when($('.entity').remove()).then(
+				entities.forEach(function(value){
+					if(value.name.toLowerCase().indexOf(stringSearch) >= 0){
+						if(num < 11) {
+							$('#list_entity').append('<div class="itemListado listaSinBoton entity"> <a class="nombreItemListado" id="entity" href="/entities/'+value.id+'">'+value.name+'</a></div>')
+						}
+						num++;
+					}
+				})
+			)
+		});
 
 	$('.hidden').each(function(){
         access = $(this).prop('value');
@@ -172,6 +206,23 @@ let init = function(){
 }
 /** On click events */
 let set_click_events = () =>{
+
+	$btn_create_entity.click(function(event){
+		event.preventDefault();
+		location.href = "/create_entity";
+	});
+
+	$btns_lateral_menu.click(function(event){
+		event.preventDefault();
+		let link = $(this).children('.opcionNombre').children('a').attr("href");
+		location.href = link;
+	});
+
+	$annadirRespuesta.click(function(event){
+		event.preventDefault();
+		let name = this.name;
+		add_new_block(name);
+	});
 	
 	$btn_add_bot.click(function(event){
 		event.preventDefault();
@@ -187,10 +238,15 @@ let set_click_events = () =>{
 		add_new_synonym();
 	});
 
+	$btn_edit_entity.click(function(event){
+		event.preventDefault();
+		edit_new_synonym();
+	});
+
 	$btn_delete_intent.click(function(){
 		intent_id = $("#input-id").val();
 		$.post('/delete',{id : intent_id}, function(res){
-			location.href = res;
+			location.href = '/intents';
 		});
 	});
 	$('#btn-login').click(login);
@@ -218,7 +274,7 @@ let set_click_events = () =>{
 		let mail = $(this).parent('div').siblings('.mail').html();
 		let url;
 		let $iconClick = $(this).children('i');
-		if($iconClick.html() == 'done'){
+		if($(this).parent('div').parent('div').children('input').val() == 'false'){
 			url = '/validate';
 		}else{
 			console.log('entra');
@@ -240,7 +296,7 @@ let set_click_events = () =>{
 	});
 	$btn_add_question.click(function(event){
 		event.preventDefault();
-		add_new_input($(this));
+		if(!$('.user').val() == "") add_new_input($(this));
 	});
 
 	$(document).on('click','.btnAddVariant',function(event){
@@ -311,27 +367,35 @@ let login = function(event){
 let redeclare_input_search = function(){
 	let ul;
 	$inputSearch = $(".input");
-	$(".input-field ul").hide();
-	$(".input").parent('div').children('ul').children('a').remove();
-	$(".input").parent('div').children('ul').children('.search').remove();
+	$("#collection").hide();
+	$("#collection").children('div').remove();
+	$("#collection").children('.search').remove();
 
 	$inputSearch.keyup(function(e){
 		if(e.keyCode == 8){
 			if($(this).val().indexOf('#') != -1)
 				$(this).siblings('.span').html('');
+			else {
+				$("#collection").hide();
+				$("#collection").children('div').remove();
+				$("#collection").children('.search').remove();				
+			}
 		}
 	});
 	$inputSearch.unbind('keypress').bind('keypress',function(e){
+		console.log($(this));
 		if($(this).val().indexOf('#') != -1)
 			$(this).siblings('.span').html('');
 		if(String.fromCharCode(e.which) == '#'){
 			if($(this).val().indexOf('#') > -1)
 				$(this).siblings('.span').html('No puedes usar más de una entidad en la misma frase');
 			else{
-				$(this).siblings('.span').html('');
-				ul = $(this).parent('div').children('ul');
-				ul.show();
-				showAll(ul);
+				if(!$("#collection").is(":visible")){
+					$('.span').html('');
+					ul =$("#collection");
+					ul.show();
+					showAll(ul, $(this));
+				}
 			}
 
 		}
@@ -404,11 +468,11 @@ let edit_intent = function(){
 	if(n_inputs > 1){
 		userSays = [];
 		input_user.each(function(index, element){
-			userSays.push($(this).val());
+			userSays.push($.trim($(this).val()));
 		});
 	}else{
 		userSays = '';
-		userSays = input_user.val();
+		userSays = $.trim(input_user.val());
 	}
 	$('.bloq').each(function(){
 		if($(this).hasClass('type-text')){
@@ -420,8 +484,8 @@ let edit_intent = function(){
 		if($(this).hasClass('type-link')){
 			type = 'link';
 		}
-		responses = $(this).children('div').children('.response');
-
+		//responses = $(this).children('div').children('.response');
+		responses = $(".response");
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
@@ -442,8 +506,7 @@ let edit_intent = function(){
 			url = $(this).children('div').children('.url').val();
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
-		else
-			botSays.push({ 'type': type, 'text': text});
+		else botSays.push({ 'type': type, 'text': text});
 
 	});
 	data = {
@@ -475,8 +538,8 @@ let edit_intent = function(){
 		else if(responseIsEmpty() == true)
 			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 		else
-			$.post('/new_intent',data, function(res){
-				location.href = res;
+			$.post('/update',data, function(res){
+				location.href = '/'+intent_id;
 		});
 	}
 	else if(responses.length == 0)
@@ -487,7 +550,7 @@ let edit_intent = function(){
 		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 	else
 		$.post('/update',data, function(res){
-			location.href = res;
+			location.href = '/'+intent_id;
 		});
 }
  
@@ -525,34 +588,35 @@ let searchEntity = function(input_value){
 /**
  * Search entity
  */
-let showAll = function(ul){
+let showAll = function(ul, input){
 	$.when(function(){
-		ul.children('a').remove();
+		ul.children('div').remove();
 		ul.children('.search').remove();
 	}).then(function(){
 		$.post('/show_entities', function(res){
 			let $inputSearch;
-			ul.append('<input class= "search" type = "text">');
+			ul.append('<input class="form-control form-control-sm mr-3 w-75 search" type="text" placeholder="Search.." aria-label="Search">');
 			entitiesNames = res;
 			$inputSearch = ul.children('.search');
 			$inputSearch.bind('keydown',function(e){
 				if ( e.which == 27 ) {
-					ul.children('a').remove();
+					ul.children('div').remove();
 					ul.children('.search').remove();
 					ul.hide();
-					let newText = ul.siblings('.input').val().replace(/(#)(\w)*/, '');
-					ul.siblings('.input').val(newText);
+					let newText = input.val().replace(/(#)(\w)*/, '');
+					input.val(newText);
 				};
 			});
 
 			$inputSearch.focus();
 			entitiesNames.forEach(element => {
-				ul.append('<a class="collection-item indigo-text" href="#">'+element+'</a>');
+				console.log(element);
+				ul.append('<div class="itemListado listaSinBoton intent collectionItem"><a class="collection-item indigo-text" href="#">'+element+'</a></div>');
 			});
-			putLinkEvent(ul);
+			putLinkEvent(ul, input);
 			$inputSearch.keyup(function(e){
-				$(this).siblings('a').remove();
-				search($(this).val().toLowerCase(), $(this).parent('ul'));
+				$("#collection").children('div').remove();
+				search($(this).val().toLowerCase(), $("#collection"),input);
 			});
 		}).done(function(res){
 			//putLinkEvent(ul);
@@ -563,38 +627,38 @@ let showAll = function(ul){
  * recover the selected entity
  * @param {*} ul
  */
-let putLinkEvent = (ul)=>{
-	ul.children('a').on('click',function(event){
+let putLinkEvent = (ul, input)=>{
+	ul.children('div').children('a').on('click',function(event){
 		event.preventDefault();
-		getEntity($(this));
+		getEntity($(this), input);
 	});
 }
 /**
  * Insert the selected entity into the input text
  * @param {*} linkEntity
  */
-let getEntity = (linkEntity)=>{
-	let input = linkEntity.parent('ul').siblings('input');
+let getEntity = (linkEntity, input)=>{
 	let inputVal = input.val();
 	let newText = inputVal.replace(/(#)(\w)*/, '#'+linkEntity.html());
 	$.when(input.val(newText)).then(function(){
-		linkEntity.parent('ul').empty();//children('li, .search').remove();
-	}).then(linkEntity.parent('ul').hide());
+		$("#collection").empty();//children('li, .search').remove();
+		input.focus();
+	}).then($("#collection").hide());
 }
 /**
  * Live search
  * @param {*} word
  * @param {*} ulParent
  */
-let search = (word, ulParent) =>{
+let search = (word, ulParent, input) =>{
 	entitiesNames.forEach(element => {
 		if (element.toLowerCase().indexOf(word) >= 0)
-			ulParent.append('<a class="collection-item indigo-text" href="">'+element+'</a>');
+		ulParent.append('<div class="itemListado listaSinBoton intent collectionItem"><a class="collection-item indigo-text" href="#">'+element+'</a></div>');
 	});
-	ulParent.children('a').on('click',function(){
+	ulParent.children('div').children('a').on('click',function(){
 		return false;
 	})
-	putLinkEvent(ulParent);
+	putLinkEvent(ulParent, input);
 }
 
 /**
@@ -603,12 +667,11 @@ let search = (word, ulParent) =>{
 let redeclarate_btn_delete_bloq = () =>{
 	$btnDeleteBloq = $('.btn-delete-bloq');
 	$btnDeleteBloq.click(function(event){
-
 		event.preventDefault();
-		numResponses--;
+		if(numRespuestas > 1) numRespuestas--;
 		checkNumResponses();
-		$(this).parent('div').remove();
-	})
+		$(this).parent().parent().parent().remove();
+	});
 }
 /**
  * Allow to keep functionality for delete button
@@ -618,7 +681,8 @@ let redeclarate_btn_delete = () =>{
 	$btnDeleteVariant.click(function(event){
 		event.preventDefault();
 		$(this).parent('div').remove();
-	})
+		redeclare_input_search();
+	});
 }
 /**
 * Allow to keep functionality for delete_synonym button
@@ -628,13 +692,14 @@ let redeclarate_btn_delete_synonym = () =>{
 	$btnDeleteSynonym.click(function(event){
 		event.preventDefault();
 		$(this).parent('div').remove();
-	})
+	});
 }
 /**
 * Insert a new input for user says
 */
 let add_new_input = ($input)=>{
-	$input.before('<div><input class="input user validate" name="user" type="text" ><p class="span red-text"></p><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	//$input.before('<div><input class="input user validate" name="user" type="text" ><p class="span red-text"></p><ul class="collection"></ul><button class="btn-delete-variant btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	$("#collection").before('<div class="md-form divPregunta"> <input type="text" class="form-control validate user input" placeholder="Pregunta" name="user"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button></div>');
 	redeclarate_btn_delete();
 	redeclare_input_search();
 }
@@ -642,12 +707,11 @@ let add_new_input = ($input)=>{
 * Insert a new block for bot response
 */
 let add_new_block = (name) =>{
+
 	switch(name){
 		case 'type-text': add_new_response(); break;
-		case 'type-gif': add_new_image("Imagen/Gif");break;
 		case 'type-image': add_new_image("Imagen/Gif"); break;
 		case 'type-link': add_new_link("Link/Documento"); break;
-		case 'type-document': add_new_link("Lnk/Documento"); break;
 	}
 	redeclarate_btn_delete_bloq();
 	redeclarate_btn_delete();
@@ -676,12 +740,13 @@ let checkType = () =>{
 * Insert a new block for type text response
 */
 let add_new_response = function (){
-	$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
+	/*$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
 	+'<div><input class="response validate input" id="input'+numResponses+'" type="text"><p class="span red-text"></p>'
 	+'<ul class="collection"></ul></div>'
 	+'<button class="btnAddVariant indigo btn-small waves-effect waves-light right"'
 	+'name="addResponse">Añadir variante<i class="material-icons right">add</i></button>'
-	+'<button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div></div>';
+	+'<button class="btn-delete-bloq btn btn-primary indigo left">Borrar respuesta</button></div></div>';*/
+	$textResponse = '<div class="card cardDetallesIntent cardResp cardRespuesta bloq type-text"> <input type="hidden" name="hidden" value="'+numRespuestas+'"/> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta"> <input type="text" class="form-control response validate" placeholder="Respuesta" id="input'+numResponses+'"></div> <div class="divBoton btnRespuesta'+numRespuestas+'"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> <button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button> </div> </form> </div>';
 	if(checkNumResponses()){
 		if(hasImage)
 			$('.type-image').before($textResponse);
@@ -693,6 +758,7 @@ let add_new_response = function (){
 		setTimeout(function(){
 			$("#input"+numResponses).focus();
 			numResponses++;
+			numRespuestas++;
 		}, 200);
 
 	}
@@ -702,10 +768,10 @@ let add_new_response = function (){
  *  Insert a new block for type image/gif response
  */
 let add_new_image = function (title){
-	$imageResponse = '<div class="bloq type-image input-field col s12"><div><p>'
+	/*$imageResponse = '<div class="bloq type-image input-field col s12"><div><p>'
 	+ title + '</p><input class="response" name="gifResponse" type="text" id="input'+numResponses+'" class="validate">'
-	+'<button class="btn-delete-bloq btn left btn-primary indigo">Borrar respuesta</button></div></div>'
-
+	+'<button class="btn-delete-bloq btn left btn-primary indigo">Borrar respuesta</button></div></div>'*/
+	$imageResponse = '<div class="card cardDetallesIntent cardResp cardRespuesta bloq type-image"> <input type="hidden" name="hidden" value="'+numRespuestas+'"/> <h6 class="subtituloEntidad">Imagen/Gif '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta"> <input type="text" name="gifResponse" class="form-control response validate" placeholder="Respuesta Imagen" id="input'+numResponses+'">  </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> </div> </form> </div>';
 	if(checkNumResponses()){
 		if(hasLink)
 			$('.type-link').before($imageResponse);
@@ -714,6 +780,7 @@ let add_new_image = function (title){
 		setTimeout(function(){
 				$("#input"+numResponses).focus();
 				numResponses++;
+				numRespuestas++;
 			}, 200);
 		hasImage = true;
 		$('.image-li').css({pointerEvents: "none", color: "red"})
@@ -726,15 +793,16 @@ let add_new_image = function (title){
  */
 let add_new_link = function(title){
 	if(checkNumResponses()){
-		$select.before('<div class="bloq type-link input-field col s12"><div><p>'
+		/*$select.before('<div class="bloq type-link input-field col s12"><div><p>'
 		+ title + '</p><input class="response" id="linkResponse'+numLinks+'" type="text" class="validate">'
 		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-bloq left btn btn-primary indigo">'
-		+'Borrar respuesta</button></div></div>');
-		numResponses++;
+		+'Borrar respuesta</button></div></div>');*/
+		$select.before('<div class="card cardDetallesIntent cardResp cardRespuesta bloq type-link"> <input type="hidden" name="hidden" value="'+numRespuestas+'"/> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta"> <input type="text" class="form-control response validate" placeholder="Respuesta Documento" id="linkResponse'+numLinks+'"> <input class="url" id="linkUrl" type="text" class="form-control validate" placeholder="Respuesta Link> </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> </div> </form> </div>');
 		setTimeout(function(){
 			$("#linkResponse"+numLinks).focus();
 			numResponses++;
-			numLinks
+			numRespuestas++;
+			numLinks++;
 		}, 200);
 		hasLink = true;
 		checkNumResponses();
@@ -744,18 +812,27 @@ let add_new_link = function(title){
  * Insert a new variant for text response
  */
 let add_new_variant = ($btn)=>{
-	$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
-	+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	$before = $('.btnRespuesta');
+	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
+	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	$before.before('<div class="md-form divRespuesta"> <input type="text" class="form-control response validate" placeholder="Respuesta" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
 	redeclare_input_search();
-	redeclarate_btn_delete_bloq();
+	redeclarate_btn_delete();
 }
 /**
  * Insert a new synonym
  */
 let add_new_synonym =()=>{
-	$btnAddSynonym.before('<div class="synonym_block"><input class="synonym" name="sinonym" type="text" class="validate">'
-	+'<button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
+	/*$btnAddSynonym.before('<div class="synonym_block"><input class="synonym" name="sinonym" type="text" class="validate">'
+	+'<button class="btn-delete-synonym btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');*/
+	$btnAddSynonym.before('<div class="md-form synonym_block"> <input type="text" class="form-control inputSinonimo synonym validate" name="synonym"> <button class="btn btn-sm btn-indigo botonBorrar btn-delete-synonym"><i class="fa fa-trash"></i></button> </div>');
 	redeclarate_btn_delete_synonym();
+}
+
+/**The same that add new synonym but for edit */
+let edit_new_synonym = () => {
+	$(".before").before('<div class="md-form divSinonimo"> <input class="synonym" name="sinonym" type="text" class="form-control validate" value="">  <button type="button" class="btn btn-sm btn-indigo botonBorrar btn-delete-synonym"><i class="fa fa-trash"></i></button>  </div>');
+	redeclarate_btn_delete_synonym();	
 }
 /**
 * Check that the number of answers is less than the maximum number of responses allowed
@@ -799,13 +876,18 @@ let send_intent = ()=>{
 	if(n_inputs > 1){
 		userSays = [];
 		input_user.each(function(index, element){
-			userSays.push($(this).val());
+			if($(this).val() != "" && $(this).val() != " "){
+				userSays.push($(this).val());
+			}
 		});
 	}else{
 		userSays = '';
-		userSays = input_user.val();
+		if(input_user.val() != "" && input_user.val() != " "){
+			userSays = input_user.val();
+		}
 	}
 	$('.bloq').each(function(){
+
 		if($(this).hasClass('type-text')){
 			type = 'text';
 		}
@@ -815,8 +897,9 @@ let send_intent = ()=>{
 		if($(this).hasClass('type-link')){
 			type = 'link';
 		}
-		responses = $(this).children('div').children('.response');
 
+		//responses = $(this).children('div').children('.response');
+		responses = $('.response');
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
@@ -837,8 +920,7 @@ let send_intent = ()=>{
 			url = $(this).children('div').children('.url').val();
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
-		else
-			botSays.push({ 'type': type, 'text': text});
+		else botSays.push({ 'type': type, 'text': text});
 
 	});
 	data = {
@@ -860,9 +942,10 @@ let send_intent = ()=>{
 			input_user.focus();
 	}
 	else if($.isArray(data.user)){
-		if( data.user.filter(word => word != "").length == 0)
+		if( data.user.filter(word => word != "").length == 0){
 			$('#err-user').html('No se puede crear un intent sin frases de usuario');
-		else if(responses.length == 0)
+			input_user.focus();
+		}else if(responses.length == 0)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
 		else if( hasText() == false)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
@@ -870,19 +953,19 @@ let send_intent = ()=>{
 			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 		else
 			$.post('/new_intent',data, function(res){
-				location.href = res;
+				location.href = '/intents';
 		});
 	}
 	else if(responses.length == 0)
 			$('#err').html('No se puede crear un intent sin respuestas de chatbot');
 	else if( hasText() == false){
-				$('#err').html('No se puede crear un intent sin respuestas de chatbot')
-		}
+			$('#err').html('No se puede crear un intent sin respuestas de chatbot')
+	}
 	else if(responseIsEmpty() == true)
 		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 	else
 		$.post('/new_intent',data, function(res){
-			location.href = res;
+			location.href = '/intents';
 		});
 }
 /**
@@ -936,7 +1019,7 @@ let send_gif_intent = ()=>{
 	}
 	if(checkValidGif())
 		$.post('/new_gif_intent',data, function(res){
-			location.href = res;
+			location.href = "/intents";
 		});
 	else
 		setTimeout(function(){$('#name').focus()},200)

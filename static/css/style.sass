@@ -1,0 +1,841 @@
+
+// variables:
+$primary-color: #303F9F
+$secondary-color: #FFAB00
+$background-color: #FAFAFA
+$text-color: #444547
+$breakpoint-tablet7p: 600px
+$breakpoint-tablet8p: 800px
+$breakpoint-tablet10p: 1024px
+$breakpoint-laptopS: 1280px
+$breakpoint-laptopM: 1600px
+$breakpoint-laptopL: 1920px
+$breakpoint-laptop2K: 2560px
+$breakpoint-laptop4K: 3840px
+
+
+
+@mixin media($media) 
+  @if $media == tablet7p 
+    @media screen and (min-width: $breakpoint-tablet7p)  
+      @content 
+
+  @else if $media == tablet8p 
+    @media screen and (min-width: $breakpoint-tablet8p)  
+      @content 
+
+  @else if $media == tablet10p 
+    @media screen and (min-width: $breakpoint-tablet10p)  
+      @content 
+ 
+  @else if $media == laptopS 
+    @media screen and (min-width: $breakpoint-laptopS)  
+      @content  
+
+  @else if $media == laptopM
+    @media screen and (min-width: $breakpoint-laptopM)  
+      @content  
+
+  @else if $media == laptopL
+    @media screen and (min-width: $breakpoint-laptopL)  
+      @content   
+
+
+@mixin box_shadow ($level) 
+    @if $level == 1 
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+    @else if $level == 2 
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+    @else if $level == 3 
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+    @else if $level == 4 
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)
+    @else if $level == 5 
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)
+
+
+
+*
+    margin: 0px
+    padding: 0px
+    *background: #FAFAFA
+
+#contenedor
+    min-height: 100vh
+    display: flex
+    flex-flow: column
+    justify-content: space-between
+
+/************ Header ************/
+header
+    background-color: $primary-color
+    min-height: 10vh
+    *border: 1px solid red
+    display: flex
+    justify-content: space-between
+    align-items: center
+    color: white
+    @include box-shadow(1)
+
+    #divLogo
+        *border: 3px solid red
+        width: 100%
+        height: 10vh
+        text-align: right
+        display: flex
+        flex-flow: column
+        justify-content: center
+        align-content: center
+        align-items: flex-end
+        img
+            margin: 0% 10% 
+            width: 30%
+            *border: 3px solid red
+            @include media(tablet7p)
+                width: 20%
+            @include media(tablet8p)
+                width: 15%
+            @include media(tablet10p)
+                width: 10%
+            @include media(laptopS)
+                width: 8%
+                *padding-right: 8% 
+            @include media(laptopM)
+                *width: 10%
+                *padding-top: 2%
+            @include media(laptopL)
+                *width: 15%
+                *padding-top: 1%
+
+
+    #divTitulo        
+        *border: 3px solid red
+        text-align: center
+        width: 100%
+        h1
+            font-size: 1.3em
+            @include media(tablet7p)
+                font-size: 1.7em
+            @include media(tablet8p)
+                font-size: 1.9em
+            @include media(tablet8p)
+                font-size: 2.1em       
+            @include media(laptopS)
+                font-size: 2.3em    
+
+
+    #divBotonMenu
+        *border: 3px solid red
+        width: 100%
+        height: 100%
+        display: flex
+        flex-flow: column
+        justify-content: center
+        i
+            padding-left: 15%
+            font-size: 2em
+            cursor: pointer
+            @include media(tablet7p)
+                font-size: 2.5em
+            @include media(tablet8p)
+                font-size: 2.6em 
+            @include media(tablet8p)
+                font-size: 2.7em 
+            @include media(laptopS)
+                padding-left: 12%
+                font-size: 2.8em            
+            @include media(laptopM)
+                padding-left: 10%
+
+    /***---Menú lateral---***/
+    #background_shadow
+        z-index: 100
+        position: fixed
+        left: 0%
+        top: 0%
+        width: 100%
+        height: 100vh
+        background: #000000
+        opacity: 0.0
+        visibility: hidden
+        transition: all 0.5s
+    #menuLateral
+        background-color: #F5F5F5
+        color: #424242
+        position: fixed
+        left: -100%
+        top: 0px
+        width: 65%
+        height: 100vh
+        transition: all 0.5s
+        align-items: center
+        z-index: 101
+        display: flex
+        flex-flow: column
+        @include media(tablet7p)
+            width: 50%
+        @include media(tablet8p)
+            width: 40%
+        @include media(tablet10p)
+            width: 30% 
+        @include media(laptopS)
+            width: 25% 
+        @include media(laptopM)
+            width: 22%     
+        @include media(laptopL)
+            width: 22% 
+        #cabeceraMenu
+            background-color: $primary-color
+            color: white
+            width: 100%
+            height: auto
+            min-height: 15%
+            padding: 5%
+            font-size: 0.9em
+            #divUsuario
+                padding-top: 5%
+                *border: 1px solid red
+                width: 100%
+                display: flex
+                flex-flow: row
+                justify-content: flex-end
+                align-items: center
+                align-content: center
+                .logoUsuario
+                    font-size: 1.4em
+                #nombreUsuario
+                    font-size: 1.2em
+                    font-weight: bold
+                    margin: 0%
+                    padding-left: 3%
+                    text-align: right
+                    text-transform: capitalize
+                    @include media(tablet7p)
+                        font-size: 1.4em
+                    @include media(tablet8p)
+                        font-size: 1.5em        
+            #botonCancelar
+                width: 10%
+                text-align: left
+                margin: 3% 2%
+                cursor: pointer
+                @include media(tablet7p)
+                    font-size: 2em    
+                @include media(tablet8p)
+                    font-size: 2.2em   
+            
+                
+        .botonesMenuLateral
+            *border: 1px solid red
+            width: 100%
+            padding: 4% 10%   
+            display: flex
+            flex-flow: row
+            justify-content: flex-start
+            align-content: center
+            align-items: center
+            @include media(tablet7p)
+                font-size: 1.2em
+            .opcionIcono
+                *border: 1px solid red
+                display: flex
+                flex-flow: row
+                align-content: center
+                align-items: center
+                justify-content: center
+                width: 15%
+                margin-right: 4%
+            .opcionNombre
+                display: flex
+                flex-flow: row
+                align-content: center
+                align-items: center
+                justify-content: center 
+                margin: 0%
+                a
+                    color: black
+            &:hover
+                background-color: #E0E0E0
+                color: $primary-color
+                cursor: pointer
+                .opcionNombre
+                    a
+                        color: #303F9F
+        #divLog
+            font-size: 1.4em
+            &:hover
+                background-color: rgba(228, 5, 5, 0.47)
+                color: white
+                a
+                    color: white
+
+        .separadorMenu
+            width: 98%
+            background-color: #BDBDBD
+            padding: 0%  
+            margin: 0%        
+        #cabeceraMenuLateral
+            min-width: 100%
+            height: 15%
+            background-image: url('static/images/banner.jpg')
+            background-size: 100% 
+            background-repeat: no-repeat
+            #iconoMenuLateral
+                *border: 1px solid
+                width: 12%
+              
+/************ Final Header ************/ 
+
+main
+    *min-height: 80vh
+    display: flex
+    flex-flow: column
+    align-items: center
+    justify-content: center
+    padding: 5%
+
+    #open-edit-intent
+        @include media(tablet7p)
+            padding: 4% 4%
+            font-size: .85em 
+        @include media(tablet8p)
+            font-size: .9em 
+        @include media(tablet10p)
+            padding: 5% 4%
+        @include media(laptopS)
+            padding: 11% 14%
+            margin: 10% 1%  
+
+    .botonDesplegable
+        width: 90%
+        margin: 0% 1%
+        a
+            text-align: center
+
+    .diez
+        margin-right: 10px
+
+    .easyPaginateNav
+        display: flex
+        width: 100% !important
+        padding: 6%
+        justify-content: center
+        border-radius: 0 0 .25rem .25rem
+        background-color: #303F9F
+        a
+            color: white
+            text-align: center
+
+    #collection
+        width: 100%
+        display: inline-block
+        padding: 0% 5% 5%
+        .collectionItem
+            width: 80%
+            display: inline-block
+            box-shadow: 0px 0.5px 0.5px 0px midnightblue
+            a
+                width: 100%
+                display: inline-block
+
+    .backButton
+        padding: 15%
+        margin-top: 15%
+
+    .OpAv
+        width: 100%
+
+    .formBots
+        width: 100%
+        display: flex
+        justify-content: center 
+        .intentButton
+            margin: 2%
+            padding: 1% 2%
+    
+    .btnDetail
+        padding: 15% 15%
+        margin: 15%
+    .btn-delete-variant
+        margin: 0% 9% 4% 0%
+        padding: 0.65rem 1.4rem
+    .divPalabrasClave
+        width: 90%
+        input
+            width: 100%
+    /***** Top Page *****/
+    .divTituloPagina
+        width: 100%
+        text-align: center
+
+    .divBusqueda    
+        *border: 1px solid red
+        width: 60%
+        text-align: center
+        display: flex
+        flex-flow: row
+        justify-content: center
+        align-items: center
+        align-content: center
+        padding: 0%
+        @include media(tablet8p)
+            width: 45%
+        @include media(tablet10p)
+            width: 40%
+        @include media(laptopS)
+            width: 35%
+        @include media(laptopM)
+            width: 30% 
+        @include media(laptopL)
+            width: 25%                   
+        .formularioBusqueda
+            width: 100%
+            *border: 1px solid red
+            display: flex
+            flex-flow: row
+            justify-content: center
+            align-items: center
+            align-content: center
+    /***** Fin Top Page *****/        
+
+     /***** Mid Page *****/     
+    .tarjeta
+        width: 90%
+        margin-bottom: 45px
+        @include media(tablet7p)
+            width: 60%
+        @include media(tablet8p)
+            width: 50%
+        @include media(laptopS)
+            width: 40% 
+        @include media(laptopM)
+            width: 35%
+        @include media(laptopL)
+            width: 30%                   
+        .cardBody
+            align-items: center
+            h5
+                @include media(tablet7p)
+                    font-size: 1.7em
+                @include media(tablet7p)
+                    font-size: 2em        
+            form
+                width: 80%
+                *border: 1px solid red
+                .md-form
+                    width: 100%
+                    font-size: 0.8em
+                    @include media(tablet7p)
+                        font-size: 1em
+                    @include media(tablet10p)
+                        font-size: 1.2em
+
+
+
+    /*--- Tarjetas para listar intents, entidades, bots y usuarios ---*/
+    .cardListado                    
+        width: 90%
+        @include media(tablet7p)
+            width: 80%
+        @include media(tablet8p)
+            width: 75%
+        @include media(laptopS)
+            width: 60% 
+        @include media(laptopM)
+            width: 45%
+        @include media(laptopL)
+            width: 30%  
+        .cardBodyListado  
+            align-items: center 
+            padding: 0px
+            .itemListado
+                width: 100%
+                box-shadow: 0px 0px 1px grey
+                padding: 3% 4%
+                display: flex
+                flex-flow: row
+                align-items: center
+                align-content: center
+                justify-content: space-between
+            p
+                height: 100%
+                margin: 0px
+                display: flex
+                flex-flow: row
+                align-items: center
+                align-content: center
+                justify-content: center
+                @include media(tablet7p)
+                    font-size: 1.2em 
+                @include media(tablet10p)
+                    font-size: 1.4em
+            button
+                font-size: .7em
+                margin: 2% 0% 
+                padding: 3% 5%
+                @include media(tablet7p)
+                    font-size: 0.7em 
+                @include media(tablet8p)
+                    font-size: .8em
+                    width: 30%
+                    padding: 2% 4%
+                @include media(laptopL)
+                    margin: 3% 0%    
+            hr
+                background-color: #c2c2c2
+                width: 96%
+                margin: 0px    
+
+    /*--- Modificación de las tarjetas de listado para adaptar el texto y tamaño cuando no llevan botones ---*/
+    .cardListadoSinBotones
+        width: 60%
+        @include media(tablet7p)
+            width: 50%
+        @include media(tablet8p)
+            width: 40%
+        @include media(laptopS)
+            width: 30% 
+        @include media(laptopM)
+            width: 25%
+        text-align: center
+        .hrTitulo
+            background-color: black
+        .separadorItems
+            width: 90%!important    
+        .subtituloEntidad
+            font-size: 1.3em
+            margin-bottom: 4%
+        .listaSinBoton
+            .nombreItemListado
+                width: 100%   
+                text-align: center   
+                color: black
+    /*--- Fin modificación de las tarjetas de listado para adaptar el texto y tamaño cuando no llevan botones ---*/
+    
+    /*--- Fin Tarjetas para listar intents, entidades, bots y usuarios ---*/
+
+    /*--- Div Preguntas del usuario ---*/
+
+    /* Redimensionar para ajustar responsive */
+    .cardDetallesIntent
+        margin: 3% 0%
+        padding: 5% 0% 2% 0%
+        width: 90%
+        @include media(tablet7p)
+            padding: 3% 0% 2% 0%
+            width: 80%
+        @include media(tablet8p)
+            width: 75%
+        @include media(tablet10p)
+            margin: 2% 0%    
+        @include media(laptopS)
+            width: 60%
+            padding: 2% 0% 2% 0% 
+        @include media(laptopM)
+            width: 45%
+            padding: 1% 0% 1% 0% 
+            margin: 1% 0%
+        @include media(laptopL)
+            width: 30%  
+        text-align: center
+        .subtituloEntidad
+            font-size: 1.3em
+            margin: 0%   
+        .hrTitulo
+            background-color: black
+            margin: 4% 0%  
+            @include media(tablet7p)
+                margin: 3% 0%
+            @include media(tablet10p)
+                margin: 2% 0%       
+        .cardBodyListado  
+            align-items: center 
+            padding: 0px
+            .itemListado
+                width: 100%
+                padding: 3% 0%
+                display: flex
+                flex-flow: row
+                align-items: center
+                align-content: center
+                justify-content: space-between
+                @include media(tablet7p)
+                    padding: 2% 0%
+                @include media(laptopM)
+                    padding: 1% 0%
+        .listaSinBoton
+            .nombreItemListado
+                width: 100%   
+                text-align: center
+                margin: 0%      
+                color: black     
+        .separadorItems
+            width: 90%!important  
+            margin: 2% 0%
+            @include media(laptopS)
+            @include media(laptopM)
+            @include media(laptopL)
+
+    .cardResp
+        width: 85%
+        @include media(tablet7p)
+            width: 75%
+        @include media(tablet8p)
+            width: 70%
+        @include media(laptopS)
+            width: 55% 
+        @include media(laptopM)
+            width: 40%
+        @include media(laptopL)
+            width: 25%             
+
+    .cardPreguntasUsuario
+        form
+            padding-left: 3%
+            margin: 0%
+        .divPregunta
+            width: 100%
+            display: flex
+            flex-flow: row
+            justify-content: space-between
+            input
+                width: 65%
+                @include media(tablet7p)
+                    width: 75%
+        .divBoton
+            width: 100%
+            .botonMediano
+                font-size: .7em
+                padding: 3% 4%
+                @include media(tablet7p)
+                    font-size: .75em
+                    padding: 2% 4%
+
+
+    .cardRespuesta
+        form
+            padding-left: 3%
+            margin: 0%
+        .divRespuesta
+            width: 100%
+            display: flex
+            flex-flow: row
+            justify-content: space-between
+            input
+                max-width: 65%
+                @include media(tablet7p)
+                    width: 75%
+        .divBoton
+            width: 100%
+            .botonMediano
+                font-size: .8em
+                padding: 3% 3%  
+                @include media(tablet7p)
+                    font-size: .75em
+                    padding: 2% 4%           
+                    
+    .opAvan
+        padding: 0%
+        .subtituloEntidad
+            font-size: 1.3em
+            padding: 4%
+            @include media(tablet10p)
+                padding: 3%
+        .card
+            .card-header
+                padding: 0%
+                background-color: white
+            .bodyOpAvan
+                *border: 1px solid red    
+                .formOpAvan
+                    *border: 1px solid red
+                    .md-form
+                        width: 90%
+                        @include media(tablet10p)
+                            width: 80%      
+                    
+
+    /*--- Estilos para listado de usuarios ---*/
+    .listadoUsuarios
+        *border: 1px solid red
+        width: 90%
+        margin-top: 10%
+        .divUsuario
+            *border: 1px solid red
+            width: 100%
+            display: flex
+            flex-flow: row
+            justify-content: space-between
+            align-items: center
+            align-content: center 
+            margin: 1% 0%
+            .botonValidar
+                width: 20%
+                display: flex
+                flex-flow: row
+                justify-content: center
+                align-items: center
+                align-content: center
+                @include media(laptopM)
+                width: 15% 
+        @include media(tablet7p)
+            width: 80%
+        @include media(tablet8p)
+            width: 65%
+            font-size: 1.3em 
+        @include media(tablet10p)
+            width: 50%
+            margin-top: 7%
+        @include media(tablet10p)
+            width: 45%
+            margin-top: 6% 
+        @include media(laptopS)
+            margin-top: 5% 
+        @include media(laptopM)
+            width: 35%
+        @include media(laptopL)
+            width: 25%
+            font-size: 1.4em  
+    /*--- Fin Estilos para listado de usuarios ---*/
+
+    /*--- Estilos para la edición de la entidad ---*/
+    .divListadosSinonimos
+        *border: 1px solid red
+        text-align: center
+        display: flex
+        flex-flow: column
+        justify-content: center
+        align-items: center
+        align-content: center
+        padding: 10px
+        @include media(tablet10p)
+            padding: 20px
+        .subtituloEntidad
+            font-size: 1.3em
+        #listaSinonimos
+            *border: 1px solid red
+            width: 80%
+            @include media(tablet7p)
+                width: 60%
+            .divSinonimo
+                width: 100%
+                display: flex
+                flex-flow: row
+                justify-content: space-between
+                input
+                    max-width: 65%
+
+
+    /*--- Final Estilos para la edición de la entidad ---*/
+
+    .botonNuevoBot
+        font-size: .7em
+        padding: 4% 5% 
+        width: 40%
+        margin-bottom: 4%
+        @include media(tablet7p)
+            font-size: .9em 
+            padding: 2% 2% 
+            width: 30%
+        @include media(tablet8p)
+            font-size: 1em 
+            width: 25%
+        @include media(tablet10p)
+            width: 20% 
+        @include media(laptopS)
+            width: 15% 
+            padding: 1% 2%   
+
+    .botonAnnadir
+        font-size: .7em
+        padding: 3% 2% 
+        width: 35%
+        @include media(tablet7p)
+            padding: 3% 2% 
+            width: 32%
+        @include media(tablet8p)
+            font-size: .8em 
+            width: 30%
+        @include media(tablet10p)
+            width: 25% 
+        @include media(laptopS)
+            width: 18% 
+            *padding: 1% 2%               
+
+    /***** Fin Mid Page *****/    
+
+    /***** Bottom Page *****/
+    .editIntentButtons
+        margin: 0 5%
+
+    #botonRegistarme
+        font-size: .9em
+        @include media(tablet10p)
+            font-size: 1em
+         
+    .divBotonesPequennos
+        width: 100% 
+        display: flex
+
+    form
+        .botonPequenno
+            margin-top: 7% 
+            padding: 5% 5%
+            font-size: .7em 
+            margin: 4% 3% 
+            @include media(tablet7p)
+                padding: 3% 3%
+                font-size: .85em 
+            @include media(tablet8p)
+                font-size: .9em 
+            @include media(tablet10p)
+                padding: 4% 3%
+            @include media(laptopS)
+                padding: 10% 14%
+                margin: 10% 1%     
+
+    .botonPequenno
+        margin-top: 5% 
+        padding: 3% 3%
+        font-size: .7em 
+        margin: 3% 2% 
+        @include media(tablet7p)
+            padding: 2% 2%
+            font-size: .75em 
+        @include media(tablet8p)
+            font-size: .8em 
+        @include media(tablet10p)
+            padding: 1% 2%
+        @include media(laptopS)
+            padding: 0.7% 1%
+            margin: 2% 1%                    
+    /***** Fin Bottom Page *****/
+
+                    
+/* --- Footer --- */
+footer    
+    background-color: $primary-color
+    *min-height: 10vh
+    color: white
+    display: flex
+    flex-flow: column
+    justify-content: center
+    align-items: center
+    padding: 1%
+    text-align: center
+    font-size: 0.9rem
+    @include box-shadow(1)
+    
+    div
+        font-size: 1em
+        margin: 3% 0%
+        @include media(tablet7p)
+            font-size: .8em
+            margin: 1% 0%
+        @include media(tablet10p)
+            font-size: 1em
+            margin: 1% 0%
+        @include media(laptopS)
+            margin: 5px 0%
+        @include media(laptopL)
+            margin: 7px 0px
