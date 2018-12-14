@@ -2,6 +2,7 @@
 * @author Nieves Borrero - Pablo León (2018)
 * Proyecto Panel de administración de chatbots en Node.js
 */
+console.log(process.env.REDIS_URL);
 var fs = require('fs');
 var express = require('express');
 var app = express();
@@ -25,8 +26,8 @@ HandlebarsIntl.registerWith(hbs.handlebars);
 const bcrypt = require('bcrypt');
 const PERSIST_SERVICE = require ('./service');
 const service = new PERSIST_SERVICE();
-service.get_all_users(function(err,object){console.log(object);});
-service.get_all_bots(function(err,object){console.log(object);});
+service.get_all_users(function(err,object){console.log(object); console.log(process.env);});
+service.get_all_bots(function(err,object){console.log(object); console.log(process.env);});
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 app.use(cookieParser());
@@ -721,12 +722,12 @@ app.post('/register', function(req, res){
 });
 
 app.get('/login',function(req,res,next){
-	console.log(process.env.REDIS_URL);
+	console.log(process);
 	res.render('login');
 })
 
 app.post('/login', function(req,res){
-	console.log(process.env.REDIS_URL);
+	console.log(process.env);
     promise = new Promise(function(resolve, reject){
         let user = req.body.user;
         let password = req.body.password;
