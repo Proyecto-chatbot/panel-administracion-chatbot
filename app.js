@@ -727,7 +727,6 @@ app.get('/login',function(req,res,next){
 
 app.post('/login', function(req,res){
     promise = new Promise(function(resolve, reject){
-		console.log(process);
         let user = req.body.user;
         let password = req.body.password;
         datos = [];
@@ -844,7 +843,7 @@ app.post('/deny', function (req, res, next) {
 });
 
 app.post('/get_intents', get_intents,requiresToken, function(req, res, next){
-	res.send(intents);
+	res.send(process);
 });
 
 app.post('/get_entities', get_entities,requiresToken, function(req, res, next){
