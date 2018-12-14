@@ -721,10 +721,12 @@ app.post('/register', function(req, res){
 });
 
 app.get('/login',function(req,res,next){
+	console.log(process.env.REDIS_URL);
 	res.render('login');
 })
 
 app.post('/login', function(req,res){
+	console.log(process.env.REDIS_URL);
     promise = new Promise(function(resolve, reject){
         let user = req.body.user;
         let password = req.body.password;
