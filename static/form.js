@@ -58,6 +58,7 @@ let init = function(){
 	numRespuestas = 1;
 	numLinks = 0;
 	$.post('/get_intents', function(res){
+		console.log(res);
 		intents = res;
 	});
 	$.post('/get_entities', function(res){
@@ -383,8 +384,6 @@ let redeclare_input_search = function(){
 		}
 	});
 	$inputSearch.unbind('keypress').bind('keypress',function(e){
-		console.log(process.env);
-		console.log($(this));
 		if($(this).val().indexOf('#') != -1)
 			$(this).siblings('.span').html('');
 		if(String.fromCharCode(e.which) == '#'){
@@ -504,7 +503,7 @@ let edit_intent = function(){
 			text = str;
 		}
 		if(type == 'link'){
-			url = $(this).children('div').children('.url').val();
+			url = 'https://www.google.com';
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else botSays.push({ 'type': type, 'text': text});
