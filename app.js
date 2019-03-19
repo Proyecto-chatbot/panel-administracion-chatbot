@@ -410,7 +410,7 @@ post_intent = (req,res,next)=>{
 			resolve(userFormatted = formatter.format_user_request(userText));
 		});
 
-		promise.then((userFormatted) => {
+		//promise.then((userFormatted) => {
 			console.log('--------USER MESSAGES--------\n');
 			userFormatted.forEach(function(element){
 				console.log(element);
@@ -452,7 +452,7 @@ post_intent = (req,res,next)=>{
 				botMessages = [];
 				res.send("/");
 				});
-			});
+			//});
 	}
 	/**
 	 * Edit an intent with the 'random gif' format
