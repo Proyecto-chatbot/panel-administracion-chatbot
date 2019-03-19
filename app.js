@@ -103,7 +103,6 @@ var selected_intent;
  * Get all the intents of the agent
  */
 get_intents = (req, res, next)=>{
-	console.log(process);
 	var options = {
   		method: 'GET',
     		url: 'https://api.dialogflow.com/v1/intents',
@@ -120,7 +119,6 @@ get_intents = (req, res, next)=>{
         }else{
 		  all_intents = body;
 		  intents = Object.values(JSON.parse(all_intents));
-
 		  return next();
         }
   	});
@@ -524,6 +522,9 @@ post_intent = (req,res,next)=>{
 		var botFormatted;
 		promise = new Promise((resolve)=>{
 			botText.forEach(function(element){
+				console.log(element);
+				console.log(element.type);
+				element.type = 'link';
 					switch(element.type){
 						case 'text':
 						format_bot_response(element.text); break;
@@ -704,8 +705,7 @@ app.get('/',requiresLogin, function(req, res, next){
 	  });
 });
 
-app.get('/intents',requiresLogin, get_intents,requiresToken, function(req,res){
-	intents_body = {intents, "this" : {"userlog": req.session.username}};
+app.get('/intents',requiresLogin, get_intents, requiresToken, function(req,res){
 	res.render('index', intents);
 })
 
@@ -843,7 +843,7 @@ app.post('/deny', function (req, res, next) {
 });
 
 app.post('/get_intents', get_intents,requiresToken, function(req, res, next){
-	res.send(process);
+	res.send(intents);
 });
 
 app.post('/get_entities', get_entities,requiresToken, function(req, res, next){
