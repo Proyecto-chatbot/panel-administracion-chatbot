@@ -917,7 +917,8 @@ let send_intent = ()=>{
 			text = str;
 		}
 		if(type == 'link'){
-			url = $(this).children('div').children('.url').val();
+			console.log(text);
+			url = 'https://www.google.com';
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else botSays.push({ 'type': type, 'text': text});
