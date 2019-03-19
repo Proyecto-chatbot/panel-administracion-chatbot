@@ -308,6 +308,7 @@ format_bot_image =(url)=>{
  * Add a link/document message
  */
 format_bot_link = (url,nombre)=>{
+	console.log(nombre);
 	let markdown = "["+nombre+"]("+url+")";
 	botMessages.push({"type": "link_out_chip", "platform": "google","destinationName": nombre,"url": url,"lang": "es" }),
 	botMessages.push({"type": 4,"platform": "telegram","payload": { "telegram":
@@ -329,6 +330,8 @@ post_intent = (req,res,next)=>{
 	var botFormatted;
 	promise = new Promise((resolve)=>{
 		botText.forEach(function(element){
+			console.log(element);
+			console.log(element.type);
 				switch(element.type){
 					case 'text':
 					format_bot_response(element.text); break;
@@ -338,6 +341,7 @@ post_intent = (req,res,next)=>{
 					format_bot_link(element.url, element.text); break;
 				}
 			});
+		console.log(formatter);
 		resolve(userFormatted = formatter.format_user_request(userText));
 	});
 	//Not neccesary but it clarify what we are sending
