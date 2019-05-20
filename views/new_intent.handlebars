@@ -100,17 +100,18 @@
                     <h6 class="subtituloEntidad">Respuesta</h6>
                     <hr class="hrTitulo">
                     <form class="form-inline md-form form-sm">
-                        <div class="md-form divRespuesta">
-                            <input type="text" class="form-control response validate" placeholder="Respuesta" id="input0">
-                        </div>
+                        
                         <div class="divBoton btnRespuesta">
                                 <!--<button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button>-->
                                 <!--<button class="btn btn-indigo botonMediano btnAddVariant" name="addResponse">Añadir</button>-->
+                        <button type="button" class="text-li indigo-text btnAddVariant form-control btn btn-indigo" name="type-text">Texto</button>
+                        <button type="button" class="image-li indigo-text btnAddVariant form-control btn btn-indigo" name="type-image">Imagen/Gif</button>
+                        <button type="button" class="link-li indigo-text btnAddVariant form-control btn btn-indigo" name="type-link">Enlace/Documento</button>
                         </div>   
                     </form>
             </div>
 
-        <div class="flex-center divBotonesPequennos btn-respuesta" id="accordion2">
+        <!--<div class="flex-center divBotonesPequennos btn-respuesta" id="accordion2">
             <div class="card">
                 <div class="card-header" id="headingTwo">
                     <h5 class="subtituloEntidad">
@@ -119,14 +120,14 @@
                     </h5>
                 </div>
                 <div id="collapseTwo" class="collapse bodyOpAvan" aria-labelledby="headingTwo" data-parent="#accordion2">
-                    <div class="md-form">
+                    <div class="response-form">
                         <button type="button" class="text-li indigo-text btnAddVariant form-control btn btn-indigo" name="type-text">Texto</button>
                         <button type="button" class="image-li indigo-text btnAddVariant form-control btn btn-indigo" name="type-image">Imagen/Gif</button>
                         <button type="button" class="link-li indigo-text btnAddVariant form-control btn btn-indigo" name="type-link">Enlace/Documento</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <p id="err" class="red-text"></p>
 
         <div id="accordion" class="cardDetallesIntent cardResp opAvan">
