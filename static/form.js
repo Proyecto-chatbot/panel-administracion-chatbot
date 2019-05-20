@@ -787,7 +787,7 @@ let add_new_image = function (title){
 				numRespuestas++;
 			}, 200);
 		hasImage = true;
-		$('.image-li').css({pointerEvents: "none", color: "red"})
+		$('.image-li').css({pointerEvents: "none", color: "red", opacity: "0.5"})
 		checkNumResponses();
 	}
 
@@ -811,7 +811,7 @@ let add_new_link = function(title){
 			numLinks++;
 		}, 200);
 		hasLink = true;
-		$('.link-li').css({pointerEvents: "none", color: "red"})
+		$('.link-li').css({pointerEvents: "none", color: "red", opacity: "0.5"})
 		checkNumResponses();
 	}
 }
@@ -909,7 +909,7 @@ let send_intent = ()=>{
 		if($(this).hasClass('type-link')){
 			type = 'link';
 		}
-
+		console.log(type);
 		//responses = $(this).children('div').children('.response');
 		responses = $('.response');
 		if(responses.length > 1){
@@ -929,12 +929,13 @@ let send_intent = ()=>{
 			text = str;
 		}
 		if(type == 'link'){
-			console.log(text);
 			url = 'https://www.google.com';
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
-		else botSays.push({ 'type': type, 'text': text});
-
+		else {
+			console.log(text);
+			botSays.push({ 'type': type, 'text': text});
+		}
 	});
 	data = {
 		"name": name,
