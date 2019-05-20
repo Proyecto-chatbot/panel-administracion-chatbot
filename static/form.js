@@ -58,7 +58,6 @@ let init = function(){
 	numRespuestas = 1;
 	numLinks = 0;
 	$.post('/get_intents', function(res){
-		console.log(res);
 		intents = res;
 	});
 	$.post('/get_entities', function(res){
@@ -302,7 +301,7 @@ let set_click_events = () =>{
 
 	$(document).on('click','.btnAddVariant',function(event){
 		event.preventDefault();
-		console.log($(this));
+		console.log($(this).prop('name'));
 		add_new_variant($(this));
 	});
 
