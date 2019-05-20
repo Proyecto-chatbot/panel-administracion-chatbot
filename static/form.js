@@ -302,6 +302,7 @@ let set_click_events = () =>{
 
 	$(document).on('click','.btnAddVariant',function(event){
 		event.preventDefault();
+		console.log($(this));
 		add_new_variant($(this));
 	});
 
