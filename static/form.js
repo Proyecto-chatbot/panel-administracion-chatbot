@@ -503,7 +503,7 @@ let edit_intent = function(){
 			text = str;
 		}
 		if(type == 'link'){
-			url = 'https://www.google.com';
+			url = $("#linkUrl").val();
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else botSays.push({ 'type': type, 'text': text});
@@ -802,7 +802,7 @@ let add_new_link = function(title){
 		+'<input class="url" id="linkUrl" type="text"  class="validate"><button class="btn-delete-bloq left btn btn-primary indigo">'
 		+'Borrar respuesta</button></div></div>');*/
 		//$select.before('<div class="card cardDetallesIntent cardResp cardRespuesta bloq type-link"> <input type="hidden" name="hidden" value="'+numRespuestas+'"/> <h6 class="subtituloEntidad">Respuesta '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta"> <input type="text" class="form-control response validate" placeholder="Respuesta Documento" id="linkResponse'+numLinks+'"> <input class="url" id="linkUrl" type="text" class="form-control validate" placeholder="Respuesta Link> </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> </div> </form> </div>');
-		$before.before('<div class="md-form divRespuesta bloq type-link" id="linkResponse'+numLinks+'"> <i class="fa fa-link" aria-hidden="true"></i> <input id="linkUrl" type="text" class="form-control response validate url" placeholder="Respuesta Link" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
+		$before.before('<div class="md-form divRespuesta bloq type-link"> <i class="fa fa-link" aria-hidden="true"></i> <input class="response validate" id="linkResponse'+numLinks+'" type="text" placeholder="Titulo Link"> <input id="linkUrl" type="text" class="form-control validate url" placeholder="Respuesta Texto" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>');
 	
 		setTimeout(function(){
 			$("#linkResponse"+numLinks).focus();
@@ -929,7 +929,7 @@ let send_intent = ()=>{
 			text = str;
 		}
 		if(type == 'link'){
-			url = 'https://www.google.com';
+			url = $("#linkUrl").val();
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else {
