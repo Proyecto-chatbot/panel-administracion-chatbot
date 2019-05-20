@@ -504,6 +504,7 @@ let edit_intent = function(){
 		}
 		if(type == 'link'){
 			url = $("#linkUrl").val();
+			console.log(url);
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else botSays.push({ 'type': type, 'text': text});
@@ -930,6 +931,7 @@ let send_intent = ()=>{
 		}
 		if(type == 'link'){
 			url = $("#linkUrl").val();
+			console.log(url);
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else {
