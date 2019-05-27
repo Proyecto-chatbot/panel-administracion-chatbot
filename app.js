@@ -299,9 +299,9 @@ format_bot_response = (botText)=>{
  * Add a gif/image message
  */
 format_bot_image =(url)=>{
-		botMessages.push({ "type": "basic_card", "platform": "google", "image": { "url": url },"lang": "es"}),
+		botMessages.push({ type: "basic_card", platform: "google", image: { "url": url },lang: "es"});/*
 		botMessages.push({ "type": 3, "platform": "telegram", "imageUrl": url, "lang": "es"}),
-		botMessages.push({ "type": 0,"speech": url})
+		botMessages.push({ "type": 0,"speech": url});*/
 
 }
 /**
@@ -410,7 +410,7 @@ post_intent = (req,res,next)=>{
 			resolve(userFormatted = formatter.format_user_request(userText));
 		});
 
-		//promise.then((userFormatted) => {
+		promise.then((userFormatted) => {
 			console.log('--------USER MESSAGES--------\n');
 			userFormatted.forEach(function(element){
 				console.log(element);
@@ -452,7 +452,7 @@ post_intent = (req,res,next)=>{
 				botMessages = [];
 				res.send("/");
 				});
-			//});
+			});
 	}
 	/**
 	 * Edit an intent with the 'random gif' format
