@@ -328,8 +328,7 @@ post_intent = (req,res,next)=>{
 	var contextOut = req.body.contextOut;
 	var bot_parameters = req.body.parameters;
 
-	var botFormatted;
-	res.send(botText);
+	var botFormatted;	
 	promise = new Promise((resolve)=>{
 		botText.forEach(function(element){
 			console.log(element.type);
@@ -337,6 +336,7 @@ post_intent = (req,res,next)=>{
 					case 'text':
 					format_bot_response(element.text); break;
 					case 'image':
+					res.send(element.text);
 					format_bot_image(element.text); break;
 					case 'link':
 					format_bot_link(element.url, element.text); break;
