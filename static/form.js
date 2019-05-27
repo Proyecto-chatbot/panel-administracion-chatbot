@@ -970,7 +970,7 @@ let send_intent = ()=>{
 			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 		else
 			$.post('/new_intent',data, function(res){
-				location.href = '/intents';
+				//location.href = '/intents';
 		});
 	}
 	else if(responses.length == 0)
@@ -982,7 +982,7 @@ let send_intent = ()=>{
 		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 	else
 		$.post('/new_intent',data, function(res){
-			location.href = '/intents';
+			//location.href = '/intents';
 		});
 }
 /**
