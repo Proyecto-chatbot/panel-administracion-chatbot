@@ -932,6 +932,7 @@ let send_intent = ()=>{
 		if(type == 'link'){
 			url = $("#linkUrl").val();
 			console.log(url);
+			console.log(text);
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else {
@@ -947,7 +948,7 @@ let send_intent = ()=>{
 		"contextOut" : context_out,
 		"parameters" : parameters
 	}
-
+	console.log(data);
 	if(data.name == ""){
 		$('#err-name').html('No se puede crear un intent sin nombre');
 		$('#name').focus();
