@@ -299,6 +299,7 @@ format_bot_response = (botText)=>{
  * Add a gif/image message
  */
 format_bot_image =(url)=>{
+	console.log(url);
 		botMessages.push({ type: "basic_card", platform: "google", image: { "url": url },lang: "es"});/*
 		botMessages.push({ "type": 3, "platform": "telegram", "imageUrl": url, "lang": "es"}),
 		botMessages.push({ "type": 0,"speech": url});*/
@@ -328,6 +329,7 @@ post_intent = (req,res,next)=>{
 	var bot_parameters = req.body.parameters;
 
 	var botFormatted;
+	console.log(botText);
 	promise = new Promise((resolve)=>{
 		botText.forEach(function(element){
 			console.log(element);
