@@ -334,9 +334,9 @@ post_intent = (req,res,next)=>{
 			console.log(element.type);
 				switch(element.type){
 					case 'text':
+					res.send(element.text);
 					format_bot_response(element.text); break;
 					case 'image':
-					res.send(element.text);
 					format_bot_image(element.text); break;
 					case 'link':
 					format_bot_link(element.url, element.text); break;
