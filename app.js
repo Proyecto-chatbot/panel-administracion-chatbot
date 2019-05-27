@@ -339,7 +339,6 @@ post_intent = (req,res,next)=>{
 			});
 		resolve(userFormatted = formatter.format_user_request(userText));
 	});
-	res.send(userFormatted);
 	//Not neccesary but it clarify what we are sending
 	promise.then((userFormatted) => {
 		console.log('--------BOT MESSAGES--------\n');
@@ -349,7 +348,7 @@ post_intent = (req,res,next)=>{
 		console.log('--------USER MESSAGES--------\n');
 		userFormatted.forEach(function(element){
 			console.log(element);
-		})
+		});
 
 		postOptions = {
 			method: 'POST',
@@ -385,6 +384,7 @@ post_intent = (req,res,next)=>{
 			webhookUsed: false },
 			json: true
 		};
+		res.send(postOptions);
 
 		request(postOptions, function (error, response, body) {
 			if (error) throw new Error(error);
