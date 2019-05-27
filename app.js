@@ -299,17 +299,14 @@ format_bot_response = (botText)=>{
  * Add a gif/image message
  */
 format_bot_image =(url)=>{
-	console.log(url);
-		//botMessages.push({ type: "basic_card", platform: "google", image: { "url": url },lang: "es"});
-		//botMessages.push({ "type": 3, "platform": "telegram", "imageUrl": url, "lang": "es"}),
+		botMessages.push({ "type": "basic_card", "platform": "google", image: { "url": url },"lang": "es"});
+		botMessages.push({ "type": 3, "platform": "telegram", "imageUrl": url, "lang": "es"}),
 		botMessages.push({ "type": 0,"speech": url});
-
 }
 /**
  * Add a link/document message
  */
 format_bot_link = (url,nombre)=>{
-	console.log(nombre);
 	let markdown = "["+nombre+"]("+url+")";
 	botMessages.push({"type": "link_out_chip", "platform": "google","destinationName": nombre,"url": url,"lang": "es" }),
 	botMessages.push({"type": 4,"platform": "telegram","payload": { "telegram":
@@ -331,10 +328,8 @@ post_intent = (req,res,next)=>{
 	var botFormatted;	
 	promise = new Promise((resolve)=>{
 		botText.forEach(function(element){
-			console.log(element.type);
 				switch(element.type){
 					case 'text':
-					res.send(element.text);
 					format_bot_response(element.text); break;
 					case 'image':
 					format_bot_image(element.text); break;
@@ -342,9 +337,9 @@ post_intent = (req,res,next)=>{
 					format_bot_link(element.url, element.text); break;
 				}
 			});
-		console.log(formatter);
 		resolve(userFormatted = formatter.format_user_request(userText));
 	});
+	res.send(userFormatted);
 	//Not neccesary but it clarify what we are sending
 	promise.then((userFormatted) => {
 		console.log('--------BOT MESSAGES--------\n');
