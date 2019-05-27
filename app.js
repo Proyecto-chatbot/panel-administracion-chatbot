@@ -378,7 +378,8 @@ post_intent = (req,res,next)=>{
 				parameters: [bot_parameters],
 				resetContexts: false } ],
 			templates: [],
-			userSays: userFormatted,
+			userSays:
+			 userFormatted,
 			webhookForSlotFilling: false,
 			webhookUsed: false },
 			json: true
@@ -386,9 +387,8 @@ post_intent = (req,res,next)=>{
 
 		request(postOptions, function (error, response, body) {
 			if (error) throw new Error(error);
-			res.send(response);
 			botMessages = [];
-			res.send("/");
+			res.send(body);
 			});
 		});
 	}
