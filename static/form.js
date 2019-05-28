@@ -959,6 +959,10 @@ let send_intent = ()=>{
 		if(data.name != "")
 			input_user.focus();
 	}
+	else if($("#linkUrl").val().indexOf("http") == -1){
+		$('#err-name').html('El link debe ser http o https');
+		$('#linkUrl').focus();
+	}
 	else if($.isArray(data.user)){
 		if( data.user.filter(word => word != "").length == 0){
 			$('#err-user').html('No se puede crear un intent sin frases de usuario');
