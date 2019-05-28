@@ -445,7 +445,7 @@ post_intent = (req,res,next)=>{
 			request(postOptions, function (error, response, body) {
 				if (error) throw new Error(error);
 				botMessages = [];
-				res.send("/");
+				res.send(body);
 				});
 			});
 	}
