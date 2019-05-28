@@ -959,7 +959,7 @@ let send_intent = ()=>{
 		if(data.name != "")
 			input_user.focus();
 	}
-	else if($("#linkUrl")) { 
+	else if($("#linkUrl").length > 0 ) { 
 		if($("#linkUrl").val().indexOf("http") == -1){
 			$('#err').html('El link debe ser http o https');
 			$('#linkUrl').focus();
