@@ -685,10 +685,10 @@ let redeclarate_btn_delete = () =>{
 	$btnDeleteVariant.click(function(event){
 		event.preventDefault();
 		if($(this).parent('div').hasClass('type-image')){
-			$('.image-li').css({pointerEvents: "", color: "black", opacity: "0"});
+			$('.image-li').css({pointerEvents: "", color: "black", opacity: "1"});
 		}
 		if($(this).parent('div').hasClass('type-link')){
-			$('.link-li').css({pointerEvents: "", color: "black", opacity: "0"})
+			$('.link-li').css({pointerEvents: "", color: "black", opacity: "1"})
 		}
 		$(this).parent('div').remove();
 		redeclare_input_search();
