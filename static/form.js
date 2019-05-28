@@ -684,10 +684,14 @@ let redeclarate_btn_delete = () =>{
 	console.log($(this));
 	$btnDeleteVariant.click(function(event){
 		event.preventDefault();
+		if(numRespuestas > 1) numRespuestas--;
+		checkNumResponses();
 		if($(this).parent('div').hasClass('type-image')){
+			hasImage = false;
 			$('.image-li').css({pointerEvents: "", color: "black", opacity: "1"});
 		}
 		if($(this).parent('div').hasClass('type-link')){
+			hasLink = false;
 			$('.link-li').css({pointerEvents: "", color: "black", opacity: "1"})
 		}
 		$(this).parent('div').remove();
