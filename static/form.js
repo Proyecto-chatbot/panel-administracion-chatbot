@@ -681,8 +681,15 @@ let redeclarate_btn_delete_bloq = () =>{
  */
 let redeclarate_btn_delete = () =>{
 	$btnDeleteVariant = $('.btn-delete-variant');
+	console.log($(this));
 	$btnDeleteVariant.click(function(event){
 		event.preventDefault();
+		if($(this).parent('div').hasClass('type-image')){
+			$('.image-li').css({pointerEvents: "", color: "black", opacity: "0"});
+		}
+		if($(this).parent('div').hasClass('type-link')){
+			$('.link-li').css({pointerEvents: "", color: "black", opacity: "0"})
+		}
 		$(this).parent('div').remove();
 		redeclare_input_search();
 	});
