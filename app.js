@@ -384,7 +384,7 @@ post_intent = (req,res,next)=>{
 			webhookUsed: false },
 			json: true
 		};
-
+		res.send(postOptions);
 		request(postOptions, function (error, response, body) {
 			if (error) throw new Error(error);
 			botMessages = [];
