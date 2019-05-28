@@ -486,6 +486,7 @@ let edit_intent = function(){
 		}
 		//responses = $(this).children('div').children('.response');
 		responses = $(".response");
+		console.log(responses.length);
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
@@ -505,6 +506,7 @@ let edit_intent = function(){
 		if(type == 'link'){
 			url = $("#linkUrl").val();
 			console.log(url);
+			console.log(text);
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}
 		else botSays.push({ 'type': type, 'text': text});
