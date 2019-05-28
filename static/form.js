@@ -485,7 +485,7 @@ let edit_intent = function(){
 			type = 'link';
 		}
 		//responses = $(this).children('div').children('.response');
-		responses = $(".response");
+		responses = $(this).find(".response");
 		console.log(responses.length);
 		if(responses.length > 1){
 			text = [];
@@ -914,7 +914,7 @@ let send_intent = ()=>{
 		}
 		console.log(type);
 		//responses = $(this).children('div').children('.response');
-		responses = $('.response');
+		responses = $(this).find('.response');
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
@@ -936,8 +936,7 @@ let send_intent = ()=>{
 			console.log(url);
 			console.log(text);
 			botSays.push({ 'type': type, 'text': text, 'url': url});
-		}
-		else {
+		}else {
 			console.log(text);
 			botSays.push({ 'type': type, 'text': text});
 		}
