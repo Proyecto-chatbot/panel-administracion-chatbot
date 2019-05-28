@@ -1054,7 +1054,7 @@ let send_gif_intent = ()=>{
 	}
 	if(checkValidGif())
 		$.post('/new_gif_intent',data, function(res){
-			location.href = "/intents";
+			//location.href = "/intents";
 		});
 	else
 		setTimeout(function(){$('#name').focus()},200)
