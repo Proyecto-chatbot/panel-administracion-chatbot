@@ -789,7 +789,7 @@ let add_new_image = function (title){
 	+'<button class="btn-delete-bloq btn left btn-primary indigo">Borrar respuesta</button></div></div>'*/
 	//$imageResponse = '<div class="card cardDetallesIntent cardResp cardRespuesta bloq type-image"> <input type="hidden" name="hidden" value="'+numRespuestas+'"/> <h6 class="subtituloEntidad">Imagen/Gif '+numRespuestas+'</h6> <hr class="hrTitulo"> <form class="form-inline md-form form-sm"> <div class="md-form divRespuesta"> <input type="text" name="gifResponse" class="form-control response validate" placeholder="Respuesta Imagen" id="input'+numResponses+'">  </div> <div class="divBoton"> <button class="btn btn-warning botonMediano btn-delete-bloq">Borrar</button> </div> </form> </div>';
 	$imageResponse = '<div class="md-form divRespuesta bloq type-image"> <i class="fa fa-camera" aria-hidden="true"></i> <input id="input'+numResponses+'" type="text" class="form-control response validate" placeholder="Respuesta Imagen" > <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button> </div>';
-	
+	console.log($(".image-li"));
 	if(checkNumResponses()){
 		if(hasLink)
 			$('.type-link').before($imageResponse);
