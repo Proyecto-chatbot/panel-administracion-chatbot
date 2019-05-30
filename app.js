@@ -299,7 +299,7 @@ format_bot_response = (botText)=>{
  * Add a gif/image message
  */
 format_bot_image =(url)=>{
-		botMessages.push({ "type": "basic_card", "platform": "google", image: { "url": url },"lang": "es"});
+		botMessages.push({ "type": "basic_card", "platform": "google", image: { "url": url, "accessibilityText" : "Image description for screen readers" },"lang": "es"});
 		botMessages.push({ "type": 3, "platform": "telegram", "imageUrl": url, "lang": "es"}),
 		botMessages.push({ "type": 0,"speech": url});
 }
