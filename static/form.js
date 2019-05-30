@@ -834,16 +834,17 @@ let add_new_link = function(title){
  */
 let add_new_variant = ($btn)=>{
 	let type = $btn.prop('name');
-	checkResponses(type);
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
-	switch(type){
-		case 'type-text': add_new_response(); break;
-		case 'type-image': add_new_image("Imagen/Gif"); break;
-		case 'type-link': add_new_link("Link/Documento"); break;
+	if(checkResponses(type)) {
+		switch(type){
+			case 'type-text': add_new_response(); break;
+			case 'type-image': add_new_image("Imagen/Gif"); break;
+			case 'type-link': add_new_link("Link/Documento"); break;
+		}
+		redeclare_input_search();
+		redeclarate_btn_delete();
 	}
-	redeclare_input_search();
-	redeclarate_btn_delete();
 }
 /**
  * Insert a new synonym
@@ -874,9 +875,14 @@ let checkNumResponses = ()=>{
 }
 
 let checkResponses = (type) => {
-	console.log(type);
+
 	$(".bloq").each(function(element){
-		if($(this).hasClass(type)) console.log("La mamaste wey");
+		if($(this).hasClass(type) && type != 'type-text'){
+			$('#err').html('No se pueden incluir más de una imagen o link por intent');
+			return false;
+		} else {
+			return true;
+		}
 	});
 }
 
