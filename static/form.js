@@ -879,7 +879,7 @@ let checkNumResponses = ()=>{
 }
 
 let checkResponses = (type) => {
-
+	let response = true;
 	$(".bloq").each(function(element){
 		if($(this).hasClass(type) && type != 'type-text'){
 			switch(type){
@@ -893,12 +893,10 @@ let checkResponses = (type) => {
 					break;
 			}
 			$('#err').html('No se pueden incluir más de una imagen o link por intent');
-			return false;
-		} else {
-			console.log(type);
-			return true;
+			response = false;
 		}
 	});
+	return response;
 }
 
 /**
