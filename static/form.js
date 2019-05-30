@@ -833,8 +833,8 @@ let add_new_link = function(title){
  * Insert a new variant for text response
  */
 let add_new_variant = ($btn)=>{
-	console.log($btn.prop('name'));
 	let type = $btn.prop('name');
+	checkResponses(type);
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	switch(type){
@@ -871,6 +871,13 @@ let checkNumResponses = ()=>{
 		dropdown.show();
 		return true;
 	}
+}
+
+let checkResponses = (type) => {
+	console.log(type);
+	$(".bloq").each(function(element){
+		console.log(element);
+	});
 }
 
 /**
