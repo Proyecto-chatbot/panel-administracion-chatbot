@@ -754,6 +754,7 @@ let checkType = () =>{
 * Insert a new block for type text response
 */
 let add_new_response = function (){
+	console.log("Entra");
 	/*$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
 	+'<div><input class="response validate input" id="input'+numResponses+'" type="text"><p class="span red-text"></p>'
 	+'<ul class="collection"></ul></div>'
@@ -834,9 +835,11 @@ let add_new_link = function(title){
  */
 let add_new_variant = ($btn)=>{
 	let type = $btn.prop('name');
+	console.log(checkResponses(type));
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	if(checkResponses(type)) {
+		console.log("Aqui=");
 		switch(type){
 			case 'type-text': add_new_response(); break;
 			case 'type-image': add_new_image("Imagen/Gif"); break;
