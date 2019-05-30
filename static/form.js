@@ -875,9 +875,19 @@ let checkNumResponses = ()=>{
 }
 
 let checkResponses = (type) => {
-
+	console.log(type);
 	$(".bloq").each(function(element){
 		if($(this).hasClass(type) && type != 'type-text'){
+			switch(type){
+				case 'type-image': 
+					hasImage = true;
+					$('.image-li').css({pointerEvents: "none", color: "red", opacity: "0.5"})
+					break;
+				case 'type-link': 
+					hasLink = true;
+					$('.link-li').css({pointerEvents: "none", color: "red", opacity: "0.5"})
+					break;
+			}
 			$('#err').html('No se pueden incluir más de una imagen o link por intent');
 			return false;
 		} else {
