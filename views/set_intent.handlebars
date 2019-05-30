@@ -153,7 +153,7 @@
             <p id="err-name" class="red-text"></p>
         </form>
         <input type="hidden" id="input-id" value={{this.id}}>
-        <div class="card cardDetallesIntent cardPreguntasUsuario">
+        <div class="card cardDetallesIntent cardPreguntasUsuario edit-responses">
             <h6 class="subtituloEntidad">Preguntas del usuario</h6>
             <hr class="hrTitulo">
             <form class="form-inline md-form form-sm">
@@ -192,6 +192,7 @@
                 </div>   
             </form>     
         </div>
+        
         <div class="card cardDetallesIntent cardResp cardRespuesta">
             <input type="hidden" name="hidden" value=""/>
             <h6 class="subtituloEntidad">Respuestas</h6>
@@ -204,7 +205,7 @@
                                 <div class="md-form divRespuesta bloq type-text">
                                     <i class="fa fa-book" aria-hidden="true"></i>
                                     <input type="text" class="form-control response validate" placeholder="Respuesta" value="{{textToSpeech}}">
-                                        <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button>
                                 </div>
                     {{/if}}
                     {{#if items}}
@@ -288,3 +289,11 @@
                 <button type="submit" id="btn_edit_intent" name="btn_edit_intent" class="btn btn-indigo botonPequenno">Guardar</button> 
             </form>
         </div>
+
+        <script>
+            $(function(){
+                $(".bloq").each(function(element){
+                    console.log(element);
+                });
+            });
+        </script>
