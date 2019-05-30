@@ -876,7 +876,7 @@ let checkNumResponses = ()=>{
 let checkResponses = (type) => {
 	console.log(type);
 	$(".bloq").each(function(element){
-		console.log(element);
+		if($(this).hasClass(type)) console.log("La mamaste wey");
 	});
 }
 
