@@ -835,7 +835,8 @@ let add_new_link = function(title){
  */
 let add_new_variant = ($btn)=>{
 	let type = $btn.prop('name');
-	console.log(checkResponses(type));
+	let new_response = checkResponses(type);
+	console.log(new_response);
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	if(checkResponses(type)) {
