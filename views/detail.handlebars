@@ -105,7 +105,6 @@
                                 <div class="md-form divRespuesta bloq type-text">
                                     <i class="fa fa-book" aria-hidden="true"></i>
                                     <input type="text" class="form-control response validate" placeholder="Respuesta" value="{{textToSpeech}}">
-                                    <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button>
                                 </div>
                     {{/if}}
                     {{#if items}}
@@ -113,7 +112,6 @@
                                     <div class="md-form divRespuesta bloq type-text">
                                         <i class="fa fa-book" aria-hidden="true"></i>
                                         <input type="text" class="form-control response validate" placeholder="Respuesta" value="{{textToSpeech}}">
-                                        <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button>
                                     </div>
                                 {{/each}}
                     {{/if}}
@@ -121,7 +119,6 @@
                                 <div class="md-form divRespuesta bloq type-image">
                                     <i class="fa fa-camera" aria-hidden="true"></i>
                                     <input type="text" class="form-control response validate" placeholder="Respuesta" value="{{image.url}}">
-                                    <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button>
                                 </div>
                     {{/if}}
                     {{#if url}}
@@ -129,13 +126,15 @@
                                     <i class="fa fa-link" aria-hidden="true"></i>
                                     <input type="text" class="form-control response" placeholder="Respuesta" value="{{destinationName}}">
                                     <input id="linkUrl" type="text" class="form-control url" placeholder="Respuesta" value="{{url}}">
-                                    <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button>
                                 </div>
                                 
                     {{/if}}
                 {{/each}}
                 {{/if}}
             {{/each}}
+               </form>
+            </div>
+
         
             <!-- {{#each this.responses }}
                 {{#if messages}}
