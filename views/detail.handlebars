@@ -93,8 +93,51 @@
             {{/each}}
             </div>
         </div>
+        <div class="card cardDetallesIntent cardResp cardRespuesta">
+            <input type="hidden" name="hidden" value=""/>
+            <h6 class="subtituloEntidad">Respuestas</h6>
+            <hr class="hrTitulo">
+            <form class="form-inline md-form form-sm">
+        {{#each this.responses }}
+            {{#if messages}}
+                {{#each messages}}
+                    {{#if textToSpeech}}
+                                <div class="md-form divRespuesta bloq type-text">
+                                    <i class="fa fa-book" aria-hidden="true"></i>
+                                    <input type="text" class="form-control response validate" placeholder="Respuesta" value="{{textToSpeech}}">
+                                    <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button>
+                                </div>
+                    {{/if}}
+                    {{#if items}}
+                                {{#each items}}
+                                    <div class="md-form divRespuesta bloq type-text">
+                                        <i class="fa fa-book" aria-hidden="true"></i>
+                                        <input type="text" class="form-control response validate" placeholder="Respuesta" value="{{textToSpeech}}">
+                                        <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                {{/each}}
+                    {{/if}}
+                    {{#if image}}
+                                <div class="md-form divRespuesta bloq type-image">
+                                    <i class="fa fa-camera" aria-hidden="true"></i>
+                                    <input type="text" class="form-control response validate" placeholder="Respuesta" value="{{image.url}}">
+                                    <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button>
+                                </div>
+                    {{/if}}
+                    {{#if url}}
+                                <div class="md-form divRespuesta bloq type-link">
+                                    <i class="fa fa-link" aria-hidden="true"></i>
+                                    <input type="text" class="form-control response" placeholder="Respuesta" value="{{destinationName}}">
+                                    <input id="linkUrl" type="text" class="form-control url" placeholder="Respuesta" value="{{url}}">
+                                    <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant" type="button"><i class="fa fa-trash"></i></button>
+                                </div>
+                                
+                    {{/if}}
+                {{/each}}
+                {{/if}}
+            {{/each}}
         
-             {{#each this.responses }}
+            <!-- {{#each this.responses }}
                 {{#if messages}}
                     {{#each messages}}
                         {{#if textToSpeech}}
@@ -102,12 +145,9 @@
                             <h6 class="subtituloEntidad">Respuesta Texto</h6>
                             <hr class="hrTitulo">
                             <div class="card-body cardBodyListado d-flex flex-column" >
-                               {{#each textToSpeech}}
-                                                <div class="itemListado listaSinBoton">
-                                                        <p class="nombreItemListado">{{textToSpeech}}</p>
-                                                </div>
-                                                <hr class="separadorItems">
-                                {{/each}}
+                                <div class="itemListado listaSinBoton">
+                                    <p class="nombreItemListado">{{textToSpeech}}</p>
+                                </div>
                             </div>
                         </div>
                         {{/if}}
@@ -150,7 +190,7 @@
                         {{/if}}
                     {{/each}}
                 {{/if}}
-            {{/each}}
+            {{/each}}-->
         <div class="flex-center divBotonesPequennos" >
             <form action="/edit" method="POST" class="editIntentButtons">
                 <input type="hidden" name="id" id="input-id" value="{{this.id}}">
