@@ -486,7 +486,6 @@ let edit_intent = function(){
 		}
 		//responses = $(this).children('div').children('.response');
 		responses = $(this).find(".response");
-		console.log(responses.length);
 		if(responses.length > 1){
 			text = [];
 			responses.each(function(){
@@ -542,7 +541,7 @@ let edit_intent = function(){
 			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 		else
 			$.post('/update',data, function(res){
-				location.href = '/'+intent_id;
+				//location.href = '/'+intent_id;
 		});
 	}
 	else if(responses.length == 0)
@@ -553,7 +552,7 @@ let edit_intent = function(){
 		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 	else
 		$.post('/update',data, function(res){
-			location.href = '/'+intent_id;
+			//location.href = '/'+intent_id;
 		});
 }
  
@@ -681,17 +680,16 @@ let redeclarate_btn_delete_bloq = () =>{
  */
 let redeclarate_btn_delete = () =>{
 	$btnDeleteVariant = $('.btn-delete-variant');
-	console.log($(this));
 	$btnDeleteVariant.click(function(event){
 		event.preventDefault();
 		if(numRespuestas > 1) numRespuestas--;
 		checkNumResponses();
 		if($(this).parent('div').hasClass('type-image')){
-			hasImage = false;
+			hasImage = true;
 			$('.image-li').css({pointerEvents: "", color: "black", opacity: "1"});
 		}
 		if($(this).parent('div').hasClass('type-link')){
-			hasLink = false;
+			hasLink = true;
 			$('.link-li').css({pointerEvents: "", color: "black", opacity: "1"})
 		}
 		$(this).parent('div').remove();
@@ -754,7 +752,6 @@ let checkType = () =>{
 * Insert a new block for type text response
 */
 let add_new_response = function (){
-	console.log("Entra");
 	/*$textResponse = '<div class="bloq type-text input-field col s12"><p>Respuestas del chatbot</p>'
 	+'<div><input class="response validate input" id="input'+numResponses+'" type="text"><p class="span red-text"></p>'
 	+'<ul class="collection"></ul></div>'
@@ -835,12 +832,9 @@ let add_new_link = function(title){
  */
 let add_new_variant = ($btn)=>{
 	let type = $btn.prop('name');
-	let new_response = checkResponses(type);
-	console.log(new_response);
 	//$btn.before('<div><input name="response'+numResponses+'" type="text" class="input response validate"><p class="span red-text"></p><ul class="collection"></ul>'
 	//+'<button class="btn-delete-bloq btn btn-primary indigo"><i class="material-icons">delete</i></button></div>');
 	if(checkResponses(type)) {
-		console.log("Aqui=");
 		switch(type){
 			case 'type-text': add_new_response(); break;
 			case 'type-image': add_new_image("Imagen/Gif"); break;
@@ -970,11 +964,8 @@ let send_intent = ()=>{
 		}
 		if(type == 'link'){
 			url = $("#linkUrl").val();
-			console.log(url);
-			console.log(text);
 			botSays.push({ 'type': type, 'text': text, 'url': url});
 		}else {
-			console.log(text);
 			botSays.push({ 'type': type, 'text': text});
 		}
 	});
