@@ -521,8 +521,6 @@ post_intent = (req,res,next)=>{
 		var botFormatted;
 		promise = new Promise((resolve)=>{
 			botText.forEach(function(element){
-				console.log(element);
-				console.log(element.type);
 				element.type = 'link';
 					switch(element.type){
 						case 'text':
@@ -584,7 +582,7 @@ post_intent = (req,res,next)=>{
 			request(postOptions, function (error, response, body) {
 		if (error) throw new Error(error);
 		botMessages = [];
-		res.send("/");
+		res.send(body);
 		});
 	});
 }
