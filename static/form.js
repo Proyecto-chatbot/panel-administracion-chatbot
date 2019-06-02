@@ -520,7 +520,7 @@ let edit_intent = function(){
 		"contextOut" : context_out,
 		"parameters" : parameters
 	}
-
+	console.log(data);
 	if(data.name == ""){
 		$('#name').focus();
 		$('#err-name').html('No se puede crear un intent sin nombre');
