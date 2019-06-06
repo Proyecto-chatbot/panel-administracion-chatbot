@@ -449,13 +449,13 @@ post_intent = (req,res,next)=>{
 				});
 			});*/
 		var options = { method: 'GET',
-		url: 'https://api.giphy.com/v1/gifs/random',
+		url: 'http://api.giphy.com/v1/gifs/random',
 		qs: { tag: 'party', api_key: 'fOrbc4xCvjkD29N0UPFtH6E2SCIerdi8' },
 		body: '{}' };
 
 	request(options, function (error, response, body) {
 		if (error) throw new Error(error);
-		res.send(body);
+		res.send(JSON.parse(body).data.images.original.url);
 		/*return res.json({
 			messages:[
 		  {
