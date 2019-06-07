@@ -685,10 +685,11 @@ let redeclarate_btn_delete = () =>{
 		if(numRespuestas > 1) numRespuestas--;
 		checkNumResponses();
 		if($(this).parent('div').hasClass('type-image')){
-			hasImage = true;
+			hasImage = false;
 			$('.image-li').css({pointerEvents: "", color: "black", opacity: "1"});
-		}else if($(this).parent('div').hasClass('type-link')){
-			hasLink = true;
+		}
+		if($(this).parent('div').hasClass('type-link')){
+			hasLink = false;
 			$('.link-li').css({pointerEvents: "", color: "black", opacity: "1"})
 		}
 		$(this).parent('div').remove();
