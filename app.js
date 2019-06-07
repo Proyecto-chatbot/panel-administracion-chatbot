@@ -411,7 +411,7 @@ post_intent = (req,res,next)=>{
 				console.log(element);
 			});
 
-			/*postOptions = {
+			postOptions = {
 				method: 'POST',
 				url: 'https://api.dialogflow.com/v1/intents',
 				qs: { v: '20150910' },
@@ -445,29 +445,9 @@ post_intent = (req,res,next)=>{
 			request(postOptions, function (error, response, body) {
 				if (error) throw new Error(error);
 				botMessages = [];
-				res.send(body);
+				res.send('/');
 				});
-			});*/
-		var options = { method: 'GET',
-		url: 'http://api.giphy.com/v1/gifs/random',
-		qs: { tag: 'party', api_key: 'fOrbc4xCvjkD29N0UPFtH6E2SCIerdi8' },
-		body: '{}' };
-
-	request(options, function (error, response, body) {
-		if (error) throw new Error(error);
-		res.send(JSON.parse(body).data.images.original.url);
-		/*return res.json({
-			messages:[
-		  {
-				type : 3,
-				imageUrl : response
-		  }
-			],
-			source : "webhook-echo-sample"
-		  });*/
-		console.log(body);
-	});
-});
+		});
 }
 	/**
 	 * Edit an intent with the 'random gif' format
@@ -601,7 +581,7 @@ post_intent = (req,res,next)=>{
 		request(postOptions, function (error, response, body) {
 		if (error) throw new Error(error);
 		botMessages = [];
-		res.send(body);
+		res.send('/');
 		});
 	});
 }
