@@ -687,8 +687,7 @@ let redeclarate_btn_delete = () =>{
 		if($(this).parent('div').hasClass('type-image')){
 			hasImage = true;
 			$('.image-li').css({pointerEvents: "", color: "black", opacity: "1"});
-		}
-		if($(this).parent('div').hasClass('type-link')){
+		}else if($(this).parent('div').hasClass('type-link')){
 			hasLink = true;
 			$('.link-li').css({pointerEvents: "", color: "black", opacity: "1"})
 		}
@@ -1005,7 +1004,7 @@ let send_intent = ()=>{
 			$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 		else
 			$.post('/new_intent',data, function(res){
-				//location.href = '/intents';
+				location.href = '/intents';
 		});
 	}
 	else if(responses.length == 0)
@@ -1017,7 +1016,7 @@ let send_intent = ()=>{
 		$('#err').html('No puedes mandar respuestas del chatbot vacías, si no la vas a usar borralá');
 	else
 		$.post('/new_intent',data, function(res){
-			//location.href = '/intents';
+			location.href = '/intents';
 		});
 }
 /**
@@ -1071,7 +1070,7 @@ let send_gif_intent = ()=>{
 	}
 	if(checkValidGif())
 		$.post('/new_gif_intent',data, function(res){
-			//location.href = "/intents";
+			location.href = "/intents";
 		});
 	else
 		setTimeout(function(){$('#name').focus()},200)
