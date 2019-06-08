@@ -69,6 +69,11 @@ let init = function(){
 		$(this).children('input').val(ftrim(text));	
 	});
 
+	$(".editGif").each(function(index, element){
+		let text = $(this).children('span').html();
+		$(this).children('input').val(ftrim(text));	
+	});
+
 	hasImage = false;
 	hasLink = false;
 	$select = $('.btn-respuesta');
