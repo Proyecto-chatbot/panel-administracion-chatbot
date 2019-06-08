@@ -79,28 +79,29 @@
                 {{#each this.userSays }}
                 <div class="md-form divPregunta ">
                 {{#each data}}
+                <span style="display: none" class="hide">
              		{{#if meta}}
 					        {{#isnt meta "@sys.ignore" }}
-						        <span>#{{alias}}</span>
+						        #{{alias}}
 					        {{/isnt}}
 					        {{#eq meta "@sys.ignore"}}
-						        <span>{{text}}</span>
+						         {{text}}
 					        {{/eq}}
 				    {{else}}
-					    <input type="text" class="form-control user input" name="user" value="{{text}}">
-                        <p class="red-text" id="err-user"></p>
+                        {{text}}
 				    {{/if}}
-
                 {{/each}}
-                
-                    {{#if @index}}
-                        <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant"><i class="fa fa-trash"></i></button>
-                    {{/if}}
+                </span>
+                <input type="text" class="form-control user input" name="user"  placeholder="Pregunta" value="">
+                {{#if @index}}
+                    <button class="btn btn-sm btn-indigo botonBorrar btn-delete-variant"><i class="fa fa-trash"></i></button>
+                {{/if}}
                 
                 </div>
                 {{/each}}
                 
                 <div id="collection"></div>
+                <p class="red-text" id="err-user"></p>
                 <div class="divBoton btnPregunta">
                     <button type="button" id="addUserText" name="addUserText" class="btn btn-indigo botonMediano">Añadir</button>
                 </div>   
