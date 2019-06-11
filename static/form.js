@@ -210,10 +210,7 @@ let init = function(){
 
 	$btn_select_bot = $('.token');
 	$btn_show_bot = $('.showToken');
-	$btn_show_bot.css("cursor","pointer");
-	$btn_show_bot.hover(function(){
-		$btn_show_bot.css("text-decoration","underline");
-	});
+	$btn_show_bot.css({"cursor":"pointer","text-decoration":"underline"});
     set_click_events();
 }
 /** On click events */
