@@ -706,10 +706,30 @@ app.get('/intents',requiresLogin, get_intents, requiresToken, function(req,res){
 });
 
 app.get('/bots', function(req,res){
-	res.send(req.session.token);
-	res.render('bots');
-});
+	promise = new Promise(function(resolve, reject){
+		datos = [];
+		let bot_list;
+		let keys;
+		let user;
+		service.get_all_bots(
+			function(err, reply) {
+				if(reply == null)
+					resolve(bot_list = []);
+				else{
+					keys = Object.keys(reply);
+					datos = Object.values(reply);
+					data = datos.map(function(element){
+						return JSON.parse(element);
+					});
+					map= keys.map( function(x, i){
+						if(data[i].token == req.session.token) return {"name": x, "token": data[i].token, /*'userlog': req.session.username*/};
+					}.bind(this));
+					resolve(bot_list = map);
+				}
 
+			});
+	});
+});
 app.get('/logout', function(req, res) {
     req.session.destroy();
     res.render('login');
