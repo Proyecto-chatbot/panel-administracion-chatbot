@@ -13,6 +13,7 @@ let $btn_edit_gif;
 let $btnDeny;
 let $btn_add_bot;
 let $btn_select_bot;
+let $btn_show_bot;
 let $btn_create_entity;
 let $btns_lateral_menu;
 
@@ -208,6 +209,11 @@ let init = function(){
     });
 
 	$btn_select_bot = $('.token');
+	$btn_show_bot = $('.showToken');
+	$btn_show_bot.css("cursor","pointer");
+	$btn_show_bot.hover(function(){
+		$btn_show_bot.css("text-decoration","underline");
+	});
     set_click_events();
 }
 /** On click events */
@@ -293,6 +299,15 @@ let set_click_events = () =>{
 	});	
 
 	$btn_select_bot.click(function(event){
+		event.preventDefault();
+		console.log('clicked');
+		let token = $(this).prop('id');
+		$.post('/select',{token : token}, function(response){
+			location.href = response;
+		});
+	});
+
+	$btn_show_bot.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
 		let token = $(this).prop('id');
