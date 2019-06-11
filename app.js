@@ -388,7 +388,7 @@ post_intent = (req,res,next)=>{
 		request(postOptions, function (error, response, body) {
 			if (error) throw new Error(error);
 			botMessages = [];
-			res.send(body);
+			res.send('/');
 			});
 		});
 	}
@@ -703,7 +703,11 @@ app.get('/',requiresLogin, function(req, res, next){
 
 app.get('/intents',requiresLogin, get_intents, requiresToken, function(req,res){
 	res.render('index', intents);
-})
+});
+
+app.get('/bots',requiresLogin, get_intents, requiresToken, function(req,res){
+	res.render('bots');
+});
 
 app.get('/logout', function(req, res) {
     req.session.destroy();
@@ -787,13 +791,19 @@ app.post('/add',function(req,res,next){
 	token = req.body.token;
 	service.create_bot(name,token);
 	res.send('/');
-})
+});
 
 app.post('/select',function(req,res,next){
 
 		req.session.token = req.body.token;
 		res.send('/intents');
-})
+});
+
+app.post('/select',function(req,res,next){
+
+	req.session.token = req.body.token;
+	res.send('/bots');
+});
 
 app.get('/validate', requiresLogin, function(req,res){
 	promise = new Promise(function(resolve, reject){
