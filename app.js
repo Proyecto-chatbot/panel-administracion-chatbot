@@ -799,7 +799,7 @@ app.post('/select',function(req,res,next){
 		res.send('/intents');
 });
 
-app.post('/select',function(req,res,next){
+app.post('/bot',function(req,res,next){
 
 	req.session.token = req.body.token;
 	res.send('/bots');
