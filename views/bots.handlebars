@@ -29,15 +29,18 @@
                   <h5 class="card-title">Crear Bot</h5>
                   <form class="d-flex flex-column align-items-center"> 
                     <!-- Material input -->
+                    {{#each this}}
+                        {{#if token}}
                     <div class="md-form">
                         <input type="text" id="input-bot" class="form-control" name="input-bot"placeholder="Ej: El bot de paco">
                         <label for="input-bot">Nombre del Bot</label>
                     </div>
                     <div class="md-form">
-                        <input type="password" id="input-token" class="form-control" name="input-token" placeholder="Token de Dialogflow">
+                        <input type="password" id="input-token" class="form-control" name="input-token" value="{{token}}" disabled>
                         <label for="input-token">Token de DialogFlow</label>
-                      </div>
-                    <button id="btn-add-bot" class="btn btn-primary botonEntrar">Crear</button>
+                    </div>
+                        {{/if}}
+                    {{/each}}
                 </form>
                 </div>
             </div>
