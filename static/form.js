@@ -309,9 +309,10 @@ let set_click_events = () =>{
 		console.log('clicked');
 		let token = $(this).siblings().prop('id');
 		console.log(token);
-		/*$.post('/select',{token : token}, function(response){
+		$.post('/bot',{token : token}, function(response){
+			console.log(response);
 			location.href = response;
-		});*/
+		});
 	});
 	$btn_add_question.click(function(event){
 		event.preventDefault();
