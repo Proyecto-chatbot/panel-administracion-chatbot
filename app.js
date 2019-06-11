@@ -705,7 +705,8 @@ app.get('/intents',requiresLogin, get_intents, requiresToken, function(req,res){
 	res.render('index', intents);
 });
 
-app.get('/bots',requiresLogin, get_intents, requiresToken, function(req,res){
+app.get('/bots', function(req,res){
+	res.send(req);
 	res.render('bots');
 });
 
