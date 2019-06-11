@@ -307,10 +307,11 @@ let set_click_events = () =>{
 	$btn_show_bot.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
-		let token = $(this).prop('id');
-		$.post('/select',{token : token}, function(response){
+		let token = $(this).siblings().prop('id');
+		console.log(token);
+		/*$.post('/select',{token : token}, function(response){
 			location.href = response;
-		});
+		});*/
 	});
 	$btn_add_question.click(function(event){
 		event.preventDefault();
