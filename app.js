@@ -722,7 +722,7 @@ app.get('/bots', function(req,res){
 						return JSON.parse(element);
 					});
 					map= keys.map( function(x, i){
-						if(data[i].token == req.body.token) return {"name": x, "token": data[i].token};
+						if(data[i].token == req.session.token) return {"name": x, "token": data[i].token};
 					}.bind(this));
 					resolve(bot_list = map);
 				}
@@ -822,7 +822,7 @@ app.post('/select',function(req,res,next){
 });
 
 app.post('/bot',function(req,res,next){
-	//req.session.token = req.body.token;
+	req.session.token = req.body.token;
 	res.send('/bots');
 });
 
