@@ -838,7 +838,7 @@ app.post('/bot',function(req,res,next){
 						return JSON.parse(element);
 					});
 					map= keys.map( function(x, i){
-						return ids[i] = data[i].token;
+						if(data[i].token == req.body.token) return {"name": x, "token": data[i].token};
 						//if(data[i].token == req.body.token)return {"name": x, "token": data[i].token, /*'userlog': req.session.username*/};
 					}.bind(this));
 					res.send(map);
