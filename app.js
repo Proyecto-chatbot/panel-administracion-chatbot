@@ -825,6 +825,7 @@ app.post('/bot',function(req,res,next){
 		datos = [];
 		let bot_list;
 		let keys;
+		let ids = [];
 		let user;
 		service.get_all_bots(
 			function(err, reply) {
@@ -836,11 +837,11 @@ app.post('/bot',function(req,res,next){
 					data = datos.map(function(element){
 						return JSON.parse(element);
 					});
-					res.send(req.body.token);
 					map= keys.map( function(x, i){
-						/*if(data[i].token == req.body.token)*/return {"name": x, "token": data[i].token, /*'userlog': req.session.username*/};
+						return ids[i] = data[i].token;
+						//if(data[i].token == req.body.token)return {"name": x, "token": data[i].token, /*'userlog': req.session.username*/};
 					}.bind(this));
-					res.send(map.token);
+					res.send(map);
 					//resolve(bot_list = map);
 				}
 
