@@ -838,7 +838,7 @@ app.post('/bot',function(req,res,next){
 						return JSON.parse(element);
 					});
 					/*map= keys.map( function(x, i){
-						if(data[i].token == req.session.token) return {"name": x, "token": data[i].token, /*'userlog': req.session.username*/};
+						if(data[i].token == req.session.token) return {"name": x, "token": data[i].token, /*'userlog': req.session.username};
 					}.bind(this));
 					resolve(bot_list = map);*/
 				}
