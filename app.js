@@ -719,12 +719,11 @@ app.get('/bots', function(req,res){
 					keys = Object.keys(reply);
 					datos = Object.values(reply);
 					data = datos.map(function(element){
-						res.send(element);
 						return JSON.parse(element);
 					});
-					/*map= keys.map( function(x, i){
-						if(data[i].token == req.session.token) return {"name": x, "token": data[i].token, /*'userlog': req.session.username};
-					}.bind(this));*/
+					map= keys.map( function(x, i){
+						if(data[i].token == req.session.token) return {"name": x, "token": data[i].token, /*'userlog': req.session.username*/};
+					}.bind(this));
 					resolve(bot_list = map);
 				}
 
@@ -822,9 +821,32 @@ app.post('/select',function(req,res,next){
 });
 
 app.post('/bot',function(req,res,next){
+	promise = new Promise(function(resolve, reject){
+		datos = [];
+		let bot_list;
+		let keys;
+		let user;
+		service.get_all_bots(
+			function(err, reply) {
+				if(reply == null)
+					resolve(bot_list = []);
+				else{
+					keys = Object.keys(reply);
+					datos = Object.values(reply);
+					data = datos.map(function(element){
+						res.send(element);
+						return JSON.parse(element);
+					});
+					/*map= keys.map( function(x, i){
+						if(data[i].token == req.session.token) return {"name": x, "token": data[i].token, /*'userlog': req.session.username*/};
+					}.bind(this));
+					resolve(bot_list = map);*/
+				}
 
-	req.session.token = req.body.token;
-	res.send('/bots');
+			});
+	});
+	/*req.session.token = req.body.token;
+	res.send('/bots');*/
 });
 
 app.get('/validate', requiresLogin, function(req,res){
