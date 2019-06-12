@@ -719,11 +719,12 @@ app.get('/bots', function(req,res){
 					keys = Object.keys(reply);
 					datos = Object.values(reply);
 					data = datos.map(function(element){
+						res.send(element);
 						return JSON.parse(element);
 					});
-					map= keys.map( function(x, i){
-						if(data[i].token == req.session.token) return {"name": x, "token": data[i].token, /*'userlog': req.session.username*/};
-					}.bind(this));
+					/*map= keys.map( function(x, i){
+						if(data[i].token == req.session.token) return {"name": x, "token": data[i].token, /*'userlog': req.session.username};
+					}.bind(this));*/
 					resolve(bot_list = map);
 				}
 
