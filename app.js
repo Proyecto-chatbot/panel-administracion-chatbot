@@ -836,7 +836,7 @@ app.post('/bot',function(req,res,next){
 					data = datos.map(function(element){
 						return JSON.parse(element);
 					});
-					res.send(data);
+					res.send(datos);
 					/*map= keys.map( function(x, i){
 						if(data[i].token == req.session.token) return {"name": x, "token": data[i].token, /*'userlog': req.session.username};
 					}.bind(this));
