@@ -729,7 +729,11 @@ app.get('/bots', function(req,res){
 
 			});
 	});
-	res.render('bots', bot_list);
+	promise.then(function(bot_list) {
+		res.render('bots', bot_list);
+	  }, function(bot_list){
+		res.render('bots', bot_list);
+	  });
 });
 app.get('/logout', function(req, res) {
     req.session.destroy();
