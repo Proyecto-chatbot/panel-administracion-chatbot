@@ -335,10 +335,12 @@ let set_click_events = () =>{
 		event.preventDefault();
 		console.log('clicked');
 		let user = $('#input-user').val();
-		console.log(user);
-		$.post('/setuser',{'user' : user}, function(response){
+		let pass = $('#input-pass').val();
+		let valido = $('#valido').val();
+		console.log(valido);
+		$.post('/setuser',{'user' : user, 'password' : pass, 'valido' : valido}, function(response){
 			console.log(response);
-			location.href = response;
+			//location.href = response;
 		});
 	});
 	
