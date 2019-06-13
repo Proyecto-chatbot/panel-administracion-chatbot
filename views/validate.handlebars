@@ -21,14 +21,14 @@
             {{#if user}}
             <div class="divUsuario">
               <input type="hidden" class="hidden" value="{{valido}}">
-              <p class="nombreUsuario">{{user}}</p>
+              <p class="nombreUsuario showUser">{{user}}</p>
               <div>
                   {{#if valido}}
-                  <button id="{{user}}" name="{{passwd}}" class="btn btn-primary botonValidar deny">
+                  <button id="{{user}}" class="btn btn-primary botonValidar deny">
                     <i class="fa fa-check"></i>
                   </button>
                   {{else}}
-                  <button id="{{user}}" name="{{passwd}}" class="btn btn-primary botonValidar deny diez">
+                  <button id="{{user}}" class="btn btn-primary botonValidar deny diez">
                     <i class="fa fa-times"></i>
                   </button>
                   {{/if}}
