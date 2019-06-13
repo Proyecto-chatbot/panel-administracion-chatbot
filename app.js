@@ -861,10 +861,46 @@ app.get('/validate', requiresLogin, function(req,res){
 
 });
 
+app.get('/user', requiresLogin, function(req,res){
+	/*promise = new Promise(function(resolve, reject){
+		let user = req.body.user;
+		let password = req.body.password;
+		datos = [];
+		let users_list;
+		let keys;
+		let validado;
+
+		service.get_all_users(
+			function(err, reply) {
+				keys = Object.keys(reply);
+				datos = Object.values(reply);
+				data = datos.map(function(element){
+					return JSON.parse(element);
+				});
+				map= keys.map( function(x, i){
+					return {"user": x, "passwd": data[i].password, "valido": data[i].valido, /*'userlog': req.session.username};
+				}.bind(this));
+				resolve(users_list = map);
+			});
+	});
+
+	promise.then(function(users_list) {
+		res.render('validate', users_list);
+	  }, function(users_list){
+		res.render('validate', users_list);
+	  });*/
+
+});
+
 app.post('/validate', function (req, res, next) {
     let user = req.body.id;
     service.validate_user(user);
     res.send('ok');
+});
+
+app.post('/user', function (req, res, next) {
+	let user = req.body.user;
+	res.send('/user');
 });
 
 app.post('/deny', function (req, res, next) {
