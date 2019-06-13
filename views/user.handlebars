@@ -31,6 +31,7 @@
                     <!-- Material input -->
                     {{#each this}}
                         {{#if user}}
+                            <input type="hidden" id="valido" class="hidden" value="{{valido}}">
                             <div class="md-form">
                                 <input type="text" id="input-user" class="form-control" name="input-user" value="{{user}}">
                                 <label for="input-bot">Usuario</label>
