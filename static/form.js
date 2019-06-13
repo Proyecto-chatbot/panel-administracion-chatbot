@@ -323,17 +323,6 @@ let set_click_events = () =>{
 	$btn_show_user.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
-		let user = $('#input-user').html();
-		console.log(user);
-		$.post('/setuser',{'user' : user}, function(response){
-			console.log(response);
-			location.href = response;
-		});
-	});
-
-	$btn_set_user.click(function(event){
-		event.preventDefault();
-		console.log('clicked');
 		let user = $(this).html();
 		console.log(user);
 		$.post('/user',{'user' : user}, function(response){
@@ -341,6 +330,18 @@ let set_click_events = () =>{
 			location.href = response;
 		});
 	});
+
+	$btn_set_user..click(function(event){
+		event.preventDefault();
+		console.log('clicked');
+		let user = $('#input-user').html();
+		console.log(user);
+		$.post('/setuser',{'user' : user}, function(response){
+			console.log(response);
+			location.href = response;
+		});
+	});
+	
 	$btn_add_question.click(function(event){
 		event.preventDefault();
 		if(!$('.user').val() == "") add_new_input($(this));
