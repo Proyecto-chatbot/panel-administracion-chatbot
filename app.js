@@ -877,7 +877,7 @@ app.get('/user', requiresLogin, function(req,res){
 					return JSON.parse(element);
 				});
 				map= keys.map( function(x, i){
-					if(x == user) return {"user": x, "passwd": data[i].password};
+					if(x == req.session.username) return {"user": x, "passwd": data[i].password};
 				}.bind(this));
 				resolve(users_list = map);
 			});
@@ -898,6 +898,7 @@ app.post('/validate', function (req, res, next) {
 });
 
 app.post('/user', function (req, res, next) {
+	req.session.username = req.body.user;
 	res.send('/user');
 });
 
