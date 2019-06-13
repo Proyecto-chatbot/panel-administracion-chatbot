@@ -793,11 +793,11 @@ app.post('/login', function(req,res){
 					});
 				}
 
-                /*setTimeout(function(){
+                setTimeout(function(){
                     if(exist == false){
-                        reject(respuesta = 'que falso');
-                    }
-                }, 100);*/
+                     //   reject(respuesta = 'que falso');
+										}
+                }, 100);
             });
     });
     promise.then(function(respuesta) {
