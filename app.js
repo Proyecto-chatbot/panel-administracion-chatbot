@@ -786,7 +786,7 @@ app.post('/login', function(req,res){
 										req.session.username = element.user;
 										resolve(respuesta = 'response ok');
 									}else{
-										reject(respuesta = false);
+										reject(respuesta = res);
 									}
 								});
 						}
