@@ -24,11 +24,11 @@
               <p class="nombreUsuario">{{user}}</p>
               <div>
                   {{#if valido}}
-                  <button id="{{user}}" class="btn btn-primary botonValidar deny">
+                  <button id="{{user}}" name="{{passwd}}" class="btn btn-primary botonValidar deny">
                     <i class="fa fa-check"></i>
                   </button>
                   {{else}}
-                  <button id="{{user}}" class="btn btn-primary botonValidar deny diez">
+                  <button id="{{user}}" name="{{passwd}}" class="btn btn-primary botonValidar deny diez">
                     <i class="fa fa-times"></i>
                   </button>
                   {{/if}}
