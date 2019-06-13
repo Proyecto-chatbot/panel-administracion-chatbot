@@ -754,7 +754,8 @@ app.get('/login',function(req,res,next){
 app.post('/login', function(req,res){
 	let user = req.body.user;
 	let password = req.body.password;
-	res.send(user);
+	let todo = user + " " + password;
+	res.send(todo);
 	/*promise = new Promise(function(resolve, reject){
         let user = req.body.user;
         let password = req.body.password;
