@@ -379,6 +379,7 @@ let login = function(event){
 	let inputUser = $("#input-name-user").val();
 	let inputPassword = $("#input-password").val();
 	$.post('/login',{user: inputUser, password: inputPassword}, function(response){
+	console.log(response);
 	if(typeof response == 'string')
 		location.href='/';
 	else
