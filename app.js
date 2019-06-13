@@ -749,7 +749,7 @@ app.post('/register', function(req, res){
 
 app.get('/login',function(req,res,next){
 	res.render('login');
-})
+});
 
 app.post('/login', function(req,res){
     promise = new Promise(function(resolve, reject){
@@ -762,7 +762,7 @@ app.post('/login', function(req,res){
         service.get_all_users(
             function(err, reply) {
 				if(reply == null || reply == undefined)
-					reject(respuesta = false)
+					reject(respuesta = null)
 				else{
 					keys = Object.keys(reply);
 					datos = Object.values(reply);
@@ -775,7 +775,7 @@ app.post('/login', function(req,res){
 					map.forEach(function(element) {
 						if(element.user == user && element.valido == false){
 							exist = true;
-							reject(respuesta = false);
+							reject(respuesta = 0);
 						}
 						if(element.user == user && element.valido == true){
 								exist = true;
