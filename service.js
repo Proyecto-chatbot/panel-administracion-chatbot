@@ -139,11 +139,13 @@ var PersistService = class {
                 map.forEach(function(element) {
                     if(element.user == user){
                         valido = element.valido;
+                        bcrypt.hash(password, 10, function(err, hash){
                         self.client.hmset(
                             'users',
                                 user,
                                 JSON.stringify(
                                 {'password': password, 'valido': valido } ));
+                        });
                     }
                 });
             });
