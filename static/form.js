@@ -318,7 +318,7 @@ let set_click_events = () =>{
 		});
 	});
 
-	btn_show_user.click(function(event){
+	$btn_show_user.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
 		let user = $(this).val();
