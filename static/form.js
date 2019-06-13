@@ -331,7 +331,7 @@ let set_click_events = () =>{
 		});
 	});
 
-	$btn_set_user.click(function(event){
+	/*$btn_set_user.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
 		let user = $('#input-user').val();
@@ -341,7 +341,7 @@ let set_click_events = () =>{
 		$.post('/setuser',{'user' : user, 'password' : pass, 'valido' : valido}, function(response){
 			console.log(response);
 		});
-	});
+	});*/
 	
 	$btn_add_question.click(function(event){
 		event.preventDefault();
