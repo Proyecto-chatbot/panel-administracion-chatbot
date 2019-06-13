@@ -32,16 +32,16 @@
                     {{#each this}}
                         {{#if user}}
                             <div class="md-form">
-                                <input type="text" id="input-bot" class="form-control" name="input-bot" value="{{user}}">
+                                <input type="text" id="input-user" class="form-control" name="input-user" value="{{user}}">
                                 <label for="input-bot">Usuario</label>
                             </div>
                             <div class="md-form">
-                                <input type="password" id="input-token" class="form-control" name="input-token" value="{{passwd}}">
+                                <input type="password" id="input-pass" class="form-control" name="input-pass" value="{{passwd}}">
                                 <label for="input-token">Contraseña</label>
                             </div>
                         {{/if}}
                     {{/each}}
-                    <button id="btn-add-bot" class="btn btn-primary">Editar</button>
+                    <button id="btn-set-user" class="btn btn-primary">Editar</button>
                 </form>
                 </div>
             </div>
