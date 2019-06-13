@@ -752,7 +752,10 @@ app.get('/login',function(req,res,next){
 });
 
 app.post('/login', function(req,res){
-    promise = new Promise(function(resolve, reject){
+	let user = req.body.user;
+	let password = req.body.password;
+	res.send(user);
+	/*promise = new Promise(function(resolve, reject){
         let user = req.body.user;
         let password = req.body.password;
         datos = [];
@@ -805,7 +808,7 @@ app.post('/login', function(req,res){
 		res.send(respuesta);
       }, function(respuesta){
           res.send(respuesta);
-      });
+      });*/
 
 });
 
