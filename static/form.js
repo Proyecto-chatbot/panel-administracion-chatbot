@@ -323,7 +323,7 @@ let set_click_events = () =>{
 	$btn_show_user.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
-		let user = $(this).val();
+		let user = $(this).html();
 		console.log(user);
 		$.post('/user',{'user' : user}, function(response){
 			console.log(response);
@@ -334,7 +334,7 @@ let set_click_events = () =>{
 	$btn_set_user.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
-		let user = $('#input-user').html();
+		let user = $('#input-user').val();
 		console.log(user);
 		$.post('/setuser',{'user' : user}, function(response){
 			console.log(response);
