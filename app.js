@@ -862,6 +862,7 @@ app.get('/validate', requiresLogin, function(req,res){
 });
 
 app.get('/user', requiresLogin, function(req,res){
+	res.render('/user');
 	/*promise = new Promise(function(resolve, reject){
 		let user = req.body.user;
 		let password = req.body.password;
