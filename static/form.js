@@ -379,10 +379,10 @@ let login = function(event){
 	let inputPassword = $("#input-password").val();
 	$.post('/login',{user: inputUser, password: inputPassword}, function(response){
 	console.log(response);
-	/*if(typeof response == 'string')
+	if(typeof response == 'string')
 		location.href='/';
 	else
-		$("#span").html('Usuario o contraseña incorrecta');*/
+		$("#span").html('Usuario o contraseña incorrecta');
 	});
 	}
 /**
