@@ -325,7 +325,7 @@ let set_click_events = () =>{
 		console.log(user);
 		$.post('/user',{'user' : user}, function(response){
 			console.log(response);
-			//location.href = response;
+			location.href = response;
 		});
 	});
 	$btn_add_question.click(function(event){
