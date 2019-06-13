@@ -62,7 +62,7 @@ var PersistService = class {
     }
 
     delete_user(user){
-        this.client.del('users',user);
+        this.client.del(user);
     }
 
     delete_bots(){
