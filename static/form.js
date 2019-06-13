@@ -339,7 +339,7 @@ let set_click_events = () =>{
 		console.log(pass);
 		$.post('/setuser',{'user' : user, 'password' : pass}, function(response){
 			console.log(response);
-			location.href = response;
+			$.when(console.log(response)).then(location.href='/validate');
 		});
 	});
 	
