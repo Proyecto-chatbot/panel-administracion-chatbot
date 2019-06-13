@@ -323,7 +323,7 @@ let set_click_events = () =>{
 	$btn_show_user.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
-		let user = $(this).html();
+		let user = $(this).val();
 		console.log(user);
 		$.post('/user',{'user' : user}, function(response){
 			console.log(response);
