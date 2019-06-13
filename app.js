@@ -762,7 +762,7 @@ app.post('/login', function(req,res){
         service.get_all_users(
             function(err, reply) {
 				if(reply == null || reply == undefined)
-					reject(respuesta = false)
+					reject(respuesta = 'falso')
 				else{
 					keys = Object.keys(reply);
 					datos = Object.values(reply);
@@ -775,7 +775,7 @@ app.post('/login', function(req,res){
 					map.forEach(function(element) {
 						if(element.user == user && element.valido == false){
 							exist = true;
-							reject(respuesta = false);
+							reject(respuesta = 'mas falso');
 						}
 						if(element.user == user && element.valido == true){
 								exist = true;
@@ -795,7 +795,7 @@ app.post('/login', function(req,res){
 
                 setTimeout(function(){
                     if(exist == false){
-                        reject(respuesta = false);
+                        reject(respuesta = 'que falso');
                     }
                 }, 100);
             });
