@@ -65,7 +65,7 @@ var PersistService = class {
         this.client.del('bots');
     }
 
-    set_user(user, valido){
+    set_user(user){
         var self = this;
         let keys;
         let password;
@@ -85,6 +85,7 @@ var PersistService = class {
                 map.forEach(function(element) {
                     if(element.user == user){
                         password = element.passwd;
+                        valido = element.valido;
                         self.client.hmset(
                             'users',
                                 user,
@@ -104,6 +105,7 @@ var PersistService = class {
         return this.client.hgetall('users', callback);
     }
     get_user(){
+        console.log(process.env);
         return this.client;
     }
     create_bot(bot, token) {

@@ -902,6 +902,12 @@ app.post('/user', function (req, res, next) {
 	res.send('/user');
 });
 
+app.post('/setuser', function (req, res, next) {
+	let user = req.body.user;
+	service.set_user(user);
+	res.send('/validate');
+});
+
 app.post('/deny', function (req, res, next) {
     let user = req.body.id;
    	service.deny_user(user);
