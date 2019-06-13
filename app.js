@@ -752,11 +752,7 @@ app.get('/login',function(req,res,next){
 });
 
 app.post('/login', function(req,res){
-	let user = req.body.user;
-	let password = req.body.password;
-	let todo = user + " " + password;
-	res.send(todo);
-	/*promise = new Promise(function(resolve, reject){
+	promise = new Promise(function(resolve, reject){
         let user = req.body.user;
         let password = req.body.password;
         datos = [];
@@ -783,8 +779,7 @@ app.post('/login', function(req,res){
 						}
 						if(element.user == user && element.valido == true){
 								exist = true;
-								let guess = '$2b$10$XmC8yZ9kWsZ/CnPqHq8aOuW1hAtdON8Ch1oSXPlGrXJaN9fxXRYbK';
-								bcrypt.compare(password,guess/*element.passwd,function(err,res){
+								bcrypt.compare(password,element.passwd,function(err,res){
 									if(res){
 										req.session.logged = true;
 										req.session.user = element;
@@ -809,7 +804,7 @@ app.post('/login', function(req,res){
 		res.send(respuesta);
       }, function(respuesta){
           res.send(respuesta);
-      });*/
+      });
 
 });
 
