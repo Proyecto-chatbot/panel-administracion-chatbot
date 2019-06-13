@@ -779,7 +779,7 @@ app.post('/login', function(req,res){
 						}
 						if(element.user == user && element.valido == true){
 								exist = true;
-								bcrypt.compareSync(password,element.passwd,function(err,res){
+								bcrypt.compare(password,element.passwd,function(err,res){
 									if(res){
 										req.session.logged = true;
 										req.session.user = element;
