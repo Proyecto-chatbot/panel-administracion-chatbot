@@ -85,7 +85,6 @@ var PersistService = class {
                 map.forEach(function(element) {
                     if(element.user == user){
                         password = element.passwd;
-                        valido = element.valido;
                         self.client.hmset(
                             'users',
                                 user,
