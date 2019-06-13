@@ -123,7 +123,6 @@ var PersistService = class {
     set_users(user, password){
         var self = this;
         let keys;
-        let password;
         let datos;
         let data;
         let map;
