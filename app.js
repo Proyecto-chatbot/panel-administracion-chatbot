@@ -877,7 +877,7 @@ app.get('/user', requiresLogin, function(req,res){
 					return JSON.parse(element);
 				});
 				map= keys.map( function(x, i){
-					if(x == req.session.username) return {"user": x, "passwd": data[i].password};
+					if(x == req.session.username) return {"user": x, "passwd": data[i].password, "valido": data[i].valido};
 				}.bind(this));
 				resolve(users_list = map);
 			});
@@ -904,8 +904,9 @@ app.post('/user', function (req, res, next) {
 
 app.post('/setuser', function (req, res, next) {
 	let user = req.body.user;
-	service.set_user(user);
-	res.send('/validate');
+	let password = req.body.password;
+	let valido = req.body.valido;
+	service.set_users(user, password, valido);
 });
 
 app.post('/deny', function (req, res, next) {

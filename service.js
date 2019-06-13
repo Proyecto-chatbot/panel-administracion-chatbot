@@ -65,7 +65,7 @@ var PersistService = class {
         this.client.del('bots');
     }
 
-    set_user(user){
+    set_user(user, valido){
         var self = this;
         let keys;
         let password;
@@ -119,6 +119,19 @@ var PersistService = class {
 
     get_all_bots(callback) {
         return this.client.hgetall('bots', callback);
+    }
+
+    set_users(user,password,valido) {
+        return this.client.hmset(
+            'users',
+                user,
+                JSON.stringify(
+                    {
+                        'password': password, 
+                     'valido': valido 
+                    } 
+                )
+            );
     }
 }
 
