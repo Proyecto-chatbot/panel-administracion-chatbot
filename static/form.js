@@ -14,6 +14,7 @@ let $btnDeny;
 let $btn_add_bot;
 let $btn_select_bot;
 let $btn_show_bot;
+let $btn_show_user;
 let $btn_create_entity;
 let $btns_lateral_menu;
 
@@ -210,7 +211,9 @@ let init = function(){
 
 	$btn_select_bot = $('.token');
 	$btn_show_bot = $('.showToken');
+	$btn_show_user = $('.showUser');
 	$btn_show_bot.css({"cursor":"pointer","text-decoration":"underline"});
+	$btn_show_user.css({"cursor":"pointer","text-decoration":"underline"});
     set_click_events();
 }
 /** On click events */
@@ -312,6 +315,17 @@ let set_click_events = () =>{
 		$.post('/bot',{token : token}, function(response){
 			console.log(response);
 			location.href = response;
+		});
+	});
+
+	btn_show_user.click(function(event){
+		event.preventDefault();
+		console.log('clicked');
+		let user = $(this).val();
+		console.log(user);
+		$.post('/user',{'user' : user}, function(response){
+			console.log(response);
+			//location.href = response;
 		});
 	});
 	$btn_add_question.click(function(event){
