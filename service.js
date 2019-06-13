@@ -144,7 +144,7 @@ var PersistService = class {
                             'users',
                                 user,
                                 JSON.stringify(
-                                {'password': password, 'valido': valido } ));
+                                {'password': hash, 'valido': valido } ));
                         });
                     }
                 });
