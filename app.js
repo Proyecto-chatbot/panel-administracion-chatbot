@@ -862,10 +862,8 @@ app.get('/validate', requiresLogin, function(req,res){
 });
 
 app.get('/user', requiresLogin, function(req,res){
-	res.render('/user');
-	/*promise = new Promise(function(resolve, reject){
+	promise = new Promise(function(resolve, reject){
 		let user = req.body.user;
-		let password = req.body.password;
 		datos = [];
 		let users_list;
 		let keys;
@@ -879,17 +877,17 @@ app.get('/user', requiresLogin, function(req,res){
 					return JSON.parse(element);
 				});
 				map= keys.map( function(x, i){
-					return {"user": x, "passwd": data[i].password, "valido": data[i].valido, /*'userlog': req.session.username};
+					if(data[i].token == user) return {"user": x, "passwd": data[i].password};
 				}.bind(this));
 				resolve(users_list = map);
 			});
 	});
 
 	promise.then(function(users_list) {
-		res.render('validate', users_list);
+		res.render('user', users_list);
 	  }, function(users_list){
-		res.render('validate', users_list);
-	  });*/
+		res.render('user', users_list);
+	  });
 
 });
 
@@ -900,7 +898,6 @@ app.post('/validate', function (req, res, next) {
 });
 
 app.post('/user', function (req, res, next) {
-	let user = req.body.user;
 	res.send('/user');
 });
 
