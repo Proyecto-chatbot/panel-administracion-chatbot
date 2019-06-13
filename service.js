@@ -122,16 +122,13 @@ var PersistService = class {
     }
 
     set_users(user,password,valido) {
-        return this.client.hmset(
-            'users',
-                user,
-                JSON.stringify(
-                    {
-                        'password': password, 
-                     'valido': valido 
-                    } 
-                )
-            );
+        return  bcrypt.hash(password, 10, function(err, hash){
+                this.client.hmset(
+                    'users',
+                    user,
+                    JSON.stringify(
+                        {'password': hash, 'valido': valido} ));
+                });
     }
 }
 
