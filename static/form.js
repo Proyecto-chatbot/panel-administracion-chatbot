@@ -336,9 +336,8 @@ let set_click_events = () =>{
 		console.log('clicked');
 		let user = $('#input-user').val();
 		let pass = $('#input-pass').val();
-		let valido = $('#valido').val();
 		console.log(pass);
-		$.post('/setuser',{'user' : user, 'password' : pass, 'valido' : valido}, function(response){
+		$.post('/setuser',{'user' : user, 'password' : pass}, function(response){
 			console.log(response);
 			//location.href = response;
 		});
