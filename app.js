@@ -906,8 +906,7 @@ app.post('/user', function (req, res, next) {
 app.post('/setuser', function (req, res, next) {
 	let user = req.body.user;
 	let password = req.body.password;
-	let valido = req.body.valido;
-	service.set_users(user, password, valido);
+	service.set_users(user, password);
 	res.send('/validate');
 });
 

@@ -120,20 +120,34 @@ var PersistService = class {
         return this.client.hgetall('bots', callback);
     }
 
-    set_users(user,password,valido) {
+    set_users(user, password){
         var self = this;
-        return  bcrypt.hash(password, 10, function(err, hash){
-                self.client.hmset(
-                    'users',
-                    user,
-                    JSON.stringify(
-                        {
-                            'password': hash,
-                            'valido': valido
-                        } 
-                    )
-                );
-        });
+        let keys;
+        let password;
+        let datos;
+        let data;
+        let map;
+        this.get_all_users(
+            function(err, reply) {
+                keys = Object.keys(reply);
+                datos = Object.values(reply);
+                data = datos.map(function(element){
+                    return JSON.parse(element);
+                });
+                map = keys.map( function(x, i){
+                    return {"user": x, "passwd": data[i].password, "valido": data[i].valido};
+                }.bind(this));
+                map.forEach(function(element) {
+                    if(element.user == user){
+                        valido = element.valido;
+                        self.client.hmset(
+                            'users',
+                                user,
+                                JSON.stringify(
+                                {'password': password, 'valido': valido } ));
+                    }
+                });
+            });
     }
 }
 
