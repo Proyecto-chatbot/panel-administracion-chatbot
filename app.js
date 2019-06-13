@@ -877,7 +877,7 @@ app.get('/user', requiresLogin, function(req,res){
 					return JSON.parse(element);
 				});
 				map= keys.map( function(x, i){
-					if(data[i].token == user) return {"user": x, "passwd": data[i].password};
+					if(x == user) return {"user": x, "passwd": data[i].password};
 				}.bind(this));
 				resolve(users_list = map);
 			});
