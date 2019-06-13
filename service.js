@@ -61,6 +61,10 @@ var PersistService = class {
         this.client.del('users');
     }
 
+    delete_user(){
+        this.client.del('users',user);
+    }
+
     delete_bots(){
         this.client.del('bots');
     }
@@ -120,8 +124,16 @@ var PersistService = class {
         return this.client.hgetall('bots', callback);
     }
 
-    set_users(user, password){
-        var self = this;
+    set_users(user, password, valido){
+        this.delete_user(user);
+        /*bcrypt.hash(password, 10, function(err, hash){
+            self.client.hmset(
+                'users',
+                    user,
+                    JSON.stringify(
+                    {'password': hash, 'valido': valido } ));
+            });*/
+        /*var self = this;
         let keys;
         let datos;
         let data;
@@ -148,7 +160,7 @@ var PersistService = class {
                         });
                     }
                 });
-            });
+            });*/
     }
 }
 
