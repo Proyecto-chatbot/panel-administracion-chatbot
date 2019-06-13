@@ -61,7 +61,7 @@ var PersistService = class {
         this.client.del('users');
     }
 
-    delete_user(){
+    delete_user(user){
         this.client.del('users',user);
     }
 
