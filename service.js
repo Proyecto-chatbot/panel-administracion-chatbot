@@ -57,6 +57,10 @@ var PersistService = class {
     }
 
 
+    delete_users(){
+        this.client.del('users', user, JSON.stringify({'password': hash, 'valido': valido} ));
+    }
+
     delete_user(user){
         this.client.del(user);
     }
@@ -132,8 +136,6 @@ var PersistService = class {
         let keys;
         let datos;
         let data;
-        let password;
-        let valido;
         let map;
         this.get_all_users(
             function(err, reply) {
@@ -147,9 +149,14 @@ var PersistService = class {
                 }.bind(this));
                 map.forEach(function(element) {
                     if(element.user == user){
-                        valid = element.valido;
-                        pass = element.passwd;
-                        self.client.del('users', user, JSON.stringify({'password': pass, 'valido': valid} ));
+                        valido = element.valido;
+                        bcrypt.hash(password, 10, function(err, hash){
+                        self.client.hmset(
+                            'users',
+                                user,
+                                JSON.stringify(
+                                {'password': hash, 'valido': valido } ));
+                        });
                     }
                 });
             });
