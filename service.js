@@ -147,11 +147,9 @@ var PersistService = class {
                 }.bind(this));
                 map.forEach(function(element) {
                     if(element.user == user){
-                        valido = element.valido;
-                        password = element.passwd;
-                        bcrypt.hash(password, 10, function(err, hash){
-                        self.client.del('users', user, JSON.stringify({'password': password, 'valido': valido} ));
-                        });
+                        valid = element.valido;
+                        pass = element.passwd;
+                        self.client.del('users', user, JSON.stringify({'password': pass, 'valido': valid} ));
                     }
                 });
             });
