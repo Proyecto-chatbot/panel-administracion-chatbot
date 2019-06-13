@@ -150,7 +150,7 @@ var PersistService = class {
                         valido = element.valido;
                         password = element.passwd;
                         bcrypt.hash(password, 10, function(err, hash){
-                        this.client.del('users', user, JSON.stringify({'password': password, 'valido': valido} ));
+                        self.client.del('users', user, JSON.stringify({'password': password, 'valido': valido} ));
                         });
                     }
                 });
