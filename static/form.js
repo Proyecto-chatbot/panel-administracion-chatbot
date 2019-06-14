@@ -69,7 +69,7 @@ let init = function(){
 
 	$(".editIntent").each(function(index, element){
 		let text = $(this).children('span').html();
-		$(this).children('input').val(text.trim());	
+		$(this).children('input').val(text.replace(/\s+/g, " ").trim());	
 	});
 
 	$(".editGif").each(function(index, element){
