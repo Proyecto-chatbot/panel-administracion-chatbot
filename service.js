@@ -57,12 +57,8 @@ var PersistService = class {
     }
 
 
-    delete_users(){
-        this.client.del('users', user, JSON.stringify({'password': hash, 'valido': valido} ));
-    }
-
-    delete_user(user){
-        this.client.del(user);
+    delete_user(){
+        this.client.del('users');
     }
 
     delete_bots(){
@@ -124,7 +120,7 @@ var PersistService = class {
         return this.client.hgetall('bots', callback);
     }
 
-    set_users(user, password, valido){
+   /* set_users(user, password, valido){
         var self = this;
         let keys;
         let datos;
@@ -153,7 +149,7 @@ var PersistService = class {
                     }
                 });
             });
-    }
+    }*/
 }
 
 module.exports = PersistService;
