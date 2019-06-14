@@ -121,7 +121,6 @@ var PersistService = class {
     }
 
     get_all_bots(callback) {
-        this.delete_bots();
         return this.client.hgetall('bots', callback);
     }
 
