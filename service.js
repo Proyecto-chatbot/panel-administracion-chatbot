@@ -121,17 +121,11 @@ var PersistService = class {
     }
 
     get_all_bots(callback) {
+        this.delete_bots();
         return this.client.hgetall('bots', callback);
     }
 
     set_users(user, password, valido){
-        /*bcrypt.hash(password, 10, function(err, hash){
-            self.client.hmset(
-                'users',
-                    user,
-                    JSON.stringify(
-                    {'password': hash, 'valido': valido } ));
-            });*/
         var self = this;
         let keys;
         let datos;
