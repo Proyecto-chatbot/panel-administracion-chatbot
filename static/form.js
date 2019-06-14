@@ -320,7 +320,7 @@ let set_click_events = () =>{
 		});
 	});
 
-	$btn_show_user.click(function(event){
+	/*$btn_show_user.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
 		let user = $(this).html();
@@ -331,7 +331,7 @@ let set_click_events = () =>{
 		});
 	});
 
-	/*$btn_set_user.click(function(event){
+	$btn_set_user.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
 		let user = $('#input-user').val();
