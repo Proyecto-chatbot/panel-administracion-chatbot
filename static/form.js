@@ -320,7 +320,7 @@ let set_click_events = () =>{
 		});
 	});
 
-	/*$btn_show_user.click(function(event){
+	$btn_show_user.click(function(event){
 		event.preventDefault();
 		console.log('clicked');
 		let user = $(this).html();
@@ -341,8 +341,7 @@ let set_click_events = () =>{
 		$.post('/setuser',{'user' : user, 'password' : pass, 'valido' : valido}, function(response){
 			console.log(response);
 		});
-	});*/
-	
+	});	
 	$btn_add_question.click(function(event){
 		event.preventDefault();
 		if(!$('.user').val() == "") add_new_input($(this));
