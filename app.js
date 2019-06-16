@@ -861,7 +861,7 @@ app.get('/validate', requiresLogin, function(req,res){
 
 });
 
-/*app.get('/user', requiresLogin, function(req,res){
+app.get('/user', requiresLogin, function(req,res){
 	promise = new Promise(function(resolve, reject){
 		let user = req.body.user;
 		datos = [];
@@ -889,7 +889,7 @@ app.get('/validate', requiresLogin, function(req,res){
 		res.render('user', users_list);
 	  });
 
-});*/
+});
 
 app.post('/validate', function (req, res, next) {
     let user = req.body.id;
@@ -897,7 +897,7 @@ app.post('/validate', function (req, res, next) {
     res.send('ok');
 });
 
-/*app.post('/user', function (req, res, next) {
+app.post('/user', function (req, res, next) {
 	req.session.username = req.body.user;
 	res.send('/user');
 });
@@ -908,7 +908,7 @@ app.post('/setuser', function (req, res, next) {
 	let valido = req.body.validado;
 	service.set_users(user, password, valido);
 	res.send('ok');
-});*/
+});
 
 app.post('/deny', function (req, res, next) {
     let user = req.body.id;
